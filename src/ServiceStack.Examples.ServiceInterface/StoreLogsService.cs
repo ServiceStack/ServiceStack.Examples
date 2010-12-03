@@ -2,6 +2,7 @@ using ServiceStack.Examples.ServiceModel.Operations;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
+using ServiceStack.Text;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -16,7 +17,7 @@ namespace ServiceStack.Examples.ServiceInterface
 			using (var dbConn = ConnectionFactory.OpenDbConnection())
 			using (var dbCmd = dbConn.CreateCommand())
 			{
-				dbCmd.SaveAll(request.Loggers);
+				if (!request.Loggers.IsNullOrEmpty()) dbCmd.SaveAll(request.Loggers);
 
 				return new StoreLogsResponse
 				{
