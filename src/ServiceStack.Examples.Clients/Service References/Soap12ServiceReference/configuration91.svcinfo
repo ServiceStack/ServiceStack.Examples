@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="IzS52ag1aKltZfc2r1AKWVy/6Ng=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="vF5xLkuqgpntfVZ+jaqkEn89BnY=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="customBinding" name="WSHttpBinding_ISyncReply">
       <properties>
@@ -227,10 +227,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSHttpBinding_ISyncReply" contract="ExamplesSoapEndpoint.ISyncReply" bindingType="customBinding" address="http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/SyncReply.svc" bindingConfiguration="WSHttpBinding_ISyncReply">
+    <endpoint name="WSHttpBinding_ISyncReply" contract="Soap12ServiceReference.ISyncReply" bindingType="customBinding" address="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12" bindingConfiguration="WSHttpBinding_ISyncReply">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/SyncReply.svc</serializedValue>
+          <serializedValue>http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -242,7 +242,7 @@
           <serializedValue>WSHttpBinding_ISyncReply</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ExamplesSoapEndpoint.ISyncReply</serializedValue>
+          <serializedValue>Soap12ServiceReference.ISyncReply</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
@@ -306,10 +306,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="WSHttpBinding_IOneWay" contract="ExamplesSoapEndpoint.IOneWay" bindingType="customBinding" address="http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/AsyncOneWay.svc" bindingConfiguration="WSHttpBinding_IOneWay">
+    <endpoint name="WSHttpBinding_IOneWay" contract="Soap12ServiceReference.IOneWay" bindingType="customBinding" address="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12" bindingConfiguration="WSHttpBinding_IOneWay">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/AsyncOneWay.svc</serializedValue>
+          <serializedValue>http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -321,7 +321,7 @@
           <serializedValue>WSHttpBinding_IOneWay</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ExamplesSoapEndpoint.IOneWay</serializedValue>
+          <serializedValue>Soap12ServiceReference.IOneWay</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>

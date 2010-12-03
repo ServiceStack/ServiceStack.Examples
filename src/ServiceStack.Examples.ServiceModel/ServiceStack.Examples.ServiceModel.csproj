@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleConfig.cs" />
+    <Compile Include="Operations\StoreLogs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ArrayOfUser.cs" />
     <Compile Include="Operations\DeleteAllUsers.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Operations\GetNorthwindCustomerOrdersCached.cs" />
     <Compile Include="Operations\GetUsers.cs" />
     <Compile Include="Operations\Greet.cs" />
+    <Compile Include="Types\Logger.cs" />
     <Compile Include="Types\Movie.cs" />
     <Compile Include="Operations\Movies.cs" />
     <Compile Include="Types\NorthwindDtos.cs" />

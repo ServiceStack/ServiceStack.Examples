@@ -37,7 +37,7 @@ namespace ServiceStack.Examples.Host.Console
 					{ "Access-Control-Allow-Origin", "*" },
 					{ "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
 				},
-                WsdlServiceNamespace = "http://www.servicestack.net/",
+                WsdlServiceNamespace = "http://www.servicestack.net/types",
 				WsdlServiceTypesNamespace = "http://www.servicestack.net/types",
 			});
 

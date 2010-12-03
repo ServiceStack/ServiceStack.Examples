@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="53053bb6-e250-41c2-b7b1-1b9983a92f2b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="58f8ef5f-0958-449a-a7f5-3985e0b82ad7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -17,10 +17,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/Wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Soap12.wsdl" MetadataType="Wsdl" ID="e3cb923e-d65f-443f-b5fd-7e2a45896b19" SourceId="1" SourceUrl="http://localhost/ServiceStack.Examples.Host.Web/Public/Public/Soap12/Wsdl" />
+    <MetadataFile FileName="Soap12.wsdl" MetadataType="Wsdl" ID="54ec3fdb-fc4a-4eba-9af7-3a287fe1476d" SourceId="1" SourceUrl="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

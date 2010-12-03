@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetUsersTests.cs" />
+    <Compile Include="LoggerTests.cs" />
     <Compile Include="MonoTests\Soap12WsdlProgram.cs" />
     <Compile Include="MovieRestTests.cs" />
     <Compile Include="StoreNewUserTests.cs" />

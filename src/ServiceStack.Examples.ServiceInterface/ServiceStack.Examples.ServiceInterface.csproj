@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StoreLogsService.cs" />
     <Compile Include="ResetMovieDatabaseService.cs" />
     <Compile Include="MovieRestService.cs" />
     <Compile Include="GetNorthwindCustomerOrdersCachedService.cs" />

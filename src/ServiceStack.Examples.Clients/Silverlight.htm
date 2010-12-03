@@ -54,8 +54,10 @@
 <body>
     <div id="header-links">
         <a href="Default.htm">Ajax Client Examples</a>
+        <a href="Soap11.aspx">Soap 1.1</a>
+        <a href="Soap12.aspx">Soap 1.2</a>
         <a href="Silverlight.htm">Silverlight Examples</a>
-        <a href="http://servicestack.net/ServiceStack.Examples.Host.Web/AjaxClient/MovieRestTest.htm">REST examples</a>
+        <a href="../ServiceStack.Examples.Host.Web/AjaxClient/MovieRestTest.htm">REST examples</a>
     </div>
 
     <a href="http://www.servicestack.net"><img src="img/demo-logo-servicestack.png" alt="Service Stack Demo" /></a>
@@ -65,7 +67,7 @@
     <p>
         For performance reasons, the preferred to call ServiceStack services for Silverlight clients
         is using standard DataContracts via the XML endpoint at: <br />
-        <em>~/Public/Xml/SyncReply/{ServiceName}</em>
+        <em>~/ServiceStack/Xml/SyncReply/{ServiceName}</em>
     </p>
     <div class="note">
        As Silverlight is a different target runtime you will not be able to reference the
@@ -77,7 +79,7 @@
     <code>
         //Create a XmlServiceClient passing in the baseUrl where your services are hosted.
         this.ServiceClient = new XmlServiceClient(
-            "http://localhost/ServiceStack.Examples.Host.Web/Public/Xml/SyncReply");
+            "http://localhost/ServiceStack.Examples.Host.Web/ServiceStack");
     </code>
 
     <h4>2. Ater that calling a service becomes as easy as:</h4>

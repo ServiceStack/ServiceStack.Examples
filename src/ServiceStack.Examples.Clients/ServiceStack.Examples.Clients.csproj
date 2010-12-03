@@ -77,29 +77,50 @@
   <ItemGroup>
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="ClientBin\ServiceStack.Examples.Clients.Silverlight.xap" />
+    <Content Include="Soap12.aspx" />
     <Content Include="crossdomain.xml" />
     <Content Include="Default.aspx" />
     <Content Include="default.css" />
     <Content Include="Flash.htm" />
+    <Content Include="img\bg-body-large.png" />
+    <Content Include="img\demo-logo-servicestack.old.png" />
+    <Content Include="img\demo-logo-servicestack.png" />
     <Content Include="img\Mono-powered-big.png" />
+    <Content Include="img\small-logo-ajaxstack.png" />
+    <Content Include="img\small-logo-servicestack.png" />
     <Content Include="img\tango-arrows.png" />
     <Content Include="img\Tango-feet.png" />
-    <None Include="Service References\ExamplesSoapEndpoint\configuration91.svcinfo" />
-    <None Include="Service References\ExamplesSoapEndpoint\configuration.svcinfo" />
-    <None Include="Service References\ExamplesSoapEndpoint\Reference.svcmap">
+    <None Include="Service References\Soap11ServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\Soap11ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\Soap11ServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\Soap12ServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\Soap12ServiceReference\configuration.svcinfo" />
+    <None Include="Service References\Soap12ServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="js\jquery.dump.js" />
+    <Content Include="js\ServiceStack.js" />
     <Content Include="Silverlight.htm" />
     <Content Include="Default.htm" />
     <Content Include="js\jquery-1.3.2.min.js" />
     <Content Include="js\jquery-json.js" />
-    <Content Include="js\JsonServiceClient.js" />
     <Content Include="js\Silverlight.js" />
     <Content Include="Silverlight.js" />
+    <Content Include="Soap11.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Soap12.aspx.cs">
+      <DependentUpon>Soap12.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Soap12.aspx.designer.cs">
+      <DependentUpon>Soap12.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -108,35 +129,59 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\ExamplesSoapEndpoint\Reference.cs">
+    <Compile Include="Service References\Soap11ServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Soap12ServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Soap11.aspx.cs">
+      <DependentUpon>Soap11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Soap11.aspx.designer.cs">
+      <DependentUpon>Soap11.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ExamplesSoapEndpoint\" />
+    <WCFMetadataStorage Include="Service References\Soap11ServiceReference\" />
+    <WCFMetadataStorage Include="Service References\Soap12ServiceReference\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ExamplesSoapEndpoint\ServiceStack.Examples.Clients.ExamplesSoapEndpoint.ArrayOfLong.datasource">
+    <None Include="Properties\DataSources\ServiceStack.ServiceInterface.ServiceModel.ResponseStatus.datasource" />
+    <None Include="Service References\Soap11ServiceReference\ServiceStack.Examples.Clients.Soap11ServiceReference.ArrayOfLong.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ExamplesSoapEndpoint\ServiceStack.Examples.Clients.ExamplesSoapEndpoint.CustomerOrders.datasource">
+    <None Include="Service References\Soap11ServiceReference\ServiceStack.Examples.Clients.Soap11ServiceReference.CustomerOrders.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ExamplesSoapEndpoint\ServiceStack.Examples.Clients.ExamplesSoapEndpoint.Movie.datasource">
+    <None Include="Service References\Soap11ServiceReference\ServiceStack.Examples.Clients.Soap11ServiceReference.Movie.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ExamplesSoapEndpoint\ServiceStack.Examples.Clients.ExamplesSoapEndpoint.ResponseStatus.datasource">
+    <None Include="Service References\Soap11ServiceReference\ServiceStack.Examples.Clients.Soap11ServiceReference.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ExamplesSoapEndpoint\ServiceStack.Examples.Clients.ExamplesSoapEndpoint.User.datasource">
+    <None Include="Service References\Soap11ServiceReference\Soap11.wsdl" />
+    <None Include="Service References\Soap12ServiceReference\ServiceStack.Examples.Clients.Soap12ServiceReference.ArrayOfLong.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ExamplesSoapEndpoint\Soap12.wsdl" />
+    <None Include="Service References\Soap12ServiceReference\ServiceStack.Examples.Clients.Soap12ServiceReference.CustomerOrders.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Soap12ServiceReference\ServiceStack.Examples.Clients.Soap12ServiceReference.Movie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Soap12ServiceReference\ServiceStack.Examples.Clients.Soap12ServiceReference.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Soap12ServiceReference\Soap12.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

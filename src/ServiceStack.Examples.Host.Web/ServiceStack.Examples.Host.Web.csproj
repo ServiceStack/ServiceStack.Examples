@@ -72,10 +72,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="AjaxClient\MovieRestTest.htm" />
-    <Content Include="Public\Soap11\AsyncOneWay.svc" />
-    <Content Include="Public\Soap11\SyncReply.svc" />
-    <Content Include="Public\Soap12\AsyncOneWay.svc" />
-    <Content Include="Public\Soap12\SyncReply.svc" />
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -100,10 +96,6 @@
       <Project>{519A7B72-D144-436D-AAC3-7BAAEAD3FF52}</Project>
       <Name>ServiceStack.Examples.ServiceInterface</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.config.rename_for_iis7" />
-    <None Include="Web.config.rename_for_iis6_mono" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
