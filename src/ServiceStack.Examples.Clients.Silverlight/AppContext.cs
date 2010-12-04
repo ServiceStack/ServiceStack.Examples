@@ -14,7 +14,7 @@ namespace ServiceStack.Examples.Clients.Silverlight
 
 		private AppContext()
 		{
-			this.ServiceClient = new XmlAsyncServiceClient("http://www.servicestack.net/ServiceStack.Examples.Host.Web/Public/Xml/SyncReply");
+			this.ServiceClient = new XmlAsyncServiceClient("http://www.servicestack.net/ServiceStack.Examples.Host.Web/ServiceStack/Xml/SyncReply");
 
 			this.ExampleContext = new ExampleContext(this.ServiceClient, this);
 		}
