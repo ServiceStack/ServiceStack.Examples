@@ -5,3 +5,4 @@ _ReSharper.ServiceStack.Common/
 .idea/
 _ReSharper.ServiceStack.Examples/
 releases
+App_Data/
