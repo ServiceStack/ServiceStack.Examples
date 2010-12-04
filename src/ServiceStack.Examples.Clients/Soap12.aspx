@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Soap12.aspx.cs" Inherits="ServiceStack.Examples.Clients.Soap12" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Soap12.aspx.cs" Inherits="ServiceStack.Examples.Clients.Soap12" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -14,7 +14,7 @@
         <a href="Soap11.aspx">Soap 1.1</a>
         <a href="Soap12.aspx">Soap 1.2</a>
         <a href="Silverlight.htm">Silverlight Examples</a>
-        <a href="../ServiceStack.Examples.Host.Web/AjaxClient/MovieRestTest.htm">REST examples</a>
+        <a href="MovieRestTest.htm">REST examples</a>
     </div>
 
     <a href="http://www.servicestack.net"><img src="img/demo-logo-servicestack.png" alt="Service Stack Demo" /></a>
