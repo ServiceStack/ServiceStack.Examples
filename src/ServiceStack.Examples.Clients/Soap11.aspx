@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Soap11.aspx.cs" Inherits="ServiceStack.Examples.Clients.Soap11" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Soap11.aspx.cs" Inherits="ServiceStack.Examples.Clients.Soap11" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -24,7 +24,7 @@
     <div class="note">
         Testing ServiceStack's SOAP 1.1 Web services using 
         VS.NET 'Add Service Reference' code-generated proxy.<br />
-        The source code for this ASP.NET page is <a href="#">available here</a>.
+        The source code for this ASP.NET page is <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Examples.Clients/Soap11.aspx.cs">available here</a>.
     </div>
     
     <form id="form1" runat="server">
