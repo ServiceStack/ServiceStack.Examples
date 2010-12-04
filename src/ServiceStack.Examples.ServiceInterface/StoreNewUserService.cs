@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using ServiceStack.Common.Extensions;
 using ServiceStack.Examples.ServiceModel.Operations;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
@@ -23,6 +24,8 @@ namespace ServiceStack.Examples.ServiceInterface
 		//Example of ServiceStack's built-in Funq IOC property injection
 		public IDbConnectionFactory ConnectionFactory { get; set; }
 
+		private const string ErrorAlreadyExists = "UserNameMustBeUnique";
+
 		public object Execute(StoreNewUser request)
 		{
 			using (var dbConn = ConnectionFactory.OpenDbConnection())
@@ -34,7 +37,10 @@ namespace ServiceStack.Examples.ServiceInterface
 				{
 					return new StoreNewUserResponse
 					{
-						ResponseStatus = new ResponseStatus { ErrorCode = "UserNameMustBeUnique" }
+						ResponseStatus = new ResponseStatus {
+							ErrorCode = ErrorAlreadyExists,
+							Message = ErrorAlreadyExists.ToEnglish()
+						}
 					};
 				}
 

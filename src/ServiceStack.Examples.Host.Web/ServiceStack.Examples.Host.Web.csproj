@@ -68,7 +68,6 @@
   <ItemGroup>
     <Content Include="AjaxClient\ServiceStack.js" />
     <Content Include="AjaxClient\jquery-1.4.2.min.js" />
-    <Content Include="AjaxClient\jquery.json-2.2.js" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="AjaxClient\MovieRestTest.htm" />

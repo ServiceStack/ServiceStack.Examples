@@ -88,18 +88,20 @@
         }
     </style>
 
-    <script type="text/javascript" src="ServiceStack.js"></script>
     <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="jquery.json-2.2.js"></script>
+    <script type="text/javascript" src="ServiceStack.js"></script>
+    
     <script type="text/javascript">
         $(function() {
-            var baseUri = 'http://' + document.location.hostname + '/ServiceStack.Examples.Host.Web/ServiceStack/';
-            var gateway = new JsonServiceClient(baseUri);
+
+            var gateway = new servicestack.ClientGateway(
+                    location.protocol + "//" + location.host + '/ServiceStack.Examples.Host.Web/ServiceStack/');
+
             //Uncomment to enable global gateway error handler
-            //JsonServiceClient.onError = function(e) { alert("Error: " + $.toJSON(e)); }
+            //servicestack.ClientGateway.onError = function(e) { alert("Error: " + $.toJSON(e)); }
 
             var refreshExistingMovies = function() {
-                gateway.getFromService("Movies", {}, function(r) {
+                gateway.getFromService("Movies", function(r) {
 
                     var html = "";
                     for (var i = 0; i < r.Movies.length; i++) {
@@ -118,7 +120,7 @@
                         var movieName = $(this).parent().children()[0].innerHTML;
 
                         if (confirm("Are you sure you want to delete\n '" + movieName + "'?\n\n(uses HTTP DELETE)")) {
-                            gateway.deleteFromService("Movies", { Id: movieId }, function(r) {
+                            gateway.deleteFromService({Movies: movieId}, function(r) {
                                 refreshExistingMovies();
                             });
                         }
@@ -127,7 +129,7 @@
                     $("#existing-movies .lnk-update").click(function() {
                         var movieId = $(this).parent().attr('id');
 
-                        gateway.getFromService("Movies", { Id: movieId }, function(r) {
+                        gateway.getFromService({Movies: movieId}, function(r) {
                             showDetailsForm(r.Movies[0]);
                         });
                     });
@@ -135,7 +137,7 @@
             }
 
             $("#btnResetMovieDb").click(function() {
-                gateway.postToService("ResetMovieDatabase", {}, function(r) {
+                gateway.postToService("ResetMovieDatabase", function(r) {
                     alert("The movies database was reset.\n\n(used HTTP POST)");
                     refreshExistingMovies();
                 });
@@ -163,7 +165,7 @@
                 $("#txtTitle").val(movie.Title);
                 $("#txtRating").val(movie.Rating);
                 $("#txtDirector").val(movie.Director);
-                $("#txtReleaseDate").val(Dto.formatDate(movie.ReleaseDate));
+                $("#txtReleaseDate").val(servicestack.dto.formatDate(movie.ReleaseDate));
                 $("#txtTagLine").val(movie.TagLine);
                 $("#txtGenres").val(movie.Genres.join(','));
 
@@ -183,7 +185,7 @@
                     Title: $("#txtTitle").val(),
                     Rating: $("#txtRating").val(),
                     Director: $("#txtDirector").val(),
-                    ReleaseDate: Dto.toJsonDate($("#txtReleaseDate").val()),
+                    ReleaseDate: servicestack.dto.toJsonDate($("#txtReleaseDate").val()),
                     TagLine: $("#txtTagLine").val(),
                     Genres: $("#txtGenres").val().split(",")
                 };
@@ -194,14 +196,15 @@
                     refreshExistingMovies();
                 }
 
+                var request = { Movies: { Movie: movie } };
                 var isUpdate = $("#details-section").attr('action') == 'update';
                 if (isUpdate) {
-                    gateway.postToService("Movies", { Movie: movie }, function(r) {
+                    gateway.postToService(request, function(r) {
                         onSuccess(movie.Title + " was updated");
                     });
                 }
                 else {
-                    gateway.putToService("Movies", { Movie: movie }, function(r) {
+                    gateway.putToService(request, function(r) {
                         onSuccess(movie.Title + " was added");
                     },
                     function(r) {
