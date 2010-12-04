@@ -1,4 +1,4 @@
-.suo
+*.suo
 bin/
 obj/
 _ReSharper.ServiceStack.Common/
