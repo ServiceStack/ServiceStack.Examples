@@ -19,10 +19,10 @@
 
     <a href="http://www.servicestack.net"><img src="img/demo-logo-servicestack.png" alt="Service Stack Demo" /></a>
 
-    <h1>Trying ServiceStack's SOAP 1.1 Web Service Examples</h1>
+    <h1>Trying ServiceStack's SOAP 1.2 Web Service Examples</h1>
     
     <div class="note">
-        Testing ServiceStack's SOAP 1.1 Web services using 
+        Testing ServiceStack's SOAP 1.2 Web services using 
         VS.NET 'Add Service Reference' code-generated proxy.<br />
         The source code for this ASP.NET page is <a href="#">available here</a>.
     </div>
