@@ -8,7 +8,7 @@ The latest release is available for download at:
 
 [ServiceStack.Examples-v1.63.zip](https://github.com/downloads/mythz/ServiceStack.Examples/ServiceStack.Examples-v1.63.zip)
 
-# Troubleshooting
+### Troubleshooting
 
 - Since the example project uses 32bit Sqlite.dll, on a 64 bit machine you must set IIS to run 32bit apps (in the App Domain config)
 
