@@ -182,9 +182,14 @@ public class HelloResponse
     
     <p><img src="img/MetadataIndex.png" alt="Service Stack Metadata page" width="747" height="647" /></p>
     
-    <h2>Default Endpoints</h2>
+    <h2>Different ways of accessing your Web Services</h2>
     
-    <h3>Calling your web services with only a url</h3>
+    <p>
+        One of the advantages of ServiceStack is that you only have to write your web service
+        once and it takes care of
+    </p>
+    
+    <h3>Calling your web services with a single URL</h3>
     <p>By default ServiceStack lets you call following end points using just a url:</p>
     <dl>
         <dt>XML</dt>
