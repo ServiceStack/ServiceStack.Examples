@@ -8,7 +8,8 @@ namespace ServiceStack.Hello
 {
 	/// Create the name of your Web Service (i.e. the Request DTO)
 	[DataContract]
-	[RestService("/hello/{Name}")] //Optional: Define an alternate REST-ful url for this service
+	[RestService("/hello")] //Optional: Define an alternate REST-ful url for this service
+	[RestService("/hello/{Name}")] 
 	public class Hello
 	{
 		[DataMember]

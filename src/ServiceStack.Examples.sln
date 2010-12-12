@@ -18,9 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Hello", "ServiceStack.Hello\ServiceStack.Hello.csproj", "{A8F9A08B-E704-4C77-939B-B56670A2A98D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Complete Example", "Complete Example", "{424661FC-DA57-423D-8FDF-57A39A04B260}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Complete Examples", "Complete Examples", "{424661FC-DA57-423D-8FDF-57A39A04B260}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basic Example", "Basic Example", "{D3363577-67C4-4B67-909F-BBCB6B536348}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basic Examples", "Basic Examples", "{D3363577-67C4-4B67-909F-BBCB6B536348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
