@@ -28,9 +28,9 @@ Thumbs.db
 [Dd]ebug*/
 *.lib
 *.sbr
+*.resharper.user
 obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-src/ServiceStack.Examples.suo
-src/ServiceStack.Examples.4.5.resharper.user
+App_Data/
