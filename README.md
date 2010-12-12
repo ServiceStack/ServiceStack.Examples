@@ -4,7 +4,7 @@ The Example Project is [ServiceStack's](https://github.com/mythz/ServiceStack) '
 
 ## Live Demo
 
-A live demo is available hosted on CentOS/Nginx/FastCGI/Mono:
+A live demo and tutorials are available at the following locations:
 
 * [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/Default.htm)
 * [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
@@ -14,9 +14,11 @@ A live demo is available hosted on CentOS/Nginx/FastCGI/Mono:
 * [Calling SOAP 1.2 Web Service Examples](http://servicestack.net/ServiceStack.Examples.Clients/Soap12.aspx)
 * [Example of a Movie database in REST](http://servicestack.net/ServiceStack.Examples.Clients/MovieRestTest.htm)
 
+_All live examples hosted on CentOS/Nginx/FastCGI/Mono_
+
 # Download
 
-The latest release is available for download at:
+You can find the latest releases for download at:
 
 * [ServiceStack.Examples/downloads](https://github.com/mythz/ServiceStack.Examples/downloads)
 
@@ -24,6 +26,5 @@ The latest release is available for download at:
 ### Troubleshooting
 
 - Since the example project uses 32bit Sqlite.dll, on a 64 bit machine you must set IIS to run 32bit apps (in the App Domain config)
-
 
 
