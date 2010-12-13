@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Complete Examples", "Comple
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basic Examples", "Basic Examples", "{D3363577-67C4-4B67-909F-BBCB6B536348}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.MovieRest", "ServiceStack.MovieRest\ServiceStack.MovieRest.csproj", "{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{A8F9A08B-E704-4C77-939B-B56670A2A98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8F9A08B-E704-4C77-939B-B56670A2A98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8F9A08B-E704-4C77-939B-B56670A2A98D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,5 +84,6 @@ Global
 		{2B840832-3036-47D9-8F9B-560CD5C2BF90} = {424661FC-DA57-423D-8FDF-57A39A04B260}
 		{969644BC-B209-4458-8DC1-041D7A9ADD3B} = {424661FC-DA57-423D-8FDF-57A39A04B260}
 		{A8F9A08B-E704-4C77-939B-B56670A2A98D} = {D3363577-67C4-4B67-909F-BBCB6B536348}
+		{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C} = {D3363577-67C4-4B67-909F-BBCB6B536348}
 	EndGlobalSection
 EndGlobal
