@@ -10,7 +10,7 @@
 <body class="soap-page">
 
     <div id="header-links">
-        <a href="../ServiceStack.Hello/Default.htm">Hello World</a>
+        <a href="../ServiceStack.Hello/">Hello World</a>
         <a href="Default.htm">Ajax Client</a>
         <a href="Soap11.aspx">Soap 1.1</a>
         <a href="Soap12.aspx">Soap 1.2</a>

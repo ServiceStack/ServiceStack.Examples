@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Tutorial - Creating a Hello World ServiceStack Web Service</title>
-    
+
     <style type="text/css">
-    BODY 
+    BODY
     {
         background: #fff url(img/bg-body-1024.png) repeat-y top left;
         font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
@@ -24,7 +24,7 @@
 	    color: #0000FF;
 	    margin-left: 0.5em;
     }
-        
+
     code {
         background-color: ghostWhite !important;
         border: 1px solid #DEDEDE !important;
@@ -34,46 +34,46 @@
         margin: 1em 0px !important;
         overflow: auto !important;
         padding: 0.5em !important;
-        
+
         display: block;
         font-family: monospace;
         margin: 1em 0px;
-        white-space: pre;        
-    }    
-    
-    H1 
+        white-space: pre;
+    }
+
+    H1
     {
         border-top: 4px solid #AAA;
         font-size: 170% !important;
         margin-top: 1.5em;
         padding-top: 0.5em;
-    }    
-    H1.title 
-    {
-    	border: none;   
     }
-    
-    H2 
+    H1.title
+    {
+    	border: none;
+    }
+
+    H2
     {
         border-top: 4px solid #E0E0E0 !important;
         font-size: 150% !important;
         margin-top: 1.5em !important;
         padding-top: 0.5em !important;
     }
-    
-    .endpoints H3 
+
+    .endpoints H3
     {
         border-top: 1px solid #E0E0E0 !important;
         padding: .5em 0 0 0;
     }
-    
-    .lnk-src 
+
+    .lnk-src
     {
     	clear: right;
     	padding-top: 10px;
     	float: right;
     }
-    
+
     H4 B
     {
     	color: #555;
@@ -85,29 +85,29 @@
     	padding: 0 2px;
     	font-style: normal;
     }
-    
-    INPUT[type=text] 
+
+    INPUT[type=text]
     {
     	width: 100px;
     }
-    
-    TD 
+
+    TD
     {
     	padding: 0 10px;
     }
-    
+
     EM
     {
     	font-size: 90%;
     	color: #666;
     }
-    
+
     </style>
 </head>
 <body>
     <div id="header-links">
-        <a href="Default.htm">Hello World</a>
-        <a href="../ServiceStack.Examples.Clients/Default.htm">Ajax Client</a>
+        <a href="default.htm">Hello World</a>
+        <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
         <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
@@ -117,27 +117,27 @@
     <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
 
     <h1 class="title">Creating a Web service from scratch with Service Stack</h1>
-    
+
     <p>
-        This tutorial will go through and develop and call a simple Hello world Web Service 
+        This tutorial will go through and develop and call a simple Hello world Web Service
         from scratch using <a href="http://www.servicestack.net">Service Stack</a> and VS.NET.
     </p>
-    
+
 
     <h2>1. Creating your application</h2>
     <p>
-        Create a new ASP.NET Web Application by going into Visual Studio 
+        Create a new ASP.NET Web Application by going into Visual Studio
         and selecting <strong>File -&gt; New -&gt; Project</strong> on the File menu.
     </p>
-    <p><img src="img/NewProject.png" alt="New ASP.NET Project" width="776" height="552" /></p>            
-    
+    <p><img src="img/NewProject.png" alt="New ASP.NET Project" width="776" height="552" /></p>
+
     <h2>2. Configuring Service Stack to run in your application</h2>
     <p>
         Add a reference to the <a href="https://github.com/mythz/ServiceStack/downloads">latest ServiceStack.dll's</a> to your project:
-    </p>    
-    
+    </p>
+
     <p>
-        Register the ServiceStack handler with in your ASP.NET application 
+        Register the ServiceStack handler with in your ASP.NET application
         by adding either of the following to your <strong>Web.config</strong>:
     </p>
 
@@ -147,34 +147,34 @@
     &lt;add path="ServiceStack*,ServiceStack*/*,ServiceStack*/*/*,ServiceStack*/*/*/*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
   &lt;/httpHandlers&gt;
 &lt;/system.web&gt;
-</code>      
-            
-<h4>ServiceStack Handler mapping for IIS 7+</h4>            
+</code>
+
+<h4>ServiceStack Handler mapping for IIS 7+</h4>
 <code class="web-config">&lt;system.webServer&gt;
   &lt;handlers&gt;
     &lt;add name="ServiceStack.Factory" path="ServiceStack" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
   &lt;/handlers&gt;
 &lt;/system.webServer&gt;
-</code>    
+</code>
 
     <h2>3. Creating your first Web Service</h2>
-    
+
     <p>
         For simplicity we will add the Web Service and the start up script all in the same Global.asax.cs.
         To do this Right-click on your project and go <br />
-        <strong>Add -&gt; New Item</strong> then select the <strong>Global Application class</strong>. 
+        <strong>Add -&gt; New Item</strong> then select the <strong>Global Application class</strong>.
     </p>
     <p>
         Within the same file add the following code:
     </p>
-    
+
     <h4>1. Create the name of your Web Service (i.e. the Request DTO)</h4>
 <code class="csharp">[DataContract]
 public class Hello
 {
     [DataMember]
     public string Name { get; set; }
-}                
+}
 </code>
 
     <h4>2. Define what your Web Service will return (i.e. Response DTO)</h4>
@@ -196,20 +196,20 @@ public class HelloResponse
 }
 </code>
 
-            
+
     <h3>Registering your web services and starting your application</h3>
-    
+
     The final step is to Configure setup to tell Service Stack where to find your web services:
 
-    <h4>Web Service AppHost Singleton</h4> 
+    <h4>Web Service AppHost Singleton</h4>
 <code class="csharp">public class Global : System.Web.HttpApplication
 {
     public class HelloAppHost : AppHostBase
     {
         //Tell Service Stack the name of your application and where to find your web services
-        public HelloAppHost() 
+        public HelloAppHost()
 	        : base("Hello Web Services", typeof(HelloService).Assembly) { }
-		
+
         public override void Configure(Container container) { }
     }
 
@@ -221,10 +221,10 @@ public class HelloResponse
     }
 }
 </code>
-    
+
     <p>
         Done! You now have a working application :)
-    </p>    
+    </p>
 
 
     <h1>Viewing your Web Services</h1>
@@ -234,13 +234,13 @@ public class HelloResponse
 
     <h4>The Web Service Index Metadata page</h4>
     <p>
-        If everything is configured correctly you can go to the 
+        If everything is configured correctly you can go to the
         <strong><a href="servicestack/metadata">/servicestack/metadata</a></strong>
         to see a list of your web services and the various end points its available on.
     </p>
-    
+
     <p><img src="img/MetadataIndex.png" alt="Service Stack Metadata page" width="747" height="647" /></p>
-    
+
     <p>
         The <b>Metadata</b> page contains:
         <ul>
@@ -248,36 +248,36 @@ public class HelloResponse
                 A list of all your webservices and the endpoints they are available on.
             </li>
             <li>
-                A list of coding examples showing you how to call each endpoing a number of different ways.               
+                A list of coding examples showing you how to call each endpoing a number of different ways.
             </li>
             <li>
-                Links to all the XSD types used by your web services 
+                Links to all the XSD types used by your web services
             </li>
             <li>
                 Links to the web services SOAP 1.1 / 1.2 WSDLs
             </li>
-        </ul>       
+        </ul>
     </p>
-    
+
     <h2>The different ways of calling your Web Service</h2>
-    
+
     <p>
-        Without any configuration required, your web services are callable 
-        via the following endpoints, formats and calling convetions.        
+        Without any configuration required, your web services are callable
+        via the following endpoints, formats and calling convetions.
     </p>
-    
+
     <div class="endpoints">
-    
+
     <h3>XML (<acronym title="Plain old XML">POX</acronym>), JSON, JSV urls</h3>
     <h4>
     /servicestack/<b>[xml<i>|</i>json<i>|</i>jsv]</b>/<b>[syncreply<i>|</i>asynconeway]</b>/<b>[servicename]</b>
     </h4>
-    
+
     <h3>SOAP Web Service urls</h3>
     <h4>
     /servicestack/<b>[soap11<i>|</i>soap12]</b>
     </h4>
-    
+
     <h3>User defined REST-ful urls</h3>
     <p>
         Accessible via any REST-ful urls defined using the [RestService] Attribute. e.g. in this case:
@@ -285,11 +285,11 @@ public class HelloResponse
     <h4>
         /servicestack/<b>hello/<i>{Name}</i></b>
     </h4>
-    
-    </div>
-    
 
-    <h2>XML, JSON, JSV Web Services via HTTP GET or POST</h2>    
+    </div>
+
+
+    <h2>XML, JSON, JSV Web Services via HTTP GET or POST</h2>
     <table>
         <thead>
             <tr>
@@ -364,35 +364,35 @@ public class HelloResponse
             </tr>
         </tbody>
     </table>
-        
+
     <h4>CONTENT TYPE</h4>
     <p>
         The endpoint type and resulting serialization format of your web service.
     </p>
-    
+
     <h4>HTTP GET</h4>
     <p>
-        The url to call your web service using only the url and the query string to populate the request.<br /> 
+        The url to call your web service using only the url and the query string to populate the request.<br />
     </p>
     <p>
         <em>
-        NOTE: Service Stack also lets you submit any arbitary complex type 
-        (using <a href="https://github.com/mythz/ServiceStack.Text/wiki/JSV-Format">JSV format</a>) 
-        via the query string or form data: 
+        NOTE: Service Stack also lets you submit any arbitary complex type
+        (using <a href="https://github.com/mythz/ServiceStack.Text/wiki/JSV-Format">JSV format</a>)
+        via the query string or form data:
         <a href="http://www.servicestack.net/ServiceStack.Examples.Host.Web/ServiceStack/Json/SyncReply/StoreLogs?Loggers=[{Id:786,Devices:[{Id:5955,Type:Panel,TimeStamp:1199303309,Channels:[{Name:Temperature,Value:58},{Name:Status,Value:On}]},{Id:5956,Type:Tank,TimeStamp:1199303309,Channels:[{Name:Volume,Value:10035},{Name:Status,Value:Full}]}]}]">see this example</a>.
         </em>
     </p>
-    
+
     <h4>HTTP POST CONTENT TYPE</h4>
     <p>
         You can HTTP POST the 'Content Type' representation of the Request DTO to the same url.
         Check the links to the metadata page for examples of this.
-    </p>    
-    
+    </p>
+
     <h4>HTTP POST FORM DATA</h4>
     <p>
-        As an alternative to posting the Content Type, each service also accepts 
-        <strong>x-www-form-urlencoded</strong> Content-Types allowing you to call each web service 
+        As an alternative to posting the Content Type, each service also accepts
+        <strong>x-www-form-urlencoded</strong> Content-Types allowing you to call each web service
         using a HTML FORM. Here is the HTML for the live examples:
     </p>
 <code class="html">&lt;form action="servicestack/xml/syncreply/Hello" method="post"&gt;
@@ -401,9 +401,9 @@ public class HelloResponse
     &lt;input type="submit"&gt;
 &lt;/form&gt;
 </code>
-        
-    <h2>SOAP Web Services</h2>    
-    
+
+    <h2>SOAP Web Services</h2>
+
     <table>
     <thead>
         <tr>
@@ -433,8 +433,8 @@ public class HelloResponse
     <p>
         Shows example of what a SOAP Request looks like.
     </p>
-    
-    
+
+
     <h2>REST Web Services</h2>
     <p>
         A new addition to Service Stack is the ability to define your own custom urls letting you
@@ -446,7 +446,7 @@ public class HelloResponse
     <h4><b>[RestService("/hello/{Name}")]</b></h4>
     <p>
         Allows this web service to be called with:
-        <a href="servicestack/hello/World!">/servicestack/hello/World!</a>       
+        <a href="servicestack/hello/World!">/servicestack/hello/World!</a>
     </p>
     <p>
         Just like the other endpoints, REST-ful urls can also be called with a HTML FORM POST.
@@ -471,21 +471,21 @@ public class HelloResponse
         </form>
     </p>
     <p>
-        This makes it very easy to Ajax-ify your existing HTML forms, cleanly, 
+        This makes it very easy to Ajax-ify your existing HTML forms, cleanly,
         without messy configuration and generated code mandated by other options.
     </p>
-    
+
     <h1>Download the code</h1>
     <p>
         Hopefully this tutorial shows just how easy it is to get started and quickly build
         web services with <a href="http://www.servicestack.net">Service Stack</a>.
     </p>
     <p>
-        The complete source code for this example is 
+        The complete source code for this example is
         <a href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Hello">viewable online</a>
-        or available to download as part of the 
+        or available to download as part of the
         <a href="https://github.com/mythz/ServiceStack.Examples/downloads">ServiceStack.Examples project</a>
     </p>
-    
+
 </body>
 </html>

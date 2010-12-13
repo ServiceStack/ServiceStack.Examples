@@ -132,7 +132,7 @@
 <body>
 
     <div id="header-links">
-        <a href="../ServiceStack.Hello/Default.htm">Hello World</a>
+        <a href="../ServiceStack.Hello/">Hello World</a>
         <a href="Default.htm">Ajax Client</a>
         <a href="Soap11.aspx">Soap 1.1</a>
         <a href="Soap12.aspx">Soap 1.2</a>
@@ -281,7 +281,7 @@
                         </div>
                         <h5>Server code</h5>
                         <code class="server-code">
-    public class GetFibonacciNumbersService 
+    public class GetFibonacciNumbersService
 	    : IService&lt;GetFibonacciNumbers&gt;
     {
 	    private readonly ExampleConfig config;
@@ -360,7 +360,7 @@
                 Password: $("#txtUserName").val(),
                 Email: $("#txtEmail").val()
             }
-        }, 
+        },
         function(e) {
             $("#serviceStoreNewUser .result").html(e.UserId);
 
@@ -416,22 +416,22 @@
 		    using (var dbConn = ConnectionFactory.OpenDbConnection())
 		    using (var dbCmd = dbConn.CreateCommand())
 		    {
-			    var existingUsers = dbCmd.Select&lt;User&gt;("UserName = {0}", 
+			    var existingUsers = dbCmd.Select&lt;User&gt;("UserName = {0}",
 			      request.UserName).ToList();
 
 			    if (existingUsers.Count &gt; 0)
 			    {
 				    return new StoreNewUserResponse {
-					    ResponseStatus = new ResponseStatus { 
-					      ErrorCode = "UserNameMustBeUnique" 
+					    ResponseStatus = new ResponseStatus {
+					      ErrorCode = "UserNameMustBeUnique"
 					    }
 				    };
 			    }
 
-			    var newUser = new User { 
-			        UserName = request.UserName, 
-			        Email = request.Email, 
-			        Password = request.Password 
+			    var newUser = new User {
+			        UserName = request.UserName,
+			        Email = request.Email,
+			        Password = request.Password
 			    };
 
 			    dbCmd.Insert(newUser);
