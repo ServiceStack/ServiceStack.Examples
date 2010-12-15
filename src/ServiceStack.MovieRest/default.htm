@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ServiceStack Movie Database</title>
+    
+    <link href="default.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="jquery.form.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            var restLog = function(method, url) {
+                $("#restlog").prepend("<div><b class='ib'>" + method + "</b><i>" + url + "</i></div>");
+            }
+
+            var refreshExistingMovies = function() {
+                restLog("GET", "servicestack/movies");
+                $.get("servicestack/movies", function(r) {
+
+                    var html = "";
+                    for (var i = 0; i < r.Movies.length; i++) {
+                        var movie = r.Movies[i];
+                        html += "<dd id='" + movie.Id + "'>"
+                                 + "<label class='ib'>" + movie.Title + "</label>"
+                                 + "<span class='ib lnk-update'>update</span>"
+                                 + "<span class='ib lnk-delete'>delete</span>"
+                        "</dd>";
+                    }
+
+                    $("#existing-movies").html(html);
+
+                    $("#existing-movies .lnk-delete").click(function() {
+                        var request = { type: 'delete', url: "servicestack/movies/" + $(this).parent().attr('id') };
+                        restLog("DELETE", request.url);
+                        request.success = refreshExistingMovies;
+                        $.ajax(request);
+                    });
+
+                    $("#existing-movies .lnk-update").click(function() {
+                        var movieId = $(this).parent().attr('id');
+
+                        restLog("GET", "servicestack/movies/" + movieId);
+                        $.get("servicestack/movies/" + movieId, function(r) {
+                            showDetailsForm(r.Movie);
+                        });
+                    });
+                });
+            };
+
+            $("#btnReset").click(function() {
+                restLog("POST", "servicestack/reset-movies");
+                $.post("servicestack/reset-movies", function(r) {
+                    refreshExistingMovies();
+                });
+            });
+
+            var showDetailsForm = function(updateMovie) {
+                var isUpdate = !!updateMovie;
+                var newMovie =
+                {
+                    Id: "tt0110912",
+                    Title: "Pulp Fiction",
+                    Rating: 8.9,
+                    Director: "Quentin Tarantino",
+                    ReleaseDate: new Date(1994, 10, 24),
+                    TagLine: "Girls like me don't make invitations like this to just anyone!",
+                    Genres: ["Crime", "Drama", "Thriller"]
+                };
+
+                var movie = updateMovie || newMovie;
+                var title = isUpdate
+                    ? "Update " + movie.Title
+                    : "Add a new movie";
+
+                for (var name in movie) {
+                    $("INPUT[name=" + name + "]").val(movie[name]);
+                }
+                var date = typeof movie['ReleaseDate'] == 'string'
+                    ? new Date(parseFloat(/Date\(([^)]+)\)/.exec(movie['ReleaseDate'])[1]))
+                    : movie['ReleaseDate'];
+                $("INPUT[name=ReleaseDate]").val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+
+                $("FORM H2").html(title);
+                $("FORM INPUT[type=submit]").val(isUpdate ? "Update movie" : "Add new movie");
+                $("FORM").attr('method', isUpdate ? 'PUT' : 'POST');
+                $("FORM").fadeIn('fast');
+            };
+
+            $("#btnAdd").click(function() {
+                showDetailsForm();
+            });
+
+            $('FORM').ajaxForm(function() {
+                restLog($('FORM').attr('method'), "servicestack/movies/edit");
+                $("FORM").hide();
+                refreshExistingMovies();
+            });
+
+            refreshExistingMovies();
+        });
+    </script>
+
+</head>
+<body>
+    <div id="header-links">
+        <a href="../ServiceStack.Hello/">Hello World</a> 
+        <a href="default.htm">Ajax Client</a>
+        <a href="Soap11.aspx">Soap 1.1</a> 
+        <a href="Soap12.aspx">Soap 1.2</a> 
+        <a href="Silverlight.htm">Silverlight</a> 
+        <a href="MovieRestTest.htm">REST examples</a>
+    </div>
+    
+    <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
+    
+    <h1><a href="default.htm">REST at the Movies</a></h1>
+    
+    <div id="summary">
+        A simple REST example showing how to use Ajax to call a <a href="http://www.servicestack.net">
+            servicestack.net</a> web service using the HTTP methods GET, PUT, POST and DELETE.
+        <br />
+        For information on how to develop REST services with ServiceStack check out the
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Examples.ServiceInterface/MovieRestService.cs">
+            Server Code</a> along with the accompanying <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/tests/ServiceStack.Examples.Tests/MovieRestTests.cs">
+                Unit</a> and <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/tests/ServiceStack.Examples.Tests.Integration/MovieRestTests.cs">
+                    Integration Tests</a>
+    </div>
+
+    <button id="btnReset">Reset Movie Database</button>
+
+    <h4>HTTP REST LOG</h4>
+    <code id="restlog"></code>
+
+    <div id="existing">
+        <h2>Existing Movies</h2>
+        <dl id="existing-movies"></dl>
+        <button id="btnAdd">Add &gt;&gt;</button>
+    </div>
+    
+    <form action="servicestack/movies/edit" method="POST">
+        <h2></h2>
+        <dl>
+            <dt>Imdb Id</dt>
+            <dd><input type="text" name="Id" /></dd>
+            
+            <dt>Title</dt>
+            <dd><input type="text" name="Title" /></dd>
+            
+            <dt>Rating</dt>
+            <dd><input type="text" name="Rating" /></dd>
+            
+            <dt>Director</dt>
+            <dd><input type="text" name="Director" /></dd>
+            
+            <dt>Release Date</dt>
+            <dd><input type="text" name="ReleaseDate" /></dd>
+            
+            <dt>Tag Line</dt>
+            <dd><input type="text" name="TagLine" /></dd>
+            
+            <dt>Genres</dt>
+            <dd><input type="text" name="Genres" /></dd>
+        </dl>
+
+        <input type="submit" />
+    </form>
+
+</body>
+</html>

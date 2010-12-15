@@ -1,0 +1,140 @@
+﻿BODY
+{
+    background: #fff url(img/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 0 5px 20px 10px;
+    width: 940px;
+}
+#header-links
+{
+    top: 10px;
+    left: 520px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+code
+{
+    background-color: ghostWhite !important;
+    border: 1px solid #DEDEDE !important;
+    color: #444 !important;
+    font-size: 12px !important;
+    line-height: 1.5em !important;
+    margin: 1em 0px !important;
+    overflow: auto !important;
+    padding: 0.5em !important;
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+    white-space: pre;
+}
+H1
+{
+    font-size: 170% !important;
+    margin-top: 1.5em;
+    padding-top: 0.5em;
+}
+H1.title
+{
+    border: none;
+}
+H2
+{
+    border-top: 4px solid #E0E0E0 !important;
+    font-size: 150% !important;
+    margin-top: 1.5em !important;
+    padding-top: 0.5em !important;
+}
+INPUT[type=text]
+{
+    width: 400px;
+    padding: 2px 5px;
+}
+.lnk-src
+{
+    padding-top: 30px;
+    float: right;
+}
+.ib
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+}
+* html .ib
+{
+    display: inline;
+}
+*:first-child + html .ib
+{
+    display: inline;
+}
+H1 A
+{
+    background: url(http://www.servicestack.net/logo-servicestack.png) no-repeat;
+    display: block;
+    height: 40px;
+    padding: 70px 30px 0 120px;
+    color: #051;
+    margin: 0 50px 20px 0;
+    text-decoration: none;
+}
+#summary
+{
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background: #ffc;
+    color: #333;
+    font-size: 13px;
+    border: solid 1px #ccc;
+}
+#btnReset
+{
+    float: right;
+    margin: 20px 0 0 0;
+}
+DT
+{
+    margin: 10px 0 5px 0;
+}
+#existing-movies DD LABEL
+{
+    width: 300px;
+}
+.lnk-update, .lnk-delete
+{
+    margin-left: 10px;
+    color: Blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+H4
+{
+	position: absolute;
+	top: 270px;
+	left: 590px;
+}
+#restlog
+{
+	position: absolute;
+	top: 290px;
+	left: 590px;
+	width: 350px;
+	height: 600px;
+	overflow-y:scroll;
+	font-size: 14px !important;
+	line-height: 18px !important;
+}
+#restlog B
+{
+	width: 70px;
+}
+
+FORM 
+{
+	display: none;
+}
