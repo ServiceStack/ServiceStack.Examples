@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
+using ServiceStack.Common.Web;
+using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.MovieRest
 {
-	[RestService("/movies/edit")]
+	[RestService("/movies")]
 	[RestService("/movies/{Id}")]
 	[DataContract]
 	public class Movie
@@ -19,7 +22,11 @@ namespace ServiceStack.MovieRest
 		}
 
 		[DataMember]
-		public string Id { get; set; }
+		[AutoIncrement]
+		public int Id { get; set; }
+
+		[DataMember]
+		public string ImdbId { get; set; }
 
 		[DataMember]
 		public string Title { get; set; }
@@ -44,7 +51,7 @@ namespace ServiceStack.MovieRest
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return Equals(other.Id, Id)
+			return Equals(other.ImdbId, ImdbId)
 				&& Equals(other.Title, Title)
 				&& other.Rating == Rating
 				&& Equals(other.Director, Director)
@@ -63,7 +70,7 @@ namespace ServiceStack.MovieRest
 
 		public override int GetHashCode()
 		{
-			return Id != null ? Id.GetHashCode() : 0;
+			return ImdbId != null ? ImdbId.GetHashCode() : 0;
 		}
 		#endregion
 	}
@@ -85,22 +92,37 @@ namespace ServiceStack.MovieRest
 		/// </summary>
 		public override object Get(Movie movie)
 		{
-			return new MovieResponse {
-           		Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(movie.Id))
-           	};
+			return new MovieResponse
+			{
+				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(movie.Id))
+			};
 		}
 
 		/// <summary>
-		/// POST /movies/edit
+		/// POST /movies
 		/// </summary>
 		public override object Post(Movie movie)
 		{
-			DbFactory.Exec(dbCmd => dbCmd.Save(movie));
-			return new MoviesResponse();
+			var newMovieId = DbFactory.Exec(dbCmd =>
+			{
+				dbCmd.Insert(movie);
+				return dbCmd.GetLastInsertId();
+			});
+
+			var newMovie = new MovieResponse {
+				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(newMovieId))
+			};
+			return new HttpResult(newMovie)
+			{
+				StatusCode = HttpStatusCode.Created,
+				Headers = {
+					{ HttpHeaders.Location, this.RequestContext.RawUrl + "/" + newMovieId }
+				}
+			};
 		}
 
 		/// <summary>
-		/// PUT /movies/edit
+		/// PUT /movies
 		/// </summary>
 		public override object Put(Movie movie)
 		{

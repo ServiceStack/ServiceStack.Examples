@@ -8,12 +8,12 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.MovieRest
 {
 	[DataContract]
-	[RestService("/movies")]
-	[RestService("/movies/category/{Category}")]
+	[RestService("/movies", "GET")]
+	[RestService("/movies/genres/{Genre}")]
 	public class Movies
 	{
 		[DataMember]
-		public string Category { get; set; }
+		public string Genre { get; set; }
 
 		[DataMember]
 		public Movie Movie { get; set; }
@@ -39,9 +39,9 @@ namespace ServiceStack.MovieRest
 		{
 			return new MoviesResponse
 			{
-				Movies = request.Category.IsNullOrEmpty()
+				Movies = request.Genre.IsNullOrEmpty()
 					? DbFactory.Exec(dbCmd => dbCmd.Select<Movie>())
-					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Category = {0}", request.Category))
+					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Genre LIKE {0}", "%" + request.Genre + "%"))
 			};
 		}
 	}

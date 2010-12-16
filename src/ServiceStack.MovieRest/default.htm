@@ -59,7 +59,8 @@
                 var isUpdate = !!updateMovie;
                 var newMovie =
                 {
-                    Id: "tt0110912",
+                    Id: 0,
+                    ImdbId: "tt0110912",
                     Title: "Pulp Fiction",
                     Rating: 8.9,
                     Director: "Quentin Tarantino",
@@ -69,9 +70,14 @@
                 };
 
                 var movie = updateMovie || newMovie;
-                var title = isUpdate
-                    ? "Update " + movie.Title
-                    : "Add a new movie";
+
+                $("FORM INPUT[type=submit]").val(isUpdate ? "Update movie" : "Add new movie");
+                var action = "servicestack/movies";
+                $("FORM").attr('action', isUpdate ? action + "/" + movie.Id : action);
+                $("FORM").attr('method', isUpdate ? 'put' : 'post');
+
+                var title = isUpdate ? "Update " + movie.Title : "Add a new movie";
+                $("FORM H2").html(title);
 
                 for (var name in movie) {
                     $("INPUT[name=" + name + "]").val(movie[name]);
@@ -81,9 +87,6 @@
                     : movie['ReleaseDate'];
                 $("INPUT[name=ReleaseDate]").val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
 
-                $("FORM H2").html(title);
-                $("FORM INPUT[type=submit]").val(isUpdate ? "Update movie" : "Add new movie");
-                $("FORM").attr('method', isUpdate ? 'PUT' : 'POST');
                 $("FORM").fadeIn('fast');
             };
 
@@ -92,7 +95,7 @@
             });
 
             $('FORM').ajaxForm(function() {
-                restLog($('FORM').attr('method'), "servicestack/movies/edit");
+                restLog($('FORM').attr('method'), $('FORM').attr('action'));
                 $("FORM").hide();
                 refreshExistingMovies();
             });
@@ -138,11 +141,12 @@
         <button id="btnAdd">Add &gt;&gt;</button>
     </div>
     
-    <form action="servicestack/movies/edit" method="POST">
+    <form action="servicestack/movies" method="post">
         <h2></h2>
+        <input type="hidden" name="Id" />
         <dl>
             <dt>Imdb Id</dt>
-            <dd><input type="text" name="Id" /></dd>
+            <dd><input type="text" name="ImdbId" /></dd>
             
             <dt>Title</dt>
             <dd><input type="text" name="Title" /></dd>
