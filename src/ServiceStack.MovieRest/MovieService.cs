@@ -112,6 +112,13 @@ namespace ServiceStack.MovieRest
 			var newMovie = new MovieResponse {
 				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(newMovieId))
 			};
+
+			/* returns: 
+				201 Created
+			    Location: http://localhost/ServiceStack.MovieRest/movies/{newMovieId}
+				
+				{newMovie DTO in [xml|json|jsv|etc]}
+			 */
 			return new HttpResult(newMovie)
 			{
 				StatusCode = HttpStatusCode.Created,

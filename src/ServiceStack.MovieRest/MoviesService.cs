@@ -33,7 +33,7 @@ namespace ServiceStack.MovieRest
 
 		/// <summary>
 		/// GET /movies 
-		/// GET /movies/category/{Category}
+		/// GET /movies/genres/{Category}
 		/// </summary>
 		public override object Get(Movies request)
 		{

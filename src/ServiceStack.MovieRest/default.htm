@@ -50,7 +50,7 @@
 
             $("#btnReset").click(function() {
                 restLog("POST", "servicestack/reset-movies");
-                $.post("servicestack/reset-movies", function(r) {
+                $.post("servicestack/reset-movies", {}, function(r) {
                     refreshExistingMovies();
                 });
             });
