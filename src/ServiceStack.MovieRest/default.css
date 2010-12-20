@@ -1,4 +1,4 @@
-﻿BODY
+BODY
 {
     background: #fff url(img/bg-body-1024.png) repeat-y top left;
     font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
@@ -116,14 +116,14 @@ H4
 {
 	position: absolute;
 	top: 270px;
-	left: 590px;
+	left: 580px;
 }
 #restlog
 {
 	position: absolute;
 	top: 290px;
-	left: 590px;
-	width: 350px;
+	left: 580px;
+	width: 360px;
 	height: 600px;
 	overflow-y:scroll;
 	font-size: 14px !important;
@@ -137,4 +137,12 @@ H4
 FORM 
 {
 	display: none;
+}
+
+SELECT[name=genres]
+{
+    padding: 4px;
+    position:absolute;
+    left: 345px;
+    margin-top: 20px;
 }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>ServiceStack Movie Database</title>
@@ -14,9 +14,14 @@
                 $("#restlog").prepend("<div><b class='ib'>" + method + "</b><i>" + url + "</i></div>");
             }
 
+            var allGenres = [];
+
             var refreshExistingMovies = function() {
-                restLog("GET", "servicestack/movies");
-                $.get("servicestack/movies", function(r) {
+                var moviesUrl = "servicestack/movies", jqFilter = $("SELECT[name=genres]"), filterGenre = jqFilter.val();
+                if (filterGenre) moviesUrl += "/genres/" + filterGenre;
+
+                restLog("GET", moviesUrl);
+                $.get(moviesUrl, function(r) {
 
                     var html = "";
                     for (var i = 0; i < r.Movies.length; i++) {
@@ -25,10 +30,21 @@
                                  + "<label class='ib'>" + movie.Title + "</label>"
                                  + "<span class='ib lnk-update'>update</span>"
                                  + "<span class='ib lnk-delete'>delete</span>"
-                        "</dd>";
+                            "</dd>";
+
+                        $.each(movie.Genres, function(i, genre) {
+                            if ($.inArray(genre, allGenres) == -1) allGenres.push(genre);
+                        });
+                        var genreHtml = '<option class="first" value="">[ All Genres ]</option>';
+                        $.each(allGenres, function(i, genre) {
+                            var selected = filterGenre == genre ? ' selected="selected"' : '';
+                            genreHtml += '<option value="' + genre + '"' + selected + '>' + genre + '</option>';
+                        });
+                        jqFilter .html(genreHtml);
                     }
 
                     $("#existing-movies").html(html);
+
 
                     $("#existing-movies .lnk-delete").click(function() {
                         var request = { type: 'delete', url: "servicestack/movies/" + $(this).parent().attr('id') };
@@ -47,6 +63,10 @@
                     });
                 });
             };
+
+            $("SELECT[name=genres]").change(function() {
+                refreshExistingMovies();
+            });
 
             $("#btnReset").click(function() {
                 restLog("POST", "servicestack/reset-movies");
@@ -120,14 +140,10 @@
     <h1><a href="default.htm">REST at the Movies</a></h1>
     
     <div id="summary">
-        A simple REST example showing how to use Ajax to call a <a href="http://www.servicestack.net">
-            servicestack.net</a> web service using the HTTP methods GET, PUT, POST and DELETE.
-        <br />
-        For information on how to develop REST services with ServiceStack check out the
-        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Examples.ServiceInterface/MovieRestService.cs">
-            Server Code</a> along with the accompanying <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/tests/ServiceStack.Examples.Tests/MovieRestTests.cs">
-                Unit</a> and <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/tests/ServiceStack.Examples.Tests.Integration/MovieRestTests.cs">
-                    Integration Tests</a>
+        Nothing but REST: No configuration, code-gen or boilerplate -
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/default.htm">Just jQuery</a> 
+        and your
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/MovieService.cs">C# server code</a>.
     </div>
 
     <button id="btnReset">Reset Movie Database</button>
@@ -136,6 +152,7 @@
     <code id="restlog"></code>
 
     <div id="existing">
+        <select name="genres"></select>
         <h2>Existing Movies</h2>
         <dl id="existing-movies"></dl>
         <button id="btnAdd">Add &gt;&gt;</button>

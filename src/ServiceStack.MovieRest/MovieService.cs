@@ -22,8 +22,7 @@ namespace ServiceStack.MovieRest
 			this.Genres = new List<string>();
 		}
 
-		[DataMember]
-		[AutoIncrement]
+		[DataMember] [AutoIncrement]
 		public int Id { get; set; }
 
 		[DataMember]
@@ -46,34 +45,6 @@ namespace ServiceStack.MovieRest
 
 		[DataMember]
 		public List<string> Genres { get; set; }
-
-		#region AutoGen ReSharper code, only required by tests
-		public bool Equals(Movie other)
-		{
-			if (ReferenceEquals(null, other)) return false;
-			if (ReferenceEquals(this, other)) return true;
-			return Equals(other.ImdbId, ImdbId)
-				&& Equals(other.Title, Title)
-				&& other.Rating == Rating
-				&& Equals(other.Director, Director)
-				&& other.ReleaseDate.Equals(ReleaseDate)
-				&& Equals(other.TagLine, TagLine)
-				&& Genres.EquivalentTo(other.Genres);
-		}
-
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != typeof(Movie)) return false;
-			return Equals((Movie)obj);
-		}
-
-		public override int GetHashCode()
-		{
-			return ImdbId != null ? ImdbId.GetHashCode() : 0;
-		}
-		#endregion
 	}
 
 	[DataContract]
@@ -82,7 +53,6 @@ namespace ServiceStack.MovieRest
 		[DataMember]
 		public Movie Movie { get; set; }
 	}
-
 
 	public class MovieService : RestServiceBase<Movie>
 	{
@@ -101,6 +71,13 @@ namespace ServiceStack.MovieRest
 
 		/// <summary>
 		/// POST /movies
+		/// 
+		/// returns HTTP Response => 
+		/// 	201 Created
+		///     Location: http://localhost/ServiceStack.MovieRest/movies/{newMovieId}
+		/// 	
+		/// 	{newMovie DTO in [xml|json|jsv|etc]}
+		/// 
 		/// </summary>
 		public override object Post(Movie movie)
 		{
@@ -114,12 +91,6 @@ namespace ServiceStack.MovieRest
 				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(newMovieId))
 			};
 
-			/* returns: 
-				201 Created
-			    Location: http://localhost/ServiceStack.MovieRest/movies/{newMovieId}
-				
-				{newMovie DTO in [xml|json|jsv|etc]}
-			 */
 			return new HttpResult(newMovie)
 			{
 				StatusCode = HttpStatusCode.Created,
@@ -130,12 +101,12 @@ namespace ServiceStack.MovieRest
 		}
 
 		/// <summary>
-		/// PUT /movies
+		/// PUT /movies/{id}
 		/// </summary>
 		public override object Put(Movie movie)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.Save(movie));
-			return new MoviesResponse();
+			return new MovieResponse();
 		}
 
 		/// <summary>
@@ -144,7 +115,46 @@ namespace ServiceStack.MovieRest
 		public override object Delete(Movie request)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.DeleteById<Movie>(request.Id));
-			return new MoviesResponse();
+			return new MovieResponse();
+		}
+	}
+
+
+	[DataContract]
+	[RestService("/movies", "GET")]
+	[RestService("/movies/genres/{Genre}")]
+	public class Movies
+	{
+		[DataMember]
+		public string Genre { get; set; }
+
+		[DataMember]
+		public Movie Movie { get; set; }
+	}
+
+	[DataContract]
+	public class MoviesResponse
+	{
+		[DataMember]
+		public List<Movie> Movies { get; set; }
+	}
+
+	public class MoviesService : RestServiceBase<Movies>
+	{
+		public IDbConnectionFactory DbFactory { get; set; }
+
+		/// <summary>
+		/// GET /movies 
+		/// GET /movies/genres/{Genre}
+		/// </summary>
+		public override object Get(Movies request)
+		{
+			return new MoviesResponse
+			{
+				Movies = request.Genre.IsNullOrEmpty()
+					? DbFactory.Exec(dbCmd => dbCmd.Select<Movie>())
+					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Genres LIKE {0}", "%" + request.Genre + "%"))
+			};
 		}
 	}
 
