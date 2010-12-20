@@ -8,7 +8,7 @@ BODY
 #header-links
 {
     top: 10px;
-    left: 520px;
+    left: 500px;
     position: absolute;
 }
 #header-links A, #footer-links A
@@ -34,12 +34,8 @@ code
 H1
 {
     font-size: 170% !important;
-    margin-top: 1.5em;
+    margin-top: 0.65em;
     padding-top: 0.5em;
-}
-H1.title
-{
-    border: none;
 }
 H2
 {
@@ -87,10 +83,20 @@ H1 A
     margin: 0 0 20px 0;
     padding: 10px;
     background: #ffc;
-    color: #333;
-    font-size: 13px;
+    color: green;
+    font-size: 16px;
     border: solid 1px #ccc;
+    font-weight: bold;
+    text-align: center;
 }
+#summary A
+{
+    color: blue;
+}
+#summary B
+{
+}
+
 #btnReset
 {
     float: right;
