@@ -8,6 +8,7 @@ using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.Text;
 
 namespace ServiceStack.MovieRest
 {
@@ -123,7 +124,7 @@ namespace ServiceStack.MovieRest
 			{
 				StatusCode = HttpStatusCode.Created,
 				Headers = {
-					{ HttpHeaders.Location, this.RequestContext.RawUrl + "/" + newMovieId }
+					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + newMovieId }
 				}
 			};
 		}

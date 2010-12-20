@@ -50,7 +50,7 @@
 
             $("#btnReset").click(function() {
                 restLog("POST", "servicestack/reset-movies");
-                $.post("servicestack/reset-movies", {}, function(r) {
+                $.post("servicestack/reset-movies", function(r) {
                     refreshExistingMovies();
                 });
             });
@@ -74,7 +74,7 @@
                 $("FORM INPUT[type=submit]").val(isUpdate ? "Update movie" : "Add new movie");
                 var action = "servicestack/movies";
                 $("FORM").attr('action', isUpdate ? action + "/" + movie.Id : action);
-                $("FORM").attr('method', isUpdate ? 'put' : 'post');
+                $("FORM").attr('method', isUpdate ? 'PUT' : 'POST');
 
                 var title = isUpdate ? "Update " + movie.Title : "Add a new movie";
                 $("FORM H2").html(title);

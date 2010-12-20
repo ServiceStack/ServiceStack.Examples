@@ -33,7 +33,7 @@ namespace ServiceStack.MovieRest
 
 		/// <summary>
 		/// GET /movies 
-		/// GET /movies/genres/{Category}
+		/// GET /movies/genres/{Genre}
 		/// </summary>
 		public override object Get(Movies request)
 		{
@@ -41,7 +41,7 @@ namespace ServiceStack.MovieRest
 			{
 				Movies = request.Genre.IsNullOrEmpty()
 					? DbFactory.Exec(dbCmd => dbCmd.Select<Movie>())
-					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Genre LIKE {0}", "%" + request.Genre + "%"))
+					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Genres LIKE {0}", "%" + request.Genre + "%"))
 			};
 		}
 	}
