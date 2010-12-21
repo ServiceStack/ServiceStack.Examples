@@ -152,3 +152,10 @@ SELECT[name=genres]
     left: 345px;
     margin-top: 20px;
 }
+
+#btn-download {
+    display:block;
+    border-top: solid 4px #E0E0E0;
+    margin: 20px 0 20px 0px;
+    padding: 10px 0 0 0;
+}
