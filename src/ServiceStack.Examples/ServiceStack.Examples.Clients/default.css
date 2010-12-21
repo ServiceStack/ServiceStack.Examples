@@ -196,3 +196,9 @@ ACRONYM
 {
 	margin-top: 5px;
 }
+
+#btn-download {
+    display: block;
+    margin: 15px 0;
+    text-align: center;
+}

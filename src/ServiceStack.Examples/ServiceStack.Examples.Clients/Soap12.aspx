@@ -119,9 +119,21 @@
             </dd>
         </dl>    
     </div>
-    
-    
+
     </form>
+
+    <h3>View the source code online or Download:</h3>
+    <p>
+        The complete source code for this example is
+        <a href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Examples/ServiceStack.Examples.Clients/">
+            viewable online
+        </a>
+        or available to download as zip package from the link below:
+
+        <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
+            <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
+        </a>
+    </p>
 
 
     <div id="footer-links">
