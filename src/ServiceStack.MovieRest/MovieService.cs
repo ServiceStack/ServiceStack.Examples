@@ -12,7 +12,7 @@ using ServiceStack.Text;
 
 namespace ServiceStack.MovieRest
 {
-	[RestService("/movies")]
+	[RestService("/movies", "POST,PUT")]
 	[RestService("/movies/{Id}")]
 	[DataContract]
 	public class Movie

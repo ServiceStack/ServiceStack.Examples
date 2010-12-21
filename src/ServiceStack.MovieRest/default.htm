@@ -11,13 +11,14 @@
         $(function() {
 
             var restLog = function(method, url) {
+                if (method == "GET") url = '<a href="' + url + '?format=json" target="_blank">' + url + '</a>';
                 $("#restlog").prepend("<div><b class='ib'>" + method + "</b><i>" + url + "</i></div>");
             }
 
             var allGenres = [];
 
             var refreshExistingMovies = function() {
-                var moviesUrl = "servicestack/movies", jqFilter = $("SELECT[name=genres]"), filterGenre = jqFilter.val();
+                var moviesUrl = "movies", jqFilter = $("SELECT[name=genres]"), filterGenre = jqFilter.val();
                 if (filterGenre) moviesUrl += "/genres/" + filterGenre;
 
                 restLog("GET", moviesUrl);
@@ -47,7 +48,7 @@
 
 
                     $("#existing-movies .lnk-delete").click(function() {
-                        var request = { type: 'delete', url: "servicestack/movies/" + $(this).parent().attr('id') };
+                        var request = { type: 'delete', url: "movies/" + $(this).parent().attr('id') };
                         restLog("DELETE", request.url);
                         request.success = refreshExistingMovies;
                         $.ajax(request);
@@ -56,8 +57,8 @@
                     $("#existing-movies .lnk-update").click(function() {
                         var movieId = $(this).parent().attr('id');
 
-                        restLog("GET", "servicestack/movies/" + movieId);
-                        $.get("servicestack/movies/" + movieId, function(r) {
+                        restLog("GET", "movies/" + movieId);
+                        $.get("movies/" + movieId, function(r) {
                             showDetailsForm(r.Movie);
                         });
                     });
@@ -69,8 +70,8 @@
             });
 
             $("#btnReset").click(function() {
-                restLog("POST", "servicestack/reset-movies");
-                $.post("servicestack/reset-movies", function(r) {
+                restLog("POST", "reset-movies");
+                $.post("reset-movies", function(r) {
                     refreshExistingMovies();
                 });
             });
@@ -92,7 +93,7 @@
                 var movie = updateMovie || newMovie;
 
                 $("FORM INPUT[type=submit]").val(isUpdate ? "Update movie" : "Add new movie");
-                var action = "servicestack/movies";
+                var action = "movies";
                 $("FORM").attr('action', isUpdate ? action + "/" + movie.Id : action);
                 $("FORM").attr('method', isUpdate ? 'PUT' : 'POST');
 
@@ -158,7 +159,7 @@
         <button id="btnAdd">Add &gt;&gt;</button>
     </div>
     
-    <form action="servicestack/movies" method="post">
+    <form action="movies" method="post">
         <h2></h2>
         <input type="hidden" name="Id" />
         <dl>
