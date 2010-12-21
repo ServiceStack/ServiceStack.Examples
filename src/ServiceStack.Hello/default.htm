@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
@@ -107,6 +107,11 @@
     	color: #666;
     }
 
+     #btn-download {
+         display: block;
+         margin: 15px 0;
+         text-align: center;
+     }
     </style>
 </head>
 <body>
@@ -149,7 +154,7 @@
 <h4>ServiceStack Handler mapping for IIS 6.0, MONO or VS.NET dev web server</h4>
 <code class="web-config">&lt;system.web&gt;
   &lt;httpHandlers&gt;
-    &lt;add path="ServiceStack*,ServiceStack*/*,ServiceStack*/*/*,ServiceStack*/*/*/*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
+    &lt;add path="servicestack*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
   &lt;/httpHandlers&gt;
 &lt;/system.web&gt;
 </code>
@@ -157,7 +162,7 @@
 <h4>ServiceStack Handler mapping for IIS 7+</h4>
 <code class="web-config">&lt;system.webServer&gt;
   &lt;handlers&gt;
-    &lt;add name="ServiceStack.Factory" path="ServiceStack" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
+    &lt;add path="servicestack" name="ServiceStack.Factory" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
   &lt;/handlers&gt;
 &lt;/system.webServer&gt;
 </code>
@@ -488,8 +493,11 @@ public class HelloResponse
     <p>
         The complete source code for this example is
         <a href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Hello">viewable online</a>
-        or available to download as part of the
-        <a href="https://github.com/mythz/ServiceStack.Examples/downloads">ServiceStack.Examples project</a>
+        or available to download as zip package from the link below:
+
+        <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
+            <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
+        </a>
     </p>
 
 </body>
