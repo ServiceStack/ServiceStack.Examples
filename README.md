@@ -7,12 +7,12 @@ The Example Project is [ServiceStack's](https://github.com/mythz/ServiceStack) '
 A live demo and tutorials are available at the following locations:
 
 * [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/Default.htm)
+* [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
 * [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
 * [Calling Web Services with Mono Touch](http://www.servicestack.net/monotouch/remote-info/)
 * [Calling Web Services using Silverlight](http://servicestack.net/ServiceStack.Examples.Clients/Silverlight.htm)
 * [Calling SOAP 1.1 Web Service Examples](http://servicestack.net/ServiceStack.Examples.Clients/Soap11.aspx)
 * [Calling SOAP 1.2 Web Service Examples](http://servicestack.net/ServiceStack.Examples.Clients/Soap12.aspx)
-* [Example of a Movie database in REST](http://servicestack.net/ServiceStack.Examples.Clients/MovieRestTest.htm)
 
 _All live examples hosted on CentOS/Nginx/FastCGI/Mono_
 
