@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2B840832-3036-47D9-8F9B-560CD5C2BF90}</ProjectGuid>
+    <ProjectGuid>{519A7B72-D144-436D-AAC3-7BAAEAD3FF52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceStack.Examples.ServiceModel</RootNamespace>
-    <AssemblyName>ServiceStack.Examples.ServiceModel</AssemblyName>
+    <RootNamespace>ServiceStack.Examples.ServiceInterface</RootNamespace>
+    <AssemblyName>ServiceStack.Examples.ServiceInterface</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="ServiceStack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\ServiceStack.dll</HintPath>
+      <HintPath>..\..\..\libs\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\..\libs\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\..\libs\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -60,25 +60,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StoreLogsService.cs" />
+    <Compile Include="ResetMovieDatabaseService.cs" />
+    <Compile Include="MovieRestService.cs" />
+    <Compile Include="GetNorthwindCustomerOrdersCachedService.cs" />
     <Compile Include="ExampleConfig.cs" />
-    <Compile Include="Operations\StoreLogs.cs" />
+    <Compile Include="GetFactorialService.cs" />
+    <Compile Include="GetAllUsersService.cs" />
+    <Compile Include="GetNorthwindCustomerOrdersService.cs" />
+    <Compile Include="StoreNewUserService.cs" />
+    <Compile Include="Support\ConfigureDatabase.cs" />
+    <Compile Include="DeleteAllUsersService.cs" />
+    <Compile Include="GreetService.cs" />
+    <Compile Include="GetUsersService.cs" />
+    <Compile Include="GetFibonacciNumbersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\ArrayOfUser.cs" />
-    <Compile Include="Operations\DeleteAllUsers.cs" />
-    <Compile Include="Operations\GetAllUsers.cs" />
-    <Compile Include="Operations\GetFactorial.cs" />
-    <Compile Include="Operations\GetFibonacciNumbers.cs" />
-    <Compile Include="Operations\GetNorthwindCustomerOrders.cs" />
-    <Compile Include="Operations\GetNorthwindCustomerOrdersCached.cs" />
-    <Compile Include="Operations\GetUsers.cs" />
-    <Compile Include="Operations\Greet.cs" />
-    <Compile Include="Types\Logger.cs" />
-    <Compile Include="Types\Movie.cs" />
-    <Compile Include="Operations\Movies.cs" />
-    <Compile Include="Types\NorthwindDtos.cs" />
-    <Compile Include="Operations\ResetMovieDatabase.cs" />
-    <Compile Include="Operations\StoreNewUser.cs" />
-    <Compile Include="Types\User.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack.Examples.ServiceModel\ServiceStack.Examples.ServiceModel.csproj">
+      <Project>{2B840832-3036-47D9-8F9B-560CD5C2BF90}</Project>
+      <Name>ServiceStack.Examples.ServiceModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -80,11 +80,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ServiceStack.Examples.ServiceInterface\ServiceStack.Examples.ServiceInterface.csproj">
+    <ProjectReference Include="..\..\src\ServiceStack.Examples\ServiceStack.Examples.ServiceInterface\ServiceStack.Examples.ServiceInterface.csproj">
       <Project>{519A7B72-D144-436D-AAC3-7BAAEAD3FF52}</Project>
       <Name>ServiceStack.Examples.ServiceInterface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\ServiceStack.Examples.ServiceModel\ServiceStack.Examples.ServiceModel.csproj">
+    <ProjectReference Include="..\..\src\ServiceStack.Examples\ServiceStack.Examples.ServiceModel\ServiceStack.Examples.ServiceModel.csproj">
       <Project>{2B840832-3036-47D9-8F9B-560CD5C2BF90}</Project>
       <Name>ServiceStack.Examples.ServiceModel</Name>
     </ProjectReference>
