@@ -127,9 +127,6 @@ namespace ServiceStack.MovieRest
 	{
 		[DataMember]
 		public string Genre { get; set; }
-
-		[DataMember]
-		public Movie Movie { get; set; }
 	}
 
 	[DataContract]
