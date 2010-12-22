@@ -61,7 +61,7 @@ namespace ServiceStack.MovieRest
 		/// <summary>
 		/// GET /movies/{Id} 
 		/// </summary>
-		public override object Get(Movie movie)
+		public override object OnGet(Movie movie)
 		{
 			return new MovieResponse
 			{
@@ -79,7 +79,7 @@ namespace ServiceStack.MovieRest
 		/// 	{newMovie DTO in [xml|json|jsv|etc]}
 		/// 
 		/// </summary>
-		public override object Post(Movie movie)
+		public override object OnPost(Movie movie)
 		{
 			var newMovieId = DbFactory.Exec(dbCmd =>
 			{
@@ -103,7 +103,7 @@ namespace ServiceStack.MovieRest
 		/// <summary>
 		/// PUT /movies/{id}
 		/// </summary>
-		public override object Put(Movie movie)
+		public override object OnPut(Movie movie)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.Save(movie));
 			return new MovieResponse();
@@ -112,7 +112,7 @@ namespace ServiceStack.MovieRest
 		/// <summary>
 		/// DELETE /movies/{Id}
 		/// </summary>
-		public override object Delete(Movie request)
+		public override object OnDelete(Movie request)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.DeleteById<Movie>(request.Id));
 			return new MovieResponse();
@@ -144,7 +144,7 @@ namespace ServiceStack.MovieRest
 		/// GET /movies 
 		/// GET /movies/genres/{Genre}
 		/// </summary>
-		public override object Get(Movies request)
+		public override object OnGet(Movies request)
 		{
 			return new MoviesResponse
 			{

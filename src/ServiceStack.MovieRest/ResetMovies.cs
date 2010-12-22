@@ -24,7 +24,7 @@ namespace ServiceStack.MovieRest
 
 		public IDbConnectionFactory DbFactory { get; set; }
 
-		public override object Post(ResetMovies request)
+		public override object OnPost(ResetMovies request)
 		{
 			DbFactory.Exec(dbCmd =>
 			{
