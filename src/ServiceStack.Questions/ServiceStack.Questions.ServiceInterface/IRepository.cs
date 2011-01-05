@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Common.Extensions;
@@ -44,63 +45,59 @@ namespace ServiceStack.Questions.ServiceInterface
 		public User GetOrCreateUser(User user)
 		{
 			if (user.DisplayName.IsNullOrEmpty())
-				throw new ArgumentNullException("user.DisplayName");
+				throw new ArgumentNullException("DisplayName");
 
-			var userIdNameMapKey = "id:User:DisplayName:" + user.DisplayName.ToLower();
+			var userIdAliasKey = "id:User:DisplayName:" + user.DisplayName.ToLower();
 
 			using (var redis = RedisManager.GetClient())
 			using (var redisUsers = redis.GetTypedClient<User>())
 			{
-				var userKey = redis.GetValue(userIdNameMapKey);
+				//Find user by DisplayName
+				var userKey = redis.GetValue(userIdAliasKey);
 				if (userKey != null)
 					return redisUsers.GetValue(userKey);
 
+				//Generate Id for New User
 				if (user.Id != default(long))
 					user.Id = redisUsers.GetNextSequence();
 
+				//Create or Update New User
 				redisUsers.Store(user);
-				redis.SetEntry(userIdNameMapKey, user.CreateUrn());
+				//Save reference to User key using the DisplayName alias
+				redis.SetEntry(userIdAliasKey, user.CreateUrn());
 
+				//Retrieve the User by Id
 				return redisUsers.GetById(user.Id);
-			}
-		}
-
-		//Reduce the boilerplate for common access
-		T ExecRedisQuestions<T>(Func<IRedisTypedClient<Question>, T> lamda)
-		{
-			using (var redis = RedisManager.GetClient())
-			using (var redisQuestions = redis.GetTypedClient<Question>())
-			{
-				return lamda(redisQuestions);
 			}
 		}
 
 		public List<Question> GetAllQuestions()
 		{
-			return ExecRedisQuestions(q => q.GetAll().ToList());
+			//Use 'Exec<T>' extension method to easy access to: 'redis.GetTypedClient<Question>()'
+			return RedisManager.Exec<Question>(q => q.GetAll()).ToList();
 		}
 
 		public List<Question> GetRecentQuestions(int skip, int take)
 		{
-			return ExecRedisQuestions(q => q.GetLatestFromRecentsList(skip, take));
+			//Use 'Exec<T>' extension method to easy access to: 'redis.GetTypedClient<Question>()'
+			return RedisManager.Exec<Question>(q => q.GetLatestFromRecentsList(skip, take));
 		}
 
 		public void StoreQuestion(Question question)
 		{
-			using (var redis = RedisManager.GetClient())
-			using (var redisQuestions = redis.GetTypedClient<Question>())
+			RedisManager.Exec<Question>(redisQuestions => 
 			{
 				if (question.Id == default(long))
 					question.Id = redisQuestions.GetNextSequence();
 
 				redisQuestions.Store(question);
 				redisQuestions.AddToRecentsList(question);
-			}
+			});
 		}
 
 		public void StoreAnswer(Answer answer)
 		{
-			using (var redis = RedisManager.GetReadOnlyClient())
+			using (var redis = RedisManager.GetClient())
 			using (var redisQuestions = redis.GetTypedClient<Question>())
 			using (var redisAnswers = redis.GetTypedClient<Answer>())
 			{
@@ -114,7 +111,11 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		public List<Answer> GetAnswersForQuestion(long questionId)
 		{
-			return ExecRedisQuestions(q => q.GetRelatedEntities<Answer>(questionId));
+			using (var redis = RedisManager.GetClient())
+			using (var redisQuestions = redis.GetTypedClient<Question>())
+			{
+				return redisQuestions.GetRelatedEntities<Answer>(questionId);
+			}
 		}
 
 		public void VoteQuestionUp(long userId, long questionId)
