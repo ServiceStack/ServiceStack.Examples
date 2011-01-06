@@ -74,13 +74,13 @@ namespace ServiceStack.Questions.ServiceInterface
 		public List<Question> GetAllQuestions()
 		{
 			//Use 'Exec<T>' extension method to easy access to: 'redis.GetTypedClient<Question>()'
-			return RedisManager.Exec<Question>(q => q.GetAll()).ToList();
+			return RedisManager.Exec<Question>(redisQuestions => redisQuestions.GetAll()).ToList();
 		}
 
 		public List<Question> GetRecentQuestions(int skip, int take)
 		{
 			//Use 'Exec<T>' extension method to easy access to: 'redis.GetTypedClient<Question>()'
-			return RedisManager.Exec<Question>(q => q.GetLatestFromRecentsList(skip, take));
+			return RedisManager.Exec<Question>(redisQuestions => redisQuestions.GetLatestFromRecentsList(skip, take));
 		}
 
 		public void StoreQuestion(Question question)
