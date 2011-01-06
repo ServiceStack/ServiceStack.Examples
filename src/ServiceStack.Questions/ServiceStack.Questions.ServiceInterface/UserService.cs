@@ -1,10 +1,11 @@
-using System.Collections.Generic;
 using System.Runtime.Serialization;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.Questions.ServiceInterface
 {
 	[DataContract]
+	[RestService("/users")]
 	public class User
 	{
 		[DataMember]

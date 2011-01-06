@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ServiceStack.Redis;
@@ -7,7 +8,7 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.Questions.ServiceInterface
 {
 	[DataContract]
-	[RestService("/question")]
+	[RestService("/questions", "POST")]
 	[RestService("/questions/{Id}")]
 	public class Question
 	{
@@ -15,13 +16,16 @@ namespace ServiceStack.Questions.ServiceInterface
 		public long Id { get; set; }
 
 		[DataMember]
-		public string UserId { get; set; }
+		public long UserId { get; set; }
 
 		[DataMember]
 		public string Title { get; set; }
 
 		[DataMember]
 		public string Content { get; set; }
+
+		[DataMember]
+		public DateTime CreatedDate { get; set; }
 	}
 
 	[DataContract]
@@ -31,10 +35,10 @@ namespace ServiceStack.Questions.ServiceInterface
 		public long Id { get; set; }
 
 		[DataMember]
-		public string QuestionId { get; set; }
+		public long QuestionId { get; set; }
 
 		[DataMember]
-		public string UserId { get; set; }
+		public long UserId { get; set; }
 
 		[DataMember]
 		public string Content { get; set; }
@@ -48,34 +52,36 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		[DataMember]
 		public List<Answer> Answers { get; set; }
+
+		[DataMember]
+		public List<User> Users { get; set; }
 	}
 
 	public class QuestionService
 		: RestServiceBase<Question>
 	{
-		public IRedisClientsManager RedisManager { get; set; }
+		public IRepository Repository { get; set; }
 
 		public override object OnGet(Question request)
 		{
-			using (var redis = RedisManager.GetReadOnlyClient())
-			using (var redisQuestions = redis.GetTypedClient<Question>())
+			var response = new QuestionResponse
 			{
-				return new QuestionResponse { Question = redisQuestions.GetById(request.Id.ToString()) };
-			}
+				Question = Repository.GetQuestion(request.Id),
+				Answers = Repository.GetAnswersForQuestion(request.Id)
+			};
+
+			var userIds = new HashSet<long> { response.Question.UserId };
+			response.Answers.ForEach(x => userIds.Add(x.UserId));
+
+			response.Users = Repository.GetUsersByIds(userIds);
+
+			return response;
 		}
 
 		public override object OnPost(Question question)
 		{
-			using (var redis = RedisManager.GetReadOnlyClient())
-			using (var redisQuestions = redis.GetTypedClient<Question>())
-			{
-				if (question.Id == default(long))
-					question.Id = redisQuestions.GetNextSequence();
-
-				redisQuestions.Store(question);
-
-				return new QuestionResponse { Question = redisQuestions.GetById(question.Id.ToString()) };
-			}
+			Repository.StoreQuestion(question);
+			return new QuestionResponse();
 		}
 	}
 

@@ -1,11 +1,124 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>ServiceStack.Questions</title>
+    <title>ServiceStack Overflow Questions</title>
+
+    <link href="default.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            var authUser;
+
+            var refresh = function() {
+                $.get("questions", function(r){
+                    var sb = "";
+                    var userNameMap = {};
+
+                    $.each(r.Results, function(i, result){
+                        var q = result.Question, u = result.User;
+                        var date = new Date(parseFloat(/Date\(([^)]+)\)/.exec(q.CreatedDate)[1]));
+
+                        sb += '<div class="question">'
+                            + '<h4>' + q.Title + '</h4>'
+                            + ' <i>by ' + u.DisplayName + '</i>'
+                            + ' on ' + '<em>' + date.toUTCString() + '</em>'
+                            + '</div>';
+                    });
+
+                    /*
+                        sb += '<dl><dt>Answers</dt>';
+                        $.each(q.Answers, function(i,a){
+                            sb += '<dd>' + a.Content + '</dd>';
+                        });
+                        sb += '</dl>';
+                     */
+
+                    $("#results").html(sb);
+                });
+            };
+            refresh();
+
+            $("#user A").attr('href', 'javascript:void(0)');
+            $("#user A").click(function() {
+                var logoutUser = this.innerHTML == "logout";
+                if (logoutUser) {
+                    authUser = null;
+                    $("#user B, #add").hide();
+                    $("#user A").html("login");
+                    return;
+                }
+                var randUsers = "James,John,Robert,Michael,William,David,Charles,Joseph,Thomas".split(',');
+                var randUser = randUsers[Math.floor(Math.random() * randUsers.length)];
+                var user = prompt("Login with your User Name", randUser);
+                if (user) {
+                    $("#user B, #add").show();
+                    $("#user B").html("Welcome, " + user);
+                    $("#user A").html("logout");
+
+                    $.post("users", { DisplayName: user }, function(r) { authUser = r.Result; });
+                }
+            });
+
+            var addQuestion = function() {
+                var title = $("#add INPUT").val(), body = $("#add TEXTAREA").val();
+
+                $("#add INPUT, #add TEXTAREA").removeClass('error');
+                if (!title) $("#add INPUT").addClass('error');
+                if (!body)  $("#add TEXTAREA").addClass('error');
+
+                if (!title || !body) return;
+
+                $.post("questions", { UserId: authUser.Id, Title: title, Content:body }, refresh);
+            };
+            $("#add BUTTON").click(addQuestion);
+        });
+    </script>
+
 </head>
 <body>
+    <div id="header-links">
+        <a href="../ServiceStack.Hello/">Hello World</a>
+        <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
+        <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
+        <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
+        <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
+    </div>
 
-    <div id=""></div>
+    <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
+
+    <h1><a href="default.htm">Overflow-like Questions and Answers</a></h1>
+
+    <div id="summary">
+        Simple StackOverlow like Q & A Website built completely using <a href="http://www.servicestack.net">Service Stack</a> and <a href="http://redis.io">Redis</a>. <br />
+        Inspired by <a href="http://twitter.com/RobAshton">@RobAshton</a> tutorial on 
+        <a href="http://codeofrob.com/archive/2010/12/16/ravendb-stackoverflow-style-voting-with-live-projections.aspx">how to achieve a similar result</a> 
+        using <a href="http://ravendb.net/">RavenDB</a>.
+    </div>
+
+    <!--
+    <button id="btnReset">Reset</button>
+    -->
+
+    <div id="user">
+        <b></b>
+        <a>login</a>
+
+        <div id="add">
+            <dl>
+                <dd><input placeholder="New question title" /><i>*</i></dd>
+                <dd><textarea placeholder="Question body"></textarea><i>*</i></dd>
+                <dd><button>Submit Question</button></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div id="questions">
+        <h2>Existing Questions</h2>
+
+        <div id="results"></div>
+    </div>
 
 </body>
 </html>

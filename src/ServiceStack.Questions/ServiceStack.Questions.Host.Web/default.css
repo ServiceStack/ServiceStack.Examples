@@ -1,0 +1,181 @@
+BODY
+{
+    background: #fff url(img/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 0 5px 20px 10px;
+    width: 940px;
+}
+A IMG 
+{ 
+    border: none;
+}
+#header-links
+{
+    top: 10px;
+    left: 500px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+code
+{
+    background-color: ghostWhite !important;
+    border: 1px solid #DEDEDE !important;
+    color: #444 !important;
+    font-size: 12px !important;
+    line-height: 1.5em !important;
+    margin: 1em 0px !important;
+    overflow: auto !important;
+    padding: 0.5em !important;
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+    white-space: pre;
+}
+H1
+{
+    font-size: 170% !important;
+    margin-top: 0.65em;
+    padding-top: 0.5em;
+}
+H2
+{
+    border-top: 4px solid #E0E0E0 !important;
+    font-size: 150% !important;
+    margin-top: 2em !important;
+    padding-top: 0.5em !important;
+}
+INPUT[type=text]
+{
+    width: 400px;
+    padding: 2px 5px;
+}
+.lnk-src
+{
+    padding-top: 30px;
+    float: right;
+}
+.ib
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+}
+* html .ib
+{
+    display: inline;
+}
+*:first-child + html .ib
+{
+    display: inline;
+}
+H1 A
+{
+    background: url(http://www.servicestack.net/logo-servicestack.png) no-repeat;
+    display: block;
+    height: 40px;
+    padding: 70px 30px 0 120px;
+    color: #051;
+    margin: 0 50px 20px 0;
+    text-decoration: none;
+}
+#summary
+{
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background: #ffc;
+    color: green;
+    font-size: 16px;
+    border: solid 1px #ccc;
+    font-weight: bold;
+    text-align: center;
+}
+#summary A
+{
+    color: blue;
+}
+#summary B
+{
+}
+
+H4
+{
+}
+
+FORM 
+{
+	display: none;
+}
+
+BUTTON 
+{
+	padding: 5px 10px;
+}
+
+#user
+{
+    text-align:right;
+    float: right;
+    margin-right: 10px;
+}
+#user B
+{
+    display:none;
+    border-right: solid 1px #ccc;
+    margin-right: 5px;
+    padding-right: 10px;
+}
+
+#add
+{
+    display:none;
+    text-align:center;
+}
+#add INPUT, #add TEXTAREA
+{
+    width: 300px;
+    padding: 3px;
+    font: 13px arial;
+    border: solid 1px #ccf;
+}
+#add TEXTAREA {
+    height: 70px;
+}
+#add INPUT.error, #add TEXTAREA.error
+{
+    border: solid 1px #c00;
+    background: #fee;
+}
+#add SPAN.error
+{
+    display:block;
+    color:#c00;
+}
+#add i
+{
+    vertical-align:top;
+    color:#c00;
+    font-size: 16px;
+    padding: 10px 0 0 0;
+}
+
+.question
+{
+    border-top: solid 1px #EEE;
+    margin: 0 0 10px 0;
+    width: 400px;
+}
+.question I
+{
+    color: #999;
+    font-style:normal;
+    padding: 0 5px;
+}
+.question H4
+{
+    padding: 5px;
+    margin: 0 0 0 0;
+}
