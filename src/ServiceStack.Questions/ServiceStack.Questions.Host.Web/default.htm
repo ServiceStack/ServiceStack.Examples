@@ -1,16 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>ServiceStack Overflow Questions</title>
+    <title>ServiceStack and Redis Overflow</title>
 
     <link href="default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(function() {
-            var authUser;
+            var authUser, userStats, siteStats;
+
+            var defaultMessage = "Browse latest or login to ask a question";
+
+            var updateStatus = function(message, className)
+            {
+                var sb = className
+                    ? '<b class="' + className + '">'
+                    : '<b>';
+                $("#status H4").html(sb + message + '</b>');
+            }
+
+            var updateUserStatus = function(message, className)
+            {
+                var sb = className
+                    ? '<span class="' + className + '">'
+                    : '<span>';
+                $("#user H4").html(sb + message + '</span>');
+            }
+
+            updateStatus(defaultMessage);
 
             var refresh = function() {
+                if (authUser)
+                {
+                    $.get("users/" + authUser.Id + "/stats", function(r){
+                        userStats = r.Result;
+                        updateUserStatus("You have asked <em>" + userStats.QuestionsCount
+                                + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions");
+                    });
+                }
+                $.get("stats", function(r){
+                    siteStats = r.Result;
+                    updateStatus("This site has <em>" + siteStats.QuestionsCount
+                        + "</em> questions and <em>" + siteStats.AnswersCount + "</em> answers");
+                });
                 $.get("questions", function(r){
                     var sb = "";
                     var userNameMap = {};
@@ -56,7 +89,7 @@
                     $("#user B").html("Welcome, " + user);
                     $("#user A").html("logout");
 
-                    $.post("users", { DisplayName: user }, function(r) { authUser = r.Result; });
+                    $.post("users", { DisplayName: user }, function(r) { authUser = r.Result; refresh(); });
                 }
             });
 
@@ -88,11 +121,14 @@
 
     <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
 
-    <h1><a href="default.htm">Overflow-like Questions and Answers</a></h1>
+    <h1><a href="default.htm">Overflow on REST &amp; Redis</a></h1>
 
     <div id="summary">
-        Simple StackOverlow like Q & A Website built completely using <a href="http://www.servicestack.net">Service Stack</a> and <a href="http://redis.io">Redis</a>. <br />
-        Inspired by <a href="http://twitter.com/RobAshton">@RobAshton</a> tutorial on 
+        Simple StackOverlow-like Ajax website using only <a href="http://jquery.com">jQuery</a> for UI,
+        calling <a href="http://www.servicestack.net">Service Stack's</a> REST-ful web services,
+        powered entirely by <a href="http://redis.io">Redis</a>.<br />
+
+        Inspired by <a href="http://twitter.com/RobAshton">@RobAshton</a>'s tutorial on 
         <a href="http://codeofrob.com/archive/2010/12/16/ravendb-stackoverflow-style-voting-with-live-projections.aspx">how to achieve a similar result</a> 
         using <a href="http://ravendb.net/">RavenDB</a>.
     </div>
@@ -101,21 +137,25 @@
     <button id="btnReset">Reset</button>
     -->
 
+    <div id="status"><h4></h4></div>
+
     <div id="user">
         <b></b>
         <a>login</a>
 
+        <h4></h4>
+        
         <div id="add">
             <dl>
-                <dd><input placeholder="New question title" /><i>*</i></dd>
-                <dd><textarea placeholder="Question body"></textarea><i>*</i></dd>
-                <dd><button>Submit Question</button></dd>
+                <dd><input placeholder="What is your question?" /><i>*</i></dd>
+                <dd><textarea></textarea><i>*</i></dd>
+                <dd><button>Ask Question</button></dd>
             </dl>
         </div>
     </div>
 
     <div id="questions">
-        <h2>Existing Questions</h2>
+        <h2>Latest Questions</h2>
 
         <div id="results"></div>
     </div>

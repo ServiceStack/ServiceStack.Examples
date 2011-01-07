@@ -1,12 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using ServiceStack.Redis.Generic;
 
 namespace ServiceStack.Questions.ServiceInterface
 {
 	public interface IRepository
 	{
 		User GetOrCreateUser(User user);
+
+		UserStat GetUserStats(long userId);
 
 		List<Question> GetAllQuestions();
 
@@ -31,5 +31,7 @@ namespace ServiceStack.Questions.ServiceInterface
 		Question GetQuestion(long questionId);
 
 		List<User> GetUsersByIds(IEnumerable<long> userIds);
+		
+		SiteStats GetSiteStats();
 	}
 }

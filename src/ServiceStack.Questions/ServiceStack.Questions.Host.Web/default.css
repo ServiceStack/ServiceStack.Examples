@@ -76,10 +76,10 @@ H1 A
 {
     background: url(http://www.servicestack.net/logo-servicestack.png) no-repeat;
     display: block;
-    height: 40px;
+    height: 38px;
     padding: 70px 30px 0 120px;
     color: #051;
-    margin: 0 50px 20px 0;
+    margin: 0 50px 0 0;
     text-decoration: none;
 }
 #summary
@@ -87,10 +87,9 @@ H1 A
     margin: 0 0 20px 0;
     padding: 10px;
     background: #ffc;
-    color: green;
-    font-size: 16px;
-    border: solid 1px #ccc;
-    font-weight: bold;
+    color: #000;
+    font: 14px/18px helvetica;
+    border: solid 1px #ccf;
     text-align: center;
 }
 #summary A
@@ -115,6 +114,18 @@ BUTTON
 	padding: 5px 10px;
 }
 
+
+#status
+{
+    float:left;
+}
+#status H4
+{
+    margin:0;
+    padding:0;
+}
+
+
 #user
 {
     text-align:right;
@@ -128,11 +139,21 @@ BUTTON
     margin-right: 5px;
     padding-right: 10px;
 }
+H4 EM
+{
+    color: #666;
+    font-style:normal;
+}
 
 #add
 {
     display:none;
     text-align:center;
+}
+#add H4
+{
+    margin: 15px 0 0 0;
+    padding:0;
 }
 #add INPUT, #add TEXTAREA
 {

@@ -29,7 +29,10 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		public override object OnPost(User request)
 		{
-			return new UserResponse { Result = Repository.GetOrCreateUser(request) };
+			return new UserResponse
+			{
+				Result = Repository.GetOrCreateUser(request),
+			};
 		}
 	}
 }

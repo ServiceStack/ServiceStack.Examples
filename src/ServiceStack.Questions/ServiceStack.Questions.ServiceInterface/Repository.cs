@@ -9,10 +9,31 @@ namespace ServiceStack.Questions.ServiceInterface
 {
 	public class Repository : IRepository
 	{
-		private const string QuestionUpVotesPrefix = "urn:upvotes:question:";
-		private const string QuestionDownVotesPrefix = "urn:downvotes:question:";
-		private const string AnswerUpVotesPrefix = "urn:upvotes:answer:";
-		private const string AnswerDownVotesPrefix = "urn:downvotes:answer:";
+		static class QuestionUserIndex
+		{
+			public static string UpVotes(long questionId) { return "set:q>user+:" + questionId; }
+			public static string DownVotes(long questionId) { return "set:q>user-:" + questionId; }
+		}
+
+		static class UserQuestionIndex
+		{
+			public static string Questions(long userId) { return "set:user>q:" + userId; }
+			public static string UpVotes(long userId) { return "set:user>q+:" + userId; }
+			public static string DownVotes(long userId) { return "set:user>q-:" + userId; }
+		}
+
+		static class AnswerUserIndex
+		{
+			public static string UpVotes(long answerId) { return "set:a>user+:" + answerId; }
+			public static string DownVotes(long answerId) { return "set:a>user-:" + answerId; }
+		}
+
+		static class UserAnswerIndex
+		{
+			public static string Answers(long userId) { return "set:user>a:" + userId; }
+			public static string UpVotes(long userId) { return "set:user>a+:" + userId; }
+			public static string DownVotes(long userId) { return "set:user>a-:" + userId; }
+		}
 
 		IRedisClientsManager RedisManager { get; set; }
 
@@ -50,6 +71,19 @@ namespace ServiceStack.Questions.ServiceInterface
 			}
 		}
 
+		public UserStat GetUserStats(long userId)
+		{
+			using (var redis = RedisManager.GetClient())
+			{
+				return new UserStat
+				{
+                    UserId = userId,
+					QuestionsCount = redis.GetSetCount(UserQuestionIndex.Questions(userId)),
+					AnswersCount = redis.GetSetCount(UserAnswerIndex.Answers(userId)),
+				};
+			}
+		}
+
 		public List<Question> GetAllQuestions()
 		{
 			return RedisManager.Exec<Question>(redisQuestions => redisQuestions.GetAll()).ToList();
@@ -75,8 +109,8 @@ namespace ServiceStack.Questions.ServiceInterface
 					foreach (var question in recentQuestions)
 					{
 						var q = question;
-						trans.QueueCommand(r => r.GetSetCount(QuestionUpVotesPrefix + q.Id), voteUpCount => resultsMap[q.Id].VotesUpCount = voteUpCount);
-						trans.QueueCommand(r => r.GetSetCount(QuestionUpVotesPrefix + q.Id), voteDownCount => resultsMap[q.Id].VotesDownCount = voteDownCount);
+						trans.QueueCommand(r => r.GetSetCount(QuestionUserIndex.UpVotes(q.Id)), voteUpCount => resultsMap[q.Id].VotesUpCount = voteUpCount);
+						trans.QueueCommand(r => r.GetSetCount(QuestionUserIndex.DownVotes(q.Id)), voteDownCount => resultsMap[q.Id].VotesDownCount = voteDownCount);
 						trans.QueueCommand(r => r.GetTypedClient<Question>().GetRelatedEntitiesCount<Answer>(q.Id), answersCount => resultsMap[q.Id].AnswersCount = answersCount);
 					}
 
@@ -89,7 +123,8 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		public void StoreQuestion(Question question)
 		{
-			RedisManager.Exec<Question>(redisQuestions =>
+			using (var redis = RedisManager.GetClient())
+			using (var redisQuestions = redis.GetTypedClient<Question>())
 			{
 				if (question.Id == default(long))
 				{
@@ -98,8 +133,9 @@ namespace ServiceStack.Questions.ServiceInterface
 				}
 
 				redisQuestions.Store(question);
-				redisQuestions.AddToRecentsList(question);
-			});
+				redisQuestions.AddToRecentsList(question);				
+				redis.AddItemToSet(UserQuestionIndex.Questions(question.UserId), question.Id.ToString());
+			}
 		}
 
 		public void StoreAnswer(Answer answer)
@@ -113,6 +149,7 @@ namespace ServiceStack.Questions.ServiceInterface
 
 				redisAnswers.Store(answer);
 				redisQuestions.StoreRelatedEntities(answer.QuestionId, answer);
+				redis.AddItemToSet(UserAnswerIndex.Answers(answer.UserId), answer.Id.ToString());
 			}
 		}
 
@@ -127,38 +164,62 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		public void VoteQuestionUp(long userId, long questionId)
 		{
-			using (var redis = RedisManager.GetClient())
+			//Populate Question => User and User => Question set indexes in a single transaction
+			RedisManager.ExecTrans(trans =>
 			{
-				redis.AddItemToSet(QuestionUpVotesPrefix + questionId, userId.ToString());
-				redis.RemoveItemFromSet(QuestionDownVotesPrefix + questionId, userId.ToString());
-			}
+				//Register upvote against question and remove any downvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(QuestionUserIndex.UpVotes(questionId), userId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(QuestionUserIndex.DownVotes(questionId), userId.ToString()));
+
+				//Register upvote against user and remove any downvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(UserQuestionIndex.UpVotes(userId), questionId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(UserQuestionIndex.DownVotes(userId), questionId.ToString()));
+			});
 		}
 
 		public void VoteQuestionDown(long userId, long questionId)
 		{
-			using (var redis = RedisManager.GetClient())
+			//Populate Question => User and User => Question set indexes in a single transaction
+			RedisManager.ExecTrans(trans =>
 			{
-				redis.AddItemToSet(QuestionDownVotesPrefix + questionId, userId.ToString());
-				redis.RemoveItemFromSet(QuestionUpVotesPrefix + questionId, userId.ToString());
-			}
+				//Register downvote against question and remove any upvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(QuestionUserIndex.DownVotes(questionId), userId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(QuestionUserIndex.UpVotes(questionId), userId.ToString()));
+
+				//Register downvote against user and remove any upvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(UserQuestionIndex.DownVotes(userId), questionId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(UserQuestionIndex.UpVotes(userId), questionId.ToString()));
+			});
 		}
 
 		public void VoteAnswerUp(long userId, long answerId)
 		{
-			using (var redis = RedisManager.GetClient())
+			//Populate Question => User and User => Question set indexes in a single transaction
+			RedisManager.ExecTrans(trans =>
 			{
-				redis.AddItemToSet(AnswerUpVotesPrefix + answerId, userId.ToString());
-				redis.RemoveItemFromSet(AnswerDownVotesPrefix + answerId, userId.ToString());
-			}
+				//Register upvote against answer and remove any downvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(AnswerUserIndex.UpVotes(answerId), userId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(AnswerUserIndex.DownVotes(answerId), userId.ToString()));
+
+				//Register upvote against user and remove any downvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(UserAnswerIndex.UpVotes(userId), answerId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(UserAnswerIndex.DownVotes(userId), answerId.ToString()));
+			});
 		}
 
 		public void VoteAnswerDown(long userId, long answerId)
 		{
-			using (var redis = RedisManager.GetClient())
+			//Populate Question => User and User => Question set indexes in a single transaction
+			RedisManager.ExecTrans(trans =>
 			{
-				redis.AddItemToSet(AnswerDownVotesPrefix + answerId, userId.ToString());
-				redis.RemoveItemFromSet(AnswerUpVotesPrefix + answerId, userId.ToString());
-			}
+				//Register downvote against answer and remove any upvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(AnswerUserIndex.DownVotes(answerId), userId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(AnswerUserIndex.UpVotes(answerId), userId.ToString()));
+
+				//Register downvote against user and remove any upvotes if any
+				trans.QueueCommand(redis => redis.AddItemToSet(AnswerUserIndex.DownVotes(userId), answerId.ToString()));
+				trans.QueueCommand(redis => redis.RemoveItemFromSet(AnswerUserIndex.UpVotes(userId), answerId.ToString()));
+			});
 		}
 
 		public Question GetQuestion(long questionId)
@@ -177,11 +238,25 @@ namespace ServiceStack.Questions.ServiceInterface
 			{
 				var result = new QuestionStat
 				{
-					VotesUpCount = redis.GetSetCount(QuestionUpVotesPrefix + questionId),
-					VotesDownCount = redis.GetSetCount(QuestionDownVotesPrefix + questionId)
+					VotesUpCount = redis.GetSetCount(QuestionUserIndex.UpVotes(questionId)),
+					VotesDownCount = redis.GetSetCount(QuestionUserIndex.DownVotes(questionId))
 				};
 				result.VotesTotal = result.VotesUpCount - result.VotesDownCount;
 				return result;
+			}
+		}
+
+		public SiteStats GetSiteStats()
+		{
+			using (var redis = RedisManager.GetClient())
+			using (var redisQuestions = redis.GetTypedClient<Question>())
+			using (var redisAnswers = redis.GetTypedClient<Answer>())
+			{
+				return new SiteStats
+				{
+					QuestionsCount = redisQuestions.TypeIdsSet.Count,
+                    AnswersCount = redisAnswers.TypeIdsSet.Count
+				};
 			}
 		}
 	}
