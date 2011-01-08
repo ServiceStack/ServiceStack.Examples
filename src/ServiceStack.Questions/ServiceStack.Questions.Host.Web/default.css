@@ -5,7 +5,12 @@ BODY
     padding: 0 5px 20px 10px;
     width: 940px;
 }
-A IMG 
+DD, DL, DT, UL, LI {
+    margin: 0;
+    padding: 0;
+}
+
+A IMG
 { 
     border: none;
 }
@@ -131,6 +136,11 @@ BUTTON
     text-align:right;
     float: right;
     margin-right: 10px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 #user B
 {
@@ -139,6 +149,12 @@ BUTTON
     margin-right: 5px;
     padding-right: 10px;
 }
+#user H4
+{
+    margin: 15px 0 0 0;
+    padding: 0 0 0 15px;
+}
+
 H4 EM
 {
     color: #666;
@@ -150,11 +166,6 @@ H4 EM
     display:none;
     text-align:center;
 }
-#add H4
-{
-    margin: 15px 0 0 0;
-    padding:0;
-}
 #add INPUT, #add TEXTAREA
 {
     width: 300px;
@@ -163,7 +174,7 @@ H4 EM
     border: solid 1px #ccf;
 }
 #add TEXTAREA {
-    height: 70px;
+    height: 150px;
 }
 #add INPUT.error, #add TEXTAREA.error
 {
@@ -185,18 +196,143 @@ H4 EM
 
 .question
 {
-    border-top: solid 1px #EEE;
-    margin: 0 0 10px 0;
-    width: 400px;
-}
-.question I
-{
-    color: #999;
-    font-style:normal;
-    padding: 0 5px;
+    border-bottom: solid 1px #EEE;
+    padding: 0 0 5px 0;
+    margin: 0 0 5px 0;
+    width: 580px;
 }
 .question H4
 {
     padding: 5px;
     margin: 0 0 0 0;
+    font: bold 17px Helvetica;
+    color: #07C;
+}
+.question DL
+{
+    width: 50px;
+    text-align: center;
+    margin: 0 5px 0 0;
+    background: #eee;
+    padding: 0 4px 4px 4px;
+}
+.question DT
+{
+    display: block;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.question DD
+{
+    display: block;
+    margin: 0;
+    font-size: 13px;
+}
+.question DL.answered
+{
+    background: #75845C;
+    color: #fff;
+}
+.question DL.unanswered
+{
+    background: #9A4444;
+    color: #fff;
+}
+.question DIV.ib
+{
+    width: 450px;
+}
+.question .by
+{
+    float: right;
+    font-size: 11px;
+    text-align:right;
+}
+.question .by I
+{
+    display: block;
+    color:#07C;
+    font-style:normal;
+}
+
+*[data-cmd]
+{
+    color:#07C;
+    cursor:pointer;
+}
+*[data-cmd]:hover
+{
+    text-decoration: underline;
+}
+
+.question .by EM
+{
+    font-weight:bold;
+    color: #999;
+}
+.tag, .page
+{
+    font-weight:normal;
+    background: #E0EAF1;
+    border-bottom: solid 1px #3E6D8E;
+    border-right: solid 1px #7F9FB6;
+    margin: 0 2px;
+    padding: 2px;
+}
+.tag:hover, .page:hover
+{
+    color:#fff;
+    background: #3E6D8E;
+    cursor:pointer;
+    text-decoration:none;
+}
+.page
+{
+    padding: 2px 5px;
+}
+
+#toptags H3, #notes H3
+{
+    text-align:center;
+}
+#toptags DL
+{
+    text-align: left;
+    margin: 0 0 0 30px;
+}
+#toptags DD
+{
+    display: block;
+    height: 26px;
+}
+#toptags DD STRONG
+{
+    font-size: 15px;
+    margin: 0 0 0 5px;
+}
+#notes
+{
+    margin: 40px 0 0 0;
+}
+#notes DL
+{
+    text-align:left;
+    background: #f1f1f1;
+    padding: 5px;
+}
+#notes DD
+{
+    padding: 2px;
+}
+
+#footer
+{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 943px;
+    border-top: solid 1px #999;
+    background: #f1f1f1;
+    padding: 10px;
 }

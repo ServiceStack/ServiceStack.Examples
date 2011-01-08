@@ -12,6 +12,11 @@ namespace ServiceStack.Questions.ServiceInterface
 	[RestService("/questions/{Id}")]
 	public class Question
 	{
+		public Question()
+		{
+			this.Tags = new List<string>();
+		}
+
 		[DataMember]
 		public long Id { get; set; }
 
@@ -26,6 +31,9 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		[DataMember]
 		public DateTime CreatedDate { get; set; }
+
+		[DataMember]
+		public List<string> Tags { get; set; }
 	}
 
 	[DataContract]

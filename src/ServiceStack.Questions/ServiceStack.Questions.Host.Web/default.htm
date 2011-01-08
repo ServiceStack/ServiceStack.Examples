@@ -1,14 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>ServiceStack and Redis Overflow</title>
+    <title>ServiceStack Redis StackOverflow</title>
 
     <link href="default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(function() {
-            var authUser, userStats, siteStats;
+            var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
+
+            if (window.localStorage) {
+                authUser = localStorage.getItem("authUser");
+                if (typeof authUser == "string") authUser = $.parseJSON(authUser);
+                if (authUser)
+                {
+                    loginUser(authUser.DisplayName);
+                    refresh();
+                }
+            }
+
+            $("*[data-cmd]").live('click',function(){
+                qSource = this.getAttribute("data-cmd");
+                qLabel = this.getAttribute("data-label");
+                console.log([qSource, qLabel]);
+                refresh();
+            });
 
             var defaultMessage = "Browse latest or login to ask a question";
 
@@ -30,81 +47,151 @@
 
             updateStatus(defaultMessage);
 
-            var refresh = function() {
+            var fromDtoDate = function(dateStr) {
+                return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
+            } 
+            var toTwitterTime = function (a) {
+                var b = new Date();
+                var c = typeof a == "Date" ? a : new Date(a);
+                var d = b - c;
+                var e = 1000, minute = e * 60, hour = minute * 60, day = hour * 24, week = day * 7;
+                if (isNaN(d) || d < 0) { return "" }
+                if (d < e * 7) { return "right now" }
+                if (d < minute) { return Math.floor(d / e) + " secs ago" }
+                if (d < minute * 2) { return "about 1 min ago" }
+                if (d < hour) { return Math.floor(d / minute) + " mins ago" }
+                if (d < hour * 2) { return "about 1 hour ago" }
+                if (d < day) { return Math.floor(d / hour) + " hours ago" }
+                if (d > day && d < day * 2) { return "yesterday" }
+                if (d < day * 365) { return Math.floor(d / day) + " days ago" } else { return "over a year ago" }
+            }
+            function refresh() {
                 if (authUser)
                 {
                     $.get("users/" + authUser.Id + "/stats", function(r){
                         userStats = r.Result;
-                        updateUserStatus("You have asked <em>" + userStats.QuestionsCount
-                                + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions");
+                        var msg = "You have "
+                            + "<em data-cmd='users/" + authUser.Id + "/questions' data-label='Questions by "
+                                + authUser.DisplayName + "'>asked " + userStats.QuestionsCount
+                            + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions";
+                        updateUserStatus(msg);
                     });
                 }
                 $.get("stats", function(r){
                     siteStats = r.Result;
-                    updateStatus("This site has <em>" + siteStats.QuestionsCount
-                        + "</em> questions and <em>" + siteStats.AnswersCount + "</em> answers");
+                    var msg = "This site has "
+                        + "<em data-cmd='questions' data-label='Latest Questions'>" + siteStats.QuestionsCount + " questions</em>"
+                        + " and <em>" + siteStats.AnswersCount + "</em> answers";
+                    updateStatus(msg);
+
+                    var tags = "";
+                    $.each(siteStats.TopTags, function(i,tag){
+                        tags += "<dd><span class='tag' data-cmd='questions/tagged/" + tag.Name
+                              + "' data-label='Questions tagged with " + tag.Name + "'>"
+                              + tag.Name + "</span><strong>x" + tag.Score + "</strong></dd>";
+                    });
+
+                    var pages = "";
+                    var pageCount = Math.ceil(siteStats.QuestionsCount / 10);
+                    for (var pageNo=0; pageNo<pageCount; pageNo++) {
+                        pages += "<span class='page' data-cmd='questions/page/" + pageNo + "'"
+                               + " data-label='Latest Questions - page " + (pageNo+1) + "/" + pageCount + "'>"
+                               + (pageNo + 1) + "</span>";
+                    }
+                    $("#paging").html(pages);
+
+                    $("#toptags DL").html(tags);
                 });
-                $.get("questions", function(r){
+
+                $("#questions H2").html(qLabel);
+                $.get(qSource, function(r){
                     var sb = "";
                     var userNameMap = {};
 
-                    $.each(r.Results, function(i, result){
-                        var q = result.Question, u = result.User;
-                        var date = new Date(parseFloat(/Date\(([^)]+)\)/.exec(q.CreatedDate)[1]));
+                    $.each(r.Results, function(i, r){
+                        var q = r.Question, u = r.User;
+                        var date = fromDtoDate(q.CreatedDate);
+
+                        var aCls = r.AnswersCount > 0 ? "answered" : "unanswered";
+                        var aText = r.AnswersCount == 1 ? "answer" : "answers";
+
+                        var tags = "";
+                        $.each(q.Tags, function(i,tag){
+                            tags += "<b class='tag' data-cmd='questions/tagged/" + tag
+                                  + "' data-label='Questions tagged with " + tag + "'>"
+                                  + tag + "</b>";
+                        });
 
                         sb += '<div class="question">'
+                            + '<dl class="votes ib"><dt>' + r.VotesUpCount + '</dt><dd>votes</dd></dl>'
+                            + '<dl class="status ib ' + aCls + '"><dt>' + r.AnswersCount + '</dt><dd>' + aText + '</dd></dl>'
+                            + '<div class="ib">'
                             + '<h4>' + q.Title + '</h4>'
-                            + ' <i>by ' + u.DisplayName + '</i>'
-                            + ' on ' + '<em>' + date.toUTCString() + '</em>'
+                            + '<div class="by">'
+                            + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
+                                + u.DisplayName + "'>by " + u.DisplayName + "</i>"
+                            +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
+                            + '</div>'
+                            + '<div class="tags">' + tags + '</div>'
+                            + '</div>'
                             + '</div>';
                     });
-
-                    /*
-                        sb += '<dl><dt>Answers</dt>';
-                        $.each(q.Answers, function(i,a){
-                            sb += '<dd>' + a.Content + '</dd>';
-                        });
-                        sb += '</dl>';
-                     */
 
                     $("#results").html(sb);
                 });
             };
             refresh();
 
-            $("#user A").attr('href', 'javascript:void(0)');
-            $("#user A").click(function() {
+            $("#user A#login").attr('href', 'javascript:void(0)');
+            $("#user A#login").click(function() {
                 var logoutUser = this.innerHTML == "logout";
                 if (logoutUser) {
                     authUser = null;
-                    $("#user B, #add").hide();
-                    $("#user A").html("login");
+                    $("#user B, #user H4, #add").hide();
+                    $("#user A#login").html("login");
+                    if (window.localStorage) localStorage.removeItem("authUser");
                     return;
                 }
-                var randUsers = "James,John,Robert,Michael,William,David,Charles,Joseph,Thomas".split(',');
+                var randUsers = "mythz,James,John,Robert,Michael,William,David,Charles,Joseph,Thomas".split(',');
                 var randUser = randUsers[Math.floor(Math.random() * randUsers.length)];
-                var user = prompt("Login with your User Name", randUser);
-                if (user) {
-                    $("#user B, #add").show();
-                    $("#user B").html("Welcome, " + user);
-                    $("#user A").html("logout");
-
-                    $.post("users", { DisplayName: user }, function(r) { authUser = r.Result; refresh(); });
+                var userName = prompt("Login with your User Name", randUser);
+                if (userName) {
+                    loginUser(userName);
+                    $.post("users", { DisplayName: userName }, function(r) {
+                        authUser = r.Result;
+                        if (window.localStorage) localStorage.setItem("authUser", JSON.stringify(authUser));
+                        refresh();
+                    });
                 }
             });
 
+            function loginUser(userName)
+            {
+                $("#add INPUT, #add TEXTAREA").val('');
+                $("#user B, #user H4, #add").show();
+                $("#user B").html("Welcome, " + userName);
+                $("#user A#login").html("logout");
+            }
+
             var addQuestion = function() {
-                var title = $("#add INPUT").val(), body = $("#add TEXTAREA").val();
+                var title = $("#qtitle").val(), body = $("#qbody").val(), tags = $("#qtags").val();
 
                 $("#add INPUT, #add TEXTAREA").removeClass('error');
-                if (!title) $("#add INPUT").addClass('error');
-                if (!body)  $("#add TEXTAREA").addClass('error');
+                if (!title) $("#qtitle").addClass('error');
+                if (!body)  $("#qbody").addClass('error');
+                if (!tags)  $("#qtags").addClass('error');
 
-                if (!title || !body) return;
+                if (!title || !body || !tags) return;
 
-                $.post("questions", { UserId: authUser.Id, Title: title, Content:body }, refresh);
+                var dtoTags = tags.split(/[,; ]/).join(",");
+
+                $("#add INPUT, #add TEXTAREA").val('');
+
+                $.post("questions", { UserId: authUser.Id, Title: title, Content:body, Tags: dtoTags }, refresh);
             };
             $("#add BUTTON").click(addQuestion);
+
+
         });
     </script>
 
@@ -119,45 +206,77 @@
         <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
     </div>
 
-    <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
+    <a class="lnk-src" href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Questions"><img src="img/btn-github.png" width="186" height="84" /></a>
 
-    <h1><a href="default.htm">Overflow on REST &amp; Redis</a></h1>
-
-    <div id="summary">
-        Simple StackOverlow-like Ajax website using only <a href="http://jquery.com">jQuery</a> for UI,
-        calling <a href="http://www.servicestack.net">Service Stack's</a> REST-ful web services,
-        powered entirely by <a href="http://redis.io">Redis</a>.<br />
-
-        Inspired by <a href="http://twitter.com/RobAshton">@RobAshton</a>'s tutorial on 
-        <a href="http://codeofrob.com/archive/2010/12/16/ravendb-stackoverflow-style-voting-with-live-projections.aspx">how to achieve a similar result</a> 
-        using <a href="http://ravendb.net/">RavenDB</a>.
-    </div>
-
-    <!--
-    <button id="btnReset">Reset</button>
-    -->
+    <h1><a href="default.htm">Redis StackOverflow</a></h1>
 
     <div id="status"><h4></h4></div>
 
     <div id="user">
         <b></b>
-        <a>login</a>
+        <a id="login">login</a>
 
         <h4></h4>
         
         <div id="add">
             <dl>
-                <dd><input placeholder="What is your question?" /><i>*</i></dd>
-                <dd><textarea></textarea><i>*</i></dd>
+                <dd><input id="qtitle" placeholder="what is your question?" /><i>*</i></dd>
+                <dd><textarea id="qbody"></textarea><i>*</i></dd>
+                <dd><input id="qtags" placeholder="at least one tag required" /><i>*</i></dd>
                 <dd><button>Ask Question</button></dd>
+            </dl>
+        </div>
+
+        <div id="toptags">
+            <h3>Top Tags</h3>
+            <dl></dl>
+        </div>
+
+        <div id="notes">
+            <h3>Application Features</h3>
+            <dl>
+                <dd>
+                    <a href="">Only 1 static html page</a>
+                    that uses only jQuery.
+                </dd>
+                <dd>
+                    Uses
+                    <a href="http://redis.io">Redis</a> 
+                    for all data access.
+                    <a href="">Fits in 1 C# class</a>
+                </dd>
+                <dd>
+                    No other external .dlls used apart for
+                    <a href="http://www.servicestack.net">ServiceStack</a>
+                </dd>
+                <dd>
+                    <a href="servicestack/metadata">
+                        Complete Web Services API
+                    </a>
+                </dd>
             </dl>
         </div>
     </div>
 
     <div id="questions">
-        <h2>Latest Questions</h2>
-
+        <h2></h2>
         <div id="results"></div>
+        <div id="paging"></div>
+    </div>
+
+    <div id="footer">
+        Simple StackOverlow-like Ajax website using only <a href="http://jquery.com">jQuery</a> for UI,
+        calling <a href="http://www.servicestack.net">Service Stack's</a> REST-ful web services,
+        powered entirely by <a href="http://redis.io">Redis</a>.<br />
+
+        Takes advantage of the
+        <a href="http://redis.io/commands#string">STRING</a>,
+        <a href="http://redis.io/commands#set">SET</a> and
+        <a href="http://redis.io/commands#sorted_set">SORTED SET</a> 
+        data structures in
+        <a href="http://redis.io">Redis</a> 
+        to provide effectively,
+        the fastest implementation of a StackOverflow-like website.
     </div>
 
 </body>
