@@ -8,8 +8,8 @@
     <ProjectGuid>{41C8C157-B2A4-4DDE-B153-233E46109F39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceStack.Questions.ServiceInterface</RootNamespace>
-    <AssemblyName>ServiceStack.Questions.ServiceInterface</AssemblyName>
+    <RootNamespace>RedisStackOverflow.ServiceInterface</RootNamespace>
+    <AssemblyName>RedisStackOverflow.ServiceInterface</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Copy of UserStatsService.cs" />
+    <Compile Include="AnswersService.cs" />
     <Compile Include="ResetService.cs" />
     <Compile Include="UserStatsService.cs" />
     <Compile Include="StatsService.cs" />

@@ -46,36 +46,37 @@ namespace ServiceStack.Questions.ServiceInterface
 
 	public class Repository : IRepository
 	{
+		//Definition of all the redis keys that are used for indexes
 		static class TagIndex
 		{
-			public static string Questions(string tag) { return "set:tags>q:" + tag.ToLower(); }
+			public static string Questions(string tag) { return "urn:tags>q:" + tag.ToLower(); }
 			public static string All { get { return "urn:tags"; } }
 		}
 
 		static class QuestionUserIndex
 		{
-			public static string UpVotes(long questionId) { return "set:q>user+:" + questionId; }
-			public static string DownVotes(long questionId) { return "set:q>user-:" + questionId; }
+			public static string UpVotes(long questionId) { return "urn:q>user+:" + questionId; }
+			public static string DownVotes(long questionId) { return "urn:q>user-:" + questionId; }
 		}
 
 		static class UserQuestionIndex
 		{
-			public static string Questions(long userId) { return "set:user>q:" + userId; }
-			public static string UpVotes(long userId) { return "set:user>q+:" + userId; }
-			public static string DownVotes(long userId) { return "set:user>q-:" + userId; }
+			public static string Questions(long userId) { return "urn:user>q:" + userId; }
+			public static string UpVotes(long userId) { return "urn:user>q+:" + userId; }
+			public static string DownVotes(long userId) { return "urn:user>q-:" + userId; }
 		}
 
 		static class AnswerUserIndex
 		{
-			public static string UpVotes(long answerId) { return "set:a>user+:" + answerId; }
-			public static string DownVotes(long answerId) { return "set:a>user-:" + answerId; }
+			public static string UpVotes(long answerId) { return "urn:a>user+:" + answerId; }
+			public static string DownVotes(long answerId) { return "urn:a>user-:" + answerId; }
 		}
 
 		static class UserAnswerIndex
 		{
-			public static string Answers(long userId) { return "set:user>a:" + userId; }
-			public static string UpVotes(long userId) { return "set:user>a+:" + userId; }
-			public static string DownVotes(long userId) { return "set:user>a-:" + userId; }
+			public static string Answers(long userId) { return "urn:user>a:" + userId; }
+			public static string UpVotes(long userId) { return "urn:user>a+:" + userId; }
+			public static string DownVotes(long userId) { return "urn:user>a-:" + userId; }
 		}
 
 		IRedisClientsManager RedisManager { get; set; }

@@ -8,8 +8,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceStack.Questions.Host.Web</RootNamespace>
-    <AssemblyName>ServiceStack.Questions.Host.Web</AssemblyName>
+    <RootNamespace>RedisStackOverflow</RootNamespace>
+    <AssemblyName>RedisStackOverflow</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,12 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack.Questions.ServiceInterface\ServiceStack.Questions.ServiceInterface.csproj">
-      <Project>{41C8C157-B2A4-4DDE-B153-233E46109F39}</Project>
-      <Name>ServiceStack.Questions.ServiceInterface</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -109,7 +103,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53208</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/ServiceStack.Questions.Host.Web</IISUrl>
+          <IISUrl>http://localhost/RedisStackOverflow</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

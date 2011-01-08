@@ -12,7 +12,7 @@
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
         <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
-        <a href="../ServiceStack.Questions.Host.Web/">Redis StackOverflow</a>
+        <a href="../RedisStackOverflow/">Redis StackOverflow</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
