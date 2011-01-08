@@ -180,13 +180,13 @@ namespace RedisStackOverflow.ServiceInterface
 				   var q = question;
 
 				   trans.QueueCommand(r => r.GetSetCount(QuestionUserIndex.UpVotes(q.Id)),
-									  voteUpCount => resultsMap[q.Id].VotesUpCount = voteUpCount);
+					   voteUpCount => resultsMap[q.Id].VotesUpCount = voteUpCount);
 
 				   trans.QueueCommand(r => r.GetSetCount(QuestionUserIndex.DownVotes(q.Id)),
-									  voteDownCount => resultsMap[q.Id].VotesDownCount = voteDownCount);
+					   voteDownCount => resultsMap[q.Id].VotesDownCount = voteDownCount);
 
 				   trans.QueueCommand(r => r.As<Question>().GetRelatedEntitiesCount<Answer>(q.Id),
-									  answersCount => resultsMap[q.Id].AnswersCount = answersCount);
+					   answersCount => resultsMap[q.Id].AnswersCount = answersCount);
 				}
 			});
 
@@ -314,7 +314,7 @@ namespace RedisStackOverflow.ServiceInterface
 			var usersMap = GetUsersByIds(uniqueUserIds).ToDictionary(x => x.Id);
 
 			result.Answers = answers.ConvertAll(answer =>
-												new AnswerResult { Answer = answer, User = usersMap[answer.UserId] });
+				new AnswerResult { Answer = answer, User = usersMap[answer.UserId] });
 
 			return result;
 		}
