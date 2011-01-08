@@ -43,6 +43,11 @@ namespace ServiceStack.Questions.ServiceInterface
 	[DataContract]
 	public class QuestionResult
 	{
+		public QuestionResult()
+		{
+			this.Answers = new List<AnswerResult>();
+		}
+
 		[DataMember]
 		public Question Question { get; set; }
 
@@ -57,6 +62,9 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		[DataMember]
 		public int VotesDownCount { get; set; }
+
+		[DataMember]
+		public List<AnswerResult> Answers { get; set; }
 	}
 
 

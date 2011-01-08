@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ServiceStack.Redis;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ServiceStack.Questions.ServiceInterface
 {
@@ -49,20 +49,30 @@ namespace ServiceStack.Questions.ServiceInterface
 		public long UserId { get; set; }
 
 		[DataMember]
+		public DateTime CreatedDate { get; set; }
+
+		[DataMember]
 		public string Content { get; set; }
 	}
 
 	[DataContract]
-	public class QuestionResponse
+	public class AnswerResult
 	{
 		[DataMember]
-		public Question Question { get; set; }
+		public Answer Answer { get; set; }
 
 		[DataMember]
-		public List<Answer> Answers { get; set; }
+		public User User { get; set; }
+	}
+
+	[DataContract]
+	public class QuestionResponse : IHasResponseStatus
+	{
+		[DataMember]
+		public QuestionResult Result { get; set; }
 
 		[DataMember]
-		public List<User> Users { get; set; }
+		public ResponseStatus ResponseStatus { get; set; }
 	}
 
 	public class QuestionService
@@ -70,20 +80,12 @@ namespace ServiceStack.Questions.ServiceInterface
 	{
 		public IRepository Repository { get; set; }
 
-		public override object OnGet(Question request)
+		public override object OnGet(Question question)
 		{
-			var response = new QuestionResponse
+			return new QuestionResponse
 			{
-				Question = Repository.GetQuestion(request.Id),
-				Answers = Repository.GetAnswersForQuestion(request.Id)
+				Result = Repository.GetQuestion(question.Id),
 			};
-
-			var userIds = new HashSet<long> { response.Question.UserId };
-			response.Answers.ForEach(x => userIds.Add(x.UserId));
-
-			response.Users = Repository.GetUsersByIds(userIds);
-
-			return response;
 		}
 
 		public override object OnPost(Question question)

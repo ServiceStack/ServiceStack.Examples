@@ -37,7 +37,7 @@ namespace ServiceStack.Questions.ServiceInterface
 
 		QuestionStat GetQuestionStats(long questionId);
 
-		Question GetQuestion(long questionId);
+		QuestionResult GetQuestion(long questionId);
 
 		List<User> GetUsersByIds(IEnumerable<long> userIds);
 
@@ -161,12 +161,12 @@ namespace ServiceStack.Questions.ServiceInterface
 			}
 		}
 
-		private List<QuestionResult> ToQuestionResults(IEnumerable<Question> recentQuestions)
+		private List<QuestionResult> ToQuestionResults(IEnumerable<Question> questions)
 		{
-			var uniqueUserIds = recentQuestions.ConvertAll(x => x.UserId).ToHashSet();
+			var uniqueUserIds = questions.ConvertAll(x => x.UserId).ToHashSet();
 			var usersMap = GetUsersByIds(uniqueUserIds).ToDictionary(x => x.Id);
 
-			var results = recentQuestions.ConvertAll(x => new QuestionResult { Question = x });
+			var results = questions.ConvertAll(x => new QuestionResult { Question = x });
 			var resultsMap = results.ToDictionary(q => q.Question.Id);
 
 			results.ForEach(x => x.User = usersMap[x.Question.UserId]);
@@ -174,7 +174,7 @@ namespace ServiceStack.Questions.ServiceInterface
 			//Batch multiple operations in a single pipelined transaction (i.e. for a single network request/response)
 			RedisManager.ExecTrans(trans =>
 			{
-				foreach (var question in recentQuestions)
+				foreach (var question in questions)
 				{
 					var q = question;
 
@@ -222,7 +222,10 @@ namespace ServiceStack.Questions.ServiceInterface
 			using (var redis = RedisManager.GetClient())
 			{
 				if (answer.Id == default(long))
+				{
 					answer.Id = redis.As<Answer>().GetNextSequence();
+					answer.CreatedDate = DateTime.UtcNow;
+				}
 
 				//Store as a 'Related Answer' to the parent Question
 				redis.As<Question>().StoreRelatedEntities(answer.QuestionId, answer);
@@ -299,9 +302,20 @@ namespace ServiceStack.Questions.ServiceInterface
 			});
 		}
 
-		public Question GetQuestion(long questionId)
+		public QuestionResult GetQuestion(long questionId)
 		{
-			return RedisManager.ExecAs<Question>(redisQuestions => redisQuestions.GetById(questionId));
+			var question = RedisManager.ExecAs<Question>(redisQuestions => redisQuestions.GetById(questionId));
+			if (question == null) return null;
+
+			var result = ToQuestionResults(new[] { question })[0];
+			var answers = GetAnswersForQuestion(questionId);
+			var uniqueUserIds = answers.ConvertAll(x => x.UserId).ToHashSet();
+			var usersMap = GetUsersByIds(uniqueUserIds).ToDictionary(x => x.Id);
+
+			result.Answers = answers.ConvertAll(answer => 
+				new AnswerResult { Answer = answer, User = usersMap[answer.UserId] });
+
+			return result;
 		}
 
 		public List<User> GetUsersByIds(IEnumerable<long> userIds)
@@ -328,7 +342,7 @@ namespace ServiceStack.Questions.ServiceInterface
 			using (var redis = RedisManager.GetReadOnlyClient())
 			{
 				var tagEntries = redis.GetRangeWithScoresFromSortedSetDesc(TagIndex.All, skip, take);
-				var tags = tagEntries.ConvertAll(kvp => new Tag { Name = kvp.Key, Score = (int) kvp.Value });
+				var tags = tagEntries.ConvertAll(kvp => new Tag { Name = kvp.Key, Score = (int)kvp.Value });
 				return tags;
 			}
 		}

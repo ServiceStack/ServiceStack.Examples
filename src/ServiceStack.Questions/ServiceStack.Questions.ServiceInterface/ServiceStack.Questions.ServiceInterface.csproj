@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Copy of UserStatsService.cs" />
     <Compile Include="ResetService.cs" />
     <Compile Include="UserStatsService.cs" />
     <Compile Include="StatsService.cs" />

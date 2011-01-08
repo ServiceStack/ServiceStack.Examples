@@ -17,7 +17,7 @@ A IMG
 #header-links
 {
     top: 10px;
-    left: 500px;
+    left: 375px;
     position: absolute;
 }
 #header-links A, #footer-links A
@@ -165,6 +165,7 @@ H4 EM
 {
     display:none;
     text-align:center;
+    margin: 0 -25px 0 0;
 }
 #add INPUT, #add TEXTAREA
 {
@@ -243,17 +244,22 @@ H4 EM
 {
     width: 450px;
 }
-.question .by
+.by
 {
     float: right;
     font-size: 11px;
     text-align:right;
 }
-.question .by I
+.by I
 {
     display: block;
     color:#07C;
     font-style:normal;
+}
+.by EM
+{
+    font-weight:bold;
+    color: #999;
 }
 
 *[data-cmd]
@@ -266,11 +272,6 @@ H4 EM
     text-decoration: underline;
 }
 
-.question .by EM
-{
-    font-weight:bold;
-    color: #999;
-}
 .tag, .page
 {
     font-weight:normal;
@@ -291,7 +292,85 @@ H4 EM
 {
     padding: 2px 5px;
 }
+#paging
+{
+    margin: 15px 0 0 0;
+}
 
+#question
+{
+}
+.question-votes
+{
+    vertical-align: top;
+    width: 50px;
+    margin: -5px 0 0 0;
+    text-align:center;
+    font-size: 24px;
+    color: #808185;
+}
+.question-votes H4
+{
+    margin: 0;
+    padding: 0;
+}
+.question-votes B
+{
+    display:block;
+    height: 26px;
+    cursor:pointer;
+}
+.question-votes B.up {
+    background: url(img/vote-up.png) no-repeat bottom 50%;
+}
+.question-votes B.down {
+    background: url(img/vote-down.png) no-repeat top 50%;
+}
+.question-votes B.up.user-selected {
+    background: url(img/myvote-up.png) no-repeat bottom 50%;
+}
+.question-votes B.down.user-selected {
+    background: url(img/myvote-down.png) no-repeat bottom 50%;
+}
+.question-content
+{
+    margin: 0 0 0 10px;
+    width: 500px;
+}
+#question .tags
+{
+    margin: 10px 0 0 60px;
+}
+#question-answers
+{
+    margin: 30px 0 0 0;
+    width: 580px;
+}
+#question-answers H3
+{
+    border-bottom: solid 1px #666;
+}
+#question-answers .answer
+{
+    padding: 5px;
+    border-bottom: solid 1px #AAA;
+}
+#question-answers .answer .by
+{
+    float:none;
+    margin: 10px 0 10px 0;
+}
+
+#your-answer TEXTAREA
+{
+    width: 500px;
+    height: 200px;
+}
+
+#toptags
+{
+    padding: 10px 0 0 0;
+}
 #toptags H3, #notes H3
 {
     text-align:center;
@@ -313,17 +392,22 @@ H4 EM
 }
 #notes
 {
-    margin: 40px 0 0 0;
+    margin: 30px 0 0 0;
 }
 #notes DL
 {
     text-align:left;
     background: #f1f1f1;
     padding: 5px;
+    margin-bottom: 5px;
 }
 #notes DD
 {
     padding: 2px;
+}
+#notes #btn-download
+{
+    margin: 0 60px 0 0;
 }
 
 #footer

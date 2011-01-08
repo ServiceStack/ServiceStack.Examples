@@ -65,9 +65,11 @@
                 if (d > day && d < day * 2) { return "yesterday" }
                 if (d < day * 365) { return Math.floor(d / day) + " days ago" } else { return "over a year ago" }
             }
-            function refresh() {
+            function refresh(callback) {
+                var asyncCount = 0;
                 if (authUser)
                 {
+                    asyncCount++;
                     $.get("users/" + authUser.Id + "/stats", function(r){
                         userStats = r.Result;
                         var msg = "You have "
@@ -75,8 +77,10 @@
                                 + authUser.DisplayName + "'>asked " + userStats.QuestionsCount
                             + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions";
                         updateUserStatus(msg);
+                        if (--asyncCount == 0 && callback) callback();
                     });
                 }
+                asyncCount++;
                 $.get("stats", function(r){
                     siteStats = r.Result;
                     var msg = "This site has "
@@ -95,16 +99,101 @@
                     var pageCount = Math.ceil(siteStats.QuestionsCount / 10);
                     for (var pageNo=0; pageNo<pageCount; pageNo++) {
                         pages += "<span class='page' data-cmd='questions/page/" + pageNo + "'"
-                               + " data-label='Latest Questions - page " + (pageNo+1) + "/" + pageCount + "'>"
+                               + " data-label='All Questions - page " + (pageNo+1) + "/" + pageCount + "'>"
                                + (pageNo + 1) + "</span>";
                     }
                     $("#paging").html(pages);
 
                     $("#toptags DL").html(tags);
+
+                    if (--asyncCount == 0 && callback) callback();
                 });
 
+                var getTags = function(q) {
+                    var tags = "";
+                    $.each(q.Tags, function(i,tag){
+                        tags += "<b class='tag' data-cmd='questions/tagged/" + tag
+                              + "' data-label='Questions tagged with " + tag + "'>"
+                              + tag + "</b>";
+                    });
+                    return tags;
+                };
+
                 $("#questions H2").html(qLabel);
-                $.get(qSource, function(r){
+                var encodedUrl = qSource.replace('#','%23');
+                var viewSingleQuestion = qSource.indexOf('questions/') === 0 && qSource.split("/").length == 2;
+                if (viewSingleQuestion) {
+
+                    asyncCount++;
+                    $.get(encodedUrl, function(r){
+                        var q = r.Result.Question;
+                        var votes = r.Result.VotesUpCount - r.Result.VotesDownCount;
+                        var tags = getTags(q);
+
+                        var answers = "";
+                        var answerCount = r.Result.Answers.length, answerText = answerCount + " Answer";
+                        if (answerCount != 1) answerText += "s";
+                        $.each(r.Result.Answers, function(i, ar){
+                           var u = ar.User;
+                           var date = fromDtoDate(ar.Answer.CreatedDate);
+                           answers += '<div class="answer">'
+                                    + ar.Answer.Content.replace("\n","<br />\n")
+                                    + '<div class="by">'
+                                    + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
+                                    +  u.DisplayName + "'>by " + u.DisplayName + "</i>"
+                                    +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
+                                    + '<br />'
+                                    + '</div>'
+                                    + '</div>'
+                        });
+
+                        var sb = ''
+                            + '<div id="question">'
+                                + '<div class="ib question-votes">'
+                                + '<b class="up" />'
+                                + '<h4>' + votes + '</h4>'
+                                + '<b class="down" />'
+                                + '</div>'
+                            + '<div class="ib question-content">' + q.Content.replace("\n","<br />\n") + '</div>'
+                            + '<div class="tags">' + tags + '</div>'
+                            + '<div id="question-answers">'
+                            + '<h3>' + answerText + '</h3>'
+                            + answers
+                            + '</div>'
+                            + '<div id="your-answer">'
+                            + '<h3>Your Answer</h3>'
+                            + '<textarea></textarea>'
+                            + '<button>Post Your Answer</button>'
+                            + '</div>'
+                            + '</div>';
+
+                        $("#results").html(sb);
+
+                        $(".question-votes B").click(function(){
+                            var dir = $(this).hasClass("up") ? "up" : "down";
+                            $.post("users/" + authUser.Id + "/questionvotes/" + q.Id, { Direction:dir }, function(r){
+                                refresh(function(){
+                                    $(".question-votes B").removeClass("user-selected");
+                                    $(".question-votes B." + dir).addClass("user-selected");
+                                });
+                            });
+                        });
+
+                        $("#your-answer BUTTON").click(function(){
+                            var answer = $("#your-answer TEXTAREA").val();
+
+                            $.post("answers", {QuestionId: q.Id, UserId: authUser.Id, Content:answer}, function(r){
+                               refresh();
+                            });
+                        });
+
+                        if (--asyncCount == 0 && callback) callback();
+                    });
+                    return;
+                }
+                
+                asyncCount++;
+                $.get(encodedUrl, function(r){
                     var sb = "";
                     var userNameMap = {};
 
@@ -114,19 +203,13 @@
 
                         var aCls = r.AnswersCount > 0 ? "answered" : "unanswered";
                         var aText = r.AnswersCount == 1 ? "answer" : "answers";
-
-                        var tags = "";
-                        $.each(q.Tags, function(i,tag){
-                            tags += "<b class='tag' data-cmd='questions/tagged/" + tag
-                                  + "' data-label='Questions tagged with " + tag + "'>"
-                                  + tag + "</b>";
-                        });
+                        var tags = getTags(q);
 
                         sb += '<div class="question">'
-                            + '<dl class="votes ib"><dt>' + r.VotesUpCount + '</dt><dd>votes</dd></dl>'
+                            + '<dl class="votes ib"><dt>' + (r.VotesUpCount - r.VotesDownCount) + '</dt><dd>votes</dd></dl>'
                             + '<dl class="status ib ' + aCls + '"><dt>' + r.AnswersCount + '</dt><dd>' + aText + '</dd></dl>'
                             + '<div class="ib">'
-                            + '<h4>' + q.Title + '</h4>'
+                            + '<h4 data-cmd="questions/' + q.Id + '" data-label="' + q.Title + '">' + q.Title + '</h4>'
                             + '<div class="by">'
                             + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
                                 + u.DisplayName + "'>by " + u.DisplayName + "</i>"
@@ -138,6 +221,8 @@
                     });
 
                     $("#results").html(sb);
+
+                    if (--asyncCount == 0 && callback) callback();
                 });
             };
             refresh();
@@ -200,6 +285,7 @@
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
         <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../ServiceStack.Questions.Host.Web/">Redis StackOverflow</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
@@ -221,7 +307,7 @@
         <div id="add">
             <dl>
                 <dd><input id="qtitle" placeholder="what is your question?" /><i>*</i></dd>
-                <dd><textarea id="qbody"></textarea><i>*</i></dd>
+                <dd><textarea id="qbody" placeholder="body, easier to just copy one from StackOverflow"></textarea><i>*</i></dd>
                 <dd><input id="qtags" placeholder="at least one tag required" /><i>*</i></dd>
                 <dd><button>Ask Question</button></dd>
             </dl>
@@ -236,25 +322,36 @@
             <h3>Application Features</h3>
             <dl>
                 <dd>
-                    <a href="">Only 1 static html page</a>
+                    <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Questions/ServiceStack.Questions.Host.Web/default.htm">
+                        Only 1 static html page</a>
                     that uses only jQuery.
                 </dd>
                 <dd>
-                    Uses
-                    <a href="http://redis.io">Redis</a> 
-                    for all data access.
-                    <a href="">Fits in 1 C# class</a>
+                    Uses Redis for all data access.
+                    <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Questions/ServiceStack.Questions.ServiceInterface/IRepository.cs">
+                        Fits in 1 C# class</a>
                 </dd>
                 <dd>
-                    No other external .dlls used apart for
+                    <a href="/RedisAdminUI/AjaxClient/">
+                        Use the RedisAdminUI to see how the data is stored
+                    </a>
+                </dd>
+                <dd>
+                    Uses no other external .dlls apart from
                     <a href="http://www.servicestack.net">ServiceStack</a>
                 </dd>
                 <dd>
-                    <a href="servicestack/metadata">
-                        Complete Web Services API
-                    </a>
+                    <a href="servicestack/metadata">Checkout the complete Web Services API</a>
+                </dd>
+                <dd>
+                    Uses only OSS software and is available at:
                 </dd>
             </dl>
+
+            <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
+                <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
+            </a>
+
         </div>
     </div>
 
