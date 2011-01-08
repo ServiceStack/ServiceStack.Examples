@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/users")]
@@ -23,7 +23,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	}
 
 	public class UserService
-		: RestServiceBase<User>
+	: RestServiceBase<User>
 	{
 		public IRepository Repository { get; set; }
 

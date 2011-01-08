@@ -7,7 +7,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/reset")]
@@ -26,7 +26,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	}
 
 	public class ResetService
-		: RestServiceBase<Reset>
+	: RestServiceBase<Reset>
 	{
 		public IRedisClientsManager RedisManager { get; set; }
 
@@ -65,10 +65,10 @@ namespace ServiceStack.Questions.ServiceInterface
 			questions.AddRange(RestQuestions.ConvertAll(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "rest", "http" })));
 			questions.AddRange(JavascriptQuestions.ConvertAll(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "javascript", "jquery" })));
 
-			
+
 			RedisManager.Exec(r => r.FlushAll());
 
-			var mythz = Repository.GetOrCreateUser(new User {DisplayName = "mythz"});
+			var mythz = Repository.GetOrCreateUser(new User { DisplayName = "mythz" });
 			questions.ForEach(q => q.UserId = mythz.Id);
 
 			questions.ForEach(q => Repository.StoreQuestion(q));

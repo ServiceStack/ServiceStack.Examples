@@ -1,13 +1,13 @@
 ﻿using System;
 using Funq;
-using ServiceStack.Questions.ServiceInterface;
+using RedisStackOverflow.ServiceInterface;
 using ServiceStack.Redis;
 using ServiceStack.WebHost.Endpoints;
 
-namespace ServiceStack.Questions.Host.Web
+namespace RedisStackOverflow
 {
 	public class AppHost
-		: AppHostBase
+	: AppHostBase
 	{
 		public AppHost()
 			: base("ServiceStack Questions", typeof(QuestionsService).Assembly) { }

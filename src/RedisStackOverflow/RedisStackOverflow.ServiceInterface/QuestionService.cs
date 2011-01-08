@@ -5,7 +5,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/questions", "POST")]
@@ -76,7 +76,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	}
 
 	public class QuestionService
-		: RestServiceBase<Question>
+	: RestServiceBase<Question>
 	{
 		public IRepository Repository { get; set; }
 
@@ -94,5 +94,4 @@ namespace ServiceStack.Questions.ServiceInterface
 			return new QuestionResponse();
 		}
 	}
-
 }

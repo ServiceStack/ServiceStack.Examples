@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/users/{UserId}/questionvotes/{QuestionId}")]
@@ -26,7 +26,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	public class UserVotesResponse { }
 
 	public class UserVotesService
-		: RestServiceBase<UserVotes>
+	: RestServiceBase<UserVotes>
 	{
 		public IRepository Repository { get; set; }
 
@@ -53,5 +53,4 @@ namespace ServiceStack.Questions.ServiceInterface
 			return new UserVotesResponse();
 		}
 	}
-
 }

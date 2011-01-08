@@ -84,6 +84,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedisStackOverflow.ServiceInterface\RedisStackOverflow.ServiceInterface.csproj">
+      <Project>{41C8C157-B2A4-4DDE-B153-233E46109F39}</Project>
+      <Name>RedisStackOverflow.ServiceInterface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

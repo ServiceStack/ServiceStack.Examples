@@ -4,7 +4,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/answers")]
@@ -28,7 +28,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	}
 
 	public class AnswersService
-		: RestServiceBase<Answers>
+	: RestServiceBase<Answers>
 	{
 		public IRepository Repository { get; set; }
 
@@ -36,12 +36,11 @@ namespace ServiceStack.Questions.ServiceInterface
 		{
 			Repository.StoreAnswer(new Answer
 			{
-                UserId = request.UserId,
+				UserId = request.UserId,
 				QuestionId = request.QuestionId,
-                Content = request.Content
+				Content = request.Content
 			});
 			return new AnswersResponse();
 		}
 	}
-
 }

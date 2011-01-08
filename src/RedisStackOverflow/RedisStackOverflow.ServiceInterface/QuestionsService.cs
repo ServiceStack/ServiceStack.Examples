@@ -5,7 +5,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[RestService("/questions", "GET")]
 	[RestService("/questions/page/{Page}")]
@@ -39,7 +39,6 @@ namespace ServiceStack.Questions.ServiceInterface
 		public ResponseStatus ResponseStatus { get; set; }
 	}
 
-
 	[DataContract]
 	public class QuestionResult
 	{
@@ -67,9 +66,8 @@ namespace ServiceStack.Questions.ServiceInterface
 		public List<AnswerResult> Answers { get; set; }
 	}
 
-
 	public class QuestionsService
-		: RestServiceBase<Questions>
+	: RestServiceBase<Questions>
 	{
 		public IRepository Repository { get; set; }
 

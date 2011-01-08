@@ -3,11 +3,11 @@ using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Questions.ServiceInterface
+namespace RedisStackOverflow.ServiceInterface
 {
 	[DataContract]
 	[RestService("/stats")]
-	public class Stats {}
+	public class Stats { }
 
 	[DataContract]
 	public class SiteStats
@@ -45,7 +45,7 @@ namespace ServiceStack.Questions.ServiceInterface
 	}
 
 	public class StatsService
-		: RestServiceBase<Stats>
+	: RestServiceBase<Stats>
 	{
 		public IRepository Repository { get; set; }
 
