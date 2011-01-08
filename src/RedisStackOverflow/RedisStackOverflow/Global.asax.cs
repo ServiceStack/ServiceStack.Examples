@@ -7,7 +7,7 @@ using ServiceStack.WebHost.Endpoints;
 namespace RedisStackOverflow
 {
 	public class AppHost
-	: AppHostBase
+		: AppHostBase
 	{
 		public AppHost()
 			: base("ServiceStack Questions", typeof(QuestionsService).Assembly) { }
