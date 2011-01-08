@@ -321,16 +321,16 @@ H4 EM
     cursor:pointer;
 }
 .question-votes B.up {
-    background: url(img/vote-up.png) no-repeat bottom 50%;
+    background: url(img/vote-up.png) no-repeat 50% bottom;
 }
 .question-votes B.down {
-    background: url(img/vote-down.png) no-repeat top 50%;
+    background: url(img/vote-down.png) no-repeat 50% top;
 }
 .question-votes B.up.user-selected {
-    background: url(img/myvote-up.png) no-repeat bottom 50%;
+    background: url(img/myvote-up.png) no-repeat 50% bottom;
 }
 .question-votes B.down.user-selected {
-    background: url(img/myvote-down.png) no-repeat bottom 50%;
+    background: url(img/myvote-down.png) no-repeat 50% bottom;
 }
 .question-content
 {
@@ -408,6 +408,7 @@ H4 EM
 #notes #btn-download
 {
     margin: 0 60px 0 0;
+    padding: 0 0 60px 0;
 }
 
 #footer

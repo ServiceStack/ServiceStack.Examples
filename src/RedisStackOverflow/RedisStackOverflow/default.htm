@@ -20,10 +20,12 @@
                 }
             }
 
-            $("*[data-cmd]").live('click',function(){
-                qSource = this.getAttribute("data-cmd");
-                qLabel = this.getAttribute("data-label");
-                console.log([qSource, qLabel]);
+            $(document).click(function(e){
+                //console.log([this,e]);
+                var el = e.target;
+                if (!el.getAttribute("data-cmd")) return;
+                qSource = el.getAttribute("data-cmd");
+                qLabel = el.getAttribute("data-label");
                 refresh();
             });
 
