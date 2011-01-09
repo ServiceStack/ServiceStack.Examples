@@ -27,7 +27,10 @@
                 qLabel = el.getAttribute("data-label");
                 refresh();
             });
-            if (navigator.userAgent.indexOf("iPhone") >= 0) $("#footer").hide();
+            if (navigator.userAgent.indexOf("iPhone") >= 0)
+            {
+                $("#footer").css("position","static");
+            }
 
             var defaultMessage = "Browse latest or login to ask a question";
 
