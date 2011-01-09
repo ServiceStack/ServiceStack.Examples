@@ -19,7 +19,7 @@
                     refresh();
                 }
             }
-
+            
             $(document).click(function(e){
                 var el = e.target;
                 if (!el.getAttribute("data-cmd")) return;
@@ -72,7 +72,19 @@
                 if (d > day && d < day * 2) { return "yesterday" }
                 if (d < day * 365) { return Math.floor(d / day) + " days ago" } else { return "over a year ago" }
             }
-            function refresh(callback) {
+
+            window.onpopstate = function(e) {
+                e = e || event;
+                if (!e.state) return;
+                qSource = e.state.qSource;
+                qLabel = e.state.qLabel;
+                refresh(null, true);
+            };
+
+            function refresh(callback, skipPushState) {
+                if (!skipPushState && window.history.pushState)
+                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel);
+
                 var asyncCount = 0;
                 if (authUser)
                 {
