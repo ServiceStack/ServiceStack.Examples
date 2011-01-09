@@ -21,13 +21,18 @@
             }
 
             $(document).click(function(e){
-                //console.log([this,e]);
                 var el = e.target;
                 if (!el.getAttribute("data-cmd")) return;
                 qSource = el.getAttribute("data-cmd");
                 qLabel = el.getAttribute("data-label");
                 refresh();
             });
+            if (navigator.userAgent.indexOf("iPhone") != -1)
+            {
+                $(document).scroll(function(){
+                    $("#footer").css({bottom:"0px", left:"0px"});
+                });
+            }
 
             var defaultMessage = "Browse latest or login to ask a question";
 
