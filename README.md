@@ -9,6 +9,7 @@ A live demo and tutorials are available at the following locations:
 
 * [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/Default.htm)
 * [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
+* [Creating a StackOverflow-like app in Redis](http://servicestack.net/RedisStackOverflow/)
 * [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
 * [Calling Web Services with Mono Touch](http://www.servicestack.net/monotouch/remote-info/)
 * [Calling Web Services using Silverlight](http://servicestack.net/ServiceStack.Examples.Clients/Silverlight.htm)
