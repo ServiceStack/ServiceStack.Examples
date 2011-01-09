@@ -1,5 +1,5 @@
 #Example Projects built with ServiceStack, C# RedisClient, OrmLite, etc
-For twitter updates follow <a href="http://twitter.com/demisbellot">@demisbellot</a> or <a href="http://twitter.com/servicestack">@ServiceStack</a>
+For twitter updates follow <a href="http://twitter.com/demisbellot">@demisbellot</a> or <a href="http://twitter.com/servicestack">@ServiceStack</a> 
 
 The Example Project is [ServiceStack's](https://github.com/mythz/ServiceStack) 'Show Case' Example Project.
 
