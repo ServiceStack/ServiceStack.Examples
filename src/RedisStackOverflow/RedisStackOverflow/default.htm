@@ -73,6 +73,11 @@
                 if (d < day * 365) { return Math.floor(d / day) + " days ago" } else { return "over a year ago" }
             }
 
+            function enc(html) {
+                if (typeof html != "string") return html;
+                return html.replace('<','&lt;').replace('>','&gt;');
+            }
+
             window.onpopstate = function(e) {
                 e = e || event;
                 if (!e.state) return;
@@ -93,7 +98,7 @@
                         userStats = r.Result;
                         var msg = "You have "
                             + "<em data-cmd='users/" + authUser.Id + "/questions' data-label='Questions by "
-                                + authUser.DisplayName + "'>asked " + userStats.QuestionsCount
+                                + enc(authUser.DisplayName) + "'>asked " + userStats.QuestionsCount
                             + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions";
                         updateUserStatus(msg);
                         if (--asyncCount == 0 && callback) callback();
@@ -109,9 +114,10 @@
 
                     var tags = "";
                     $.each(siteStats.TopTags, function(i,tag){
-                        tags += "<dd><span class='tag' data-cmd='questions/tagged/" + tag.Name
-                              + "' data-label='Questions tagged with " + tag.Name + "'>"
-                              + tag.Name + "</span><strong>x" + tag.Score + "</strong></dd>";
+                        var eTag = enc(tag.Name);
+                        tags += "<dd><span class='tag' data-cmd='questions/tagged/" + eTag 
+                              + "' data-label='Questions tagged with " + eTag + "'>"
+                              + eTag + "</span><strong>x" + tag.Score + "</strong></dd>";
                     });
 
                     var pages = "";
@@ -131,9 +137,10 @@
                 var getTags = function(q) {
                     var tags = "";
                     $.each(q.Tags, function(i,tag){
-                        tags += "<b class='tag' data-cmd='questions/tagged/" + tag
-                              + "' data-label='Questions tagged with " + tag + "'>"
-                              + tag + "</b>";
+                        var encTag = enc(tag);
+                        tags += "<b class='tag' data-cmd='questions/tagged/" + encTag
+                              + "' data-label='Questions tagged with " + encTag + "'>"
+                              + encTag + "</b>";
                     });
                     return tags;
                 };
@@ -156,10 +163,10 @@
                            var u = ar.User;
                            var date = fromDtoDate(ar.Answer.CreatedDate);
                            answers += '<div class="answer">'
-                                    + ar.Answer.Content.replace("\n","<br />\n")
+                                    + enc(ar.Answer.Content).replace("\n","<br />\n")
                                     + '<div class="by">'
                                     + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
-                                    +  u.DisplayName + "'>by " + u.DisplayName + "</i>"
+                                    +  enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
                                     +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
                                     + '<br />'
                                     + '</div>'
@@ -173,10 +180,10 @@
                                 + '<h4>' + votes + '</h4>'
                                 + '<b class="down" />'
                                 + '</div>'
-                            + '<div class="ib question-content">' + q.Content.replace("\n","<br />\n") + '</div>'
+                            + '<div class="ib question-content">' + enc(q.Content).replace("\n","<br />\n") + '</div>'
                             + '<div class="tags">' + tags + '</div>'
                             + '<div id="question-answers">'
-                            + '<h3>' + answerText + '</h3>'
+                            + '<h3>' + enc(answerText) + '</h3>'
                             + answers
                             + '</div>'
                             + '<div id="your-answer">'
@@ -228,10 +235,10 @@
                             + '<dl class="votes ib"><dt>' + (r.VotesUpCount - r.VotesDownCount) + '</dt><dd>votes</dd></dl>'
                             + '<dl class="status ib ' + aCls + '"><dt>' + r.AnswersCount + '</dt><dd>' + aText + '</dd></dl>'
                             + '<div class="ib">'
-                            + '<h4 data-cmd="questions/' + q.Id + '" data-label="' + q.Title + '">' + q.Title + '</h4>'
+                            + '<h4 data-cmd="questions/' + q.Id + '" data-label="' + enc(q.Title) + '">' + enc(q.Title) + '</h4>'
                             + '<div class="by">'
                             + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
-                                + u.DisplayName + "'>by " + u.DisplayName + "</i>"
+                                + enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
                             +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
                             + '</div>'
                             + '<div class="tags">' + tags + '</div>'
