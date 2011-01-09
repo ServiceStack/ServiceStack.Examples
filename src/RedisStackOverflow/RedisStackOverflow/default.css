@@ -411,6 +411,13 @@ H4 EM
     padding: 0 0 60px 0;
 }
 
+#disclaimer
+{
+    margin: 15px 0 0 0;
+    color: #666;
+    font-size:11px;
+}
+
 #footer
 {
     position:fixed;
@@ -422,3 +429,4 @@ H4 EM
     background: #f1f1f1;
     padding: 10px;
 }
+
