@@ -413,7 +413,8 @@ H4 EM
 
 #footer
 {
-    position: fixed;
+    position:fixed;
+    height: 30px;
     left: 0;
     bottom: 0;
     width: 943px;

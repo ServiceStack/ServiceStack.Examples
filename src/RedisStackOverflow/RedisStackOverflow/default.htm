@@ -27,9 +27,11 @@
                 qLabel = el.getAttribute("data-label");
                 refresh();
             });
-            if (navigator.userAgent.indexOf("iPhone") >= 0)
+
+            var ua = navigator.userAgent, iPhone = ua.indexOf("iPhone") >= 0, iPad = ua.indexOf("iPad") >= 0; 
+            if (iPhone || iPad)
             {
-                $("#footer").css("position","static");
+                $("#footer").css({position:"static",clear:"both", margin:"80px 0 -30px -18px"});
             }
 
             var defaultMessage = "Browse latest or login to ask a question";
@@ -371,7 +373,7 @@
         calling <a href="http://www.servicestack.net">Service Stack's</a> REST-ful web services,
         powered entirely by <a href="http://redis.io">Redis</a>.<br />
 
-        Takes advantage of the
+        Takes advantage of 
         <a href="http://redis.io/commands#string">STRING</a>,
         <a href="http://redis.io/commands#set">SET</a> and
         <a href="http://redis.io/commands#sorted_set">SORTED SET</a> 
