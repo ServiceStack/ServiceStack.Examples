@@ -75,7 +75,7 @@
 
             function enc(html) {
                 if (typeof html != "string") return html;
-                return html.replace('<','&lt;').replace('>','&gt;');
+                return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
             }
 
             window.onpopstate = function(e) {
@@ -97,9 +97,9 @@
                     $.get("users/" + authUser.Id + "/stats", function(r){
                         userStats = r.Result;
                         var msg = "You have "
-                            + "<em data-cmd='users/" + authUser.Id + "/questions' data-label='Questions by "
-                                + enc(authUser.DisplayName) + "'>asked " + userStats.QuestionsCount
-                            + "</em> and have answered <em>" + userStats.AnswersCount + "</em> questions";
+                            + '<em data-cmd="users/' + authUser.Id + '/questions" data-label="Questions by '
+                                + enc(authUser.DisplayName) + '">asked ' + userStats.QuestionsCount
+                            + '</em> and have answered <em>' + userStats.AnswersCount + '</em> questions';
                         updateUserStatus(msg);
                         if (--asyncCount == 0 && callback) callback();
                     });
@@ -107,25 +107,25 @@
                 asyncCount++;
                 $.get("stats", function(r){
                     siteStats = r.Result;
-                    var msg = "This site has "
-                        + "<em data-cmd='questions' data-label='Latest Questions'>" + siteStats.QuestionsCount + " questions</em>"
-                        + " and <em>" + siteStats.AnswersCount + "</em> answers";
+                    var msg = 'This site has '
+                        + '<em data-cmd="questions" data-label="Latest Questions">' + siteStats.QuestionsCount + ' questions</em>'
+                        + ' and <em>' + siteStats.AnswersCount + '</em> answers';
                     updateStatus(msg);
 
-                    var tags = "";
+                    var tags = '';
                     $.each(siteStats.TopTags, function(i,tag){
                         var eTag = enc(tag.Name);
-                        tags += "<dd><span class='tag' data-cmd='questions/tagged/" + eTag 
-                              + "' data-label='Questions tagged with " + eTag + "'>"
-                              + eTag + "</span><strong>x" + tag.Score + "</strong></dd>";
+                        tags += '<dd><span class="tag" data-cmd="questions/tagged/' + eTag
+                              + '" data-label="Questions tagged with ' + eTag + '">'
+                              + eTag + '</span><strong>x' + tag.Score + '</strong></dd>';
                     });
 
                     var pages = "";
                     var pageCount = Math.ceil(siteStats.QuestionsCount / 10);
                     for (var pageNo=0; pageNo<pageCount; pageNo++) {
-                        pages += "<span class='page' data-cmd='questions/page/" + pageNo + "'"
-                               + " data-label='All Questions - page " + (pageNo+1) + "/" + pageCount + "'>"
-                               + (pageNo + 1) + "</span>";
+                        pages += '<span class="page" data-cmd="questions/page/' + pageNo + '"'
+                               + ' data-label="All Questions - page ' + (pageNo+1) + '/' + pageCount + '">'
+                               + (pageNo + 1) + '</span>';
                     }
                     $("#paging").html(pages);
 
@@ -138,9 +138,9 @@
                     var tags = "";
                     $.each(q.Tags, function(i,tag){
                         var encTag = enc(tag);
-                        tags += "<b class='tag' data-cmd='questions/tagged/" + encTag
-                              + "' data-label='Questions tagged with " + encTag + "'>"
-                              + encTag + "</b>";
+                        tags += '<b class="tag" data-cmd="questions/tagged/' + encTag
+                              + '" data-label="Questions tagged with ' + encTag + '">'
+                              + encTag + '</b>';
                     });
                     return tags;
                 };
@@ -237,8 +237,8 @@
                             + '<div class="ib">'
                             + '<h4 data-cmd="questions/' + q.Id + '" data-label="' + enc(q.Title) + '">' + enc(q.Title) + '</h4>'
                             + '<div class="by">'
-                            + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
-                                + enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
+                            + '<i data-cmd="users/' + u.Id + '/questions" data-label="Questions by '
+                                + enc(u.DisplayName) + '">by ' + enc(u.DisplayName) + '</i>'
                             +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
                             + '</div>'
                             + '<div class="tags">' + tags + '</div>'
@@ -320,7 +320,7 @@
 
     <a class="lnk-src" href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Questions"><img src="img/btn-github.png" width="186" height="84" /></a>
 
-    <h1><a href="default.htm">Redis StackOverflow</a></h1>
+    <h1><a href="./">Redis StackOverflow</a></h1>
 
     <div id="status"><h4></h4></div>
 
