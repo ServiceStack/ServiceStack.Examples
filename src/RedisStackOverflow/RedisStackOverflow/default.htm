@@ -244,9 +244,7 @@
                 });
             };
 
-            var loaded = false;
             window.onpopstate = function(e) {
-                if (!loaded) { return; }
                 e = e || event;
                 if (!e.state) return;
                 qSource = e.state.qSource;
