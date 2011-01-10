@@ -23,7 +23,7 @@ namespace RedisStackOverflow.ServiceInterface
 	}
 
 	public class UserService
-	: RestServiceBase<User>
+		: RestServiceBase<User>
 	{
 		public IRepository Repository { get; set; }
 

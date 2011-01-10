@@ -35,8 +35,8 @@ namespace RedisStackOverflow.ServiceInterface
 		[DataMember]
 		public List<QuestionResult> Results { get; set; }
 
-		[DataMember]
-		public ResponseStatus ResponseStatus { get; set; }
+		//For automatic injection of service exceptions
+		[DataMember] public ResponseStatus ResponseStatus { get; set; }
 	}
 
 	[DataContract]

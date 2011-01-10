@@ -45,7 +45,7 @@ namespace RedisStackOverflow.ServiceInterface
 	}
 
 	public class StatsService
-	: RestServiceBase<Stats>
+		: RestServiceBase<Stats>
 	{
 		public IRepository Repository { get; set; }
 

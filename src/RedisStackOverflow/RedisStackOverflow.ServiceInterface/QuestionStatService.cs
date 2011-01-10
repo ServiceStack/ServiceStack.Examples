@@ -33,7 +33,7 @@ namespace RedisStackOverflow.ServiceInterface
 	}
 
 	public class QuestionStatService
-	: RestServiceBase<QuestionStats>
+		: RestServiceBase<QuestionStats>
 	{
 		public IRepository Repository { get; set; }
 

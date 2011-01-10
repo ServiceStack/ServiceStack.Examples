@@ -26,7 +26,7 @@ namespace RedisStackOverflow.ServiceInterface
 	public class UserVotesResponse { }
 
 	public class UserVotesService
-	: RestServiceBase<UserVotes>
+		: RestServiceBase<UserVotes>
 	{
 		public IRepository Repository { get; set; }
 

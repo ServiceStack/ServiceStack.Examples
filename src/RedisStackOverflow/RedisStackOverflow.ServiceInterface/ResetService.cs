@@ -58,6 +58,9 @@ namespace RedisStackOverflow.ServiceInterface
 
 		public override object OnGet(Reset request)
 		{
+			//Uncomment if you want this feature
+			//throw new NotSupportedException("Disabling for Demo site. Based on the XSS attacks I know it will only be a matter of time before someone pulls the trigger.");
+
 			var questionsd = new Dictionary<string, string>(RestQuestions);
 			JavascriptQuestions.ForEach(questionsd.Add);
 

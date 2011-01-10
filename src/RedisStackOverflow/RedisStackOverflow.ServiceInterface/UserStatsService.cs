@@ -33,7 +33,7 @@ namespace RedisStackOverflow.ServiceInterface
 	}
 
 	public class UserStatsService
-	: RestServiceBase<UserStats>
+		: RestServiceBase<UserStats>
 	{
 		public IRepository Repository { get; set; }
 

@@ -23,8 +23,8 @@ namespace RedisStackOverflow.ServiceInterface
 	[DataContract]
 	public class AnswersResponse : IHasResponseStatus
 	{
-		[DataMember]
-		public ResponseStatus ResponseStatus { get; set; }
+		//For automatic injection of service exceptions
+		[DataMember] public ResponseStatus ResponseStatus { get; set; }
 	}
 
 	public class AnswersService
