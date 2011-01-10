@@ -9,16 +9,6 @@
     <script type="text/javascript">
         $(function() {
             var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
-
-            if (window.localStorage) {
-                authUser = localStorage.getItem("authUser");
-                if (typeof authUser == "string") authUser = $.parseJSON(authUser);
-                if (authUser)
-                {
-                    loginUser(authUser.DisplayName);
-                    refresh();
-                }
-            }
             
             $(document).click(function(e){
                 var el = e.target;
@@ -59,7 +49,7 @@
             } 
             var toTwitterTime = function (a) {
                 var b = new Date();
-                var c = typeof a == "Date" ? a : new Date(a);
+                var c = typeof a == "date" ? a : new Date(a);
                 var d = b - c;
                 var e = 1000, minute = e * 60, hour = minute * 60, day = hour * 24, week = day * 7;
                 if (isNaN(d) || d < 0) { return "" }
@@ -78,17 +68,12 @@
                 return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
             }
 
-            window.onpopstate = function(e) {
-                e = e || event;
-                if (!e.state) return;
-                qSource = e.state.qSource;
-                qLabel = e.state.qLabel;
-                refresh(null, true);
-            };
-
             function refresh(callback, skipPushState) {
                 if (!skipPushState && window.history.pushState)
-                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel);
+                {
+                    var frag = "#!" + qSource + "/" + encodeURIComponent(qLabel.replace(/ /g,'_'));
+                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel, frag);
+                }
 
                 var asyncCount = 0;
                 if (authUser)
@@ -167,7 +152,7 @@
                                     + '<div class="by">'
                                     + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
                                     +  enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
-                                    +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
+                                    +   '<em>' + toTwitterTime(date) + '</em>'
                                     + '<br />'
                                     + '</div>'
                                     + '</div>'
@@ -251,6 +236,29 @@
                     if (--asyncCount == 0 && callback) callback();
                 });
             };
+
+            var loaded = false;
+            window.onpopstate = function(e) {
+                if (!loaded) { return; }
+                e = e || event;
+                if (!e.state) return;
+                qSource = e.state.qSource;
+                qLabel = e.state.qLabel;
+                refresh(null, true);
+            };
+
+            var hash = location.hash.indexOf('#!') === 0 && location.hash.substr(2);
+            if (hash) {
+                var parts = hash.split('/');
+                qLabel = parts.length == 1 ? qLabel : decodeURIComponent(parts.pop()).replace(/_/g,' ');
+                qSource = parts.join('/');
+            }
+
+            if (window.localStorage) {
+                authUser = localStorage.getItem("authUser");
+                if (typeof authUser == "string") authUser = $.parseJSON(authUser);
+            }
+            if (authUser) loginUser(authUser.DisplayName);
             refresh();
 
             $("#user A#login").attr('href', 'javascript:void(0)');
@@ -290,9 +298,10 @@
                 $("#add INPUT, #add TEXTAREA").removeClass('error');
                 if (!title) $("#qtitle").addClass('error');
                 if (!body)  $("#qbody").addClass('error');
-                if (!tags)  $("#qtags").addClass('error');
+                var invalidTags = !tags || /[&\<\>]/.test(tags);
+                if (invalidTags)  $("#qtags").addClass('error');
 
-                if (!title || !body || !tags) return;
+                if (!title || !body || invalidTags) return;
 
                 var dtoTags = tags.split(/[,; ]/).join(",");
 
@@ -370,7 +379,12 @@
                     <a href="servicestack/metadata">Checkout the complete Web Services API</a>
                 </dd>
                 <dd>
-                    Uses only OSS software and is freely available at:
+                    <a href="http://www.servicestack.net">Uses</a>
+                    <a href="http://redis.io">only</a>
+                    <a href="http://www.mono-project.com">OSS</a>
+                    <a href="http://wiki.nginx.org">software</a>
+                    <a href="http://jquery.com">and is</a>
+                    freely available at:
                 </dd>
             </dl>
 
@@ -385,13 +399,15 @@
         <h2></h2>
         <div id="results"></div>
         <div id="paging"></div>
+        <a id="mono" href="http://www.mono-project.com"><img src="img/Mono-powered-big.png" alt="Powered by Mono" /></a>
         <div id="disclaimer">*Not affiliated with Stack Overflow, which is a trademark of Stack Overflow Internet Services Inc.</div>
     </div>
 
     <div id="footer">
         Simple StackOverlow-like Ajax website using only <a href="http://jquery.com">jQuery</a> for UI,
         calling <a href="http://www.servicestack.net">Service Stack's</a> REST-ful web services,
-        powered entirely by <a href="http://redis.io">Redis</a>.<br />
+        powered entirely by <a href="http://redis.io">Redis</a>
+        on <a href="http://www.mono-project.com">Mono</a>.<br />
 
         Takes advantage of 
         <a href="http://redis.io/commands#string">STRING</a>,

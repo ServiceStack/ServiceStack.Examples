@@ -418,6 +418,13 @@ H4 EM
     font-size:11px;
 }
 
+#mono
+{
+    display: block;
+    float: right;
+    margin: 0 20px 0 0;
+}
+
 #footer
 {
     position:fixed;
