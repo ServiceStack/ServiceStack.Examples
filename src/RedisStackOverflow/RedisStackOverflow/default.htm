@@ -15,6 +15,10 @@
                 if (!el.getAttribute("data-cmd")) return;
                 qSource = el.getAttribute("data-cmd");
                 qLabel = el.getAttribute("data-label");
+                if (e.ctrlKey || e.shiftKey) {
+                    window.open(getFrag(qSource, qLabel));
+                    return;
+                }
                 refresh();
             });
 
@@ -67,12 +71,15 @@
                 if (typeof html != "string") return html;
                 return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
             }
+            function getFrag(qSource, qLabel)
+            {
+                return "#!" + qSource + "/" + encodeURIComponent(qLabel.replace(/ /g,'_'));
+            }
 
             function refresh(callback, skipPushState) {
                 if (!skipPushState && window.history.pushState)
                 {
-                    var frag = "#!" + qSource + "/" + encodeURIComponent(qLabel.replace(/ /g,'_'));
-                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel, frag);
+                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel, getFrag(qSource, qLabel));
                 }
 
                 var asyncCount = 0;
