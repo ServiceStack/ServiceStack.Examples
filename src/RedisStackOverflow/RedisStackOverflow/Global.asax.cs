@@ -10,7 +10,7 @@ namespace RedisStackOverflow
 		: AppHostBase
 	{
 		public AppHost()
-			: base("ServiceStack Questions", typeof(QuestionsService).Assembly) { }
+			: base("Redis StackOverflow", typeof(QuestionsService).Assembly) { }
 
 		public override void Configure(Container container)
 		{
