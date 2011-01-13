@@ -22,3 +22,4 @@ namespace ServiceStack.Examples.Host.Console
 		}
 	}
 }
+ 
