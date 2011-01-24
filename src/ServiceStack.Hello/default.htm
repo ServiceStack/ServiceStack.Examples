@@ -65,6 +65,10 @@
         margin-top: 1.5em !important;
         padding-top: 0.5em !important;
     }
+    H2 A 
+    {
+    	color: #039;
+    }
 
     .endpoints H3
     {
@@ -300,7 +304,10 @@ public class HelloResponse
     </div>
 
 
-    <h2>XML, JSON, JSV Web Services via HTTP GET or POST</h2>
+    <h2>XML, JSON, 
+    <a href="https://github.com/mythz/ServiceStack.Text/wiki/JSV-Format">JSV</a>, 
+    <a href="https://github.com/mythz/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a> 
+    Web Services via HTTP GET or POST</h2>
     <table>
         <thead>
             <tr>
@@ -367,6 +374,24 @@ public class HelloResponse
                 </td>
                 <td>
                     <form action="servicestack/jsv/syncreply/Hello" method="post">
+                        <label>Name:</label>
+                        <input type="text" name="Name" value="World!" />
+                        <input type="submit" />
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    CSV
+                </th>
+                <td>
+                    <a href="servicestack/csv/syncreply/Hello?Name=World">/servicestack/csv/syncreply/Hello?Name=World</a>
+                </td>
+                <td>
+                    <a href="servicestack/csv/metadata?op=Hello">/servicestack/csv/syncreply/Hello</a>
+                </td>
+                <td>
+                    <form action="servicestack/csv/syncreply/Hello" method="post">
                         <label>Name:</label>
                         <input type="text" name="Name" value="World!" />
                         <input type="submit" />

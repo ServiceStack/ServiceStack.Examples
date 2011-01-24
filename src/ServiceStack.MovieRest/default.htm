@@ -11,7 +11,8 @@
         $(function() {
 
             var restLog = function(method, url) {
-                if (method == "GET") url = '<a href="' + url + '?format=json" target="_blank">' + url + '</a>';
+                if (url.indexOf('?format') == -1) url += '?format=json';
+                if (method == "GET") url = '<a href="' + url + '" target="_blank">' + url + '</a>';
                 $("#restlog").prepend("<div><b class='ib'>" + method + "</b><i>" + url + "</i></div>");
             }
 
@@ -31,7 +32,7 @@
                                  + "<label class='ib'>" + movie.Title + "</label>"
                                  + "<span class='ib lnk-update'>update</span>"
                                  + "<span class='ib lnk-delete'>delete</span>"
-                            "</dd>";
+                        "</dd>";
 
                         $.each(movie.Genres, function(i, genre) {
                             if ($.inArray(genre, allGenres) == -1) allGenres.push(genre);
@@ -41,7 +42,7 @@
                             var selected = filterGenre == genre ? ' selected="selected"' : '';
                             genreHtml += '<option value="' + genre + '"' + selected + '>' + genre + '</option>';
                         });
-                        jqFilter .html(genreHtml);
+                        jqFilter.html(genreHtml);
                     }
 
                     $("#existing-movies").html(html);
@@ -121,6 +122,11 @@
                 refreshExistingMovies();
             });
 
+            $("#csvformat B").click(function() {
+                restLog("GET", "movies?format=csv");
+                location.href = "movies?format=csv";
+            });
+
             refreshExistingMovies();
         });
     </script>
@@ -188,6 +194,11 @@
 
         <input type="submit" />
     </form>
+    
+    <div id="csvformat">
+        <b>Download all movies</b>
+        in ServiceStack's new <a href="https://github.com/mythz/ServiceStack/wiki/ServiceStack-CSV-Format">CSV Format</a>
+    </div>
 
     <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
 		<img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">

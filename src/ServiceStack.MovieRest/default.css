@@ -163,3 +163,16 @@ SELECT[name=genres]
     margin: 20px 0 20px 0px;
     padding: 10px 0 0 0;
 }
+
+#csvformat
+{
+	background: url(http://www.servicestack.net/excel16x16.gif) no-repeat top left;
+	padding: 0 0 0 20px;
+	margin: 15px 0 0 0;
+}
+#csvformat B
+{
+	color: Blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
