@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
@@ -12,6 +13,7 @@ using ServiceStack.Text;
 
 namespace ServiceStack.MovieRest
 {
+	[Description("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
 	[RestService("/movies", "POST,PUT")]
 	[RestService("/movies/{Id}")]
 	[DataContract]
@@ -121,6 +123,7 @@ namespace ServiceStack.MovieRest
 
 
 	[DataContract]
+	[Description("Find movies by genre, or all movies if no genre is provided")]
 	[RestService("/movies", "GET")]
 	[RestService("/movies/genres/{Genre}")]
 	public class Movies

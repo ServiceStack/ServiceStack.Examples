@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
@@ -8,6 +9,7 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.MovieRest
 {
 	[RestService("/reset-movies")]
+	[Description("Resets the database back to the original Top 5 movies.")]
 	[DataContract] public class ResetMovies { }
 	[DataContract] public class ResetMoviesResponse { }
 

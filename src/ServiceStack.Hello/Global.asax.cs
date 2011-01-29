@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
-using Funq;
 using ServiceStack.ServiceHost;
 using ServiceStack.WebHost.Endpoints;
 
@@ -8,6 +8,7 @@ namespace ServiceStack.Hello
 {
 	/// Create the name of your Web Service (i.e. the Request DTO)
 	[DataContract]
+	[Description("ServiceStack's Hello World web service.")]
 	[RestService("/hello")] //Optional: Define an alternate REST-ful url for this service
 	[RestService("/hello/{Name}")] 
 	public class Hello
@@ -42,8 +43,8 @@ namespace ServiceStack.Hello
 			//Tell Service Stack the name of your application and where to find your web services
 			public HelloAppHost() 
 				: base("Hello Web Services", typeof(HelloService).Assembly) { }
-			
-			public override void Configure(Container container) { }
+
+			public override void Configure(Funq.Container container) { }
 		}
 
 		protected void Application_Start(object sender, EventArgs e)
