@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Funq;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -33,7 +33,7 @@ namespace ServiceStack.Examples.Host.Web
 
 		public override void Configure(Container container)
 		{
-			//Signal advanced web browsers what HTTP Methods you accept
+			//Permit modern browsers (e.g. Firefox) to allow sending of any REST HTTP Method
 			base.SetConfig(new EndpointHostConfig
 			{
 				GlobalResponseHeaders =
