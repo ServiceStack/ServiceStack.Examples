@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace RestFiles.ServiceModel.Types
@@ -13,6 +14,9 @@ namespace RestFiles.ServiceModel.Types
 
 		[DataMember]
 		public long FileSizeBytes { get; set; }
+
+		[DataMember]
+		public DateTime ModifiedDate { get; set; }
 
 		[DataMember]
 		public bool IsTextFile { get; set; }

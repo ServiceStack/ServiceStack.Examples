@@ -106,31 +106,31 @@ BODY
 	color: #4183C4;
 	padding: 0 0 0 5px;
 }
-#breadcrumb
+#title
 {
 	background: url(../img/logo-32x32.png) no-repeat 0 10px;	
 	padding: 10px 10px 10px 35px;
 	margin: 0px 0 0 10px;
 }
-#breadcrumb H1 
+#title H1 
 {
 	font-size: 28px;
 	letter-spacing: -1px;
 }
-#breadcrumb H1 A
+#title H1 A
 {	
 	text-decoration: none;
 	color: #4183C4;
 }
-#breadcrumb H1 B
+#title H1 B
 {
 	padding: 0 5px;
 }
-#breadcrumb H1 A.active
+#title H1 A.active
 {
 	font-weight: bolder;
 }
-#breadcrumb H1 A:hover
+#title H1 A:hover
 {
 	text-decoration: underline;
 }
@@ -140,9 +140,84 @@ BODY
 	border: 1px solid #BEDCE7;
 	overflow: hidden;
 	padding: 10px 15px;
-	width: 910px;	
-	margin: 30px 0 10px 10px;
+	width: 888px;	
+	margin: 30px 0 10px 20px;
 	color: #000;
 	font-size: 12px;
 	font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+#ls
+{
+	margin: 10px 0 10px 20px;
+}
+#ls TABLE
+{
+	border-left: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	border-top: 1px solid #D8D8D8;
+	font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+	font-size: 90%;
+	margin-bottom: 1em;
+	width: 920px;
+}
+#ls TABLE TH
+{
+	background-color: #EAEAEA;
+	border-bottom: 1px solid #D8D8D8;
+	color: #999;
+	font-weight: normal;
+	padding: 0.5em 0.3em;
+	text-align: left;
+}
+#ls TABLE TD
+{
+	background: #F8F8F8 url(../img/row_bg.png) repeat-x 0px 100%;
+	border-bottom: 1px solid #E1E1E1;
+	color: #484848;
+	padding: 0.5em 0.3em;
+}
+#ls TABLE TD A
+{
+	padding: 0 0 0 20px;
+	line-height: 16px;
+	display: block;
+	font-weight: normal;
+	color: #4183C4;
+	text-decoration: none;
+}
+A.dir
+{
+	background: url(../img/dir.png) no-repeat 0px 100%;	
+}
+A.file
+{
+	background: url(../img/txt.png) no-repeat 0px 100%;	
+}
+#ls TABLE TD A:hover
+{
+	text-decoration: underline;
+}
+#breadcrumb
+{
+	padding: 0 12px;
+	font-size: 20px;
+	letter-spacing: -1px;
+	font-weight: bold;
+}
+#breadcrumb A
+{	
+	text-decoration: none;
+	color: #4183C4;
+}
+#breadcrumb A:hover
+{
+	text-decoration: underline;
+}
+#breadcrumb B
+{
+	padding: 0 5px;
+}
+#breadcrumb STRONG
+{
 }

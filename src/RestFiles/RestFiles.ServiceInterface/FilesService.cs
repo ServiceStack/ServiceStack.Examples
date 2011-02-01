@@ -98,6 +98,7 @@ namespace RestFiles.ServiceInterface
 				result.Folders.Add(new Folder
 				{
 					Name = dirInfo.Name,
+					ModifiedDate = dirInfo.LastWriteTimeUtc,
 					FileCount = dirInfo.GetFiles().Length
 				});
 			}
@@ -111,6 +112,7 @@ namespace RestFiles.ServiceInterface
 					Name = fileInfo.Name,
 					Extension = fileInfo.Extension,
 					FileSizeBytes = fileInfo.Length,
+					ModifiedDate = fileInfo.LastWriteTimeUtc,
 					IsTextFile = Config.TextFileExtensions.Contains(fileInfo.Extension),
 				});
 			}

@@ -23,13 +23,14 @@ namespace RestFiles.ServiceInterface
 
 			foreach (var filePath in Directory.GetFiles("~/".MapHostAbsolutePath()))
 			{
-				if (filePath.EndsWith(".cs") || filePath.EndsWith(".html"))
+				if (filePath.EndsWith(".cs") || filePath.EndsWith(".htm"))
 				{
 					File.Copy(filePath, Path.Combine(rootDir, Path.GetFileName(filePath)));
 				}
 			}
 
 			var servicesDir = Path.Combine(rootDir, "services");
+			Directory.CreateDirectory(servicesDir);
 			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceInterface/".MapHostAbsolutePath()))
 			{
 				if (filePath.EndsWith("Service.cs"))
@@ -39,25 +40,28 @@ namespace RestFiles.ServiceInterface
 			}
 
 			var testsDir = Path.Combine(rootDir, "tests");
-			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceInterface/".MapHostAbsolutePath()))
+			Directory.CreateDirectory(testsDir);
+			foreach (var filePath in Directory.GetFiles("~/../RestFiles.Tests/".MapHostAbsolutePath()))
 			{
-				if (filePath.EndsWith("Service.cs"))
+				if (filePath.EndsWith(".cs"))
 				{
 					File.Copy(filePath, Path.Combine(testsDir, Path.GetFileName(filePath)));
 				}
 			}
 
 			var dtosDir = Path.Combine(rootDir, "dtos");
-			foreach (var dirPath in Directory.GetDirectories("~/../RestFiles.ServiceModel/".MapHostAbsolutePath()))
-			{
-				Directory.CreateDirectory(dtosDir);
 
-				var subDirPath = Path.Combine(dtosDir, Path.GetDirectoryName(dirPath));
-				Directory.CreateDirectory(subDirPath);
-				foreach (var filePath in Directory.GetFiles(dirPath))
-				{
-					File.Copy(filePath, Path.Combine(subDirPath, Path.GetFileName(filePath)));
-				}
+			var opsDtoPath = Path.Combine(dtosDir, "Operations");
+			Directory.CreateDirectory(opsDtoPath);
+			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceModel/Operations/".MapHostAbsolutePath()))
+			{
+				File.Copy(filePath, Path.Combine(opsDtoPath, Path.GetFileName(filePath)));
+			}
+			var typesDtoPath = Path.Combine(dtosDir, "Types");
+			Directory.CreateDirectory(typesDtoPath);
+			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceModel/Types/".MapHostAbsolutePath()))
+			{
+				File.Copy(filePath, Path.Combine(typesDtoPath, Path.GetFileName(filePath)));
 			}
 
 			return new ResetFilesResponse();
