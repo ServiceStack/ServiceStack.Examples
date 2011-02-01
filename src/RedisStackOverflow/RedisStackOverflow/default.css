@@ -424,7 +424,18 @@ H4 EM
     float: right;
     margin: 0 20px 0 0;
 }
-
+#trivia
+{
+	margin: 3px 0 0 0;
+	padding: 1px 4px;
+	color: #444;
+	font-size: 12px;
+	background: #f1f1f1;
+}
+#trivia B
+{
+	color: #333;	
+}
 #footer
 {
     position:fixed;
