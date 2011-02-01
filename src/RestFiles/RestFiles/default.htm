@@ -1,9 +1,53 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>REST Files complete file management </title>
+    <title>REST Files: GitHub-like file access with 1 page jQuery + 1 C# REST Service</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.min.js"></script>
 </head>
 <body>
+
+<div id="header">
+    <div id="header-links">
+        <a href="../ServiceStack.Hello/">Hello World</a>
+        <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../RedisStackOverflow/">Redis StackOverflow</a>
+    </div>
+    <a id="github" href="https://github.com/mythz/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
+</div>
+    
+<div id="breadcrumb">
+    <h1><a href="http://www.servicestack.net">ServiceStack</a><b>/</b><a class="active" href="./">REST Files</a></h1>
+</div>
+
+<div id="info">
+    GitHub-like online file access with 1 page jQuery + 1 page C# REST Service.
+</div>
+
+<div id="files"></div>
+    
+    
+
+
+
+<script>
+
+    $.get("files", function(r) {
+        $("#files").html(JSON.stringify(r)); 
+    });
+</script>
+
+  <!-- change the UA-XXXXX-X to be your site's ID -->
+  <script>
+   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+  </script>
 
 </body>
 </html>

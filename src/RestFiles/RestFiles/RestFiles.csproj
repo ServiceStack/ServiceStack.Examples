@@ -60,7 +60,6 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppHost.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -77,11 +76,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\default.css" />
     <Content Include="default.htm" />
+    <Content Include="img\bg-body-1024.png" />
+    <Content Include="img\bg_gradient.gif" />
+    <Content Include="img\btn-github.png" />
+    <Content Include="img\dir.png" />
+    <Content Include="img\logo-24x24.png" />
+    <Content Include="img\logo-32x32.png" />
+    <Content Include="img\logo-txt-small.png" />
+    <Content Include="img\public.png" />
+    <Content Include="img\row_bg.png" />
+    <Content Include="img\txt.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="js\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
