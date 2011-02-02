@@ -285,7 +285,7 @@ A.file
 #btn-reset
 {
 	position: absolute;
-	left: 850px;
+	left: 856px;
 }
 
 .btn {
@@ -387,9 +387,10 @@ A.file
 	margin: 4px 10px 0 5px;
 	float:left;
 }
-#fileview PRE
+#fileview textarea
 {
 	clear: left;
+	width: 912px;
 	height: 600px;
 	overflow: auto;
 }
@@ -416,4 +417,19 @@ A.file
 {
 	float: right;
 	margin: 5px 5px 0 0;
+}
+
+#footer
+{
+	background: #f1f1f1 url(../img/bg-footer.png) repeat-x 0 0;	
+	height: 60px;
+	position: fixed;
+	bottom: 0;
+	width: 963px;
+}
+#mono
+{
+	position: absolute;
+	left: 860px;
+	margin: 10px 0 0 0; 
 }

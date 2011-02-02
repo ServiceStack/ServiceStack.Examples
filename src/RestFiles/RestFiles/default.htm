@@ -37,8 +37,11 @@
     
 <div id="fileview"></div>
 
+<div id="footer">
+    <a id="mono" href="http://www.mono-project.com"><img src="img/Mono-powered-big.png" /></a>
+</div>
+
 <script>
-    //$.ajaxSetup({dataType:'json',accepts:'application/json'});
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
     } 
@@ -71,7 +74,7 @@
         if (attrHref == "#!resetfiles") 
         {
             if (e.preventDefault) e.preventDefault();
-            if (!confirm("Are you sure you want to reset the filesystem back to the default state?")) return;
+            if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
             href = "files/", location.hash = "#!files/";
             $.post("resetfiles", null, refresh);                        
             return;
@@ -147,10 +150,10 @@
             if (file)
             {
                 var jqFile = $("#fileview");
-                var sb = "<h3><a class='btn edit'><span>edit file</span></a></dd><span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
+                var sb = "<h3><a class='btn edit'><span>save file</span></a></dd><span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
                        + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</dd>" 
                        + '<dd><a class="btn download"><span>download file</span></a></dd>' + "</dl></h3>"
-                       + "<pre>" + enc(file.Contents) + "</pre>";
+                       + "<textarea>" + enc(file.Contents) + "</textarea>";
                 jqFile.html(sb).show();  
                               
                 $("#fileadmin").hide();
