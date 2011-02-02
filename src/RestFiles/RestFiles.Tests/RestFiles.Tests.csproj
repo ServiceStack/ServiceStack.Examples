@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DAE4FFC2-B446-4020-8578-19B816FAA40A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -35,11 +35,11 @@
   <ItemGroup>
     <Reference Include="Moq, Version=2.6.1014.1, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\tests\Moq.dll</HintPath>
+      <HintPath>..\..\..\libs\tests\Moq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\tests\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\libs\tests\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
