@@ -4,33 +4,41 @@
     <title>REST Files: GitHub-like file access with 1 page jQuery + 1 C# REST Service</title>
     <link href="css/default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
 </head>
 <body>
 
 <div id="header">
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
-        <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
     </div>
     <a id="github" href="https://github.com/mythz/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
 </div>
     
 <div id="title">
-    <h1><a href="http://www.servicestack.net">ServiceStack</a><b>/</b><a class="active" href="./">REST Files</a></h1>
+    <h1><a href="http://www.servicestack.net">ServiceStack</a><b>/</b><a class="active" href="./">The Rest Files</a></h1>
 </div>
 
 <div id="info">
-    GitHub-like online file access with 1 page jQuery + 1 page C# REST Service.
+    GitHub-like browser with complete server file management over REST in 1 page jQuery + 1 page C#.
 </div>
+
+<a id="btn-reset" href="#!resetfiles" class="btn"><span>reset files</span></a>
 
 <div id="breadcrumb"></div>
 <div id="ls"></div>
+
+<div id="fileadmin">
+<div class="mkdir ib"><input id="dirname" placeholder="new folder name" /><a class="btn"><span>create folder</span></a></div>
+<div class="upload ib"><input type="file" name="fileupload" id="fileupload" /><a class="btn"><span>upload here</span></a></div>
+</div>
     
+<div id="fileview"></div>
+
 <script>
-    String.prototype.rtrim = function() {
-	    return this.replace(/\s+$/,"");
-    }
+    //$.ajaxSetup({dataType:'json',accepts:'application/json'});
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
     } 
@@ -54,21 +62,60 @@
         return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
     }
             
-    var href = "files/";
+    var href = "files/", lastHref = "";
     $(document).click(function(e){
-        var el = e.target;
-        if (!el.getAttribute("href")) return;
-        href = el.getAttribute("href");
+        var attrHref, el = e.target;
+        do { attrHref = el.getAttribute("href"); } while(!attrHref && (el = el.parentElement));
+        if (!attrHref) return;
+        
+        if (attrHref == "#!resetfiles") 
+        {
+            if (e.preventDefault) e.preventDefault();
+            if (!confirm("Are you sure you want to reset the filesystem back to the default state?")) return;
+            href = "files/", location.hash = "#!files/";
+            $.post("resetfiles", null, refresh);                        
+            return;
+        }
+        
+        lastHref = href, href = attrHref;
         if (href.substr(0,1) == "." || href.substr(0,4) == "http") return;
         if (e.preventDefault) e.preventDefault();
         
-        if (href.substr(0,2) === "#!") href = href.substr(2);
+        if (href.substr(0,2) === "#!") {
+            href = href.substr(2);
+        }
         if (e.ctrlKey || e.shiftKey) {
             window.open('#!' + href);
             return;
         }
         refresh();
     });
+    var mkdir = function(){
+        var dir = $("#dirname");
+        if (!dir.val()) {
+            alert("Enter the name of the folder first");
+            dir.focus();
+            return;
+        }
+        $.post(href + dir.val(), null, function(){ dir.val(''); refresh(); });
+    };
+    $(".mkdir .btn").click(mkdir);
+    $(".mkdir INPUT").keypress(function(e){ if (e.which == '13') mkdir(); });
+    $(".upload .btn").click(function(){
+        var file = $("#fileupload").val();
+        if (!file) {
+            alert("Select a file to upload first");
+            return;
+        }
+        $.ajaxFileUpload({
+			url:href, 
+			secureuri:false,
+			fileElementId:'fileupload',
+			success: refresh
+		});
+    });
+    $(".btn").mousedown(function(){ $(this).toggleClass("mousedown"); });
+    $(".btn").mouseup(function(){ $(this).toggleClass("mousedown"); });
 
     var refresh = function(callback, skipPushState)
     {
@@ -88,12 +135,37 @@
         }
         $("#breadcrumb").html(sb + "</div>");
         
+        var jqLs = $("#ls");
         $.get(href, function(r) {
-            var sb = "<table><thead><tr><th>name</th><th>age</th><th>size</th></thead><tbody>";
+            var navBack = lastHref.length > href.length && lastHref.substr(0, href.length) == href,
+                nextCls = navBack ? "results-0" : "results-2",
+                hasResults = $("#ls TABLE").length == 1,
+                cls = !hasResults ? "results-1" : nextCls;
+            var sb = "<div class='" + cls + "'><table><thead><tr><th>name</th><th>age</th><th>size</th></thead><tbody>";
+
+            var file = r.File;
+            if (file)
+            {
+                var jqFile = $("#fileview");
+                var sb = "<h3><a class='btn edit'><span>edit file</span></a></dd><span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
+                       + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</dd>" 
+                       + '<dd><a class="btn download"><span>download file</span></a></dd>' + "</dl></h3>"
+                       + "<pre>" + enc(file.Contents) + "</pre>";
+                jqFile.html(sb).show();  
+                              
+                $("#fileadmin").hide();
+                $("#ls").html("").hide();
+                return;
+            }
             
+            $("#fileview").html("").hide();
             var dirList = r.Directory;
             if (dirList)
             {
+                if (dirs.length > 1) {
+                    var upHref = href.substr(0, href.lastIndexOf('/', href.length-2));
+                    sb += "<tr><td><a class='up-dir' href='#!" + upHref + "/'>..<a></td><td></td><td></td></tr>";
+                }
                 $.each(dirList.Folders, function(i, dir) {
                     sb += "<tr><td><a class='dir' href='#!" + href + dir.Name + "/'>" + dir.Name + "/<a></td><td>" 
                         + toTwitterTime(fromDtoDate(dir.ModifiedDate)) + "</td><td>" 
@@ -106,9 +178,27 @@
                 });
             }
             
-            sb += "</tbody></table>";
-                    
-            $("#ls").html(sb); 
+            sb += "</tbody></table></div>";
+            
+            $("#fileadmin").show();
+            $("#ls").show().append(sb); 
+
+            var jq1 = $(".results-1"), jq2 = $("." + nextCls), el1 = jq1[0], el2 = jq2[0];
+            if (el1 && el2) {
+                jqLs.css({"min-height": Math.max(jq1.height(), jq2.height()) + "px"});
+                
+                jq1.addClass(navBack ? "slide-right" : "slide-left");
+                jq2.addClass(navBack ? "slide-right" : "slide-left");
+                
+                setTimeout(function() {
+                    jqLs.children().first().remove();
+                    jqLs.children().first()[0].className = "results-1";
+                }, 450);
+            }
+            else
+            {
+                $("#ls").css({"min-height": jq1.height() + "px"});
+            }
         });
     }
     

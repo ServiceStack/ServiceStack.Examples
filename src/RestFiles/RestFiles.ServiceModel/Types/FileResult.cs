@@ -7,12 +7,21 @@ namespace RestFiles.ServiceModel.Types
 	public class FileResult
 	{
 		[DataMember]
+		public string Name { get; set; }
+
+		[DataMember]
+		public string Extension { get; set; }
+
+		[DataMember]
+		public long FileSizeBytes { get; set; }
+
+		[DataMember]
+		public DateTime ModifiedDate { get; set; }
+
+		[DataMember]
+		public bool IsTextFile { get; set; }
+
+		[DataMember]
 		public string Contents { get; set; }
-
-		[DataMember]
-		public DateTime CreatedDate { get; set; }
-
-		[DataMember]
-		public DateTime LastModifiedDate { get; set; }
 	}
 }

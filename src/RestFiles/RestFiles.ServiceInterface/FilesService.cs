@@ -138,15 +138,18 @@ namespace RestFiles.ServiceInterface
 			return targetFile;
 		}
 
-		private FileResult GetFileResult(FileSystemInfo fileInfo)
+		private FileResult GetFileResult(FileInfo fileInfo)
 		{
 			var isTextFile = this.Config.TextFileExtensions.Contains(fileInfo.Extension);
 
 			return new FileResult
 			{
+				Name = fileInfo.Name,
+				Extension = fileInfo.Extension,
+				FileSizeBytes = fileInfo.Length,
+				IsTextFile = isTextFile,
 				Contents = isTextFile ? File.ReadAllText(fileInfo.FullName) : null,
-				CreatedDate = fileInfo.CreationTime,
-				LastModifiedDate = fileInfo.LastWriteTime,
+				ModifiedDate = fileInfo.LastWriteTimeUtc,
 			};
 		}
 
