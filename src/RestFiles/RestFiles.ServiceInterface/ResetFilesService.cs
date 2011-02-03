@@ -6,11 +6,11 @@ using ServiceStack.ServiceInterface;
 namespace RestFiles.ServiceInterface
 {
 	public class ResetFilesService
-		: RestServiceBase<ResetFiles>
+		: RestServiceBase<RevertFiles>
 	{
 		public AppConfig Config { get; set; }
 
-		public override object OnPost(ResetFiles request)
+		public override object OnPost(RevertFiles request)
 		{
 			var rootDir = Config.RootDirectory;
 
@@ -63,7 +63,7 @@ namespace RestFiles.ServiceInterface
 				File.Copy(filePath, Path.Combine(typesDtoPath, Path.GetFileName(filePath) + ".txt"));
 			}
 
-			return new ResetFilesResponse();
+			return new RevertFilesResponse();
 		}
 
 	}

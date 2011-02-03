@@ -4,14 +4,14 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace RestFiles.ServiceModel.Operations
 {
-	[RestService("resetfiles")]
+	[RestService("revertfiles")]
 	[DataContract]
-	public class ResetFiles { }
+	public class RevertFiles { }
 	
 	[DataContract]
-	public class ResetFilesResponse : IHasResponseStatus
+	public class RevertFilesResponse : IHasResponseStatus
 	{
-		public ResetFilesResponse()
+		public RevertFilesResponse()
 		{
 			this.ResponseStatus = new ResponseStatus();
 		}

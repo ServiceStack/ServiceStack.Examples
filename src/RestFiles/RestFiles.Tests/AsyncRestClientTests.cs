@@ -8,6 +8,10 @@ using ServiceStack.Common.Web;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
 
+/* For syntax highlighting and better readability view this file in GitHub at:
+ * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/AsyncRestClientTests.cs
+ */
+
 namespace RestFiles.Tests
 {
 	/// <summary>

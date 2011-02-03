@@ -34,25 +34,25 @@
     </h3>
 
     <div id="doc">
-        <h4><a href="./servicestack/metadata">Files Service REST API</a></h4>
+        <h4><a href="./servicestack/metadata">/files service REST API</a></h4>
         <dl>
-            <dt><b>GET</b> /files/path/to/folder</dt>
+            <dt><b>GET</b> <a href="./files/dtos/Types?format=json" target="_blank">/path/to/folder</a></dt>
             <dd>Directory listing at server</dd>
-            <dt><b>GET</b> /files/path/to/file.txt</dt>
+            <dt><b>GET</b> <a href="./" target="_blank">/path/to/file.txt</a></dt>
             <dd>File Info and contents of any text file</dd>
-            <dt><b>POST</b> /files/path/to/newfolder (no-body)</dt>
+            <dt><b>POST</b> /path/to/newfolder (no-body)</dt>
             <dd>Create a directory at newfolder path</dd>
-            <dt><b>POST</b> /files/path/to/folder (multipart/form-data)</dt>
+            <dt><b>POST</b> /path/to/folder (multipart/form-data)</dt>
             <dd>Upload file at path</dd>
-            <dt><b>PUT</b> /files/path/to/file.txt</dt>
+            <dt><b>PUT</b> /path/to/file.txt</dt>
             <dd>Replace contents of any text file</dd>
-            <dt><b>DELETE</b> /files/path/to/folder</dt>
+            <dt><b>DELETE</b> /path/to/folder</dt>
             <dd>Delete folder at path</dd>
         </dl>
     </div>
 </div>
 
-<a id="btn-reset" href="#!resetfiles" class="btn"><span>reset files</span></a>
+<a id="btn-reset" href="#!revertfiles" class="btn"><span>revert files</span></a>
 
 <div id="breadcrumb"></div>
 <div id="ls"></div>
@@ -69,6 +69,8 @@
 </div>
 
 <script>
+    if (typeof console == "undefined"){ var console = {}; console.log = function(){}; }
+
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
     } 
@@ -91,35 +93,45 @@
         if (typeof html != "string") return html;
         return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
     }
-            
+
     var href = "files/", lastHref = "";
+    var clickHandlers = {
+        files: function(el, e, href) {
+            if (e.ctrlKey || e.shiftKey) {
+                window.open('#!' + href);
+                return;
+            }
+            refresh();
+        },
+        revertfiles: function(el, href)
+        {
+            if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
+            href = "files/", location.hash = "#!files/";
+            $.post("resetfiles", null, refresh);
+            return;
+        }
+    }
+
     $(document).click(function(e){
         var attrHref, el = e.target;
         do { attrHref = el.getAttribute("href"); } while(!attrHref && (el = el.parentElement));
         if (!attrHref) return;
-        
-        if (attrHref == "#!resetfiles") 
+
+        if (attrHref.substr(0,2) === "#!")
         {
-            if (e.preventDefault) e.preventDefault();
-            if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
-            href = "files/", location.hash = "#!files/";
-            $.post("resetfiles", null, refresh);                        
-            return;
+            lastHref = href;
+            href = attrHref.substr(2);
+            var cmd = href.split('/')[0];
+
+            var clickHandler = clickHandlers[cmd];
+            if (clickHandler) {
+                if (e.preventDefault) e.preventDefault();
+                clickHandler(this, e, href);
+                return;
+            }
         }
-        
-        lastHref = href, href = attrHref;
-        if (href.substr(0,1) == "." || href.substr(0,4) == "http") return;
-        if (e.preventDefault) e.preventDefault();
-        
-        if (href.substr(0,2) === "#!") {
-            href = href.substr(2);
-        }
-        if (e.ctrlKey || e.shiftKey) {
-            window.open('#!' + href);
-            return;
-        }
-        refresh();
     });
+
     var mkdir = function(){
         var dir = $("#dirname");
         if (!dir.val()) {

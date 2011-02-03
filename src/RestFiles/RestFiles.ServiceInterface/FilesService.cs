@@ -9,6 +9,10 @@ using ServiceStack.ServiceInterface;
 using File = System.IO.File;
 using FileResult = RestFiles.ServiceModel.Types.FileResult;
 
+/* For syntax highlighting and better readability view this file in GitHub at:
+ * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
+ */
+
 namespace RestFiles.ServiceInterface
 {
 	/// <summary>

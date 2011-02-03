@@ -192,14 +192,6 @@ BODY
     font-family: helvetica;
     margin: 0 0 5px 10px;
 }
-#doc H4 A
-{
-    text-decoration: none;
-}
-#doc H4 A:hover
-{
-    text-decoration: underline;
-}
 #doc DL
 {
     width: 650px;
@@ -208,7 +200,7 @@ BODY
 #doc DT
 {
     clear:left;
-    margin: 0 0 5px 0;
+    margin: 0 0 4px 0;
     width: 360px;
 }
 #doc DT, #doc DD
@@ -309,7 +301,7 @@ A.file
 {
 	-webkit-transform: translate(-930px, 0);
 	-moz-transform: translate(-930px, 0);
-	-o-transform: translate(-930px, 0);
+    -o-transform: translate(-930px, 0);
 	transform: translate(-930px, 0);
 }
 .slide-right
@@ -421,6 +413,7 @@ A.file
 }
 #fileupload
 {
+    background: #EAEAEA;
 	width: 230px;
 }
 

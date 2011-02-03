@@ -58,7 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Operations\ResetFiles.cs" />
+    <Compile Include="Operations\RevertFiles.cs" />
     <Compile Include="Types\FileResult.cs" />
     <Compile Include="Types\FolderResult.cs" />
     <Compile Include="Types\File.cs" />
