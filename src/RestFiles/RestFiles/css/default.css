@@ -122,8 +122,8 @@ BODY
 #title
 {
 	background: url(../img/logo-24x24.png) no-repeat 0 10px;	
-	padding: 10px 10px 20px 28px;
-	margin: -10px 0 0 10px;
+	padding: 10px 10px 5px 28px;
+	margin: 10px 0 0 10px;
 }
 #title H1 
 {
@@ -152,13 +152,75 @@ BODY
 	background: #EAF2F5 url(../img/bg_gradient.gif) repeat-x 0px 100%;
 	border: 1px solid #BEDCE7;
 	overflow: hidden;
-	padding: 10px 10px;
-	width: 898px;	
+	width: 918px;	
 	margin: 30px 0 10px 20px;
 	color: #000;
 	font-size: 12px;
 	font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
 }
+#info H3
+{
+    font-size: 14px;
+    font-family: helvetica;
+    padding: 10px;
+}
+#net
+{
+    float: right;
+    width: 180px;
+    border-left: 1px solid #BEDCE7;
+    padding: 10px;
+    height: 170px;
+    text-align: center;
+}
+#net STRONG
+{
+    font-size: 13px;
+    font-family: helvetica;
+    display: block;
+    margin: 0 0 30px 0;
+}
+#net A
+{
+    display: block;
+    margin: 5px 0;
+}
+
+#doc H4
+{
+    font-size: 14px;
+    font-family: helvetica;
+    margin: 0 0 5px 10px;
+}
+#doc H4 A
+{
+    text-decoration: none;
+}
+#doc H4 A:hover
+{
+    text-decoration: underline;
+}
+#doc DL
+{
+    width: 650px;
+    padding: 0 0 10px 10px;
+}
+#doc DT
+{
+    clear:left;
+    margin: 0 0 5px 0;
+    width: 360px;
+}
+#doc DT, #doc DD
+{
+    float: left;
+}
+#doc B
+{
+    float: left;
+    width: 50px;
+}
+
 
 #ls
 {
@@ -359,8 +421,9 @@ A.file
 }
 #fileupload
 {
-	width: 200px;
+	width: 230px;
 }
+
 
 #fileview 
 {
