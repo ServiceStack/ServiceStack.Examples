@@ -119,7 +119,7 @@
     }
     function enc(html) {
         if (typeof html != "string") return html;
-        return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
+        return html.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     function dirPath(path)
     {
