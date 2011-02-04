@@ -97,7 +97,7 @@
     if (($.browser.msie && $.browser.version < 9) || location.href.indexOf("fakeie") >= 0) {
         document.body.className = "lamebrowser";
     }
-    if ($.browser.msie) $.ajaxSetup({ cache:false });
+    $.ajaxSetup({ cache:false });
 
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
@@ -143,7 +143,7 @@
         }
     });
     
-    var href = "files/", lastHref = "";
+    var href = "files", lastHref = "";
 
     var mkdir = function(){
         var dir = $("#dirname");
@@ -192,7 +192,7 @@
             if (!dir) continue;
             sb += (i == dirs.length -1) 
                 ? '<strong>' + dir + '</strong>'
-                : '<a href="#!' + sbDirs + dir + '/">' + dir + '</a><b>/</b>';
+                : '<a href="#!' + sbDirs + dir + '">' + dir + '</a><b>/</b>';
             sbDirs += dir + "/";
         }
         $("#breadcrumb").html(sb + "</div>");
@@ -237,15 +237,15 @@
             {
                 if (dirs.length > 1) {
                     var upHref = href.substr(0, href.lastIndexOf('/', href.length-2));
-                    sb += "<tr><td><a class='up-dir' href='#!" + upHref + "/'>..<a></td><td></td><td></td></tr>";
+                    sb += "<tr><td><a class='up-dir' href='#!" + upHref + "'>..<a></td><td></td><td></td></tr>";
                 }
                 $.each(dirList.Folders, function(i, dir) {
-                    sb += "<tr><td><a class='dir' href='#!" + href + dir.Name + "/'>" + dir.Name + "/<a></td><td>" 
+                    sb += "<tr><td><a class='dir' href='#!" + href + "/" + dir.Name + "'>" + dir.Name + "/<a></td><td>" 
                         + toTwitterTime(fromDtoDate(dir.ModifiedDate)) + "</td><td>" 
                         + dir.FileCount + " files</td>";
                 });
                 $.each(dirList.Files, function(i, file) {
-                    sb += "<tr><td><a class='file' href='#!" + href + file.Name + "'><b class='del' href='#!deletefile'></b>" + file.Name + "</a></td><td>" 
+                    sb += "<tr><td><a class='file' href='#!" + href + "/" + file.Name + "'><b class='del' href='#!deletefile'></b>" + file.Name + "</a></td><td>" 
                         + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</td><td>" 
                         + file.FileSizeBytes + " bytes</td>";
                 });
@@ -292,23 +292,23 @@
         },
         savechanges: function() {
             $.put(lastHref, {TextContents: $("#fileview textarea").val()}, refresh);
-            href = dirPath(lastHref) + "/", location.hash = "#!" + href;
+            href = dirPath(lastHref), location.hash = "#!" + href;
         },
         deletefile: function(el) {
             var fileHref = $(el.parentNode).attr('href').substr(2);
             $.del(fileHref, refresh);
-            href = dirPath(fileHref) + "/", location.hash = "#!" + href;
+            href = dirPath(fileHref), location.hash = "#!" + href;
         },
         revertfiles: function() {
             console.log('revertfiles');           
             if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
-            href = "files/", location.hash = "#!files/";
+            href = "files", location.hash = "#!files";
             $.post("revertfiles", null, refresh);
             return;
         },
         closechoice: function() {
             document.body.className = "";
-            href = "files/", location.hash = "#!files/";
+            href = "files", location.hash = "#!files";
             refresh();
         }
     }
