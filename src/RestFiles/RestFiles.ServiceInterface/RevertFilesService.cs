@@ -5,7 +5,7 @@ using ServiceStack.ServiceInterface;
 
 namespace RestFiles.ServiceInterface
 {
-	public class ResetFilesService
+	public class RevertFilesService
 		: RestServiceBase<RevertFiles>
 	{
 		public AppConfig Config { get; set; }
@@ -23,7 +23,9 @@ namespace RestFiles.ServiceInterface
 
 			foreach (var filePath in Directory.GetFiles("~/".MapHostAbsolutePath()))
 			{
-				if (!filePath.EndsWith(".cs") && !filePath.EndsWith(".htm")) continue;
+				if (!filePath.EndsWith(".cs")
+					&& !filePath.EndsWith(".htm")
+					&& !filePath.EndsWith(".md")) continue;
 
 				var fileName = Path.GetFileName(filePath);
 				if (filePath.EndsWith(".cs")) fileName += ".txt";

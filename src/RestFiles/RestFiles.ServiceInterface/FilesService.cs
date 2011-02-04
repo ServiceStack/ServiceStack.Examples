@@ -9,20 +9,17 @@ using ServiceStack.ServiceInterface;
 using File = System.IO.File;
 using FileResult = RestFiles.ServiceModel.Types.FileResult;
 
-/* For syntax highlighting and better readability view this file in GitHub at:
+/* For syntax highlighting and better readability of this file, view it on GitHub:
  * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
  */
 
 namespace RestFiles.ServiceInterface
 {
 	/// <summary>
-	///  Contains the implementation of the Files Web Service.
-	///  
-	///  @Returns the Directory TextBody of the Files.Path
-	///  
-	///  Can also be called using the REST Urls below (default urls for XSP provided):
-	/// 		        http://localhost/RestFiles/files/
-	///  		- json: http://localhost/RestFiles/files/?format=json
+	///  Contains the entire implementation of ServiceStack's REST /files Web Service:
+	/// 
+	///  Complete file management 
+	/// 
 	/// </summary>
 	public class FilesService
 		: RestServiceBase<Files>
@@ -33,7 +30,12 @@ namespace RestFiles.ServiceInterface
 		{
 			var targetFile = GetAndValidateExistingPath(request);
 
-			var response = Directory.Exists(targetFile.FullName)
+			var isDirectory = Directory.Exists(targetFile.FullName);
+
+			if (!isDirectory && request.ForDownload)
+				return new HttpResult(targetFile, true);
+
+			var response = isDirectory
 				? new FilesResponse { Directory = GetFolderResult(targetFile.FullName) }
 				: new FilesResponse { File = GetFileResult(targetFile) };
 
@@ -72,10 +74,10 @@ namespace RestFiles.ServiceInterface
 			if (!this.Config.TextFileExtensions.Contains(targetFile.Extension))
 				throw new NotSupportedException("PUT Can only update text files, not: " + targetFile.Extension);
 
-			if (request.TextBody == null)
-				throw new ArgumentNullException("TextBody");
+			if (request.TextContents == null)
+				throw new ArgumentNullException("TextContents");
 
-			File.WriteAllText(targetFile.FullName, request.TextBody);
+			File.WriteAllText(targetFile.FullName, request.TextContents);
 
 			return new FilesResponse();
 		}

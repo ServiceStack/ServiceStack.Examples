@@ -8,7 +8,7 @@ using ServiceStack.Common.Web;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
 
-/* For syntax highlighting and better readability view this file in GitHub at:
+/* For syntax highlighting and better readability of this file, view it on GitHub:
  * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/AsyncRestClientTests.cs
  */
 
@@ -149,7 +149,7 @@ namespace RestFiles.Tests
 
 			FilesResponse response = null;
 			restClient.PutAsync<FilesResponse>(WebServiceHostUrl + "files/README.txt",
-				new Files { TextBody = ReplacedFileContents },
+				new Files { TextContents = ReplacedFileContents },
 				r => response = r, FailOnAsyncError);
 
 			Thread.Sleep(1000);
@@ -232,7 +232,7 @@ namespace RestFiles.Tests
 			FilesResponse response = null;
 
 			restClient.PutAsync<FilesResponse>(WebServiceHostUrl + "files/non-existing-file.txt",
-			   new Files { TextBody = ReplacedFileContents },
+			   new Files { TextContents = ReplacedFileContents },
 			   r => response = r,
 			   (r, ex) =>
 			   {

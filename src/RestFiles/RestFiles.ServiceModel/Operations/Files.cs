@@ -8,7 +8,7 @@ namespace RestFiles.ServiceModel.Operations
 {
 	[Description("GET the File or Directory info at {Path}\n"
                + "POST multipart/formdata to upload a new file to any {Path} in the /ReadWrite folder\n"
-               + "PUT {TextBody} to replace the contents of a text file in the /ReadWrite folder\n")]
+               + "PUT {TextContents} to replace the contents of a text file in the /ReadWrite folder\n")]
 	[RestService("/files")]
 	[RestService("/files/{Path*}")]
 	[DataContract]
@@ -18,7 +18,10 @@ namespace RestFiles.ServiceModel.Operations
 		public string Path { get; set; }
 
 		[DataMember]
-		public string TextBody { get; set; }
+		public string TextContents { get; set; }
+
+		[DataMember]
+		public bool ForDownload { get; set; }
 	}
 
 	[DataContract]

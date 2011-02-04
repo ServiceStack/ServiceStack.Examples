@@ -25,27 +25,29 @@
 <div id="info">
     <div id="net">
         <strong>.NET Clients can access the File Service API with:</strong>
-        <a href="#!files/tests/AsyncRestClientTests.cs.txt">REST Async C# Client</a>
-        <a href="#!files/tests/SyncRestClientTests.cs.txt">REST Sync C# Client</a>
+        <a href="#!files/tests/AsyncRestClientTests.cs.txt">Async C# client examples</a>
+        <a href="#!files/tests/SyncRestClientTests.cs.txt">Sync C# client examples</a>
     </div>
 
     <h3>    
-        GitHub-like browser with complete server file management over REST in 1 page jQuery + 1 page C#.
+        GitHub-like browser with complete remote file management over REST in
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm">1 page jQuery</a> + 
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs">1 page C#</a>
     </h3>
 
     <div id="doc">
-        <h4><a href="./servicestack/metadata">/files service REST API</a></h4>
+        <h4><a href="./servicestack/metadata">The REST /files service API:</a></h4>
         <dl>
-            <dt><b>GET</b> <a href="./files/dtos/Types?format=json" target="_blank">/path/to/folder</a></dt>
+            <dt><b>GET</b> <a href="./files/dtos/Types?format=json">/path/to/folder</a></dt>
             <dd>Directory listing at server</dd>
-            <dt><b>GET</b> <a href="./" target="_blank">/path/to/file.txt</a></dt>
-            <dd>File Info and contents of any text file</dd>
+            <dt><b>GET</b> <a href="./files/README.md?format=xml">/path/to/file.txt</a></dt>
+            <dd>Info and contents of text file at path</dd>
             <dt><b>POST</b> /path/to/newfolder (no-body)</dt>
             <dd>Create a directory at newfolder path</dd>
             <dt><b>POST</b> /path/to/folder (multipart/form-data)</dt>
-            <dd>Upload file at path</dd>
+            <dd>Upload file at folder path</dd>
             <dt><b>PUT</b> /path/to/file.txt</dt>
-            <dd>Replace contents of any text file</dd>
+            <dd>Replace contents of text file at path</dd>
             <dt><b>DELETE</b> /path/to/folder</dt>
             <dd>Delete folder at path</dd>
         </dl>
@@ -65,11 +67,37 @@
 <div id="fileview"></div>
 
 <div id="footer">
+    <a id="logo" href="http://www.servicestack.net"><img src="img/logo-txt-small.png" alt="ServiceStack" /></a>
     <a id="mono" href="http://www.mono-project.com"><img src="img/Mono-powered-big.png" /></a>
+    <div id="demo">Live demo hosted on Linux (Cent OS) / <a href="http://wiki.nginx.org">Nginx</a> using <a href="http://www.mono-project.com">Mono</a></div>
+    <div id="disclaimer">*Not affiliated with GitHub, which is a trademark of GitHub Inc.</div>
+</div>
+
+<div class="bg">
+<div id="choice"><a class="close" href="#!closechoice"></a>
+    <h3>Stop! old, outdated browser detected.</h3>
+    <p>
+        Unfortunately the advanced techniques used on this page is not supported by your current browser.
+    </p>
+    <p>
+        To have a better browser experience for this and other web sites,
+        please choose from one of the better alternatives below:
+    </p>
+
+    <a id="chrome" href="http://go.microsoft.com/fwlink/?LinkID=166937"><img src="img/chrome_logo.png" alt="Chrome" /></a>
+    <a id="opera" href="http://go.microsoft.com/fwlink/?LinkID=166934"><img src="img/opera_logo.png" alt="Opera" /></a>
+    <a id="firefox" href="http://go.microsoft.com/fwlink/?LinkID=166932"><img src="img/Mozilla_logo.png" alt="Firefox" /></a>
+    <a id="safari" href="http://go.microsoft.com/fwlink/?LinkID=166939"><img src="img/Safari_logo.jpg" alt="Safari" /></a>
+</div>
 </div>
 
 <script>
     if (typeof console == "undefined"){ var console = {}; console.log = function(){}; }
+
+    if (($.browser.msie && $.browser.version < 9) || location.href.indexOf("fakeie") >= 0) {
+        document.body.className = "lamebrowser";
+    }
+    if ($.browser.msie) $.ajaxSetup({ cache:false });
 
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
@@ -93,44 +121,29 @@
         if (typeof html != "string") return html;
         return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
     }
-
-    var href = "files/", lastHref = "";
-    var clickHandlers = {
-        files: function(el, e, href) {
-            if (e.ctrlKey || e.shiftKey) {
-                window.open('#!' + href);
-                return;
-            }
-            refresh();
-        },
-        revertfiles: function(el, href)
-        {
-            if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
-            href = "files/", location.hash = "#!files/";
-            $.post("resetfiles", null, refresh);
-            return;
-        }
+    function dirPath(path)
+    {
+        if (typeof path != "string") return path;
+        var strPos = path.lastIndexOf('/', path.length - 1);
+        if (strPos == -1) return path;
+        return path.substr(0, strPos);
     }
-
-    $(document).click(function(e){
-        var attrHref, el = e.target;
-        do { attrHref = el.getAttribute("href"); } while(!attrHref && (el = el.parentElement));
-        if (!attrHref) return;
-
-        if (attrHref.substr(0,2) === "#!")
-        {
-            lastHref = href;
-            href = attrHref.substr(2);
-            var cmd = href.split('/')[0];
-
-            var clickHandler = clickHandlers[cmd];
-            if (clickHandler) {
-                if (e.preventDefault) e.preventDefault();
-                clickHandler(this, e, href);
-                return;
-            }
+    function _mkAjax(url, data, callback, type, method) {
+        if ($.isFunction(data)) {
+            callback = data, data = {};
+        }
+        return $.ajax({ type: method, url: url, data: data, success: callback, dataType: type });
+    }
+    $.extend({
+        put: function(url, data, callback, type) {
+            return _mkAjax(url, data, callback, type, 'PUT');
+        },
+        del: function(url, data, callback, type) {
+            return _mkAjax(url, data, callback, type, 'DELETE');
         }
     });
+    
+    var href = "files/", lastHref = "";
 
     var mkdir = function(){
         var dir = $("#dirname");
@@ -149,12 +162,19 @@
             alert("Select a file to upload first");
             return;
         }
-        $.ajaxFileUpload({
-			url:href, 
-			secureuri:false,
-			fileElementId:'fileupload',
-			success: refresh
-		});
+        try
+        {
+            $.ajaxFileUpload({
+                url:href,
+                secureuri:false,
+                fileElementId:'fileupload',
+                success: refresh
+            });
+        }
+        catch(e)
+        {
+            alert("Not supported in " + ($.browser.msie ? "IE" : "this browser"));
+        }
     });
     $(".btn").mousedown(function(){ $(this).toggleClass("mousedown"); });
     $(".btn").mouseup(function(){ $(this).toggleClass("mousedown"); });
@@ -177,7 +197,7 @@
         }
         $("#breadcrumb").html(sb + "</div>");
         
-        var jqLs = $("#ls");
+        var jqLs = $("#ls");        
         $.get(href, function(r) {
             var navBack = lastHref.length > href.length && lastHref.substr(0, href.length) == href,
                 nextCls = navBack ? "results-0" : "results-2",
@@ -188,13 +208,24 @@
             var file = r.File;
             if (file)
             {
+                if (!file.IsTextFile) {
+                    location.href = href + "?ForDownload=true";
+                    setTimeout(function(){window.history.back()}, 1000);
+                    return;
+                }
+
                 var jqFile = $("#fileview");
-                var sb = "<h3><a class='btn edit'><span>save file</span></a></dd><span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
+                var sb = "<h3><a class='btn edit' href='#!savechanges'><span>save changes</span></a></dd>"
+                       + "<span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
                        + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</dd>" 
-                       + '<dd><a class="btn download"><span>download file</span></a></dd>' + "</dl></h3>"
+                       + '<dd><a class="btn download" href="' + href + '?ForDownload=true"><span>download file</span></a></dd>' 
+                       + "</dl></h3>"
                        + "<textarea>" + enc(file.Contents) + "</textarea>";
-                jqFile.html(sb).show();  
-                              
+                jqFile.html(sb).show();
+
+                var height = $("#footer").position().top - $("#ls").position().top;
+                $("#fileview TEXTAREA").height(height - 65);
+
                 $("#fileadmin").hide();
                 $("#ls").html("").hide();
                 return;
@@ -214,7 +245,7 @@
                         + dir.FileCount + " files</td>";
                 });
                 $.each(dirList.Files, function(i, file) {
-                    sb += "<tr><td><a class='file' href='#!" + href + file.Name + "'>" + file.Name + "</a></td><td>" 
+                    sb += "<tr><td><a class='file' href='#!" + href + file.Name + "'><b class='del' href='#!deletefile'></b>" + file.Name + "</a></td><td>" 
                         + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</td><td>" 
                         + file.FileSizeBytes + " bytes</td>";
                 });
@@ -250,16 +281,66 @@
         href = e.state;
         refresh(null, true);
     };
+
+    var clickHandlers = {
+        files: function(el, e, href) {
+            if (e.ctrlKey || e.shiftKey) {
+                window.open('#!' + href);
+                return;
+            }
+            refresh();
+        },
+        savechanges: function() {
+            $.put(lastHref, {TextContents: $("#fileview textarea").val()}, refresh);
+            href = dirPath(lastHref) + "/", location.hash = "#!" + href;
+        },
+        deletefile: function(el) {
+            var fileHref = $(el.parentNode).attr('href').substr(2);
+            $.del(fileHref, refresh);
+            href = dirPath(fileHref) + "/", location.hash = "#!" + href;
+        },
+        revertfiles: function() {
+            console.log('revertfiles');           
+            if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
+            href = "files/", location.hash = "#!files/";
+            $.post("revertfiles", null, refresh);
+            return;
+        },
+        closechoice: function() {
+            document.body.className = "";
+            href = "files/", location.hash = "#!files/";
+            refresh();
+        }
+    }
+
+    $(document).click(function(e){
+        console.log(e);
+        var attrHref, el = e.target;
+        do { attrHref = el.getAttribute("href"); } while(!attrHref && (el = el.parentElement));
+        if (!attrHref) return;
+
+        if (attrHref.substr(0,2) === "#!")
+        {
+            lastHref = href, href = attrHref.substr(2);
+            var cmd = href.split('/')[0];
+
+            var clickHandler = clickHandlers[cmd];
+            if (clickHandler) {
+                if (e.preventDefault) e.preventDefault();
+                clickHandler(el, e, href);
+            }
+        }
+    });
     
     var hash = location.hash.indexOf('#!') === 0 && location.hash.substr(2);
     if (hash) href = hash;
     refresh();
-    
+
 </script>
 
   <!-- change the UA-XXXXX-X to be your site's ID -->
   <script>
-   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
+   var _gaq = [['_setAccount', 'UA-7722718-7'], ['_trackPageview']];
    (function(d, t) {
     var g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];

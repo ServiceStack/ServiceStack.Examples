@@ -6,7 +6,7 @@ using ServiceStack.Common.Web;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
 
-/* For syntax highlighting and better readability view this file in GitHub at:
+/* For syntax highlighting and better readability of this file, view it on GitHub:
  * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
  */
 
@@ -120,7 +120,7 @@ namespace RestFiles.Tests
 			var restClient = CreateRestClient();
 
 			var response = restClient.Put<FilesResponse>(WebServiceHostUrl + "files/README.txt",
-				new Files { TextBody = ReplacedFileContents });
+				new Files { TextContents = ReplacedFileContents });
 
 			Assert.That(File.ReadAllText(FilesRootDir + "README.txt"),
 						Is.EqualTo(ReplacedFileContents));
@@ -192,7 +192,7 @@ namespace RestFiles.Tests
 			try
 			{
 				var response = restClient.Put<FilesResponse>(WebServiceHostUrl + "files/non-existing-file.txt",
-					new Files { TextBody = ReplacedFileContents });
+					new Files { TextContents = ReplacedFileContents });
 
 				Assert.Fail("Should fail with 404 FileNotFoundException");
 			}

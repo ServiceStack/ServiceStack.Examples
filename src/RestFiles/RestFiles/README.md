@@ -1,20 +1,20 @@
 #The REST Files
 
-The Rest files is an example ServiceStack project that provides remote access of your filesystem, 
-over REST-ful web services, in a GitHub browser-like widget.
+The Rest files is a ServiceStack Example project providing complete management of your remote filesystem,
+over a REST-ful web services API, in a GitHub browser-like widget.
 
 ## Client Info
 
-The client is written in [1 static default.html page, using only jQuery](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
-Because of the advanced HTML5 features used its best used in a modern browser (i.e. anything but IE)
+The client is written in [1 static default.html page, and uses only jQuery](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
+Because of the advanced HTML5 features used its best viewed in a modern browser (i.e. anything recent that's not IE)
 
-  - CSS3 is used for foler animations
-  - HTML5 History State API is used for page navigation
+  * CSS3 is used for folder browser animations
+  * HTML5 History State API is used for ajax state and page navigation
 
 ## Server Info
 
-The entire /files service exposes a REST-ful strong-typed API written using only
-[1 single C# class](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs).
+The /files service exposes a complete strong-typed REST-ful API, the entire implementation of which fits in only   
+[1 C# class](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs).
 
 As it was developed using the http://servicestack.net Open Source .NET/Mono Web Services Framework
 it also able to expose this REST-ful API over a myraid of formats (with no extra code/config):
@@ -24,10 +24,11 @@ it also able to expose this REST-ful API over a myraid of formats (with no extra
   jsv  - http://localhost/RestFiles/files/dtos/Types?format=jsv&debug=true
   csv  - http://localhost/RestFiles/files/dtos/Types?format=csv
 
-*Note: All but the xml format uses the high-performance cross-platform, serializers in
-ServiceStack.Text. The JsonSerializer serializer is over 3.6x faster that the fastest JSON Serialzer 
-shipped with .NET, see:
-http://www.servicestack.net/benchmarks/NorthwindDatabaseRowsSerialization.100000-times.2010-08-17.html
+*Note: The speed of web services are faster than what they appear, as the delay + animations are for
+ gratuitous purposes only :) All but the xml format uses the high-performance cross-platform,
+ serializers in ServiceStack.Text. e.g the JsonSerializer serializer used is over 3.6x faster
+ that the fastest JSON Serialzer shipped with .NET, see:
+ [the Northwind Benchmarks](http://www.servicestack.net/benchmarks/NorthwindDatabaseRowsSerialization.100000-times.2010-08-17.html)
 
 SOAP 1.1/1.2 endpoints are also available at the following url:
 
@@ -46,4 +47,5 @@ generate the xsds, wsdls, metadata documentation on the fly at:
 
 The live demo is hosted on Linux (Cent OS) / Nginx using [MONO](http://www.mono-project.com)
 
-*Not affiliated with GitHub, which is a trademark of GitHub Inc
+*Not affiliated with GitHub, which is a trademark of GitHub Inc.
+

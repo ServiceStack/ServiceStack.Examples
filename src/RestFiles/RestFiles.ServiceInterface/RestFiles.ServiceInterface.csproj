@@ -57,7 +57,7 @@
     <Compile Include="FilesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppConfig.cs" />
-    <Compile Include="ResetFilesService.cs" />
+    <Compile Include="RevertFilesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestFiles.ServiceModel\RestFiles.ServiceModel.csproj">
