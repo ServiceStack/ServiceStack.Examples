@@ -9,7 +9,7 @@
     <script type="text/javascript">
         $(function() {
             var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
-            
+
             $(document).click(function(e){
                 var el = e.target;
                 if (!el.getAttribute("data-cmd")) return;
@@ -22,7 +22,7 @@
                 refresh();
             });
 
-            var ua = navigator.userAgent, iPhone = ua.indexOf("iPhone") >= 0, iPad = ua.indexOf("iPad") >= 0; 
+            var ua = navigator.userAgent, iPhone = ua.indexOf("iPhone") >= 0, iPad = ua.indexOf("iPad") >= 0;
             if (iPhone || iPad)
             {
                 $("#footer").css({position:"static",clear:"both", margin:"80px 0 -30px -18px"});
@@ -50,7 +50,7 @@
 
             var fromDtoDate = function(dateStr) {
                 return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
-            } 
+            }
             var toTwitterTime = function (a) {
                 var b = new Date();
                 var c = typeof a == "date" ? a : new Date(a);
@@ -209,7 +209,7 @@
                     });
                     return;
                 }
-                
+
                 asyncCount++;
                 $.get(encodedUrl, function(r){
                     var sb = "";
@@ -324,8 +324,9 @@
 <body>
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
-        <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../RestFiles/">The Rest Files</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
+        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
@@ -343,7 +344,7 @@
         <a id="login">login</a>
 
         <h4></h4>
-        
+
         <div id="add">
             <dl>
                 <dd><input id="qtitle" placeholder="what is your question?" /><i>*</i></dd>
@@ -415,12 +416,12 @@
         powered entirely by <a href="http://redis.io">Redis</a>
         on <a href="http://www.mono-project.com">Mono</a>.<br />
 
-        Takes advantage of 
+        Takes advantage of
         <a href="http://redis.io/commands#string">STRING</a>,
         <a href="http://redis.io/commands#set">SET</a> and
-        <a href="http://redis.io/commands#sorted_set">SORTED SET</a> 
+        <a href="http://redis.io/commands#sorted_set">SORTED SET</a>
         data structures in
-        <a href="http://redis.io">Redis</a> 
+        <a href="http://redis.io">Redis</a>
         to provide effectively,
         the fastest implementation of a StackOverflow-like website.
     </div>
