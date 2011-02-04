@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>ServiceStack Movie Database</title>
-    
+
     <link href="default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="jquery.form.js"></script>
@@ -135,20 +135,21 @@
 <body>
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
-        <a href="../ServiceStack.MovieRest/">Nothing but REST!</a>
+        <a href="../RestFiles/">The Rest Files</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
+        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
         <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
     </div>
-    
+
     <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
-    
+
     <h1><a href="default.htm">Nothing but REST!</a></h1>
-    
+
     <div id="summary">
-        Clean mark-up, No config &amp; No code-gen - Complete Ajax CRUD app in 
+        Clean mark-up, No config &amp; No code-gen - Complete Ajax CRUD app in
         <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/default.htm">1 page of jQuery</a>
         and
         <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.MovieRest/MovieService.cs">1 page of C# server code</a>.
@@ -165,36 +166,36 @@
         <dl id="existing-movies"></dl>
         <button id="btnAdd">Add &gt;&gt;</button>
     </div>
-    
+
     <form action="movies" method="post">
         <h2></h2>
         <input type="hidden" name="Id" />
         <dl>
             <dt>Imdb Id</dt>
             <dd><input type="text" name="ImdbId" /></dd>
-            
+
             <dt>Title</dt>
             <dd><input type="text" name="Title" /></dd>
-            
+
             <dt>Rating</dt>
             <dd><input type="text" name="Rating" /></dd>
-            
+
             <dt>Director</dt>
             <dd><input type="text" name="Director" /></dd>
-            
+
             <dt>Release Date</dt>
             <dd><input type="text" name="ReleaseDate" /></dd>
-            
+
             <dt>Tag Line</dt>
             <dd><input type="text" name="TagLine" /></dd>
-            
+
             <dt>Genres</dt>
             <dd><input type="text" name="Genres" /></dd>
         </dl>
 
         <input type="submit" />
     </form>
-    
+
     <div id="csvformat">
         <b>Download all movies</b>
         in ServiceStack's new <a href="https://github.com/mythz/ServiceStack/wiki/ServiceStack-CSV-Format">CSV Format</a>
