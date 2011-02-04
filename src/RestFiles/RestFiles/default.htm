@@ -152,7 +152,7 @@
             dir.focus();
             return;
         }
-        $.post(href + dir.val(), null, function(){ dir.val(''); refresh(); });
+        $.post(href + "/" + dir.val(), null, function(){ dir.val(''); refresh(); });
     };
     $(".mkdir .btn").click(mkdir);
     $(".mkdir INPUT").keypress(function(e){ if (e.which == '13') mkdir(); });
@@ -300,7 +300,6 @@
             href = dirPath(fileHref), location.hash = "#!" + href;
         },
         revertfiles: function() {
-            console.log('revertfiles');           
             if (!confirm("Are you sure you want to revert the filesystem back to its original state?")) return;
             href = "files", location.hash = "#!files";
             $.post("revertfiles", null, refresh);
@@ -314,7 +313,6 @@
     }
 
     $(document).click(function(e){
-        console.log(e);
         var attrHref, el = e.target;
         do { attrHref = el.getAttribute("href"); } while(!attrHref && (el = el.parentElement));
         if (!attrHref) return;
