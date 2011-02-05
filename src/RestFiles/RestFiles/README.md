@@ -42,6 +42,8 @@ generate the xsds, wsdls, metadata documentation on the fly at:
   * [xsd](http://servicestack.net/RestFiles/servicestack/metadata?xsd=1)
   * [wsdl](http://servicestack.net/RestFiles/servicestack/soap12) (HTTP GET)
 
+Caveat: XmlSchema is not fully implemented as of MONO <= 2.8, so in many cases you will need to
+host your service on a Windows/.NET server to view your web services XSD and WSDLS.
 
 ## Live Demo
 
