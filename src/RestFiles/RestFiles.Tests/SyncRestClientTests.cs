@@ -63,13 +63,13 @@ namespace RestFiles.Tests
 		/// </summary>
 		public IRestClient CreateRestClient()
 		{
-			return new JsonServiceClient(WebServiceHostUrl);		//Best choice for Ajax web apps, 3x faster than XML
-			//return new XmlServiceClient(WebServiceHostUrl);		//Ubiquitous structured data format best for supporting non .NET clients
-			//return new JsvServiceClient(WebServiceHostUrl);		//Fastest, most compact and resilient format great for .NET to .NET client > server
+			return new JsonServiceClient(WebServiceHostUrl);  //Best choice for Ajax web apps, 3x faster than XML
+			//return new XmlServiceClient(WebServiceHostUrl); //Ubiquitous structured data format best for supporting non .NET clients
+			//return new JsvServiceClient(WebServiceHostUrl); //Fastest, most compact and resilient format great for .NET to .NET client > server
 		}
 
 		[Test]
-		public void Can_GetAsync_to_retrieve_existing_file()
+		public void Can_Get_to_retrieve_existing_file()
 		{
 			var restClient = CreateRestClient();
 
@@ -79,7 +79,7 @@ namespace RestFiles.Tests
 		}
 
 		[Test]
-		public void Can_GetAsync_to_retrieve_existing_folder_listing()
+		public void Can_Get_to_retrieve_existing_folder_listing()
 		{
 			var restClient = CreateRestClient();
 
@@ -90,7 +90,7 @@ namespace RestFiles.Tests
 		}
 
 		[Test]
-		public void Can_PostAsync_to_path_without_uploaded_files_to_create_a_new_Directory()
+		public void Can_Post_to_path_without_uploaded_files_to_create_a_new_Directory()
 		{
 			var restClient = CreateRestClient();
 
@@ -115,7 +115,7 @@ namespace RestFiles.Tests
 		}
 
 		[Test]
-		public void Can_PutAsync_to_replace_text_content_of_an_existing_file()
+		public void Can_Put_to_replace_text_content_of_an_existing_file()
 		{
 			var restClient = CreateRestClient();
 
@@ -127,7 +127,7 @@ namespace RestFiles.Tests
 		}
 
 		[Test]
-		public void Can_DeleteAsync_to_replace_text_content_of_an_existing_file()
+		public void Can_Delete_to_replace_text_content_of_an_existing_file()
 		{
 			var restClient = CreateRestClient();
 
