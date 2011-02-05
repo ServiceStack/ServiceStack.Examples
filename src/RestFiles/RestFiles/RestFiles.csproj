@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3A8D2349-6E97-47A2-AC49-EFE7D89C0344}</ProjectGuid>
     <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -79,18 +79,30 @@
     <Content Include="css\default.css" />
     <Content Include="default.htm" />
     <Content Include="img\bg-body-1024.png" />
+    <Content Include="img\bg-footer.png" />
     <Content Include="img\bg_gradient.gif" />
     <Content Include="img\btn-github.png" />
+    <Content Include="img\Chrome_logo.png" />
+    <Content Include="img\delete_icon.png" />
     <Content Include="img\dir.png" />
     <Content Include="img\file_head.gif" />
+    <Content Include="img\ie8_logo.jpg" />
     <Content Include="img\logo-24x24.png" />
     <Content Include="img\logo-32x32.png" />
     <Content Include="img\logo-txt-small.png" />
+    <Content Include="img\Mono-powered-big.png" />
+    <Content Include="img\Mozilla_logo.png" />
+    <Content Include="img\Opera_logo.png" />
     <Content Include="img\public.png" />
+    <Content Include="img\rip-ie6.jpg" />
     <Content Include="img\row_bg.png" />
+    <Content Include="img\Safari_logo.jpg" />
     <Content Include="img\txt.png" />
     <Content Include="js\ajaxfileupload.js" />
     <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -114,6 +126,9 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/RestFiles</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

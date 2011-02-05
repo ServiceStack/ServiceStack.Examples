@@ -77,7 +77,7 @@ namespace RestFiles.Tests
 			var restClient = CreateAsyncRestClient();
 
 			FilesResponse response = null;
-			restClient.GetAsync<FilesResponse>(WebServiceHostUrl + "files/README.txt",
+			restClient.GetAsync<FilesResponse>("files/README.txt",
 				r => response = r, FailOnAsyncError);
 
 			Thread.Sleep(1000);
@@ -91,7 +91,7 @@ namespace RestFiles.Tests
 			var restClient = CreateAsyncRestClient();
 
 			FilesResponse response = null;
-			restClient.GetAsync<FilesResponse>(WebServiceHostUrl + "files/",
+			restClient.GetAsync<FilesResponse>("files/",
 				r => response = r, FailOnAsyncError);
 
 			Thread.Sleep(1000);
@@ -106,7 +106,7 @@ namespace RestFiles.Tests
 			var restClient = CreateAsyncRestClient();
 
 			FilesResponse response = null;
-			restClient.PostAsync<FilesResponse>(WebServiceHostUrl + "files/SubFolder/NewFolder",
+			restClient.PostAsync<FilesResponse>("files/SubFolder/NewFolder",
 				new Files(),
 				r => response = r, FailOnAsyncError);
 
@@ -134,7 +134,7 @@ namespace RestFiles.Tests
 			var restClient = (IRestClient) CreateAsyncRestClient();
 
 			var fileToUpload = new FileInfo(FilesRootDir + "TESTUPLOAD.txt");
-			restClient.PostFile<FilesResponse>(WebServiceHostUrl + "files/UploadedFiles/", 
+			restClient.PostFile<FilesResponse>("files/UploadedFiles/", 
 				fileToUpload, MimeTypes.GetMimeType(fileToUpload.Name));
 
 			Assert.That(Directory.Exists(FilesRootDir + "UploadedFiles"));
@@ -148,7 +148,7 @@ namespace RestFiles.Tests
 			var restClient = CreateAsyncRestClient();
 
 			FilesResponse response = null;
-			restClient.PutAsync<FilesResponse>(WebServiceHostUrl + "files/README.txt",
+			restClient.PutAsync<FilesResponse>("files/README.txt",
 				new Files { TextContents = ReplacedFileContents },
 				r => response = r, FailOnAsyncError);
 
@@ -164,7 +164,7 @@ namespace RestFiles.Tests
 			var restClient = CreateAsyncRestClient();
 
 			FilesResponse response = null;
-			restClient.DeleteAsync<FilesResponse>(WebServiceHostUrl + "files/README.txt",
+			restClient.DeleteAsync<FilesResponse>("files/README.txt",
 				r => response = r, FailOnAsyncError);
 
 			Thread.Sleep(1000);
@@ -184,7 +184,7 @@ namespace RestFiles.Tests
 			WebServiceException webEx = null;
 			FilesResponse response = null;
 
-			restClient.GetAsync<FilesResponse>(WebServiceHostUrl + "files/UnknownFolder",
+			restClient.GetAsync<FilesResponse>("files/UnknownFolder",
 			   r => response = r,
 			   (r, ex) =>
 			   {
@@ -208,7 +208,7 @@ namespace RestFiles.Tests
 
 			try
 			{
-				var response = restClient.PostFile<FilesResponse>(WebServiceHostUrl + "files/README.txt",
+				var response = restClient.PostFile<FilesResponse>("files/README.txt",
 					fileToUpload, MimeTypes.GetMimeType(fileToUpload.Name));
 
 				Assert.Fail("Should fail with NotSupportedException");
@@ -231,7 +231,7 @@ namespace RestFiles.Tests
 			WebServiceException webEx = null;
 			FilesResponse response = null;
 
-			restClient.PutAsync<FilesResponse>(WebServiceHostUrl + "files/non-existing-file.txt",
+			restClient.PutAsync<FilesResponse>("files/non-existing-file.txt",
 			   new Files { TextContents = ReplacedFileContents },
 			   r => response = r,
 			   (r, ex) =>
@@ -255,7 +255,7 @@ namespace RestFiles.Tests
 			WebServiceException webEx = null;
 			FilesResponse response = null;
 
-			restClient.DeleteAsync<FilesResponse>(WebServiceHostUrl + "files/non-existing-file.txt",
+			restClient.DeleteAsync<FilesResponse>("files/non-existing-file.txt",
 			   r => response = r,
 			   (r, ex) =>
 			   {

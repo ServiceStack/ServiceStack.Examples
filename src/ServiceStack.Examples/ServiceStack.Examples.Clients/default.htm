@@ -192,14 +192,14 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetFactorial
     {
         [DataMember]
         public long ForNumber { get; set; }
     }
 
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetFactorialResponse
     {
         [DataMember]
@@ -263,7 +263,7 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetFibonacciNumbers
     {
         [DataMember]
@@ -273,7 +273,7 @@
         public long? Take { get; set; }
     }
 
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetFibonacciNumbersResponse
     {
         [DataMember]
@@ -377,7 +377,7 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class StoreNewUser
     {
         [DataMember]
@@ -390,7 +390,7 @@
         public string Password { get; set; }
     }
 
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class StoreNewUserResponse
     {
         public StoreNewUserResponse()
@@ -494,7 +494,7 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetUsers
     {
         [DataMember]
@@ -504,7 +504,7 @@
         public ArrayOfString UserNames { get; set; }
     }
 
-    [DataContract(Namespace = "http://schemas.sericestack.net/examples/types")]
+    [DataContract]
     public class GetUsersResponse
     {
         public GetUsersResponse()
