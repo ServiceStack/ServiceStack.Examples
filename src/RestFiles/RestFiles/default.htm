@@ -9,6 +9,8 @@
 </head>
 <body>
 
+<a href="http://www.servicestack.net" style="display:block;position:absolute;top:5px;left:10px;"><img src="http://servicestack.net/icon-home.jpg" alt="ServiceStack Home" /></a>
+
 <div id="header">
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
@@ -17,7 +19,7 @@
     </div>
     <a id="github" href="https://github.com/mythz/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
 </div>
-    
+
 <div id="title">
     <h1><a href="http://www.servicestack.net">ServiceStack</a><b>/</b><a class="active" href="./">The Rest Files</a></h1>
 </div>
@@ -29,9 +31,9 @@
         <a href="#!files/tests/SyncRestClientTests.cs.txt">Sync C# client examples</a>
     </div>
 
-    <h3>    
+    <h3>
         GitHub-like browser with complete remote file management over REST in
-        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm">1 page jQuery</a> + 
+        <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm">1 page jQuery</a> +
         <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs">1 page C#</a>
     </h3>
 
@@ -63,7 +65,7 @@
 <div class="mkdir ib"><input id="dirname" placeholder="new folder name" /><a class="btn"><span>create folder</span></a></div>
 <div class="upload ib"><input type="file" name="fileupload" id="fileupload" /><a class="btn"><span>upload here</span></a></div>
 </div>
-    
+
 <div id="fileview"></div>
 
 <div id="footer">
@@ -101,7 +103,7 @@
 
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
-    } 
+    }
     function toTwitterTime (a) {
         var b = new Date();
         var c = typeof a == "date" ? a : new Date(a);
@@ -142,7 +144,7 @@
             return _mkAjax(url, data, callback, type, 'DELETE');
         }
     });
-    
+
     var href = "files", lastHref = "";
 
     var mkdir = function(){
@@ -181,23 +183,23 @@
 
     var refresh = function(callback, skipPushState)
     {
-        if (!skipPushState && window.history.pushState) 
+        if (!skipPushState && window.history.pushState)
             window.history.pushState(href, href.replace('/', ' / '), '#!' + href);
-        
+
         var dirs = href.replace(/\/$/,"").split('/');
         var sb = '<div id="breadcrumb">';
         var sbDirs = "";
         for (var i=0; i<dirs.length; i++) {
             var dir = dirs[i];
             if (!dir) continue;
-            sb += (i == dirs.length -1) 
+            sb += (i == dirs.length -1)
                 ? '<strong>' + dir + '</strong>'
                 : '<a href="#!' + sbDirs + dir + '">' + dir + '</a><b>/</b>';
             sbDirs += dir + "/";
         }
         $("#breadcrumb").html(sb + "</div>");
-        
-        var jqLs = $("#ls");        
+
+        var jqLs = $("#ls");
         $.get(href, function(r) {
             var navBack = lastHref.length > href.length && lastHref.substr(0, href.length) == href,
                 nextCls = navBack ? "results-0" : "results-2",
@@ -217,8 +219,8 @@
                 var jqFile = $("#fileview");
                 var sb = "<h3><a class='btn edit' href='#!savechanges'><span>save changes</span></a></dd>"
                        + "<span class='ib txt'></span><dl><dd>" + enc(file.FileSizeBytes) + " bytes</dd><dd>"
-                       + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</dd>" 
-                       + '<dd><a class="btn download" href="' + href + '?ForDownload=true"><span>download file</span></a></dd>' 
+                       + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</dd>"
+                       + '<dd><a class="btn download" href="' + href + '?ForDownload=true"><span>download file</span></a></dd>'
                        + "</dl></h3>"
                        + "<textarea>" + enc(file.Contents) + "</textarea>";
                 jqFile.html(sb).show();
@@ -230,7 +232,7 @@
                 $("#ls").html("").hide();
                 return;
             }
-            
+
             $("#fileview").html("").hide();
             var dirList = r.Directory;
             if (dirList)
@@ -240,29 +242,29 @@
                     sb += "<tr><td><a class='up-dir' href='#!" + upHref + "'>..<a></td><td></td><td></td></tr>";
                 }
                 $.each(dirList.Folders, function(i, dir) {
-                    sb += "<tr><td><a class='dir' href='#!" + href + "/" + dir.Name + "'>" + dir.Name + "/<a></td><td>" 
-                        + toTwitterTime(fromDtoDate(dir.ModifiedDate)) + "</td><td>" 
+                    sb += "<tr><td><a class='dir' href='#!" + href + "/" + dir.Name + "'>" + dir.Name + "/<a></td><td>"
+                        + toTwitterTime(fromDtoDate(dir.ModifiedDate)) + "</td><td>"
                         + dir.FileCount + " files</td>";
                 });
                 $.each(dirList.Files, function(i, file) {
-                    sb += "<tr><td><a class='file' href='#!" + href + "/" + file.Name + "'><b class='del' href='#!deletefile'></b>" + file.Name + "</a></td><td>" 
-                        + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</td><td>" 
+                    sb += "<tr><td><a class='file' href='#!" + href + "/" + file.Name + "'><b class='del' href='#!deletefile'></b>" + file.Name + "</a></td><td>"
+                        + toTwitterTime(fromDtoDate(file.ModifiedDate)) + "</td><td>"
                         + file.FileSizeBytes + " bytes</td>";
                 });
             }
-            
+
             sb += "</tbody></table></div>";
-            
+
             $("#fileadmin").show();
-            $("#ls").show().append(sb); 
+            $("#ls").show().append(sb);
 
             var jq1 = $(".results-1"), jq2 = $("." + nextCls), el1 = jq1[0], el2 = jq2[0];
             if (el1 && el2) {
                 jqLs.css({"min-height": Math.max(jq1.height(), jq2.height()) + "px"});
-                
+
                 jq1.addClass(navBack ? "slide-right" : "slide-left");
                 jq2.addClass(navBack ? "slide-right" : "slide-left");
-                
+
                 setTimeout(function() {
                     jqLs.children().first().remove();
                     jqLs.children().first()[0].className = "results-1";
@@ -274,7 +276,7 @@
             }
         });
     }
-    
+
     window.onpopstate = function(e) {
         e = e || event;
         if (!e.state) return;
@@ -329,7 +331,7 @@
             }
         }
     });
-    
+
     var hash = location.hash.indexOf('#!') === 0 && location.hash.substr(2);
     if (hash) href = hash;
     refresh();
