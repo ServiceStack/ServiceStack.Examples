@@ -2,7 +2,7 @@
 follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/servicestack)
 for twitter updates.
 
-#Example Projects built with [ServiceStack](https://github.com/mythz/ServiceStack), [C# RedisClient](https://github.com/mythz/ServiceStack.Redis), [OrmLite](https://github.com/mythz/ServiceStack.OrmLite), etc
+#Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
 ## Live Demo
 
@@ -24,11 +24,10 @@ _All live examples hosted on CentOS/Nginx/FastCGI/Mono_
 
 You can find the latest releases for download at:
 
-* [ServiceStack.Examples/downloads](https://github.com/mythz/ServiceStack.Examples/downloads)
+* [ServiceStack.Examples/downloads](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
 
 
 ### Troubleshooting
 
 - Since the example project uses 32bit Sqlite.dll, on a 64 bit machine you must set IIS to run 32bit apps (in the App Domain config)
-
 
