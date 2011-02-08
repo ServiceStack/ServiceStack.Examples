@@ -5,7 +5,7 @@ over a REST-ful web services API, in a GitHub browser-like widget.
 
 ## Client Info
 
-The client is written in [1 static default.html page, and uses only jQuery](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
+The client is written in [1 static default.html page, and uses only jQuery](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
 Because of the advanced HTML5 features used its best viewed in a modern browser (i.e. anything recent that's not IE)
 
   * CSS3 is used for folder browser animations
@@ -14,7 +14,7 @@ Because of the advanced HTML5 features used its best viewed in a modern browser 
 ## Server Info
 
 The /files service exposes a complete strong-typed REST-ful API, the entire implementation of which fits in only   
-[1 C# class](https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs).
+[1 C# class](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs).
 
 As it was developed using the http://servicestack.net Open Source .NET/Mono Web Services Framework
 it also able to expose this REST-ful API over a myraid of formats (with no extra code/config):
@@ -50,4 +50,3 @@ host your service on a Windows/.NET server to view your web services XSD and WSD
 The live demo is hosted on Linux (Cent OS) / Nginx using [MONO](http://www.mono-project.com)
 
 *Not affiliated with GitHub, which is a trademark of GitHub Inc.
-
