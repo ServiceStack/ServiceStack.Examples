@@ -11,10 +11,10 @@ A live demo and tutorials are available at the following locations:
 ### [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/)
 ![ServiceStacks Hello, World!](http://servicestack.net/showcase/img/hello-400x350.png)
 
-### [GitHub-like browser to maange remote filesystem over REST **new**](http://servicestack.net/RestFiles/)
+### [GitHub-like browser to maange remote filesystem over REST](http://servicestack.net/RestFiles/)
 ![GitHub-like REST Files](http://servicestack.net/showcase/img/restfiles-400x350.png)
 
-### [Creating a StackOverflow-like app in Redis **new**](http://servicestack.net/RedisStackOverflow/)
+### [Creating a StackOverflow-like app in Redis](http://servicestack.net/RedisStackOverflow/)
 ![Redis StackOverflow](http://servicestack.net/showcase/img/redisstackoverflow-400x350.png)
 
 ### [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
