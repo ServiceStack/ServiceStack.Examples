@@ -7,7 +7,7 @@ using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
 
 /* For syntax highlighting and better readability of this file, view it on GitHub:
- * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
+ * https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
  */
 
 namespace RestFiles.Tests
