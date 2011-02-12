@@ -1,20 +1,70 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>Nortwind Web Services</title>
-    <style type="text/css">
-        BODY, H1, H2, H3
-        {
-        	margin: 0;
-        	padding: 0;
-        }
-        BODY 
-        {
-        	font-family: 13px Arial;
-        }
-    </style>
+<title>Nortwind Web Services</title>
+<style type="text/css">
+    BODY, H1, H2, H3 {
+    	margin: 0;
+    	padding: 0;
+    }
+    BODY
+    {
+        background: #fff url(img/bg-body-1024.png) repeat-y top left;
+        font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+        padding: 0 5px 20px 10px;
+        width: 940px;
+    }
+    A IMG
+    {
+    	border: none;
+    }
+
+    #header-links
+    {
+    	top: 10px;
+    	left: 270px;
+    	position: absolute;
+    }
+    #header-links A, #footer-links A
+    {
+	    color: #0000FF;
+	    margin-left: 0.5em;
+    }    
+    #github 
+    {
+    	position: absolute;
+    	top: 40px;
+    	left: 760px;
+    }
+    H1 
+    {
+    	margin: 70px 0 30px 0;
+    }
+    DT {
+    	font-weight: bold;
+    }
+    DT, DD {
+    	line-height: 20px;
+    }
+</style>
 </head>
 <body>
+
+	<a href="http://www.servicestack.net" style="display:block;position:absolute;top:5px;left:10px;"><img src="http://servicestack.net/icon-home.jpg" alt="ServiceStack Home" /></a>
+
+    <div id="header-links">
+        <a href="../ServiceStack.Hello/">Hello World</a>
+        <a href="../RestFiles/">The Rest Files</a>
+        <a href="../RedisStackOverflow/">Redis StackOverflow</a>
+        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
+        <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
+        <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
+        <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
+        <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
+    </div>
+
+    <a id="github" href="https://github.com/ServiceStack/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
+
     <h1>Nortwind Web Services</h1>
     
     <p>
@@ -51,34 +101,41 @@
         <dd><a href="orders/page/2">orders/page/2</a></dd>
     </dl>
     
+    <!--
     <h3>Cached Rest Services</h3>
     <p>
         As it's important for high-performance web services, ServiceStack includes a rich caching provider framework with 
         <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem providers</a>
-        available.
+        available. (Note: caching for HTML will be supported in the next version)
     </p>
     <dl id="caching">
         <dt>All Customers: </dt>
-        <dd><a href="cached/customers">cached/customers</a></dd>
+        <dd><a href="cached/customers?format=json">cached/customers</a></dd>
 
         <dt>Customer Maria Anders: </dt>
-        <dd><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></dd>
+        <dd><a href="cached/customers/ALFKI?format=json">cached/customers/ALFKI</a></dd>
 
         <dt>Customer Maria Anders Orders: </dt>
-        <dd><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></dd>
+        <dd><a href="cached/customers/ALFKI/orders?format=json">cached/customers/ALFKI/orders</a></dd>
 
         <dt>Latest Orders</dt>
-        <dd><a href="cached/orders">cached/orders</a></dd>
+        <dd><a href="cached/orders?format=json">cached/orders</a></dd>
 
         <dt>Latest Orders - page 2</dt>
-        <dd><a href="cached/orders/page/2">cached/orders/page/2</a></dd>
+        <dd><a href="cached/orders/page/2?format=json">cached/orders/page/2</a></dd>
+
+        <dt>Implementation for the above separate cached services:</dt>
+        <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></dd>
     </dl>
+    -->
     
     <h2>Web Service implemenations</h2>
     <p>
         If you've managed to click through you might be surprised to find this entire website is mostly powered by 3 Web Services:
         <dl>
-            <dd><a href="cached/customers">cached/customers</a></dd>
+            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CustomersService.cs</a></dd>
+            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs">CustomerDetailsService.cs</a></dd>
+            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></dd>
         </dl>
     </p>
     

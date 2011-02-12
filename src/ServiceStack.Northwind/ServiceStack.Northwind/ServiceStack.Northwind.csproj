@@ -75,6 +75,9 @@
     </Content>
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
+    <Content Include="img\bg-body-1024.png" />
+    <Content Include="img\btn-github.png" />
+    <Content Include="img\Mono-powered-big.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +111,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51340</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/ServiceStack.Northwind</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

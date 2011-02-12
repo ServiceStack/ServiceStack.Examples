@@ -13,8 +13,10 @@ namespace ServiceStack.Northwind.ServiceInterface
 		public override object OnGet(CachedCustomers request)
 		{
 			return base.RequestContext.ToOptimizedResultUsingCache(
-				this.CacheClient, "urn:customers", () =>
-					(CustomersResponse)base.ResolveService<CustomersService>().Get(new Customers()));
+				this.CacheClient, "urn:customers", () =>{
+					var service = base.ResolveService<CustomersService>();
+					return (CustomersResponse) service.Get(new Customers());
+				});
 		}
 	}
 
