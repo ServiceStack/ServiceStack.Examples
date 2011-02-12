@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Nortwind Web Services</title>
+    <style type="text/css">
+        BODY, H1, H2, H3
+        {
+        	margin: 0;
+        	padding: 0;
+        }
+        BODY 
+        {
+        	font-family: 13px Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nortwind Web Services</h1>
+    
+    <p>
+        The Northwind Web Services Example project explores different features of ServiceStack
+        using data from Nortwind SQlite Database.
+    </p>
+    
+    <h3>Rest Services</h3>
+    <p>
+        ServiceStack's REST Services, are just normal Web Services with the addition of a [RestService] attribute
+        that allows you to provide the canonical permanent name for your service.        
+    </p>
+    <p>
+        In true REST-spirit multiple formats of the same resource are available out-of-the-box, by:
+        <dl>
+            <dd>Setting your HTTP Clients <b>Accept</b> header</dd>
+            <dd>Appending your prefered format at the end of the url, i.e: <b>?format=[json|xml|html|csv|jsv]</b></dd>
+        </dl>        
+    </p>
+    <dl id="rest">
+        <dt>All Customers: </dt>
+        <dd><a href="customers">customers</a></dd>
+
+        <dt>Customer Maria Anders: </dt>
+        <dd><a href="customers/ALFKI">customers/ALFKI</a></dd>
+
+        <dt>Customer Maria Anders Orders: </dt>
+        <dd><a href="customers/ALFKI/orders">customers/ALFKI/orders</a></dd>
+
+        <dt>Latest Orders</dt>
+        <dd><a href="orders">orders</a></dd>
+
+        <dt>Latest Orders - page 2</dt>
+        <dd><a href="orders/page/2">orders/page/2</a></dd>
+    </dl>
+    
+    <h3>Cached Rest Services</h3>
+    <p>
+        As it's important for high-performance web services, ServiceStack includes a rich caching provider framework with 
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem providers</a>
+        available.
+    </p>
+    <dl id="caching">
+        <dt>All Customers: </dt>
+        <dd><a href="cached/customers">cached/customers</a></dd>
+
+        <dt>Customer Maria Anders: </dt>
+        <dd><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></dd>
+
+        <dt>Customer Maria Anders Orders: </dt>
+        <dd><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></dd>
+
+        <dt>Latest Orders</dt>
+        <dd><a href="cached/orders">cached/orders</a></dd>
+
+        <dt>Latest Orders - page 2</dt>
+        <dd><a href="cached/orders/page/2">cached/orders/page/2</a></dd>
+    </dl>
+    
+    <h2>Web Service implemenations</h2>
+    <p>
+        If you've managed to click through you might be surprised to find this entire website is mostly powered by 3 Web Services:
+        <dl>
+            <dd><a href="cached/customers">cached/customers</a></dd>
+        </dl>
+    </p>
+    
+</body>
+</html>
