@@ -100,34 +100,41 @@
         <dt>Latest Orders - page 2</dt>
         <dd><a href="orders/page/2">orders/page/2</a></dd>
     </dl>
+
     
-    <!--
     <h3>Cached Rest Services</h3>
     <p>
         As it's important for high-performance web services, ServiceStack includes a rich caching provider framework with 
         <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem providers</a>
-        available. (Note: caching for HTML will be supported in the next version)
+        available. 
+    </p>
+    <p>
+        ServiceStack caches the most optimal result, i.e. if your browser supports gzip/deflate it will cache the compressed output.
+        Caching also supports all formats, you can test by adding the end of the url, i.e: <b>?format=[json|xml|html|csv|jsv]</b>
+    </p>
+    <p>
+        To compare the difference with caching enabled, below are the 'cached versions' of the REST services above.
     </p>
     <dl id="caching">
         <dt>All Customers: </dt>
-        <dd><a href="cached/customers?format=json">cached/customers</a></dd>
+        <dd><a href="cached/customers">cached/customers</a></dd>
 
         <dt>Customer Maria Anders: </dt>
-        <dd><a href="cached/customers/ALFKI?format=json">cached/customers/ALFKI</a></dd>
+        <dd><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></dd>
 
         <dt>Customer Maria Anders Orders: </dt>
-        <dd><a href="cached/customers/ALFKI/orders?format=json">cached/customers/ALFKI/orders</a></dd>
+        <dd><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></dd>
 
         <dt>Latest Orders</dt>
-        <dd><a href="cached/orders?format=json">cached/orders</a></dd>
+        <dd><a href="cached/orders">cached/orders</a></dd>
 
         <dt>Latest Orders - page 2</dt>
-        <dd><a href="cached/orders/page/2?format=json">cached/orders/page/2</a></dd>
+        <dd><a href="cached/orders/page/2">cached/orders/page/2</a></dd>
 
         <dt>Implementation for the above separate cached services:</dt>
         <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></dd>
     </dl>
-    -->
+
     
     <h2>Web Service implemenations</h2>
     <p>
