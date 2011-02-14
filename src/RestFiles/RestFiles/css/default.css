@@ -106,17 +106,17 @@ BODY
 #github
 {
 	position: absolute;
-	top: 10px;
-	left: 765px;
+	top: 40px;
+	left: 755px;
 }
 #header-links
 {
-	margin: 10px 0 0 450px;
+	margin: 10px 0 0 270px;
 }
 #header-links A
 {
-	font-size: 12px;
-	color: #4183C4;
+	font-size: 13px;
+    color: #00F;
 	padding: 0 0 0 5px;
     border-left: solid 1px #ccc;
 }
@@ -154,7 +154,7 @@ BODY
 	border: 1px solid #BEDCE7;
 	overflow: hidden;
 	width: 918px;	
-	margin: 30px 0 10px 20px;
+	margin: 60px 0 10px 20px;
 	color: #000;
 	font-size: 12px;
 	font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;

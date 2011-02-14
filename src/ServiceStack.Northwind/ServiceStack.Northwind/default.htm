@@ -11,11 +11,14 @@
     {
         background: #fff url(img/bg-body-1024.png) repeat-y top left;
         font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
-        padding: 0 5px 20px 10px;
         width: 940px;
     }
     #body {
-        width: 800px;
+        padding: 0 5px 120px 10px;
+    }
+    P 
+    {
+        width: 760px;
     }
     A IMG
     {
@@ -64,7 +67,6 @@
       text-shadow: #fff 1px 1px -1px;
       background: #f1f1f1;
       white-space:nowrap;
-      cursor:pointer;
       font-weight: bold;
     }
     TH, TD {
@@ -83,6 +85,47 @@
     TD.c3 A:first-child {
         padding-left: 0;
     }
+    TD.c4  {
+        color: #888;
+    }
+    
+    H2 
+    {
+    	margin: 50px 0 20px 0;
+    	padding: 10px 0 0 0;
+    	border-top: solid 4px #ccc;
+    }
+    
+    #footer
+    {
+	    background: #f1f1f1 url(../img/bg-footer.png) repeat-x 0 0;	
+	    height: 60px;
+	    position: fixed;
+	    bottom: 0;
+	    width: 963px;
+    }
+    #logo
+    {
+        position: absolute;
+        padding: 15px 0 0 10px;
+    }
+    #mono
+    {
+	    position: absolute;
+	    left: 860px;
+	    margin: 10px 0 0 0; 
+    }
+    #demo
+    {
+        padding: 15px 0 5px 0;
+        text-align: center;
+    }
+    #disclaimer {
+        text-align: center;
+        color: #444;
+        font-size: 11px;
+    }
+    
 </style>
 </head>
 <body>
@@ -128,40 +171,44 @@
             <th>All Customers</th>
             <td><a href="customers">customers</a></td>
             <td class="c3"><a href="customers?format=json">json</a><a href="customers?format=xml">xml</a><a href="customers?format=html">html</a><a href="customers?format=csv">csv</a><a href="customers?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CustomersService.cs</a></td>
+            <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs"><b>CustomersService.cs</b></a></td>
         </tr>
         <tr>
             <th>Customer Maria Anders</th>
             <td><a href="customers/ALFKI">customers/ALFKI</a></td>
             <td class="c3"><a href="customers/ALFKI?format=json">json</a><a href="customers/ALFKI?format=xml">xml</a><a href="customers/ALFKI?format=html">html</a><a href="customers/ALFKI?format=csv">csv</a><a href="customers/ALFKI?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs">CustomerDetailsService.cs</a></td>
+            <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs"><b>CustomerDetailsService.cs</b></a></td>
         </tr>
         <tr>
             <th>Customer Maria Anders Orders</th>
             <td><a href="customers/ALFKI/orders">customers/ALFKI/orders</a></td>
             <td class="c3"><a href="customers/ALFKI/orders?format=json">json</a><a href="customers/ALFKI/orders?format=xml">xml</a><a href="customers/ALFKI/orders?format=html">html</a><a href="customers/ALFKI/orders?format=csv">csv</a><a href="customers/ALFKI/orders?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+            <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs"><b>OrdersService.cs</b></a></td>
         </tr>
         <tr>
             <th>Latest Orders</th>
             <td><a href="orders">orders</a></td>
             <td class="c3"><a href="orders?format=json">json</a><a href="orders?format=xml">xml</a><a href="orders?format=html">html</a><a href="orders?format=csv">csv</a><a href="orders?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+            <td class="c4">OrdersService.cs</td>
         </tr>
         <tr>
             <th>Latest Orders - page 2</th>
             <td><a href="orders/page/2">orders/page/2</a></td>
             <td class="c3"><a href="orders/page/2?format=json">json</a><a href="orders/page/2?format=xml">xml</a><a href="orders/page/2?format=html">html</a><a href="orders/page/2?format=csv">csv</a><a href="orders/page/2?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+            <td class="c4">OrdersService.cs</td>
         </tr>
         </tbody>
     </table>
-
+    
+    <p>
+        The entire datasource for the Northwind project is contained in this <a href="Nortwind.sqlite"><img src="img/database-18x18.jpg" align="absmiddle" hspace="3" />Nortwind.sqlite</a> database
+        created by this <a href="https://github.com/ServiceStack/ServiceStack.Benchmarks/blob/master/tests/ServiceStack.Northwind.Tests/PopulateDataTests.cs">unit test</a>.        
+    </p>
     
     <h3>Cached Rest Services</h3>
     <p>
         As it's important for high-performance web services, ServiceStack includes a rich caching provider framework with 
-        <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem cache providers</a>
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">Redis, Memcached, Memory and FileSystem-based cache providers</a>
         available. 
     </p>
     <p>
@@ -182,31 +229,31 @@
             <th>All Customers</th>
             <td><a href="cached/customers">cached/customers</a></td>
             <td class="c3"><a href="cached/customers?format=json">json</a><a href="cached/customers?format=xml">xml</a><a href="cached/customers?format=html">html</a><a href="cached/customers?format=csv">csv</a><a href="cached/customers?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CachedServices.cs</a></td>
+            <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs"><strong>CachedServices.cs</strong></a></td>
         </tr>
         <tr>
             <th>Customer Maria Anders</th>
             <td><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></td>
             <td class="c3"><a href="cached/customers/ALFKI?format=json">json</a><a href="cached/customers/ALFKI?format=xml">xml</a><a href="cached/customers/ALFKI?format=html">html</a><a href="cached/customers/ALFKI?format=csv">csv</a><a href="cached/customers/ALFKI?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+            <td class="c4">CachedServices.cs</td>
         </tr>
         <tr>
             <th>Customer Maria Anders Orders</th>
             <td><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></td>
             <td class="c3"><a href="cached/customers/ALFKI/orders?format=json">json</a><a href="cached/customers/ALFKI/orders?format=xml">xml</a><a href="cached/customers/ALFKI/orders?format=html">html</a><a href="cached/customers/ALFKI/orders?format=csv">csv</a><a href="cached/customers/ALFKI/orders?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+            <td class="c4">CachedServices.cs</td>
         </tr>
         <tr>
             <th>Latest Orders</th>
             <td><a href="cached/orders">cached/orders</a></td>
             <td class="c3"><a href="cached/orders?format=json">json</a><a href="cached/orders?format=xml">xml</a><a href="cached/orders?format=html">html</a><a href="cached/orders?format=csv">csv</a><a href="cached/orders?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+            <td class="c4">CachedServices.cs</td>
         </tr>
         <tr>
             <th>Latest Orders - page 2</th>
             <td><a href="cached/orders/page/2">ocached/rders/page/2</a></td>
             <td class="c3"><a href="cached/orders/page/2?format=json">json</a><a href="cached/orders/page/2?format=xml">xml</a><a href="cached/orders/page/2?format=html">html</a><a href="cached/orders/page/2?format=csv">csv</a><a href="cached/orders/page/2?format=jsv">jsv</a></td>
-            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+            <td class="c4">CachedServices.cs</td>
         </tr>
         </tbody>
     </table>
@@ -215,7 +262,47 @@
         Note: The most optimal result is cached, i.e. if your browser supports gzip/deflate it will cache the compressed output.
         Caching also supports all user-defined formats.
     </p>
+
+    <h2>Advantages of a best-practices Web Services framework</h2>
+    <h4>Nothing but C#</h4>
+    <p>
+        The Northwind project is also an example of how much can be achieved with a minimal amount of effort and code. 
+        This entire website literally just consists of 
+        <strong>
+        <a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">these</a>
+        <a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">three</a>
+        <a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">classes</a>
+        </strong>. Everything else seen here is automatically provided by <a href="http://www.servicestack.net">ServiceStack</a> using a code-first, convention-based approach.
+        ServiceStack can infer a richer intelligence about your services to better able to provide more generic and re-usable functionality for free!
+    </p>
+    <h4>Config-free, convention-based, pure C# model-driven, web services</h4>
+    <p>
+        No other config, code-gen are required and you do not need to learn any other artificial constructs and concepts to get started. 
+        The logic of your services simply live in a pure C#, dependency-free and testable class.
+    </p>
+    <p>
+        You're unlikley to ever see the same WCF SOAP service, generating a visually informative  
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML view</a> of your data,
+        allow it to be exposed over <a href="servicestack/metadata">REST-ful interfaces</a> or be able to export it to a <a href="https://github.com/ServiceStack/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a> data file.
+        With ServiceStack not only is this possible - it comes out-of-the-box, config-pain-free :)
+    </p>
+    <h4>Un-learning WCF RPC</h4>
+    <p>
+        The initial difficulty to new developers coming to ServiceStack is having to <b>un-learn WCFs RPC</b> approach to web services. 
+        In our opinion the problem with WCF is not that it's an abstract walled-interface forcing you to develop all your Network services in. 
+    </p>
+    <p>
+        The main problem is it forcing all network requests to <b>marshal onto a C# method</b>, we believe is an un-natural fit, leading to the creation of slow, chatty APIs. 
+        ServiceStack believes this is an <a href="http://martinfowler.com/eaaCatalog/dataTransferObject.html">anti-pattern</a> which produces more friction then its preferred message-based approach.
+    </p>
     
     </div>
+
+<div id="footer"> 
+    <a id="logo" href="http://www.servicestack.net"><img src="img/logo-txt-small.png" alt="ServiceStack" /></a> 
+    <a id="mono" href="http://www.mono-project.com"><img src="img/Mono-powered-big.png" /></a> 
+    <div id="demo">Live demo hosted on Linux (Cent OS) / <a href="http://wiki.nginx.org">Nginx</a> using <a href="http://www.mono-project.com">Mono</a></div> 
+</div> 
+
 </body>
 </html>
