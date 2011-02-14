@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <title>Nortwind Web Services</title>
@@ -14,11 +14,16 @@
         padding: 0 5px 20px 10px;
         width: 940px;
     }
+    #body {
+        width: 800px;
+    }
     A IMG
     {
     	border: none;
     }
-
+    A {
+        color: #00F;
+    }
     #header-links
     {
     	top: 10px;
@@ -38,13 +43,45 @@
     }
     H1 
     {
-    	margin: 70px 0 30px 0;
+    	margin: 70px 0 10px 0;
+        padding: 0 0 0 70px;
+        line-height: 60px;
+        background: url(img/database-icon.jpg) no-repeat;
     }
     DT {
     	font-weight: bold;
     }
     DT, DD {
     	line-height: 20px;
+    }
+    TABLE {
+      border-collapse:collapse;
+      border: solid 1px #ccc;
+      margin: 0 0 20px 0;
+    }
+    TH {
+      text-align: left;
+      text-shadow: #fff 1px 1px -1px;
+      background: #f1f1f1;
+      white-space:nowrap;
+      cursor:pointer;
+      font-weight: bold;
+    }
+    TH, TD {
+      padding: 4px 8px;
+      font-size: 13px;
+      font-family: Arial;
+    }
+    TD {
+      vertical-align: top;
+    }
+    TD.c3 A {
+        padding: 0 10px;
+        line-height: 13px;
+        border-right: solid 1px #eee;
+    }
+    TD.c3 A:first-child {
+        padding-left: 0;
     }
 </style>
 </head>
@@ -57,15 +94,15 @@
         <a href="../RestFiles/">The Rest Files</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
         <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
+        <a href="../ServiceStack.Northwind/">Northwind Database</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
-        <a href="../ServiceStack.Examples.Clients/Soap11.aspx">Soap 1.1</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
-        <a href="../ServiceStack.Examples.Clients/Silverlight.htm">Silverlight</a>
     </div>
 
     <a id="github" href="https://github.com/ServiceStack/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
 
-    <h1>Nortwind Web Services</h1>
+    <div id="body">
+    <h1>Northwind Web Services</h1>
     
     <p>
         The Northwind Web Services Example project explores different features of ServiceStack
@@ -75,76 +112,110 @@
     <h3>Rest Services</h3>
     <p>
         ServiceStack's REST Services, are just normal Web Services with the addition of a [RestService] attribute
-        that allows you to provide the canonical permanent name for your service.        
+        that allows you to provide the canonical / permanent location for your web service.        
     </p>
-    <p>
-        In true REST-spirit multiple formats of the same resource are available out-of-the-box, by:
-        <dl>
-            <dd>Setting your HTTP Clients <b>Accept</b> header</dd>
-            <dd>Appending your prefered format at the end of the url, i.e: <b>?format=[json|xml|html|csv|jsv]</b></dd>
-        </dl>        
-    </p>
-    <dl id="rest">
-        <dt>All Customers: </dt>
-        <dd><a href="customers">customers</a></dd>
-
-        <dt>Customer Maria Anders: </dt>
-        <dd><a href="customers/ALFKI">customers/ALFKI</a></dd>
-
-        <dt>Customer Maria Anders Orders: </dt>
-        <dd><a href="customers/ALFKI/orders">customers/ALFKI/orders</a></dd>
-
-        <dt>Latest Orders</dt>
-        <dd><a href="orders">orders</a></dd>
-
-        <dt>Latest Orders - page 2</dt>
-        <dd><a href="orders/page/2">orders/page/2</a></dd>
-    </dl>
+    <table id="rest">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Path</th>
+            <th>Formats</th>
+            <th>Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>All Customers</th>
+            <td><a href="customers">customers</a></td>
+            <td class="c3"><a href="customers?format=json">json</a><a href="customers?format=xml">xml</a><a href="customers?format=html">html</a><a href="customers?format=csv">csv</a><a href="customers?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CustomersService.cs</a></td>
+        </tr>
+        <tr>
+            <th>Customer Maria Anders</th>
+            <td><a href="customers/ALFKI">customers/ALFKI</a></td>
+            <td class="c3"><a href="customers/ALFKI?format=json">json</a><a href="customers/ALFKI?format=xml">xml</a><a href="customers/ALFKI?format=html">html</a><a href="customers/ALFKI?format=csv">csv</a><a href="customers/ALFKI?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs">CustomerDetailsService.cs</a></td>
+        </tr>
+        <tr>
+            <th>Customer Maria Anders Orders</th>
+            <td><a href="customers/ALFKI/orders">customers/ALFKI/orders</a></td>
+            <td class="c3"><a href="customers/ALFKI/orders?format=json">json</a><a href="customers/ALFKI/orders?format=xml">xml</a><a href="customers/ALFKI/orders?format=html">html</a><a href="customers/ALFKI/orders?format=csv">csv</a><a href="customers/ALFKI/orders?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+        </tr>
+        <tr>
+            <th>Latest Orders</th>
+            <td><a href="orders">orders</a></td>
+            <td class="c3"><a href="orders?format=json">json</a><a href="orders?format=xml">xml</a><a href="orders?format=html">html</a><a href="orders?format=csv">csv</a><a href="orders?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+        </tr>
+        <tr>
+            <th>Latest Orders - page 2</th>
+            <td><a href="orders/page/2">orders/page/2</a></td>
+            <td class="c3"><a href="orders/page/2?format=json">json</a><a href="orders/page/2?format=xml">xml</a><a href="orders/page/2?format=html">html</a><a href="orders/page/2?format=csv">csv</a><a href="orders/page/2?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></td>
+        </tr>
+        </tbody>
+    </table>
 
     
     <h3>Cached Rest Services</h3>
     <p>
         As it's important for high-performance web services, ServiceStack includes a rich caching provider framework with 
-        <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem providers</a>
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/Caching">In-Memory, Redis, Memcached, and FileSystem cache providers</a>
         available. 
-    </p>
-    <p>
-        ServiceStack caches the most optimal result, i.e. if your browser supports gzip/deflate it will cache the compressed output.
-        Caching also supports all formats, you can test by adding the end of the url, i.e: <b>?format=[json|xml|html|csv|jsv]</b>
     </p>
     <p>
         To compare the difference with caching enabled, below are the 'cached versions' of the REST services above.
     </p>
-    <dl id="caching">
-        <dt>All Customers: </dt>
-        <dd><a href="cached/customers">cached/customers</a></dd>
 
-        <dt>Customer Maria Anders: </dt>
-        <dd><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></dd>
+    <table id="caching">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Path</th>
+            <th>Formats</th>
+            <th>Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>All Customers</th>
+            <td><a href="cached/customers">cached/customers</a></td>
+            <td class="c3"><a href="cached/customers?format=json">json</a><a href="cached/customers?format=xml">xml</a><a href="cached/customers?format=html">html</a><a href="cached/customers?format=csv">csv</a><a href="cached/customers?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CachedServices.cs</a></td>
+        </tr>
+        <tr>
+            <th>Customer Maria Anders</th>
+            <td><a href="cached/customers/ALFKI">cached/customers/ALFKI</a></td>
+            <td class="c3"><a href="cached/customers/ALFKI?format=json">json</a><a href="cached/customers/ALFKI?format=xml">xml</a><a href="cached/customers/ALFKI?format=html">html</a><a href="cached/customers/ALFKI?format=csv">csv</a><a href="cached/customers/ALFKI?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+        </tr>
+        <tr>
+            <th>Customer Maria Anders Orders</th>
+            <td><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></td>
+            <td class="c3"><a href="cached/customers/ALFKI/orders?format=json">json</a><a href="cached/customers/ALFKI/orders?format=xml">xml</a><a href="cached/customers/ALFKI/orders?format=html">html</a><a href="cached/customers/ALFKI/orders?format=csv">csv</a><a href="cached/customers/ALFKI/orders?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+        </tr>
+        <tr>
+            <th>Latest Orders</th>
+            <td><a href="cached/orders">cached/orders</a></td>
+            <td class="c3"><a href="cached/orders?format=json">json</a><a href="cached/orders?format=xml">xml</a><a href="cached/orders?format=html">html</a><a href="cached/orders?format=csv">csv</a><a href="cached/orders?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+        </tr>
+        <tr>
+            <th>Latest Orders - page 2</th>
+            <td><a href="cached/orders/page/2">ocached/rders/page/2</a></td>
+            <td class="c3"><a href="cached/orders/page/2?format=json">json</a><a href="cached/orders/page/2?format=xml">xml</a><a href="cached/orders/page/2?format=html">html</a><a href="cached/orders/page/2?format=csv">csv</a><a href="cached/orders/page/2?format=jsv">jsv</a></td>
+            <td><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></td>
+        </tr>
+        </tbody>
+    </table>
 
-        <dt>Customer Maria Anders Orders: </dt>
-        <dd><a href="cached/customers/ALFKI/orders">cached/customers/ALFKI/orders</a></dd>
-
-        <dt>Latest Orders</dt>
-        <dd><a href="cached/orders">cached/orders</a></dd>
-
-        <dt>Latest Orders - page 2</dt>
-        <dd><a href="cached/orders/page/2">cached/orders/page/2</a></dd>
-
-        <dt>Implementation for the above separate cached services:</dt>
-        <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CachedServices.cs">CachedServices.cs</a></dd>
-    </dl>
-
-    
-    <h2>Web Service implemenations</h2>
     <p>
-        If you've managed to click through you might be surprised to find this entire website is mostly powered by 3 Web Services:
-        <dl>
-            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs">CustomersService.cs</a></dd>
-            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs">CustomerDetailsService.cs</a></dd>
-            <dd><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/OrdersService.cs">OrdersService.cs</a></dd>
-        </dl>
+        Note: The most optimal result is cached, i.e. if your browser supports gzip/deflate it will cache the compressed output.
+        Caching also supports all user-defined formats.
     </p>
     
+    </div>
 </body>
 </html>
