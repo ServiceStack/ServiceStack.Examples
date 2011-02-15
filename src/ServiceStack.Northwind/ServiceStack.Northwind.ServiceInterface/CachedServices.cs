@@ -42,7 +42,7 @@ namespace ServiceStack.Northwind.ServiceInterface
 
 		public override object OnGet(CachedOrders request)
 		{
-			var cacheKey = UrnId.Create<Orders>(request.CustomerId, request.Page.GetValueOrDefault(0).ToString());
+			var cacheKey = UrnId.Create<Orders>(request.CustomerId ?? "all", request.Page.GetValueOrDefault(0).ToString());
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
 				{
 					return (OrdersResponse)base.ResolveService<OrdersService>()
