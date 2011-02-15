@@ -139,7 +139,7 @@
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
     </div>
 
-    <a class="lnk-src" href="https://github.com/mythz/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
+    <a class="lnk-src" href="https://github.com/ServiceStack/ServiceStack"><img src="img/btn-github.png" width="186" height="84" /></a>
 
     <h1 class="title">Creating a Web service from scratch with Service Stack</h1>
 
@@ -158,7 +158,7 @@
 
     <h2>2. Configuring Service Stack to run in your application</h2>
     <p>
-        Add a reference to the <a href="https://github.com/mythz/ServiceStack/downloads">latest ServiceStack.dll's</a> to your project:
+        Add a reference to the <a href="https://github.com/ServiceStack/ServiceStack/downloads">latest ServiceStack.dll's</a> to your project:
     </p>
 
     <p>
@@ -295,7 +295,7 @@ public class HelloResponse
 
     <h3>XML (<acronym title="Plain old XML">POX</acronym>), JSON, JSV, CSV urls</h3>
     <h4>
-    /servicestack/<b>[xml<i>|</i>json<i>|</i>jsv<i>|</i>csv]</b>/<b>[syncreply<i>|</i>asynconeway]</b>/<b>[servicename]</b>
+    /servicestack/<b>[xml<i>|</i>json<i>|</i>html<i>|</i>jsv<i>|</i>csv]</b>/<b>[syncreply<i>|</i>asynconeway]</b>/<b>[servicename]</b>
     </h4>
 
     <h3>SOAP Web Service urls</h3>
@@ -315,8 +315,9 @@ public class HelloResponse
 
 
     <h2>XML, JSON,
-    <a href="https://github.com/mythz/ServiceStack.Text/wiki/JSV-Format">JSV</a>,
-    <a href="https://github.com/mythz/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a>
+    <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML5</a>,
+    <a href="https://github.com/ServiceStack/ServiceStack.Text/wiki/JSV-Format">JSV</a>,
+    <a href="https://github.com/ServiceStack/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a>
     Web Services via HTTP GET or POST</h2>
     <table>
         <thead>
@@ -374,6 +375,24 @@ public class HelloResponse
             </tr>
             <tr>
                 <th>
+                    HTML
+                </th>
+                <td>
+                    <a href="servicestack/html/syncreply/Hello?Name=World">/servicestack/jsv/syncreply/Hello?Name=World</a>
+                </td>
+                <td>
+                    <a href="servicestack/html/metadata?op=Hello">/servicestack/jsv/syncreply/Hello</a>
+                </td>
+                <td>
+                    <form action="servicestack/html/syncreply/Hello" method="post">
+                        <label>Name:</label>
+                        <input type="text" name="Name" value="World!" />
+                        <input type="submit" />
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th>
                     JSV
                 </th>
                 <td>
@@ -423,7 +442,7 @@ public class HelloResponse
     <p>
         <em>
         NOTE: Service Stack also lets you submit any arbitary complex type
-        (using <a href="https://github.com/mythz/ServiceStack.Text/wiki/JSV-Format">JSV format</a>)
+        (using <a href="https://github.com/ServiceStack/ServiceStack.Text/wiki/JSV-Format">JSV format</a>)
         via the query string or form data:
         <a href="http://www.servicestack.net/ServiceStack.Examples.Host.Web/ServiceStack/Json/SyncReply/StoreLogs?Loggers=[{Id:786,Devices:[{Id:5955,Type:Panel,TimeStamp:1199303309,Channels:[{Name:Temperature,Value:58},{Name:Status,Value:On}]},{Id:5956,Type:Tank,TimeStamp:1199303309,Channels:[{Name:Volume,Value:10035},{Name:Status,Value:Full}]}]}]">see this example</a>.
         </em>
@@ -492,7 +511,7 @@ public class HelloResponse
     <h4><b>[RestService("/hello/{Name}")]</b></h4>
     <p>
         Allows this web service to be called with:
-        <a href="servicestack/hello/World!">/servicestack/hello/World!</a>
+        <a href="servicestack/hello/World!?format=json">/servicestack/hello/World!</a>
     </p>
     <p>
         Just like the other endpoints, REST-ful urls can also be called with a HTML FORM POST.
@@ -510,7 +529,7 @@ public class HelloResponse
 </code>
     <p>
         Example:<br />
-        <form action="servicestack/hello" method="post">
+        <form action="servicestack/hello?format=json" method="post">
             <label>Name:</label>
             <input type="text" name="Name" value="World!" />
             <input type="submit" />
@@ -528,10 +547,10 @@ public class HelloResponse
     </p>
     <p>
         The complete source code for this example is
-        <a href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Hello">viewable online</a>
+        <a href="https://github.com/ServiceStack/ServiceStack.Examples/tree/master/src/ServiceStack.Hello">viewable online</a>
         or available to download as zip package from the link below:
 
-        <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
+        <a id="btn-download" href="https://github.com/ServiceStack/ServiceStack.Examples/downloads">
             <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
         </a>
 
