@@ -9,7 +9,7 @@ using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
 
 /* For syntax highlighting and better readability of this file, view it on GitHub:
- * https://github.com/mythz/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/AsyncRestClientTests.cs
+ * https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/AsyncRestClientTests.cs
  */
 
 namespace RestFiles.Tests

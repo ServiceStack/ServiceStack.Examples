@@ -26,7 +26,7 @@
     <div class="note">
         Testing ServiceStack's SOAP 1.2 Web services using 
         VS.NET 'Add Service Reference' code-generated proxy.<br />
-        The source code for this ASP.NET page is <a href="https://github.com/mythz/ServiceStack.Examples/blob/master/src/ServiceStack.Examples.Clients/Soap12.aspx.cs">available here</a>.
+        The source code for this ASP.NET page is <a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Examples.Clients/Soap12.aspx.cs">available here</a>.
     </div>
     
     <form id="form1" runat="server">
@@ -126,12 +126,12 @@
     <h3>View the source code online or Download:</h3>
     <p>
         The complete source code for this example is
-        <a href="https://github.com/mythz/ServiceStack.Examples/tree/master/src/ServiceStack.Examples/ServiceStack.Examples.Clients/">
+        <a href="https://github.com/ServiceStack/ServiceStack.Examples/tree/master/src/ServiceStack.Examples/ServiceStack.Examples.Clients/">
             viewable online
         </a>
         or available to download as zip package from the link below:
 
-        <a id="btn-download" href="https://github.com/mythz/ServiceStack.Examples/downloads">
+        <a id="btn-download" href="https://github.com/ServiceStack/ServiceStack.Examples/downloads">
             <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
         </a>
     </p>
