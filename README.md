@@ -20,8 +20,8 @@ A live demo and tutorials are available at the following locations:
 ### [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
 [![REST at the Movies!](http://servicestack.net/showcase/img/movierest-400x350.png)](http://servicestack.net/ServiceStack.MovieRest/)
 
-### [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
-[![Ajax Example](http://servicestack.net/showcase/img/ajaxexample-400x350.png)](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
+### [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/)
+[![Ajax Example](http://servicestack.net/showcase/img/ajaxexample-400x350.png)](http://servicestack.net/ServiceStack.Examples.Clients/)
 
 ### Other examples
 * [Calling Web Services with Mono Touch](http://www.servicestack.net/monotouch/remote-info/)
