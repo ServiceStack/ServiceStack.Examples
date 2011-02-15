@@ -104,7 +104,7 @@
     if (($.browser.msie && $.browser.version < 9) || location.href.indexOf("fakeie") >= 0) {
         document.body.className = "lamebrowser";
     }
-    $.ajaxSetup({ cache:false });
+    $.ajaxSetup({ cache:false, contentType:'application/json' });
 
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));

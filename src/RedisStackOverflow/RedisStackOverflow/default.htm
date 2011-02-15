@@ -10,6 +10,8 @@
         $(function() {
             var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
 
+            $.ajaxSetup({ cache:false, contentType:'application/json' });
+
             $(document).click(function(e){
                 var el = e.target;
                 if (!el.getAttribute("data-cmd")) return;

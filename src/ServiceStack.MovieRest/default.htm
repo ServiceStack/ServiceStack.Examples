@@ -10,6 +10,8 @@
     <script type="text/javascript">
         $(function() {
 
+            $.ajaxSetup({ cache:false, contentType:'application/json' });
+
             var restLog = function(method, url) {
                 if (url.indexOf('?format') == -1) url += '?format=json';
                 if (method == "GET") url = '<a href="' + url + '" target="_blank">' + url + '</a>';
