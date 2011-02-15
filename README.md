@@ -9,19 +9,19 @@ for twitter updates.
 A live demo and tutorials are available at the following locations:
 
 ### [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/)
-![ServiceStacks Hello, World!](http://servicestack.net/showcase/img/hello-400x350.png)
+[![ServiceStacks Hello, World!](http://servicestack.net/showcase/img/hello-400x350.png)](http://servicestack.net/ServiceStack.Hello/)
 
 ### [GitHub-like browser to maange remote filesystem over REST](http://servicestack.net/RestFiles/)
-![GitHub-like REST Files](http://servicestack.net/showcase/img/restfiles-400x350.png)
+[![GitHub-like REST Files](http://servicestack.net/showcase/img/restfiles-400x350.png)](http://servicestack.net/RestFiles/)
 
 ### [Creating a StackOverflow-like app in Redis](http://servicestack.net/RedisStackOverflow/)
-![Redis StackOverflow](http://servicestack.net/showcase/img/redisstackoverflow-400x350.png)
+[![Redis StackOverflow](http://servicestack.net/showcase/img/redisstackoverflow-400x350.png)](http://servicestack.net/RedisStackOverflow/)
 
 ### [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
-![REST at the Movies!](http://servicestack.net/showcase/img/movierest-400x350.png)
+[![REST at the Movies!](http://servicestack.net/showcase/img/movierest-400x350.png)](http://servicestack.net/ServiceStack.MovieRest/)
 
 ### [Calling Web Services with Ajax](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
-![Ajax Example](http://servicestack.net/showcase/img/ajaxexample-400x350.png)
+[![Ajax Example](http://servicestack.net/showcase/img/ajaxexample-400x350.png)](http://servicestack.net/ServiceStack.Examples.Clients/Default.htm)
 
 ### Other examples
 * [Calling Web Services with Mono Touch](http://www.servicestack.net/monotouch/remote-info/)
