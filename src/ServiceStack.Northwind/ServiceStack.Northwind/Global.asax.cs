@@ -6,7 +6,6 @@ using ServiceStack.Common.Utils;
 using ServiceStack.Northwind.ServiceInterface;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.Redis;
 using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Northwind
