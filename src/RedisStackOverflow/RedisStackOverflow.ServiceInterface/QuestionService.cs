@@ -93,5 +93,12 @@ namespace RedisStackOverflow.ServiceInterface
 			Repository.StoreQuestion(question);
 			return new QuestionResponse();
 		}
+
+		public override object OnDelete(Question request)
+		{
+			Repository.DeleteQuestion(request.Id);
+
+			return new QuestionResponse();
+		}
 	}
 }

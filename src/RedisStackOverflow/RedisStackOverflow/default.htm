@@ -10,7 +10,7 @@
         $(function() {
             var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
 
-            $.ajaxSetup({ cache:false, contentType:'application/json' });
+            $.ajaxSetup({ cache:false });
 
             $(document).click(function(e){
                 var el = e.target;
@@ -38,7 +38,7 @@
                     ? '<b class="' + className + '">'
                     : '<b>';
                 $("#status H4").html(sb + message + '</b>');
-            }
+            };
 
             var updateUserStatus = function(message, className)
             {
@@ -46,28 +46,28 @@
                     ? '<span class="' + className + '">'
                     : '<span>';
                 $("#user H4").html(sb + message + '</span>');
-            }
+            };
 
             updateStatus(defaultMessage);
 
             var fromDtoDate = function(dateStr) {
                 return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
-            }
+            };
             var toTwitterTime = function (a) {
                 var b = new Date();
                 var c = typeof a == "date" ? a : new Date(a);
                 var d = b - c;
                 var e = 1000, minute = e * 60, hour = minute * 60, day = hour * 24, week = day * 7;
-                if (isNaN(d) || d < 0) { return "" }
-                if (d < e * 7) { return "right now" }
-                if (d < minute) { return Math.floor(d / e) + " secs ago" }
-                if (d < minute * 2) { return "about 1 min ago" }
-                if (d < hour) { return Math.floor(d / minute) + " mins ago" }
-                if (d < hour * 2) { return "about 1 hour ago" }
-                if (d < day) { return Math.floor(d / hour) + " hours ago" }
-                if (d > day && d < day * 2) { return "yesterday" }
-                if (d < day * 365) { return Math.floor(d / day) + " days ago" } else { return "over a year ago" }
-            }
+                if (isNaN(d) || d < 0) { return ""; }
+                if (d < e * 7) { return "right now"; }
+                if (d < minute) { return Math.floor(d / e) + " secs ago"; }
+                if (d < minute * 2) { return "about 1 min ago"; }
+                if (d < hour) { return Math.floor(d / minute) + " mins ago"; }
+                if (d < hour * 2) { return "about 1 hour ago"; }
+                if (d < day) { return Math.floor(d / hour) + " hours ago"; }
+                if (d > day && d < day * 2) { return "yesterday"; }
+                if (d < day * 365) { return Math.floor(d / day) + " days ago"; } else { return "over a year ago" }
+            };
 
             function enc(html) {
                 if (typeof html != "string") return html;
@@ -88,7 +88,7 @@
                 if (authUser)
                 {
                     asyncCount++;
-                    $.get("users/" + authUser.Id + "/stats", function(r){
+                    $.getJSON("users/" + authUser.Id + "/stats", function(r){
                         userStats = r.Result;
                         var msg = "You have "
                             + '<em data-cmd="users/' + authUser.Id + '/questions" data-label="Questions by '
@@ -99,7 +99,7 @@
                     });
                 }
                 asyncCount++;
-                $.get("stats", function(r){
+                $.getJSON("stats", function(r){
                     siteStats = r.Result;
                     var msg = 'This site has '
                         + '<em data-cmd="questions" data-label="Latest Questions">' + siteStats.QuestionsCount + ' questions</em>'
@@ -145,7 +145,7 @@
                 if (viewSingleQuestion) {
 
                     asyncCount++;
-                    $.get(encodedUrl, function(r){
+                    $.getJSON(encodedUrl, function(r){
                         var q = r.Result.Question;
                         var votes = r.Result.VotesUpCount - r.Result.VotesDownCount;
                         var tags = getTags(q);
@@ -164,9 +164,10 @@
                                     +   '<em>' + toTwitterTime(date) + '</em>'
                                     + '<br />'
                                     + '</div>'
-                                    + '</div>'
+                                    + '</div>';
                         });
 
+                         
                         var sb = ''
                             + '<div id="question">'
                                 + '<div class="ib question-votes">'
@@ -213,7 +214,7 @@
                 }
 
                 asyncCount++;
-                $.get(encodedUrl, function(r){
+                $.getJSON(encodedUrl, function(r){
                     var sb = "";
                     var userNameMap = {};
 

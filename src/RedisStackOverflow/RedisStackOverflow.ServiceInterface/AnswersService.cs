@@ -14,6 +14,9 @@ namespace RedisStackOverflow.ServiceInterface
 		public int UserId { get; set; }
 
 		[DataMember]
+		public int AnswerId { get; set; }
+
+		[DataMember]
 		public int QuestionId { get; set; }
 
 		[DataMember]
@@ -40,6 +43,12 @@ namespace RedisStackOverflow.ServiceInterface
 				QuestionId = request.QuestionId,
 				Content = request.Content
 			});
+			return new AnswersResponse();
+		}
+
+		public override object OnDelete(Answers request)
+		{
+			Repository.DeleteAnswer(request.QuestionId, request.AnswerId);
 			return new AnswersResponse();
 		}
 	}

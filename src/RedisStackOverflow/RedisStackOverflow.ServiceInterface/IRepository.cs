@@ -42,6 +42,10 @@ namespace RedisStackOverflow.ServiceInterface
 		List<User> GetUsersByIds(IEnumerable<long> userIds);
 
 		SiteStats GetSiteStats();
+		
+		void DeleteQuestion(long questionId);
+
+		void DeleteAnswer(long questionId, long answerId);
 	}
 
 	public class Repository : IRepository
@@ -193,6 +197,32 @@ namespace RedisStackOverflow.ServiceInterface
 			return results;
 		}
 
+		/// <summary>
+		/// Delete question by performing compensating actions to StoreQuestion() to keep the datastore in a consistent state
+		/// </summary>
+		/// <param name="questionId"></param>
+		public void DeleteQuestion(long questionId)
+		{
+			using (var redis = RedisManager.GetClient())
+			{
+				var redisQuestions = redis.As<Question>();
+
+				var question = redisQuestions.GetById(questionId);
+				
+				//decrement score in tags list
+				question.Tags.ForEach(tag => redis.IncrementItemInSortedSet(TagIndex.All, tag, -1));
+
+				//remove all related answers
+				redisQuestions.DeleteRelatedEntities<Answer>(questionId);
+
+				//remove this question from user index
+				redis.RemoveItemFromSortedSet(UserQuestionIndex.Questions(question.UserId), question.Id.ToString());
+
+				//remove tag => questions index for each tag
+				question.Tags.ForEach(tag => redis.RemoveItemFromSortedSet(TagIndex.Questions(tag), question.Id.ToString()));
+			}
+		}
+
 		public void StoreQuestion(Question question)
 		{
 			using (var redis = RedisManager.GetClient())
@@ -215,6 +245,25 @@ namespace RedisStackOverflow.ServiceInterface
 
 				//Populate tag => questions index for each tag
 				question.Tags.ForEach(tag => redis.AddItemToSet(TagIndex.Questions(tag), question.Id.ToString()));
+			}
+		}
+
+		/// <summary>
+		/// Delete Answer by performing compensating actions to StoreAnswer() to keep the datastore in a consistent state
+		/// </summary>
+		/// <param name="questionId"></param>
+		/// <param name="answerId"></param>
+		public void DeleteAnswer(long questionId, long answerId)
+		{
+			using (var redis = RedisManager.GetClient())
+			{
+				var answer = redis.As<Question>().GetRelatedEntities<Answer>(questionId).FirstOrDefault(x => x.Id == answerId);
+				if (answer == null) return;
+				
+				redis.As<Question>().DeleteRelatedEntity<Answer>(questionId, answerId);
+				
+				//remove user => answer index
+				redis.RemoveItemFromSet(UserAnswerIndex.Answers(answer.UserId), answerId.ToString());
 			}
 		}
 
