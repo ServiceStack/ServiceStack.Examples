@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind", "ServiceStack.Northwind\ServiceStack.Northwind.csproj", "{3E968D84-7C23-42E9-A443-6355FAA845E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind.ServiceModel", "ServiceStack.Northwind.ServiceModel\ServiceStack.Northwind.ServiceModel.csproj", "{14856482-95D3-4A02-968C-665F3D08F94D}"

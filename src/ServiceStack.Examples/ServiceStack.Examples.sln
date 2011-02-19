@@ -1,5 +1,9 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{424661FC-DA57-423D-8FDF-57A39A04B260}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{2218422E-76B4-4128-ACFF-4CE824B0E0CE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Host.Web", "ServiceStack.Examples.Host.Web\ServiceStack.Examples.Host.Web.csproj", "{3A8D2349-6E97-47A2-AC49-EFE7D89C0344}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.ServiceInterface", "ServiceStack.Examples.ServiceInterface\ServiceStack.Examples.ServiceInterface.csproj", "{519A7B72-D144-436D-AAC3-7BAAEAD3FF52}"
@@ -10,13 +14,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Clien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.ServiceModel", "ServiceStack.Examples.ServiceModel\ServiceStack.Examples.ServiceModel.csproj", "{2B840832-3036-47D9-8F9B-560CD5C2BF90}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{424661FC-DA57-423D-8FDF-57A39A04B260}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Tests", "..\..\tests\ServiceStack.Examples.Tests\ServiceStack.Examples.Tests.csproj", "{969644BC-B209-4458-8DC1-041D7A9ADD3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Tests.Integration", "..\..\tests\ServiceStack.Examples.Tests.Integration\ServiceStack.Examples.Tests.Integration.csproj", "{21777EAF-74FD-4D0B-947A-C602D8D3EBBA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{2218422E-76B4-4128-ACFF-4CE824B0E0CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{77363223-98F2-4724-8044-569C6485B3A9} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
-		{53F87D5C-4540-4AFD-BD19-E081FD8E586B} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
-		{3A8D2349-6E97-47A2-AC49-EFE7D89C0344} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
 		{969644BC-B209-4458-8DC1-041D7A9ADD3B} = {424661FC-DA57-423D-8FDF-57A39A04B260}
 		{21777EAF-74FD-4D0B-947A-C602D8D3EBBA} = {424661FC-DA57-423D-8FDF-57A39A04B260}
+		{3A8D2349-6E97-47A2-AC49-EFE7D89C0344} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
+		{77363223-98F2-4724-8044-569C6485B3A9} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
+		{53F87D5C-4540-4AFD-BD19-E081FD8E586B} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
 	EndGlobalSection
 EndGlobal

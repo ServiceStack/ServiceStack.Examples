@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestFiles", "RestFiles\RestFiles.csproj", "{3A8D2349-6E97-47A2-AC49-EFE7D89C0344}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestFiles.ServiceInterface", "RestFiles.ServiceInterface\RestFiles.ServiceInterface.csproj", "{5B91935A-7ED6-4496-871B-6AD25BC3F097}"
