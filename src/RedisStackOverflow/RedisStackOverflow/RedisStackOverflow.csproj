@@ -88,7 +88,9 @@
     <Content Include="img\myvote-up.png" />
     <Content Include="img\vote-down.png" />
     <Content Include="img\vote-up.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
