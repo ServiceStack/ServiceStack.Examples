@@ -82,6 +82,7 @@
     <Content Include="img\arrow-left.png" />
     <Content Include="img\bg-body-1024.png" />
     <Content Include="img\btn-github.png" />
+    <Content Include="img\delete_icon.png" />
     <Content Include="img\Mono-powered-big.png" />
     <Content Include="img\myvote-down.png" />
     <Content Include="img\myvote-up.png" />

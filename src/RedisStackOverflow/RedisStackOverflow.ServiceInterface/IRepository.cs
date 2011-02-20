@@ -208,6 +208,7 @@ namespace RedisStackOverflow.ServiceInterface
 				var redisQuestions = redis.As<Question>();
 
 				var question = redisQuestions.GetById(questionId);
+				if (question == null) return;
 				
 				//decrement score in tags list
 				question.Tags.ForEach(tag => redis.IncrementItemInSortedSet(TagIndex.All, tag, -1));
@@ -216,10 +217,12 @@ namespace RedisStackOverflow.ServiceInterface
 				redisQuestions.DeleteRelatedEntities<Answer>(questionId);
 
 				//remove this question from user index
-				redis.RemoveItemFromSortedSet(UserQuestionIndex.Questions(question.UserId), question.Id.ToString());
+				redis.RemoveItemFromSet(UserQuestionIndex.Questions(question.UserId), questionId.ToString());
 
 				//remove tag => questions index for each tag
-				question.Tags.ForEach(tag => redis.RemoveItemFromSortedSet(TagIndex.Questions(tag), question.Id.ToString()));
+				question.Tags.ForEach(tag => redis.RemoveItemFromSet(TagIndex.Questions(tag), questionId.ToString()));
+
+				redisQuestions.DeleteById(questionId);
 			}
 		}
 

@@ -8,7 +8,7 @@
 
     <script type="text/javascript">
         $(function() {
-            var authUser, userStats, siteStats, qSource = "questions", qLabel = "Latest Questions";
+            var authUser, userStats, siteStats, qSource = "questions", qLabel = defaultLabel = "Latest Questions";
 
             $.ajaxSetup({ cache:false });
 
@@ -21,7 +21,20 @@
                     window.open(getFrag(qSource, qLabel));
                     return;
                 }
-                refresh();
+                if (el.className == "del") {
+                    $.ajax({ 
+                        type: 'delete',
+                        url: qSource,
+                        success: function () {
+                            qLabel = defaultLabel;
+                            qSource = "questions";
+                            refresh();
+                        }
+                    });
+                }
+                else {
+                    refresh();
+                }
             });
 
             var ua = navigator.userAgent, iPhone = ua.indexOf("iPhone") >= 0, iPad = ua.indexOf("iPad") >= 0;
@@ -167,7 +180,8 @@
                                     + '</div>';
                         });
 
-                         
+                        var delQ = authUser.DisplayName == "mythz"
+                                ? "<b class='del' data-cmd='questions/" + q.Id + "'></b>" : "";
                         var sb = ''
                             + '<div id="question">'
                                 + '<div class="ib question-votes">'
@@ -175,6 +189,7 @@
                                 + '<h4>' + votes + '</h4>'
                                 + '<b class="down" />'
                                 + '</div>'
+                                + delQ
                             + '<div class="ib question-content">' + enc(q.Content).replace("\n","<br />\n") + '</div>'
                             + '<div class="tags">' + tags + '</div>'
                             + '<div id="question-answers">'

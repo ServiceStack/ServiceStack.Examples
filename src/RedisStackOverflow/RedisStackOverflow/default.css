@@ -244,6 +244,14 @@ H4 EM
 {
     width: 450px;
 }
+.del
+{
+	width: 16px;
+	height: 16px;
+	float: right;
+	background: url(img/delete_icon.png) no-repeat;
+}
+
 .by
 {
     float: right;
