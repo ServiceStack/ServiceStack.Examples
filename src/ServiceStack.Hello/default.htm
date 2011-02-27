@@ -83,6 +83,10 @@
     	float: right;
     }
 
+    H3 B
+    {
+    	color: #061;
+    }
     H4 B
     {
     	color: #555;
@@ -122,6 +126,19 @@
          padding: 0 20px 20px 0;
      }
 
+	 #configpath
+	 {
+	 	margin: 0 0 40px 0;
+	 }
+     #configpath DT
+     {
+     	line-height: 30px;
+     	font-weight: bold;
+     }
+     #configpath DD
+     {
+     	margin: 0 0 0 10px;
+     }
 
     </style>
 </head>
@@ -161,13 +178,44 @@
         Add a reference to the <a href="https://github.com/ServiceStack/ServiceStack/downloads">latest ServiceStack.dll's</a> to your project:
     </p>
 
-    <p>
-        Register the ServiceStack handler with in your ASP.NET application
-        by adding either of the following to your <strong>Web.config</strong>:
-    </p>
 
-<h3>Host Web services at a custom path: <b>/servicestack</b></h3>
-<h4>Use the location configuration below to host webservices at the custom path: <b>/servicestack</b></h4>
+    <p>
+        There are 2 supported options available to register ServiceStack in your ASP.NET application <strong>Web.config</strong>:
+    </p>
+    <dl id="configpath">
+        <dt>a) host at: <a href="#rootpath">/</a></dt>
+        <dd>When running ServiceStack as standalone (i.e. don't need to use an existing framework)</dd>
+
+        <dt>b) host at: <a href="#custompath">/custompath</a></dt>
+        <dd>When you're using ServiceStack together with an existing web framework</dd>
+    </dl>
+
+<h3><a name="rootpath"></a>a) You do not require an existing Web Framework - Host from the root path: <b>/</b></h3>
+<p>
+    You can host at the root path <b>/</b> when you don't need to use an existing Web Framework with your ServiceStack web services (i.e. project only has static files)
+</p>
+<h4>The configuration below allows you to host your webservices from the root path: <b>/</b></h4>
+<code class="web-config">&lt;system.web&gt;
+  &lt;httpHandlers&gt;
+    &lt;add path="*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
+  &lt;/httpHandlers&gt;
+&lt;/system.web&gt;
+
+&lt;!-- Required for IIS 7.0 --&gt;
+&lt;system.webServer&gt;
+  &lt;handlers&gt;
+    &lt;add path="*" name="ServiceStack.Factory" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
+  &lt;/handlers&gt;
+&lt;/system.webServer&gt;
+</code>
+
+<h3><a name="custompath"></a> b) You require an existing Web Framework - Host web services at: <b>/custompath</b></h3>
+<p>
+    In order to avoid conflicts with your existing ASP.NET web framework it is recommended to host your ServiceStack web services at a custom path.<br />
+    This will allow you to use ServiceStack together with an existing web framework
+    e.g. <a href="http://www.asp.net/mvc">ASP.NET MVC 3</a> or <a href="http://code.google.com/p/fubumvc/">FUBU MVC</a>, etc.
+</p>
+<h4>The location configuration below hosts your webservices at custom path: <b>/servicestack</b></h4>
 <code class="web-config">&lt;location path="servicestack"&gt;
   &lt;system.web&gt;
     &lt;httpHandlers&gt;
@@ -184,23 +232,6 @@
     &lt;/handlers&gt;
   &lt;/system.webServer&gt;
 &lt;/location&gt;
-</code>
-
-<h3>Host Web services at the root path: /</h3>
-<h4>Wildcard Handler mapping for IIS 6.0, MONO or VS.NET dev web server</h4>
-<code class="web-config">&lt;system.web&gt;
-  &lt;httpHandlers&gt;
-    &lt;add path="servicestack*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
-  &lt;/httpHandlers&gt;
-&lt;/system.web&gt;
-</code>
-
-<h4>Wildcard Handler mapping for IIS 7+</h4>
-<code class="web-config">&lt;system.webServer&gt;
-  &lt;handlers&gt;
-    &lt;add path="servicestack" name="ServiceStack.Factory" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
-  &lt;/handlers&gt;
-&lt;/system.webServer&gt;
 </code>
 
     <h2>3. Creating your first Web Service</h2>
