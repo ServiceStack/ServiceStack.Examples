@@ -104,7 +104,7 @@
     if (($.browser.msie && $.browser.version < 9) || location.href.indexOf("fakeie") >= 0) {
         document.body.className = "lamebrowser";
     }
-    $.ajaxSetup({ cache:false, contentType:'application/json' });
+    $.ajaxSetup({ cache:false, dataType: 'json' });
 
     function fromDtoDate (dateStr) {
         return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
@@ -139,7 +139,7 @@
         if ($.isFunction(data)) {
             callback = data, data = {};
         }
-        return $.ajax({ type: method, url: url, data: data, success: callback, dataType: type });
+        return $.ajax({ type: method, url: url, data: data, success: callback, contentType: type });
     }
     $.extend({
         put: function(url, data, callback, type) {
@@ -205,7 +205,7 @@
         $("#breadcrumb").html(sb + "</div>");
 
         var jqLs = $("#ls");
-        $.get(href, function(r) {
+        $.getJSON(href, function(r) {
             var navBack = lastHref.length > href.length && lastHref.substr(0, href.length) == href,
                 nextCls = navBack ? "results-0" : "results-2",
                 hasResults = $("#ls TABLE").length == 1,
@@ -298,7 +298,7 @@
             refresh();
         },
         savechanges: function() {
-            $.put(lastHref, {TextContents: $("#fileview textarea").val()}, refresh);
+            $.put(lastHref, {TextContents: $("#fileview textarea").val()}, refresh, 'application/x-www-form-urlencoded');
             href = dirPath(lastHref), location.hash = "#!" + href;
         },
         deletefile: function(el) {

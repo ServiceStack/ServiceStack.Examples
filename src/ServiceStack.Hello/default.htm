@@ -166,7 +166,28 @@
         by adding either of the following to your <strong>Web.config</strong>:
     </p>
 
-<h4>ServiceStack Handler mapping for IIS 6.0, MONO or VS.NET dev web server</h4>
+<h3>Host Web services at a custom path: <b>/servicestack</b></h3>
+<h4>Use the location configuration below to host webservices at the custom path: <b>/servicestack</b></h4>
+<code class="web-config">&lt;location path="servicestack"&gt;
+  &lt;system.web&gt;
+    &lt;httpHandlers&gt;
+      &lt;add path="*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
+    &lt;/httpHandlers&gt;
+  &lt;/system.web&gt;
+
+  &lt;!-- Required for IIS 7.0 --&gt;
+  &lt;system.webServer&gt;
+    &lt;modules runAllManagedModulesForAllRequests="true"/&gt;
+    &lt;validation validateIntegratedModeConfiguration="false" /&gt;
+    &lt;handlers&gt;
+      &lt;add path="*" name="ServiceStack.Factory" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
+    &lt;/handlers&gt;
+  &lt;/system.webServer&gt;
+&lt;/location&gt;
+</code>
+
+<h3>Host Web services at the root path: /</h3>
+<h4>Wildcard Handler mapping for IIS 6.0, MONO or VS.NET dev web server</h4>
 <code class="web-config">&lt;system.web&gt;
   &lt;httpHandlers&gt;
     &lt;add path="servicestack*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
@@ -174,7 +195,7 @@
 &lt;/system.web&gt;
 </code>
 
-<h4>ServiceStack Handler mapping for IIS 7+</h4>
+<h4>Wildcard Handler mapping for IIS 7+</h4>
 <code class="web-config">&lt;system.webServer&gt;
   &lt;handlers&gt;
     &lt;add path="servicestack" name="ServiceStack.Factory" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*" preCondition="integratedMode" resourceType="Unspecified" allowPathInfo="true" /&gt;
