@@ -1,0 +1,9 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="Build">
+        <MSBuild Projects="../src/RedisStackOverflow/RedisStackOverflow.sln" Properties="Configuration=Release"/>
+        <MSBuild Projects="../src/RestFiles/RestFiles.sln" Properties="Configuration=Release"/>
+        <MSBuild Projects="../src/ServiceStack.Hello/ServiceStack.Hello.sln" Properties="Configuration=Release"/>
+        <MSBuild Projects="../src/ServiceStack.Northwind/ServiceStack.Northwind.sln" Properties="Configuration=Release"/>
+        <MSBuild Projects="../src/ServiceStack.MovieRest/ServiceStack.MovieRest.sln" Properties="Configuration=Release; Architecture=x86"/>
+    </Target>
+</Project>
