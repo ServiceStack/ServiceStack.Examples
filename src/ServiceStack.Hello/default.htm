@@ -125,6 +125,13 @@
          float: right;
          padding: 0 20px 20px 0;
      }
+     
+     H3.hr
+     {
+        border-top: 1px solid #ccc;
+        margin: 25px 0 0 0;
+        padding: 5px 0 0 0;
+     }
 
 	 #configpath
 	 {
@@ -190,7 +197,7 @@
         <dd>When you're using ServiceStack together with an existing web framework</dd>
     </dl>
 
-<h3><a name="rootpath"></a>a) You do not require an existing Web Framework - Host from the root path: <b>/</b></h3>
+<h3 class="hr"><a name="rootpath"></a>a) You do not require an existing Web Framework - Host from the root path: <b>/</b></h3>
 <p>
     You can host at the root path <b>/</b> when you don't need to use an existing Web Framework with your ServiceStack web services (i.e. project only has static files)
 </p>
@@ -209,7 +216,7 @@
 &lt;/system.webServer&gt;
 </code>
 
-<h3><a name="custompath"></a> b) You require an existing Web Framework - Host web services at: <b>/custompath</b></h3>
+<h3 class="hr"><a name="custompath"></a> b) You require an existing Web Framework - Host web services at: <b>/custompath</b></h3>
 <p>
     In order to avoid conflicts with your existing ASP.NET web framework it is recommended to host your ServiceStack web services at a custom path.<br />
     This will allow you to use ServiceStack together with an existing web framework
