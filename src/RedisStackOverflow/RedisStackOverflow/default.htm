@@ -7,32 +7,38 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function ()
+        {
             var authUser, userStats, siteStats, qSource = "questions", qLabel = defaultLabel = "Latest Questions";
 
-            $.ajaxSetup({ cache:false });
+            $.ajaxSetup({ cache: false });
 
-            $(document).click(function(e){
+            $(document).click(function (e)
+            {
                 var el = e.target;
                 if (!el.getAttribute("data-cmd")) return;
                 qSource = el.getAttribute("data-cmd");
                 qLabel = el.getAttribute("data-label");
-                if (e.ctrlKey || e.shiftKey) {
+                if (e.ctrlKey || e.shiftKey)
+                {
                     window.open(getFrag(qSource, qLabel));
                     return;
                 }
-                if (el.className == "del") {
-                    $.ajax({ 
+                if (el.className == "del")
+                {
+                    $.ajax({
                         type: 'delete',
                         url: qSource,
-                        success: function () {
+                        success: function ()
+                        {
                             qLabel = defaultLabel;
                             qSource = "questions";
                             refresh();
                         }
                     });
                 }
-                else {
+                else
+                {
                     refresh();
                 }
             });
@@ -40,12 +46,12 @@
             var ua = navigator.userAgent, iPhone = ua.indexOf("iPhone") >= 0, iPad = ua.indexOf("iPad") >= 0;
             if (iPhone || iPad)
             {
-                $("#footer").css({position:"static",clear:"both", margin:"80px 0 -30px -18px"});
+                $("#footer").css({ position: "static", clear: "both", margin: "80px 0 -30px -18px" });
             }
 
             var defaultMessage = "Browse latest or login to ask a question";
 
-            var updateStatus = function(message, className)
+            var updateStatus = function (message, className)
             {
                 var sb = className
                     ? '<b class="' + className + '">'
@@ -53,7 +59,7 @@
                 $("#status H4").html(sb + message + '</b>');
             };
 
-            var updateUserStatus = function(message, className)
+            var updateUserStatus = function (message, className)
             {
                 var sb = className
                     ? '<span class="' + className + '">'
@@ -63,10 +69,12 @@
 
             updateStatus(defaultMessage);
 
-            var fromDtoDate = function(dateStr) {
+            var fromDtoDate = function (dateStr)
+            {
                 return new Date(parseFloat(/Date\(([^)]+)\)/.exec(dateStr)[1]));
             };
-            var toTwitterTime = function (a) {
+            var toTwitterTime = function (a)
+            {
                 var b = new Date();
                 var c = typeof a == "date" ? a : new Date(a);
                 var d = b - c;
@@ -82,26 +90,29 @@
                 if (d < day * 365) { return Math.floor(d / day) + " days ago"; } else { return "over a year ago" }
             };
 
-            function enc(html) {
+            function enc(html)
+            {
                 if (typeof html != "string") return html;
-                return html.replace('<','&lt;').replace('>','&gt;').replace('"','&quot;');
+                return html.replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;');
             }
             function getFrag(qSource, qLabel)
             {
-                return "#!" + qSource + "/" + encodeURIComponent(qLabel.replace(/ /g,'_'));
+                return "#!" + qSource + "/" + encodeURIComponent(qLabel.replace(/ /g, '_'));
             }
 
-            function refresh(callback, skipPushState) {
+            function refresh(callback, skipPushState)
+            {
                 if (!skipPushState && window.history.pushState)
                 {
-                    window.history.pushState({qSource:qSource,qLabel:qLabel},qLabel, getFrag(qSource, qLabel));
+                    window.history.pushState({ qSource: qSource, qLabel: qLabel }, qLabel, getFrag(qSource, qLabel));
                 }
 
                 var asyncCount = 0;
                 if (authUser)
                 {
                     asyncCount++;
-                    $.getJSON("users/" + authUser.Id + "/stats", function(r){
+                    $.getJSON("users/" + authUser.Id + "/stats", function (r)
+                    {
                         userStats = r.Result;
                         var msg = "You have "
                             + '<em data-cmd="users/' + authUser.Id + '/questions" data-label="Questions by '
@@ -112,7 +123,8 @@
                     });
                 }
                 asyncCount++;
-                $.getJSON("stats", function(r){
+                $.getJSON("stats", function (r)
+                {
                     siteStats = r.Result;
                     var msg = 'This site has '
                         + '<em data-cmd="questions" data-label="Latest Questions">' + siteStats.QuestionsCount + ' questions</em>'
@@ -120,7 +132,8 @@
                     updateStatus(msg);
 
                     var tags = '';
-                    $.each(siteStats.TopTags, function(i,tag){
+                    $.each(siteStats.TopTags, function (i, tag)
+                    {
                         var eTag = enc(tag.Name);
                         tags += '<dd><span class="tag" data-cmd="questions/tagged/' + eTag
                               + '" data-label="Questions tagged with ' + eTag + '">'
@@ -129,9 +142,10 @@
 
                     var pages = "";
                     var pageCount = Math.ceil(siteStats.QuestionsCount / 10);
-                    for (var pageNo=0; pageNo<pageCount; pageNo++) {
+                    for (var pageNo = 0; pageNo < pageCount; pageNo++)
+                    {
                         pages += '<span class="page" data-cmd="questions/page/' + pageNo + '"'
-                               + ' data-label="All Questions - page ' + (pageNo+1) + '/' + pageCount + '">'
+                               + ' data-label="All Questions - page ' + (pageNo + 1) + '/' + pageCount + '">'
                                + (pageNo + 1) + '</span>';
                     }
                     $("#paging").html(pages);
@@ -141,9 +155,11 @@
                     if (--asyncCount == 0 && callback) callback();
                 });
 
-                var getTags = function(q) {
+                var getTags = function (q)
+                {
                     var tags = "";
-                    $.each(q.Tags, function(i,tag){
+                    $.each(q.Tags, function (i, tag)
+                    {
                         var encTag = enc(tag);
                         tags += '<b class="tag" data-cmd="questions/tagged/' + encTag
                               + '" data-label="Questions tagged with ' + encTag + '">'
@@ -153,12 +169,14 @@
                 };
 
                 $("#questions H2").html(qLabel);
-                var encodedUrl = qSource.replace('#','%23');
+                var encodedUrl = qSource.replace('#', '%23');
                 var viewSingleQuestion = qSource.indexOf('questions/') === 0 && qSource.split("/").length == 2;
-                if (viewSingleQuestion) {
+                if (viewSingleQuestion)
+                {
 
                     asyncCount++;
-                    $.getJSON(encodedUrl, function(r){
+                    $.getJSON(encodedUrl, function (r)
+                    {
                         var q = r.Result.Question;
                         var votes = r.Result.VotesUpCount - r.Result.VotesDownCount;
                         var tags = getTags(q);
@@ -166,15 +184,16 @@
                         var answers = "";
                         var answerCount = r.Result.Answers.length, answerText = answerCount + " Answer";
                         if (answerCount != 1) answerText += "s";
-                        $.each(r.Result.Answers, function(i, ar){
-                           var u = ar.User;
-                           var date = fromDtoDate(ar.Answer.CreatedDate);
-                           answers += '<div class="answer">'
-                                    + enc(ar.Answer.Content).replace("\n","<br />\n")
+                        $.each(r.Result.Answers, function (i, ar)
+                        {
+                            var u = ar.User;
+                            var date = fromDtoDate(ar.Answer.CreatedDate);
+                            answers += '<div class="answer">'
+                                    + enc(ar.Answer.Content).replace("\n", "<br />\n")
                                     + '<div class="by">'
                                     + "<i data-cmd='users/" + u.Id + "/questions' data-label='Questions by "
-                                    +  enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
-                                    +   '<em>' + toTwitterTime(date) + '</em>'
+                                    + enc(u.DisplayName) + "'>by " + enc(u.DisplayName) + "</i>"
+                                    + '<em>' + toTwitterTime(date) + '</em>'
                                     + '<br />'
                                     + '</div>'
                                     + '</div>';
@@ -190,7 +209,7 @@
                                 + '<b class="down" />'
                                 + '</div>'
                                 + delQ
-                            + '<div class="ib question-content">' + enc(q.Content).replace("\n","<br />\n") + '</div>'
+                            + '<div class="ib question-content">' + enc(q.Content).replace("\n", "<br />\n") + '</div>'
                             + '<div class="tags">' + tags + '</div>'
                             + '<div id="question-answers">'
                             + '<h3>' + enc(answerText) + '</h3>'
@@ -205,21 +224,26 @@
 
                         $("#results").html(sb);
 
-                        $(".question-votes B").click(function(){
+                        $(".question-votes B").click(function ()
+                        {
                             var dir = $(this).hasClass("up") ? "up" : "down";
-                            $.post("users/" + authUser.Id + "/questionvotes/" + q.Id, { Direction:dir }, function(r){
-                                refresh(function(){
+                            $.post("users/" + authUser.Id + "/questionvotes/" + q.Id, { Direction: dir }, function (r)
+                            {
+                                refresh(function ()
+                                {
                                     $(".question-votes B").removeClass("user-selected");
                                     $(".question-votes B." + dir).addClass("user-selected");
                                 });
                             });
                         });
 
-                        $("#your-answer BUTTON").click(function(){
+                        $("#your-answer BUTTON").click(function ()
+                        {
                             var answer = $("#your-answer TEXTAREA").val();
 
-                            $.post("answers", {QuestionId: q.Id, UserId: authUser.Id, Content:answer}, function(r){
-                               refresh();
+                            $.post("answers", { QuestionId: q.Id, UserId: authUser.Id, Content: answer }, function (r)
+                            {
+                                refresh();
                             });
                         });
 
@@ -229,11 +253,13 @@
                 }
 
                 asyncCount++;
-                $.getJSON(encodedUrl, function(r){
+                $.getJSON(encodedUrl, function (r)
+                {
                     var sb = "";
                     var userNameMap = {};
 
-                    $.each(r.Results, function(i, r){
+                    $.each(r.Results, function (i, r)
+                    {
                         var q = r.Question, u = r.User;
                         var date = fromDtoDate(q.CreatedDate);
 
@@ -249,7 +275,7 @@
                             + '<div class="by">'
                             + '<i data-cmd="users/' + u.Id + '/questions" data-label="Questions by '
                                 + enc(u.DisplayName) + '">by ' + enc(u.DisplayName) + '</i>'
-                            +   '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
+                            + '<em>' + toTwitterTime(date.toUTCString()) + '</em>'
                             + '</div>'
                             + '<div class="tags">' + tags + '</div>'
                             + '</div>'
@@ -262,7 +288,8 @@
                 });
             };
 
-            window.onpopstate = function(e) {
+            window.onpopstate = function (e)
+            {
                 e = e || event;
                 if (!e.state) return;
                 qSource = e.state.qSource;
@@ -271,25 +298,30 @@
             };
 
             var hash = location.hash.indexOf('#!') === 0 && location.hash.substr(2);
-            if (hash) {
+            if (hash)
+            {
                 var parts = hash.split('/');
-                qLabel = parts.length == 1 ? qLabel : decodeURIComponent(parts.pop()).replace(/_/g,' ');
+                qLabel = parts.length == 1 ? qLabel : decodeURIComponent(parts.pop()).replace(/_/g, ' ');
                 qSource = parts.join('/');
             }
 
-            if (window.localStorage) {
+            if (window.localStorage)
+            {
                 authUser = localStorage.getItem("authUser");
-                try {
+                try
+                {
                     if (typeof authUser == "string") authUser = $.parseJSON(authUser);
-                } catch {}
+                } catch (e) { }
             }
             if (authUser) loginUser(authUser.DisplayName);
             refresh();
 
             $("#user A#login").attr('href', 'javascript:void(0)');
-            $("#user A#login").click(function() {
+            $("#user A#login").click(function ()
+            {
                 var logoutUser = this.innerHTML == "logout";
-                if (logoutUser) {
+                if (logoutUser)
+                {
                     authUser = null;
                     $("#user B, #user H4, #add").hide();
                     $("#user A#login").html("login");
@@ -299,9 +331,11 @@
                 var randUsers = "mythz,James,John,Robert,Michael,William,David,Charles,Joseph,Thomas".split(',');
                 var randUser = randUsers[Math.floor(Math.random() * randUsers.length)];
                 var userName = prompt("Login with your User Name", randUser);
-                if (userName) {
+                if (userName)
+                {
                     loginUser(userName);
-                    $.post("users", { DisplayName: userName }, function(r) {
+                    $.post("users", { DisplayName: userName }, function (r)
+                    {
                         authUser = r.Result;
                         if (window.localStorage) localStorage.setItem("authUser", JSON.stringify(authUser));
                         refresh();
@@ -317,14 +351,15 @@
                 $("#user A#login").html("logout");
             }
 
-            var addQuestion = function() {
+            var addQuestion = function ()
+            {
                 var title = $("#qtitle").val(), body = $("#qbody").val(), tags = $("#qtags").val();
 
                 $("#add INPUT, #add TEXTAREA").removeClass('error');
                 if (!title) $("#qtitle").addClass('error');
-                if (!body)  $("#qbody").addClass('error');
+                if (!body) $("#qbody").addClass('error');
                 var invalidTags = !tags || /[&\<\>]/.test(tags);
-                if (invalidTags)  $("#qtags").addClass('error');
+                if (invalidTags) $("#qtags").addClass('error');
 
                 if (!title || !body || invalidTags) return;
 
@@ -332,7 +367,7 @@
 
                 $("#add INPUT, #add TEXTAREA").val('');
 
-                $.post("questions", { UserId: authUser.Id, Title: title, Content:body, Tags: dtoTags }, refresh);
+                $.post("questions", { UserId: authUser.Id, Title: title, Content: body, Tags: dtoTags }, refresh);
             };
             $("#add BUTTON").click(addQuestion);
 
