@@ -232,6 +232,13 @@
     &lt;/handlers&gt;
   &lt;/system.webServer&gt;
 &lt;/location&gt;
+
+&lt;!-- Required for MONO --&gt;
+&lt;system.web&gt;
+  &lt;httpHandlers&gt;
+    &lt;add path="servicestack*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
+  &lt;/httpHandlers&gt;
+&lt;/system.web&gt;
 </code>
 
     <h2>3. Creating your first Web Service</h2>
