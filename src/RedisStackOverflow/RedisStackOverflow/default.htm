@@ -311,7 +311,7 @@
                 try
                 {
                     if (typeof authUser == "string") authUser = $.parseJSON(authUser);
-                } catch (e) { }
+                } catch (e) { authUser = null; }
             }
             if (authUser) loginUser(authUser.DisplayName);
             refresh();
