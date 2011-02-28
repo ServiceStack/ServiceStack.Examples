@@ -189,13 +189,6 @@
     <p>
         There are 2 supported options available to register ServiceStack in your ASP.NET application <strong>Web.config</strong>:
     </p>
-    <dl id="configpath">
-        <dt>a) host at: <a href="#rootpath">/</a></dt>
-        <dd>When running ServiceStack as standalone (i.e. don't need to use an existing framework)</dd>
-
-        <dt>b) host at: <a href="#custompath">/custompath</a></dt>
-        <dd>When you're using ServiceStack together with an existing web framework</dd>
-    </dl>
 
 <h3 class="hr"><a name="rootpath"></a>a) You do not require an existing Web Framework - Host from the root path: <b>/</b></h3>
 <p>
@@ -216,7 +209,7 @@
 &lt;/system.webServer&gt;
 </code>
 
-<h3 class="hr"><a name="custompath"></a> b) You require an existing Web Framework - Host web services at: <b>/custompath</b></h3>
+<h3 class="hr"><a name="custompath"></a> b) You want to use ServiceStack with an existing Web Framework - Host web services at: <b>/custompath</b></h3>
 <p>
     In order to avoid conflicts with your existing ASP.NET web framework it is recommended to host your ServiceStack web services at a custom path.<br />
     This will allow you to use ServiceStack together with an existing web framework
