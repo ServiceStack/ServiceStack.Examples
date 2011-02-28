@@ -92,7 +92,9 @@
     </Content>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <None Include="Web.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
