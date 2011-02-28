@@ -13,8 +13,8 @@ namespace ServiceStack.Northwind.ServiceInterface
 		public override object OnGet(CachedCustomers request)
 		{
 			return base.RequestContext.ToOptimizedResultUsingCache(
-				this.CacheClient, "urn:customers", () =>{
-					var service = base.ResolveService<CustomersService>();
+				this.CacheClient, "urn:customers", () => {
+					var service = this.ResolveService<CustomersService>();
 					return (CustomersResponse) service.Get(new Customers());
 				});
 		}
@@ -30,7 +30,7 @@ namespace ServiceStack.Northwind.ServiceInterface
 			return base.RequestContext.ToOptimizedResultUsingCache(
 				this.CacheClient, cacheKey, () =>
 				{
-					return (CustomerDetailsResponse)base.ResolveService<CustomerDetailsService>()
+					return (CustomerDetailsResponse)this.ResolveService<CustomerDetailsService>()
 						.Get(new CustomerDetails { Id = request.Id });
 				});
 		}
@@ -45,7 +45,7 @@ namespace ServiceStack.Northwind.ServiceInterface
 			var cacheKey = UrnId.Create<Orders>(request.CustomerId ?? "all", request.Page.GetValueOrDefault(0).ToString());
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
 				{
-					return (OrdersResponse)base.ResolveService<OrdersService>()
+					return (OrdersResponse)this.ResolveService<OrdersService>()
 						.Get(new Orders { CustomerId = request.CustomerId, Page = request.Page });
 				});
 		}

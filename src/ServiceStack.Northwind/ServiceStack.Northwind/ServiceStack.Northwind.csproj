@@ -94,7 +94,9 @@
     <Content Include="img\database-18x18.jpg" />
     <Content Include="img\database-icon.jpg" />
     <Content Include="img\Mono-powered-big.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
