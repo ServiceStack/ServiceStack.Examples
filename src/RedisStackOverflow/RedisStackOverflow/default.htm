@@ -339,7 +339,7 @@
                         authUser = r.Result;
                         if (window.localStorage) localStorage.setItem("authUser", JSON.stringify(authUser));
                         refresh();
-                    });
+                    }, 'json');
                 }
             });
 
