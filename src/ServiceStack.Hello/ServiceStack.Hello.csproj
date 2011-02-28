@@ -77,7 +77,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.htm">
+    <Content Include="default.htm">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Global.asax" />
