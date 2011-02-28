@@ -279,7 +279,9 @@
 
             if (window.localStorage) {
                 authUser = localStorage.getItem("authUser");
-                if (typeof authUser == "string") authUser = $.parseJSON(authUser);
+                try {
+                    if (typeof authUser == "string") authUser = $.parseJSON(authUser);
+                } catch {}
             }
             if (authUser) loginUser(authUser.DisplayName);
             refresh();
