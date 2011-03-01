@@ -125,7 +125,7 @@
          float: right;
          padding: 0 20px 20px 0;
      }
-     
+
      H3.hr
      {
         border-top: 1px solid #ccc;
@@ -239,6 +239,9 @@
     &lt;add path="servicestack*" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/&gt;
   &lt;/httpHandlers&gt;
 &lt;/system.web&gt;
+&lt;system.webServer&gt;
+  &lt;validation validateIntegratedModeConfiguration="false" /&gt;
+&lt;/system.webServer&gt;
 </code>
 <p>
     Note: due to limitations in IIS 6 - the <b>/custompath</b> must end with <b>.ashx</b>, e.g: <b>path="servicestack.ashx"</b>

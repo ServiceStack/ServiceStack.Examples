@@ -5,5 +5,7 @@
         <MSBuild Projects="../src/ServiceStack.Hello/ServiceStack.Hello.sln" Properties="Configuration=Release"/>
         <MSBuild Projects="../src/ServiceStack.Northwind/ServiceStack.Northwind.sln" Properties="Configuration=Release"/>
         <MSBuild Projects="../src/ServiceStack.MovieRest/ServiceStack.MovieRest.sln" Properties="Configuration=Release; Architecture=x86"/>
+
+        <MSBuild Projects="../src/ServiceStack.Examples/ServiceStack.Examples.sln" Properties="Configuration=Release"/>
     </Target>
 </Project>
