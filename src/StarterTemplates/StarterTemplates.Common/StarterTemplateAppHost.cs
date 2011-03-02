@@ -57,19 +57,13 @@ namespace StarterTemplates.Common
 	{
 		static readonly ConfigurationResourceManager AppSettings = new ConfigurationResourceManager();
 
-		private readonly string listentingOn;
-
-		public StarterTemplateAppListenerHost(string listentingOn, string handlerPath)
+		public StarterTemplateAppListenerHost()
 			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate HttpListener", typeof(HelloService).Assembly)
 		{
-			this.listentingOn = listentingOn;
-			EndpointHostConfig.ServiceStackPath = handlerPath;
 		}
 
 		public override void Configure(Funq.Container container)
 		{
-			this.Start(this.listentingOn);
-			Console.WriteLine("Started listening on: " + listentingOn);
 		}
 	}
 }

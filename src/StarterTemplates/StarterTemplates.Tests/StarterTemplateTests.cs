@@ -165,5 +165,12 @@ namespace StarterTemplates.Tests
 		{
 			public RootPath40WebDevTests() : base(BaseUrl + "/RootPath40") { }
 		}
+
+
+		[TestFixture]
+		public class WinServiceAppHostTests : StarterTemplateTestsBase
+		{
+			public WinServiceAppHostTests() : base(BaseUrl + ":83") { }
+		}
 	}
 }

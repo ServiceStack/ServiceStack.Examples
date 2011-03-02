@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using ServiceStack.WebHost.Endpoints;
 using StarterTemplates.Common;
 
 namespace ConsoleAppHost
@@ -11,14 +10,16 @@ namespace ConsoleAppHost
 
 		static void Main(string[] args)
 		{
-			var appHost = new StarterTemplateAppListenerHost(ListeningOn, "ConsoleAppHost");
+			var appHost = new StarterTemplateAppListenerHost();
 			appHost.Init();
+			appHost.Start(ListeningOn);
+
+			Console.WriteLine("Started listening on: " + ListeningOn);
 
 			Console.WriteLine("AppHost Created at {0}, listening on {1}",
 				DateTime.Now, ListeningOn);
 
 
-			Thread.Sleep(Timeout.Infinite);
 			Console.WriteLine("ReadKey()");
 			Console.ReadKey();
 		}
