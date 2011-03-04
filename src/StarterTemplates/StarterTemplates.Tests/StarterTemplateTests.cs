@@ -110,6 +110,9 @@ namespace StarterTemplates.Tests
 			TestUrl(hostUrl + "/hello/world/1/2/3");
 		}
 
+		/// <summary>
+		/// Ensure the ConsoleAppHost is running on port 82
+		/// </summary>
 		[TestFixture]
 		public class ConsoleAppHostTests : StarterTemplateTestsBase
 		{
@@ -117,6 +120,9 @@ namespace StarterTemplates.Tests
 		}
 
 
+		/// <summary>
+		/// IIS apps
+		/// </summary>
 		[TestFixture]
 		public class CustomPath35IisTests : StarterTemplateTestsBase
 		{
@@ -142,31 +148,36 @@ namespace StarterTemplates.Tests
 		}
 
 
+		/// <summary>
+		/// Ensure all VS.NET WebDev.WebServer.EXE are running on 5001-5004 using start_vs2010_webserver.bat
+		/// </summary>
 		[TestFixture]
 		public class CustomPath35WebDevTests : StarterTemplateTestsBase
 		{
-			public CustomPath35WebDevTests() : base(BaseUrl + "/CustomPath35/api") { }
+			public CustomPath35WebDevTests() : base(BaseUrl + ":5001/api") { }
 		}
 
 		[TestFixture]
 		public class CustomPath40WebDevTests : StarterTemplateTestsBase
 		{
-			public CustomPath40WebDevTests() : base(BaseUrl + "/CustomPath40/api") { }
+			public CustomPath40WebDevTests() : base(BaseUrl + ":5002/api") { }
 		}
 
 		[TestFixture]
 		public class RootPath35WebDevTests : StarterTemplateTestsBase
 		{
-			public RootPath35WebDevTests() : base(BaseUrl + "/RootPath35") { }
+			public RootPath35WebDevTests() : base(BaseUrl + ":5003") { }
 		}
 
 		[TestFixture]
 		public class RootPath40WebDevTests : StarterTemplateTestsBase
 		{
-			public RootPath40WebDevTests() : base(BaseUrl + "/RootPath40") { }
+			public RootPath40WebDevTests() : base(BaseUrl + ":5004") { }
 		}
 
-
+		/// <summary>
+		/// Ensure Windows Service is running on port 83
+		/// </summary>
 		[TestFixture]
 		public class WinServiceAppHostTests : StarterTemplateTestsBase
 		{
