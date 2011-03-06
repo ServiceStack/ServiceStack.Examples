@@ -92,6 +92,7 @@
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Default.aspx" />
     <Content Include="default.css" />
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
@@ -99,7 +100,9 @@
     <Content Include="img\btn-github.png" />
     <Content Include="jquery-1.4.2.min.js" />
     <Content Include="jquery.form.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ResetMovies.cs" />
