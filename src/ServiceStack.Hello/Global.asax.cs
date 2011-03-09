@@ -10,7 +10,8 @@ namespace ServiceStack.Hello
 	[DataContract]
 	[Description("ServiceStack's Hello World web service.")]
 	[RestService("/hello")] //Optional: Define an alternate REST-ful url for this service
-	[RestService("/hello/{Name}")] 
+	[RestService("/hello/{Name}")]
+	[RestService("/hello/{Name*}")] 
 	public class Hello
 	{
 		[DataMember]
