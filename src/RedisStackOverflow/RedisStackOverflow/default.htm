@@ -199,8 +199,6 @@
                                     + '</div>';
                         });
 
-                        var delQ = authUser.DisplayName == "mythz"
-                                ? "<b class='del' data-cmd='questions/" + q.Id + "'></b>" : "";
                         var sb = ''
                             + '<div id="question">'
                                 + '<div class="ib question-votes">'
@@ -208,7 +206,7 @@
                                 + '<h4>' + votes + '</h4>'
                                 + '<b class="down" />'
                                 + '</div>'
-                                + delQ
+                                + "<b class='del' data-cmd='questions/" + q.Id + "'></b>"
                             + '<div class="ib question-content">' + enc(q.Content).replace("\n", "<br />\n") + '</div>'
                             + '<div class="tags">' + tags + '</div>'
                             + '<div id="question-answers">'
