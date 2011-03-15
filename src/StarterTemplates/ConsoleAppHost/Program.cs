@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
+using ServiceStack.Configuration;
 using StarterTemplates.Common;
 
 namespace ConsoleAppHost
 {
 	class Program
 	{
-		private const string ListeningOn = "http://localhost:82/";
+		private static readonly string ListeningOn = ConfigUtils.GetAppSetting("ListeningOn");
 
 		static void Main(string[] args)
 		{

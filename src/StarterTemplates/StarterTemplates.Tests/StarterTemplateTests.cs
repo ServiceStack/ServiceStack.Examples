@@ -177,7 +177,7 @@ namespace StarterTemplates.Tests
 
 		/// <summary>
 		/// Ensure Windows Service is running on port 83
-		/// </summary>
+		/// </summary> 
 		[TestFixture]
 		public class WinServiceAppHostTests : StarterTemplateTestsBase
 		{

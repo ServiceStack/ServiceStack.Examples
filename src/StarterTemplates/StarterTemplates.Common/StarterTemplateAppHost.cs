@@ -46,6 +46,7 @@ namespace StarterTemplates.Common
 		public StarterTemplateAppHost()
 			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate ASP.NET Host", typeof(HelloService).Assembly)
 		{
+			//EndpointHostConfig.Instance.DebugOnlyReturnRequestInfo = true;
 		}
 
 		public override void Configure(Funq.Container container) { }
