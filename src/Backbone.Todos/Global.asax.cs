@@ -56,10 +56,10 @@ namespace Backbone.Todos
 		}
 	}
 
-	//Configure ServiceStack.NET web service
+	//Configure ServiceStack.NET web service host
 	public class AppHost : AppHostBase
 	{
-		//Tell ServiceStack name and where to find your web services
+		//Tell ServiceStack the name and where to find your web services
 		public AppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) { }
 
 		public override void Configure(Container container)
