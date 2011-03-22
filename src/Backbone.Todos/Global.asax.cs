@@ -1,5 +1,4 @@
 ﻿using System;
-using Funq;
 using ServiceStack.Redis;
 using ServiceStack.ServiceInterface;
 using ServiceStack.WebHost.Endpoints;
@@ -10,22 +9,18 @@ namespace Backbone.Todos
 	//Register REST Paths
 	[RestService("/todos")]
 	[RestService("/todos/{Id}")]
-	public class Todo //REST Resource Model
+	public class Todo //REST Resource DTO
 	{
 		public long Id { get; set; }
-
 		public string Content { get; set; }
-
 		public int Order { get; set; }
-
 		public bool Done { get; set; }
 	}
 
-	//Implement TODO Rest Service
+	//Todo REST Service implementation
 	public class TodoService : RestServiceBase<Todo>
 	{
-		//Injected by IOC
-		public IRedisClientsManager RedisManager { get; set; }
+		public IRedisClientsManager RedisManager { get; set; }  //Injected by IOC
 
 		public override object OnGet(Todo request)
 		{
@@ -45,7 +40,6 @@ namespace Backbone.Todos
 				if (todo.Id == default(long)) todo.Id = r.GetNextSequence();
 				r.Store(todo);
 			});
-
 			return todo;
 		}
 
@@ -62,7 +56,7 @@ namespace Backbone.Todos
 		//Tell ServiceStack the name and where to find your web services
 		public AppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) { }
 
-		public override void Configure(Container container)
+		public override void Configure(Funq.Container container)
 		{
 			//Register Redis factory in Funq IOC
 			container.Register<IRedisClientsManager>(new BasicRedisClientManager("localhost:6379"));
@@ -73,8 +67,7 @@ namespace Backbone.Todos
 	{
 		protected void Application_Start(object sender, EventArgs e)
 		{
-			//Start ServiceStack App
-			new AppHost().Init();
+			new AppHost().Init(); //Start ServiceStack App
 		}
 	}
 }
