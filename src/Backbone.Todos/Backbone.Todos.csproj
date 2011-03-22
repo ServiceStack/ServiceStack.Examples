@@ -61,6 +61,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="default.htm" />
     <Content Include="destroy.png" />
     <Content Include="docs\backbone-localstorage.html" />
     <Content Include="docs\backbone.html" />
@@ -79,7 +80,6 @@
     <Content Include="docs\images\tzigla.png" />
     <Content Include="docs\todos.html" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
     <Content Include="js\backbone.js" />
     <Content Include="js\jquery-1.5.js" />
     <Content Include="js\jslitmus.js" />
