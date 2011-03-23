@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using ServiceStack.Redis;
 using ServiceStack.ServiceInterface;
 using ServiceStack.WebHost.Endpoints;
 using ServiceStack.ServiceHost;
 
+//The entire C# source code for the ServiceStack + Redis TODO REST backend. There is no other .cs :)
 namespace Backbone.Todos
 {
 	//Register REST Paths
