@@ -82,12 +82,7 @@
     <Content Include="Global.asax" />
     <Content Include="js\backbone.js" />
     <Content Include="js\jquery-1.5.js" />
-    <Content Include="js\jslitmus.js" />
-    <Content Include="js\json2.js" />
-    <Content Include="js\qunit.css" />
-    <Content Include="js\qunit.js" />
     <Content Include="js\underscore-1.1.5.js" />
-    <Content Include="js\zepto-0.5.js" />
     <Content Include="todos.css" />
     <Content Include="todos.js" />
     <Content Include="Web.config" />

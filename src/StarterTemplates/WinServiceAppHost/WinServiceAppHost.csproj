@@ -76,6 +76,10 @@
     <None Include="uninstall.bat" />
     <None Include="install.bat" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.htm" />
+    <Content Include="jqunback-1.51.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

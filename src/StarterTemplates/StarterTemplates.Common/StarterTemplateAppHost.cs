@@ -1,41 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using ServiceStack.Configuration;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.ServiceModel;
+﻿using ServiceStack.Configuration;
 using ServiceStack.WebHost.Endpoints;
 
 namespace StarterTemplates.Common
 {
-	[DataContract]
-	[Description("ServiceStack's Hello World web service.")]
-	[RestService("/hello")]
-	[RestService("/hello/{Name*}")]
-	public class Hello
-	{
-		[DataMember]
-		public string Name { get; set; }
-	}
-
-	[DataContract]
-	public class HelloResponse : IHasResponseStatus
-	{
-		[DataMember]
-		public string Result { get; set; }
-
-		[DataMember]
-		public ResponseStatus ResponseStatus { get; set; }
-	}
-
-	public class HelloService : ServiceBase<Hello>
-	{
-		protected override object Run(Hello request)
-		{
-			return new HelloResponse { Result = "Hello, " + request.Name };
-		}
-	}
 
 	//ASP.NET Hosts
 	public class StarterTemplateAppHost
@@ -44,12 +11,12 @@ namespace StarterTemplates.Common
 		static readonly ConfigurationResourceManager AppSettings = new ConfigurationResourceManager();
 
 		public StarterTemplateAppHost()
-			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate ASP.NET Host", typeof(HelloService).Assembly)
-		{
-			//EndpointHostConfig.Instance.DebugOnlyReturnRequestInfo = true;
-		}
+			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate ASP.NET Host", typeof(HelloService).Assembly) { }
 
-		public override void Configure(Funq.Container container) { }
+		public override void Configure(Funq.Container container)
+		{
+			container.Register(new TodoRepository());
+		}
 	}
 
 	//HttpListener Hosts
@@ -59,12 +26,11 @@ namespace StarterTemplates.Common
 		static readonly ConfigurationResourceManager AppSettings = new ConfigurationResourceManager();
 
 		public StarterTemplateAppListenerHost()
-			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate HttpListener", typeof(HelloService).Assembly)
-		{
-		}
+			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate HttpListener", typeof(HelloService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
+			container.Register(new TodoRepository());
 		}
 	}
 }
