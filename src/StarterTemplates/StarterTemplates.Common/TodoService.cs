@@ -3,6 +3,7 @@ using System.Linq;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
+//Entire implementation for the backend REST service of the TODO demo app
 namespace StarterTemplates.Common
 {
 	//Register REST Paths
@@ -45,6 +46,7 @@ namespace StarterTemplates.Common
 
 	/// <summary>
 	/// In-memory repository, so we can run the TODO app without any dependencies
+	/// Registered in Funq as a singleton, injected on every request
 	/// </summary>
 	public class TodoRepository
 	{

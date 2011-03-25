@@ -58,7 +58,6 @@
     <Compile Include="HelloService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StarterTemplateAppHost.cs" />
-    <Compile Include="TodoRepository.cs" />
     <Compile Include="TodoService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
