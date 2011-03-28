@@ -14,4 +14,14 @@ namespace ServiceStack.Northwind.ServiceInterface
 			return new CustomersResponse { Customers = DbFactory.Exec(dbCmd => dbCmd.Select<Customer>()) };
 		}
 	}
+
+	public class CustomerService : RestServiceBase<Customer>
+	{
+		public IDbConnectionFactory DbFactory { get; set; }
+
+		public override object OnPost(Customer request)
+		{
+			return new CustomersResponse { Customers = DbFactory.Exec(dbCmd => dbCmd.Select<Customer>()) };
+		}
+	}
 }
