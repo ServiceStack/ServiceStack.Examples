@@ -38,7 +38,6 @@ namespace ServiceStack.Examples.Host.Console
 					{ "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
 				},
                 WsdlServiceNamespace = "http://www.servicestack.net/types",
-				WsdlServiceTypesNamespace = "http://www.servicestack.net/types",
 			});
 
 			container.Register<IResourceManager>(new ConfigurationResourceManager());
