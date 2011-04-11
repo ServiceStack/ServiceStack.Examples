@@ -2,11 +2,14 @@
 follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/servicestack)
 for twitter updates.
 
-**Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc**
+#Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
 ## Live Demo
 
 A live demo and tutorials are available at the following locations:
+
+### [Backbone.js TODO app with REST and Redis backend](http://servicestack.net/Backbone.Todos/)
+[![Backbone REST and Redis TODOs](http://servicestack.net/showcase/img/todos-400x350.png)](http://servicestack.net/Backbone.Todos/)
 
 ### [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/)
 [![ServiceStacks Hello, World!](http://servicestack.net/showcase/img/hello-400x350.png)](http://servicestack.net/ServiceStack.Hello/)
