@@ -6,8 +6,8 @@ using ServiceStack.WebHost.Endpoints;
 //The entire C# source code for the ServiceStack + Redis TODO REST backend. There is no other .cs :)
 namespace Backbone.Todos
 {
-	//Register REST Paths
-	public class Todo //REST Resource DTO
+	//REST Resource DTO
+	public class Todo 
 	{
 		public long Id { get; set; }
 		public string Content { get; set; }
@@ -59,6 +59,7 @@ namespace Backbone.Todos
 			//Register Redis factory in Funq IOC
 			container.Register<IRedisClientsManager>(new BasicRedisClientManager("localhost:6379"));
 
+			//Register user-defined REST Paths
 			Routes
 			  .Add<Todo>("/todos")
 			  .Add<Todo>("/todos/{Id}");
