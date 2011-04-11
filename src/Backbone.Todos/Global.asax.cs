@@ -22,12 +22,12 @@ namespace Backbone.Todos
 
 		public override object OnGet(Todo request)
 		{
-			//return all todos
-			if (request.Id == default(long))
-				return RedisManager.ExecAs<Todo>(r => r.GetAll());
-
 			//return single todo
-			return RedisManager.ExecAs<Todo>(r => r.GetById(request.Id));
+			if (request.Id != default(long))
+				return RedisManager.ExecAs<Todo>(r => r.GetById(request.Id));
+
+			//return all todos
+			return RedisManager.ExecAs<Todo>(r => r.GetAll());
 		}
 
 		//Handles creaing a new and updating existing todo
