@@ -109,21 +109,23 @@ BODY
 	top: 40px;
 	left: 755px;
 }
-#header-links
-{
-	margin: 10px 0 0 270px;
+#header-links {
+	top: 10px;
+	left: 270px;
+	position: absolute;
 }
 #header-links A
 {
 	font-size: 13px;
     color: #00F;
-	padding: 0 0 0 5px;
+    margin-left: 0.5em;
 }
+
 #title
 {
 	background: url(../img/logo-24x24.png) no-repeat 0 10px;	
 	padding: 10px 10px 5px 28px;
-	margin: 10px 0 0 10px;
+	margin: 30px 0 0 10px;
 }
 #title H1 
 {
