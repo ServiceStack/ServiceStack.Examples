@@ -133,9 +133,10 @@
 
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
-        <a href="../RestFiles/">The Rest Files</a>
+        <a href="../Backbone.Todos/">Todos</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
-        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
+        <a href="../RestFiles/">REST Files</a>
+        <a href="../ServiceStack.MovieRest/">REST Movies</a>
         <a href="../ServiceStack.Northwind/">Northwind Database</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
@@ -191,17 +192,13 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract]
     public class GetFactorial
     {
-        [DataMember]
         public long ForNumber { get; set; }
     }
 
-    [DataContract]
     public class GetFactorialResponse
     {
-        [DataMember]
         public long Result { get; set; }
     }
                             </code>
@@ -262,20 +259,15 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract]
     public class GetFibonacciNumbers
     {
-        [DataMember]
         public long? Skip { get; set; }
 
-        [DataMember]
         public long? Take { get; set; }
     }
 
-    [DataContract]
     public class GetFibonacciNumbersResponse
     {
-        [DataMember]
         public ArrayOfLong Results { get; set; }
     }
                             </code>
@@ -376,20 +368,15 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract]
     public class StoreNewUser
     {
-        [DataMember]
         public string UserName { get; set; }
 
-        [DataMember]
         public string Email { get; set; }
 
-        [DataMember]
         public string Password { get; set; }
     }
 
-    [DataContract]
     public class StoreNewUserResponse
     {
         public StoreNewUserResponse()
@@ -397,10 +384,8 @@
             this.ResponseStatus = new ResponseStatus();
         }
 
-        [DataMember]
         public long UserId { get; set; }
 
-        [DataMember]
         public ResponseStatus ResponseStatus { get; set; }
     }
                             </code>
@@ -493,17 +478,13 @@
                         <div class="dtos">
                             <h5>Request and Response DataContracts (DTOs)</h5>
                             <code class="dto">
-    [DataContract]
     public class GetUsers
     {
-        [DataMember]
         public ArrayOfLong UserIds { get; set; }
 
-        [DataMember]
         public ArrayOfString UserNames { get; set; }
     }
 
-    [DataContract]
     public class GetUsersResponse
     {
         public GetUsersResponse()
@@ -511,10 +492,8 @@
             this.ResponseStatus = new ResponseStatus();
         }
 
-        [DataMember]
         public ArrayOfUser Users { get; set; }
 
-        [DataMember]
         public ResponseStatus ResponseStatus { get; set; }
     }
                             </code>

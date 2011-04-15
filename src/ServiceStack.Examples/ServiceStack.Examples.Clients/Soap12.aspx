@@ -11,9 +11,10 @@
 
     <div id="header-links">
         <a href="../ServiceStack.Hello/">Hello World</a>
-        <a href="../RestFiles/">The Rest Files</a>
+        <a href="../Backbone.Todos/">Todos</a>
         <a href="../RedisStackOverflow/">Redis StackOverflow</a>
-        <a href="../ServiceStack.MovieRest/">REST at the Movies</a>
+        <a href="../RestFiles/">REST Files</a>
+        <a href="../ServiceStack.MovieRest/">REST Movies</a>
         <a href="../ServiceStack.Northwind/">Northwind Database</a>
         <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
         <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>

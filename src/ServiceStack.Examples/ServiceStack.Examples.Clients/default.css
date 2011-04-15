@@ -1,18 +1,20 @@
 BODY
 {
-	font: 13px Arial;
-	padding: 0 0 0 45px;
-	background: url(img/bg-body-large.png) repeat-y;
-	width: 870px;
+    background: #fff url(img/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 10px 5px 20px 10px;
+    width: 940px;
 }
 #header-links
 {
-	float: right;
+    top: 10px;
+    left:270px;
+    position: absolute;
 }
 #header-links A, #footer-links A
 {
-	color: #0000FF;
-	margin-left: 0.5em;
+    color: #0000FF;
+    margin-left: 0.5em;
 }
 #footer-links
 {
