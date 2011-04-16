@@ -260,19 +260,15 @@
     </p>
 
     <h4>1. Create the name of your Web Service (i.e. the Request DTO)</h4>
-<code class="csharp">[DataContract]
-public class Hello
+<code class="csharp">public class Hello
 {
-    [DataMember]
     public string Name { get; set; }
 }
 </code>
 
     <h4>2. Define what your Web Service will return (i.e. Response DTO)</h4>
-<code class="csharp">[DataContract]
-public class HelloResponse
+<code class="csharp">public class HelloResponse
 {
-    [DataMember]
     public string Result { get; set; }
 }
 </code>
