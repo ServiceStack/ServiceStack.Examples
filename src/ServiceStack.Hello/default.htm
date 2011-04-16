@@ -288,23 +288,28 @@
 
     The final step is to Configure setup to tell Service Stack where to find your web services:
 
+	<a name="AppHost"></a>
     <h4>Web Service AppHost Singleton</h4>
 <code class="csharp">public class Global : System.Web.HttpApplication
 {
     public class HelloAppHost : AppHostBase
     {
         //Tell Service Stack the name of your application and where to find your web services
-        public HelloAppHost()
-	        : base("Hello Web Services", typeof(HelloService).Assembly) { }
+        public HelloAppHost() : base("Hello Web Services", typeof(HelloService).Assembly) { }
 
-        public override void Configure(Container container) { }
+        public override void Configure(Container container)
+        {
+            //register user-defined REST-ful urls
+            Routes
+              .Add&lt;Hello&gt;("/hello")
+              .Add&lt;Hello&gt;("/hello/{Name}");
+        }
     }
 
     //Initialize your application singleton
     protected void Application_Start(object sender, EventArgs e)
     {
-        var appHost = new HelloAppHost();
-        appHost.Init();
+        new HelloAppHost().Init();
     }
 }
 </code>
@@ -568,8 +573,14 @@
         expose your web services via REST-ful urls.
     </p>
     <p>
-        Defining custom urls is done using the RestService Attribute, e.g: the following mapping:
+        Defining user-defined REST-ful urls can be done in one of two ways:
+        <ul>
+        	<li>Using the MVC-like <b>Routes</b> config property in your <a href="#AppHost"><b>AppHost</b></a></li>
+        	<li>Using the <b>[RestService]</b> Attribute on your Request DTOs</li>
+        </ul>
     </p>
+
+    <p>e.g: the following mapping:</p>
     <h4><b>[RestService("/hello/{Name}")]</b></h4>
     <p>
         Allows this web service to be called with:
