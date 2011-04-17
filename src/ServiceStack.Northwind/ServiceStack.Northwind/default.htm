@@ -171,13 +171,13 @@
         <tr>
             <th>All Customers</th>
             <td><a href="customers">customers</a></td>
-            <td class="c3"><a href="customers?format=json">json</a><a href="customers?format=xml">xml</a><a href="customers?format=html">html</a><a href="customers?format=csv">csv</a><a href="customers?format=jsv">jsv</a></td>
+            <td class="c3"><a href="customers?format=json">json</a><a href="customers?format=xml">xml</a><a href="customers?format=html">html</a><a href="customers?format=csv">csv</a><a href="customers?format=jsv">jsv</a><a href="customers?format=directory">vcard</a></td>
             <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomersService.cs"><b>CustomersService.cs</b></a></td>
         </tr>
         <tr>
             <th>Customer Maria Anders</th>
             <td><a href="customers/ALFKI">customers/ALFKI</a></td>
-            <td class="c3"><a href="customers/ALFKI?format=json">json</a><a href="customers/ALFKI?format=xml">xml</a><a href="customers/ALFKI?format=html">html</a><a href="customers/ALFKI?format=csv">csv</a><a href="customers/ALFKI?format=jsv">jsv</a></td>
+            <td class="c3"><a href="customers/ALFKI?format=json">json</a><a href="customers/ALFKI?format=xml">xml</a><a href="customers/ALFKI?format=html">html</a><a href="customers/ALFKI?format=csv">csv</a><a href="customers/ALFKI?format=jsv">jsv</a><a href="customers/ALFKI?format=directory">vcard</a></td>
             <td class="c4"><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/CustomerDetailsService.cs"><b>CustomerDetailsService.cs</b></a></td>
         </tr>
         <tr>
@@ -204,6 +204,12 @@
     <p>
         The entire datasource for the Northwind project is contained in this <a href="Nortwind.sqlite"><img src="img/database-18x18.jpg" align="absmiddle" hspace="3" />Nortwind.sqlite</a> database
         created by this <a href="https://github.com/ServiceStack/ServiceStack.Benchmarks/blob/master/tests/ServiceStack.Northwind.Tests/PopulateDataTests.cs">unit test</a>.
+    </p>
+
+    <h3>Adding Custom Media Types - The VCard format</h3>
+    <p>
+        The <a href="http://en.wikipedia.org/wiki/VCard">VCard</a> format available on the Customer web services is an example of
+
     </p>
 
     <h3>Cached Rest Services</h3>

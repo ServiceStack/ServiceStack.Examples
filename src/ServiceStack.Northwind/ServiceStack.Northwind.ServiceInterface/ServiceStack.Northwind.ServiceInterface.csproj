@@ -89,6 +89,7 @@
     <Compile Include="CustomerDetailsService.cs" />
     <Compile Include="CustomersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VCardFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.Northwind.ServiceModel\ServiceStack.Northwind.ServiceModel.csproj">

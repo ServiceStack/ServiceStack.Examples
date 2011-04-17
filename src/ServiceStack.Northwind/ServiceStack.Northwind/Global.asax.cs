@@ -27,6 +27,8 @@ namespace ServiceStack.Northwind
 
 			//Or if Haz Redis
 			//container.Register<ICacheClient>(new PooledRedisClientManager());
+
+			VCardFormat.Register(this);
 		}
 	}
 

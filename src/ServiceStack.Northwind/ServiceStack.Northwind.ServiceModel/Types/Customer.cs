@@ -37,5 +37,10 @@ namespace ServiceStack.Northwind.ServiceModel.Types
 		
 		[DataMember]
 		public string Fax { get; set; }
+
+		public string Email
+		{
+			get { return this.ContactName.Replace(" ", ".").ToLower() + "@gmail.com"; }
+		}
 	}
 }
