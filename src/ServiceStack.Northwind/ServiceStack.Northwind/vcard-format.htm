@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Custom media types vs data formats</title>
+<style type="text/css">
+    BODY, H1, H2, H3 {
+    	margin: 0;
+    	padding: 0;
+    }
+    BODY
+    {
+        background: #fff url(img/bg-body-1024.png) repeat-y top left;
+        font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+        width: 940px;
+    }
+    #body {
+        padding: 0 5px 120px 10px;
+    }
+    P
+    {
+        width: 760px;
+    }
+    A IMG
+    {
+    	border: none;
+    }
+    A {
+        color: #00F;
+    }
+    #header-links
+    {
+    	top: 10px;
+    	left: 270px;
+    	position: absolute;
+    }
+    #header-links A, #footer-links A
+    {
+	    color: #0000FF;
+	    margin-left: 0.5em;
+    }
+    #github
+    {
+    	position: absolute;
+    	top: 40px;
+    	left: 755px;
+    }
+    H1
+    {
+    	margin: 70px 0 10px 0;
+        padding: 0 0 0 70px;
+        line-height: 60px;
+        background: url(img/database-icon.jpg) no-repeat;
+    }
+    DT {
+    	font-weight: bold;
+    }
+    DT, DD {
+    	line-height: 20px;
+    }
+    TABLE {
+      border-collapse:collapse;
+      border: solid 1px #ccc;
+      margin: 0 0 20px 0;
+    }
+    TH {
+      text-align: left;
+      text-shadow: #fff 1px 1px -1px;
+      background: #f1f1f1;
+      white-space:nowrap;
+      font-weight: bold;
+    }
+    TH, TD {
+      padding: 4px 8px;
+      font-size: 13px;
+      font-family: Arial;
+    }
+    TD {
+      vertical-align: top;
+    }
+    TD.c3 A {
+        padding: 0 10px;
+        line-height: 13px;
+        border-right: solid 1px #eee;
+    }
+    TD.c3 A:first-child {
+        padding-left: 0;
+    }
+    TD.c4  {
+        color: #888;
+    }
+
+    H2
+    {
+    	margin: 50px 0 20px 0;
+    	padding: 10px 0 0 0;
+    	border-top: solid 4px #ccc;
+    }
+
+    #footer
+    {
+	    background: #f1f1f1 url(../img/bg-footer.png) repeat-x 0 0;
+	    height: 60px;
+	    position: fixed;
+	    bottom: 0;
+	    width: 963px;
+    }
+    #logo
+    {
+        position: absolute;
+        padding: 15px 0 0 10px;
+    }
+    #mono
+    {
+	    position: absolute;
+	    left: 860px;
+	    margin: 10px 0 0 0;
+    }
+    #demo
+    {
+        padding: 15px 0 5px 0;
+        text-align: center;
+    }
+    #disclaimer {
+        text-align: center;
+        color: #444;
+        font-size: 11px;
+    }
+    
+    code {        background-color: ghostWhite !important;        border: 1px solid #DEDEDE !important;        color: #444 !important;        font-size: 12px !important;        line-height: 1.5em !important;        margin: 1em 0px !important;        overflow: auto !important;        padding: 0.5em !important;        display: block;        font-family: monospace;        margin: 1em 0px;        white-space: pre;    }</style>
+</head>
+<body>
+
+	<a href="http://www.servicestack.net" style="display:block;position:absolute;top:5px;left:10px;"><img src="http://servicestack.net/icon-home.jpg" alt="ServiceStack Home" /></a>
+
+    <div id="header-links">
+        <a href="../ServiceStack.Hello/">Hello World</a>
+        <a href="../Backbone.Todos/">Todos</a>
+        <a href="../RedisStackOverflow/">Redis StackOverflow</a>
+        <a href="../RestFiles/">REST Files</a>
+        <a href="../ServiceStack.MovieRest/">REST Movies</a>
+        <a href="../ServiceStack.Northwind/">Northwind Database</a>
+        <a href="../ServiceStack.Examples.Clients/">Ajax Client</a>
+        <a href="../ServiceStack.Examples.Clients/Soap12.aspx">Soap 1.2</a>
+    </div>
+
+    <a id="github" href="https://github.com/ServiceStack/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
+
+    <div id="body">
+   
+    <h1>Custom media types vs data formats - VCard</h1>
+    <p>
+        An often overlooked feature in ServiceStack is its ability to easily support custom media types and formats.
+        It's not given as much prominence as ServiceStack's other formats simply because supporting specific media types
+        require more development effort to implement (since it doesn't come for free out-of-the-box) 
+        and by nature are tightly coupled to your specific application dataset making it non-reusable to your other services.
+    </p>
+
+    <h2>Specific Media Types vs Data Formats</h2>
+    <p>
+        Unlike the other built-in ServiceStack formats (JSON, XML, CSV, JSV, HTML, SOAP), specific media formats like the
+        <a href="http://en.wikipedia.org/wiki/VCard">VCard format</a> cannot be used (nor makes sense to) with anything 
+        but your contact data. 
+    </p>
+
+    <h3>Supporting the VCard Format in ServiceStack</h3>
+    <p>
+        Like the 
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML</a> and 
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a>        
+        formats before it, the best way to add an additional Media Type in ServiceStack is to encapsulate it in a single 
+        class keeping it loosely-coupled from the rest of your system thus making it an easy drop-in or removal whenever you need it.
+        The entire support for the format is contained in 
+        <b><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/VCardFormat.cs">VCardFormat.cs</a></b>
+        and is explained below:
+    </p>
+
+    <h4>Registering a custom format in ServiceStack</h4>
+    <p> 
+        In the <b>Register()</b> method we simply tell ServiceStack that we have a new <b>ContentType</b> available and 
+        supply the Stream serialisers that it should use whenever processing that ContentType.
+    </p>
+    <p>
+        With just this 1 line of config:
+        <b><code>appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);</code></b><br/>
+        We now have your custom format registered into ServiceStack who will now use the supplied Content serializers 
+        whenever this Content-Type is requested by the client in any of the following ways:
+    </p>
+
+    <ul>
+        <li>REST URL overridng response format using the QueryString: <a href="customers/ALFKI?format=x-vcard">/customers/ALFKI?format=x-vcard</a></li>
+        <li>Auto generated format url: <a href="x-vcard/syncreply/customers/ALFKI">/x-vcard/syncreply/customers/ALFKI</a></li>
+        <li>Using the <b>Accept: text/x-vcard</b> HTTP header at the REST URL: <a href="customers/ALFKI">/customers/ALFKI</a></li>
+    </ul>
+
+    <p>
+        Another benefit ServiceStack gives you is that this format is automatically provided on the auto-generated 
+        <a href="metadata">/metadata</a> page.<br />
+        This is what the Customers X-VCARD metadata page looks like: <a href="x-vcard/metadata?op=Customers">/x-vcard/metadata?op=Customers</a>
+    </p>
+    
+    <p>
+        The ResponseFilter is added to intercept the response and a Content-Disposition HTTP header added to signal to the 
+        browser that this resource is to be treated as an attachment using the prescribed filename.
+    </p>
+
+    <code>private const string VCardContentType = "text/x-vcard";
+
+public static void Register(IAppHost appHost)
+{
+	appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);
+
+	appHost.ResponseFilters.Add((req, res, dto) =&gt;
+	{
+		if (req.ResponseContentType == VCardContentType)
+		{
+			res.AddHeader(HttpHeaders.ContentDisposition,
+				string.Format("attachment;filename={0}.vcf", req.OperationName));
+		}
+	});
+}</code>
+
+    <p>
+        With the x-vcard format now registered in ServiceStack, the only thing left to to is implement
+        the Content-Type SerializeToStream routine. Unlike the data formats it is not as simple as just
+        serioulizing the Respone DTO. In this case we need to detect if the response DTO contains a customer
+        and if it does return its data in the <a href="http://en.wikipedia.org/wiki/VCard">VCard format</a>.
+    </p>
+
+    <code>public static void SerializeToStream(IRequestContext requestContext, object response, Stream stream)
+{
+	var customerDetailsResponse = response as CustomerDetailsResponse;
+	using (var sw = new StreamWriter(stream))
+	{
+		if (customerDetailsResponse != null)
+		{
+			WriteCustomer(sw, customerDetailsResponse.Customer);
+		}
+		var customers = response as CustomersResponse;
+		if (customers != null)
+		{
+			customers.Customers.ForEach(x => WriteCustomer(sw, x));
+		}
+	}
+}
+
+public static void WriteCustomer(StreamWriter sw, Customer customer)
+{
+	sw.WriteLine("BEGIN:VCARD");
+	sw.WriteLine("VERSION:2.1");
+	sw.WriteLine("FN:" + customer.ContactName);
+	sw.WriteLine("ORG:" + customer.CompanyName);
+	sw.WriteLine("TITLE:" + customer.ContactTitle);
+	sw.WriteLine("EMAIL;TYPE=PREF,INTERNET:" + customer.Email);
+	sw.WriteLine("TEL;HOME;VOICE:" + customer.Phone);
+	sw.WriteLine("TEL;WORK;FAX:" + customer.Fax);
+	sw.WriteLine("ADR;TYPE=HOME;"
+		+ new[] { customer.Address, customer.City, customer.PostalCode }.Join(";"));
+	sw.WriteLine("END:VCARD");
+}</code>
+    
+    <p>
+        And that's the entire VCard format in a single loosely-coupled class. 
+        No other concepts / artefacts are required to make this work, you can just simply plug it
+        into ServiceStack the the following 1 Line of Code:        
+    </p>
+
+    <code>public override void Configure(Container container)
+{
+	VCardFormat.Register(this);
+}</code>
+
+    </div>
+</body>
+</html>

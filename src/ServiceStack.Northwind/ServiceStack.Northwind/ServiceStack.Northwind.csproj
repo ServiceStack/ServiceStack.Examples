@@ -94,6 +94,7 @@
     <Content Include="img\database-18x18.jpg" />
     <Content Include="img\database-icon.jpg" />
     <Content Include="img\Mono-powered-big.png" />
+    <Content Include="vcard-format.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

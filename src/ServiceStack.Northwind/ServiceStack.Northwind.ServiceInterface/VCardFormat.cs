@@ -11,15 +11,15 @@ namespace ServiceStack.Northwind.ServiceInterface
 {
 	public class VCardFormat
 	{
-		private const string ContentType = "text/directory";
+		private const string VCardContentType = "text/x-vcard";
 
 		public static void Register(IAppHost appHost)
 		{
-			appHost.ContentTypeFilters.Register(ContentType, SerializeToStream, DeserializeFromStream);
+			appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);
 
 			appHost.ResponseFilters.Add((req, res, dto) =>
 			{
-				if (req.ResponseContentType == ContentType)
+				if (req.ResponseContentType == VCardContentType)
 				{
 					res.AddHeader(HttpHeaders.ContentDisposition,
 						string.Format("attachment;filename={0}.vcf", req.OperationName));
@@ -29,12 +29,12 @@ namespace ServiceStack.Northwind.ServiceInterface
 
 		public static void SerializeToStream(IRequestContext requestContext, object response, Stream stream)
 		{
-			var customerDetailsResponse = response as CustomerDetailsResponse;
+			var customerResponse = response as CustomerDetailsResponse;
 			using (var sw = new StreamWriter(stream))
 			{
-				if (customerDetailsResponse != null)
+				if (customerResponse != null)
 				{
-					WriteCustomer(sw, customerDetailsResponse.Customer);
+					WriteCustomer(sw, customerResponse.Customer);
 				}
 				var customers = response as CustomersResponse;
 				if (customers != null)
