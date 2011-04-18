@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Custom media types vs data formats</title>
@@ -125,7 +125,7 @@
         color: #444;
         font-size: 11px;
     }
-    
+
     code {        background-color: ghostWhite !important;        border: 1px solid #DEDEDE !important;        color: #444 !important;        font-size: 12px !important;        line-height: 1.5em !important;        margin: 1em 0px !important;        overflow: auto !important;        padding: 0.5em !important;        display: block;        font-family: monospace;        margin: 1em 0px;        white-space: pre;    }</style>
 </head>
 <body>
@@ -146,43 +146,47 @@
     <a id="github" href="https://github.com/ServiceStack/ServiceStack.Examples"><img src="img/btn-github.png" alt="ServiceStack.Examples project" /></a>
 
     <div id="body">
-   
+
     <h1>Custom media types vs data formats - VCard</h1>
     <p>
         An often overlooked feature in ServiceStack is its ability to easily support custom media types and formats.
+    </p>
+    <p>
         It's not given as much prominence as ServiceStack's other formats simply because supporting specific media types
-        require more development effort to implement (since it doesn't come for free out-of-the-box) 
+        require more development effort to implement (since it doesn't come for free out-of-the-box)
         and by nature are tightly coupled to your specific application dataset making it non-reusable to your other services.
     </p>
 
     <h2>Specific Media Types vs Data Formats</h2>
     <p>
         Unlike the other built-in ServiceStack formats (JSON, XML, CSV, JSV, HTML, SOAP), specific media formats like the
-        <a href="http://en.wikipedia.org/wiki/VCard">VCard format</a> cannot be used (nor makes sense to) with anything 
-        but your contact data. 
+        <a href="http://en.wikipedia.org/wiki/VCard">VCard format</a> cannot be used (nor makes sense to) with anything
+        but your contact data. Although if your OS supports it, it enables a deeper integration into your applications than otherwise possible:
     </p>
+
+    <a href="customers/ALFKI?format=x-vcard"><img src="img/vcard-ALFKI.png" alt="Maria Anders VCard" style="margin:10px;" /></a>
 
     <h3>Supporting the VCard Format in ServiceStack</h3>
     <p>
-        Like the 
-        <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML</a> and 
-        <a href="https://github.com/ServiceStack/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a>        
-        formats before it, the best way to add an additional Media Type in ServiceStack is to encapsulate it in a single 
+        Like the
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML</a> and
+        <a href="https://github.com/ServiceStack/ServiceStack/wiki/ServiceStack-CSV-Format">CSV</a>
+        formats before it, the best way to add an additional Media Type in ServiceStack is to encapsulate it in a single
         class keeping it loosely-coupled from the rest of your system thus making it an easy drop-in or removal whenever you need it.
-        The entire support for the format is contained in 
+        The entire support for the format is contained in
         <b><a href="https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/ServiceStack.Northwind/ServiceStack.Northwind.ServiceInterface/VCardFormat.cs">VCardFormat.cs</a></b>
         and is explained below:
     </p>
 
     <h4>Registering a custom format in ServiceStack</h4>
-    <p> 
-        In the <b>Register()</b> method we simply tell ServiceStack that we have a new <b>ContentType</b> available and 
+    <p>
+        In the <b>Register()</b> method we simply tell ServiceStack that we have a new <b>ContentType</b> available and
         supply the Stream serialisers that it should use whenever processing that ContentType.
     </p>
     <p>
         With just this 1 line of config:
         <b><code>appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);</code></b><br/>
-        We now have your custom format registered into ServiceStack who will now use the supplied Content serializers 
+        We now have your custom format registered into ServiceStack who will now use the supplied Content serializers
         whenever this Content-Type is requested by the client in any of the following ways:
     </p>
 
@@ -193,13 +197,13 @@
     </ul>
 
     <p>
-        Another benefit ServiceStack gives you is that this format is automatically provided on the auto-generated 
+        Another benefit ServiceStack gives you is that this format is automatically provided on the auto-generated
         <a href="metadata">/metadata</a> page.<br />
         This is what the Customers X-VCARD metadata page looks like: <a href="x-vcard/metadata?op=Customers">/x-vcard/metadata?op=Customers</a>
     </p>
-    
+
     <p>
-        The ResponseFilter is added to intercept the response and a Content-Disposition HTTP header added to signal to the 
+        The ResponseFilter is added to intercept the response and a Content-Disposition HTTP header added to signal to the
         browser that this resource is to be treated as an attachment using the prescribed filename.
     </p>
 
@@ -257,11 +261,11 @@ public static void WriteCustomer(StreamWriter sw, Customer customer)
 		+ new[] { customer.Address, customer.City, customer.PostalCode }.Join(";"));
 	sw.WriteLine("END:VCARD");
 }</code>
-    
+
     <p>
-        And that's the entire VCard format in a single loosely-coupled class. 
+        And that's the entire VCard format in a single loosely-coupled class.
         No other concepts / artefacts are required to make this work, you can just simply plug it
-        into ServiceStack the the following 1 Line of Code:        
+        into ServiceStack the the following 1 Line of Code:
     </p>
 
     <code>public override void Configure(Container container)
