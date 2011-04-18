@@ -87,7 +87,7 @@ namespace ServiceStack.MovieRest
 		public override object OnPut(Movie movie)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.Save(movie));
-			return new MovieResponse();
+			return null;
 		}
 
 		/// <summary>
@@ -96,7 +96,7 @@ namespace ServiceStack.MovieRest
 		public override object OnDelete(Movie request)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.DeleteById<Movie>(request.Id));
-			return new MovieResponse();
+			return null;
 		}
 	}
 
