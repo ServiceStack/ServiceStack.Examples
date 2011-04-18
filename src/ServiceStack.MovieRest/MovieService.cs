@@ -2,21 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
-using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
 
 namespace ServiceStack.MovieRest
 {
 	[Description("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
-	[RestService("/movies", "POST,PUT")]
-	[RestService("/movies/{Id}")]
-	[DataContract]
 	public class Movie
 	{
 		public Movie()
@@ -24,35 +19,19 @@ namespace ServiceStack.MovieRest
 			this.Genres = new List<string>();
 		}
 
-		[DataMember] [AutoIncrement]
+		[AutoIncrement]
 		public int Id { get; set; }
-
-		[DataMember]
 		public string ImdbId { get; set; }
-
-		[DataMember]
 		public string Title { get; set; }
-
-		[DataMember]
 		public decimal Rating { get; set; }
-
-		[DataMember]
 		public string Director { get; set; }
-
-		[DataMember]
 		public DateTime ReleaseDate { get; set; }
-
-		[DataMember]
 		public string TagLine { get; set; }
-
-		[DataMember]
 		public List<string> Genres { get; set; }
 	}
 
-	[DataContract]
 	public class MovieResponse
 	{
-		[DataMember]
 		public Movie Movie { get; set; }
 	}
 
@@ -121,21 +100,14 @@ namespace ServiceStack.MovieRest
 		}
 	}
 
-
-	[DataContract]
 	[Description("Find movies by genre, or all movies if no genre is provided")]
-	[RestService("/movies", "GET")]
-	[RestService("/movies/genres/{Genre}")]
 	public class Movies
 	{
-		[DataMember]
 		public string Genre { get; set; }
 	}
 
-	[DataContract]
 	public class MoviesResponse
 	{
-		[DataMember]
 		public List<Movie> Movies { get; set; }
 	}
 

@@ -22,6 +22,12 @@ namespace ServiceStack.MovieRest
 
 			var resetMovies = container.Resolve<ResetMoviesService>();
 			resetMovies.Post(null);
+
+			Routes
+			  .Add<Movie>("/movies", "POST,PUT")
+			  .Add<Movie>("/movies/{Id}")
+			  .Add<Movies>("/movies")
+			  .Add<Movies>("/movies/genres/{Genre}");
 		}
 	}
 
