@@ -147,33 +147,37 @@
 
     <div id="body">
 
-    <h1>Specific Media Types vs Data Formats</h1>
+    <h1>Custom media types - Adding the VCard Format</h1>
     <p>
         An often overlooked feature in ServiceStack is its ability to easily support custom media types and formats.
     </p>
+
+    <h3>Specific Media Types vs Data Formats</h3>
     <p>
         It's not given as much prominence as ServiceStack's other formats simply because supporting specific media types
-        require more development effort to implement and are unlike other built-in ServiceStack generic formats
-        (JSON, XML, CSV, JSV, HTML, SOAP) that all your services can immediately take advantage of <b>without any extra effort</b>.
+        require more custom development effort so are unlike other built-in ServiceStack generic data formats
+        (JSON, XML, CSV, JSV, HTML, SOAP) that are automatically available to all your services <b>without any extra effort</b>.
     </p>
 
-    <p>
-    	Although when you need to, adding Custom Media Types in Service Stack is easy where with just <b>1 Line of Code</b> you
-    	can register your format and have it is immediately availble in ServiceStack's REST pipeline and auto-generated
-    	<a href="metadata">/metadata</a> pages.
-    </p>
+	<h2>Creating the VCard Custom Media Type</h2>
 
-    <h2>Custom media types - VCard</h2>
     <p>
         At times when your clients have built-in support for a specific media-type it can allow richer functionality and
         a deeper integration into users applications than what would otherwise be possible. An example of this is
         allowing users to import contact information directly into Outlook by providing contact information
-        in the <a href="http://en.wikipedia.org/wiki/VCard">VCard Format</a> which they can download off a contact directory search.
+        in the <a href="http://en.wikipedia.org/wiki/VCard">VCard Format</a>, which you can make available for instance
+        on the results page on an online contact directory search.
     </p>
 
     <p>
-    	Below is a live example of what is possible which utilizes data returned from Northwinds <b>Customer</b> web services that
-    	allows for the unusual relationship of allowing a MONO web server deep access into your Windows Outlook client :)
+    	So when it's beneficial to, adding Custom Media Types in Service Stack is easy where in just <b>1 Line of Code</b> you
+    	can register your format and have it immediately availble in ServiceStack's REST pipeline and auto-generated
+    	<a href="metadata">/metadata</a> pages.
+    </p>
+
+    <p>
+    	Below is a live example of what is possible when we add the VCard format to the Northwinds <b>Customer</b> web services.
+    	It allows us to provide the unusual relationship giving our MONO web server deep access into your Windows Outlook client :)
     </p>
 
     <a href="customers/ALFKI?format=x-vcard"><img src="img/vcard-ALFKI.png" alt="Maria Anders VCard" style="margin:10px;" /></a>
