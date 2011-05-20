@@ -1,0 +1,2 @@
+cp /Users/mythz/src/ServiceStack.Text/src/ServiceStack.Text/bin/MonoTouch/*.dll Lib/
+cp /Users/mythz/src/ServiceStack.Examples/src/RestFiles/RestFiles.ServiceModel/bin/Release/RestFiles.ServiceModel.dll Lib/
