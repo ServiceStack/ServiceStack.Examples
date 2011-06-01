@@ -14,7 +14,7 @@ A live demo and tutorials are available at the following locations:
 ### [Creating a Hello World Web service from scratch](http://servicestack.net/ServiceStack.Hello/)
 [![ServiceStacks Hello, World!](http://servicestack.net/showcase/img/hello-400x350.png)](http://servicestack.net/ServiceStack.Hello/)
 
-### [GitHub-like browser to maange remote filesystem over REST](http://servicestack.net/RestFiles/)
+### [GitHub-like browser to manage remote filesystem over REST](http://servicestack.net/RestFiles/)
 [![GitHub-like REST Files](http://servicestack.net/showcase/img/restfiles-400x350.png)](http://servicestack.net/RestFiles/)
 
 ### [Creating a StackOverflow-like app in Redis](http://servicestack.net/RedisStackOverflow/)
@@ -43,5 +43,4 @@ You can find the latest releases for download at:
 
 ### Troubleshooting
 
-- Since the example project uses 32bit Sqlite.dll, on a 64 bit machine you must set IIS to run 32bit apps (in the App Domain config)
-
+- Since the example project uses 32bit Sqlite.dll, on a 64bit machine you must set IIS to run 32bit apps (in the App Domain config)
