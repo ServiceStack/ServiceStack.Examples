@@ -1,5 +1,29 @@
 [
 	{
+		"Name":"About Docs",
+		"Slug":"about",
+		"Src":"https://servicestack.net/docs/markdown/about",
+		"FilePath":"~/markdown/about.md",
+		"Category":"Markdown",
+		"Tags":["Markdown","Docs","About","MarkdownRazor"]
+	},
+	{
+		"Name":"Markdown Features",
+		"Slug":"markdown-features",
+		"Src":"https://servicestack.net/docs/markdown/markdown",
+		"FilePath":"~/markdown/markdown-features.md",
+		"Category":"Markdown",
+		"Tags":["Markdown","MarkdownRazor"]
+	},
+	{
+		"Name":"Markdown Razor",
+		"Slug":"markdown-razor",
+		"Src":"https://servicestack.net/docs/markdown/markdown-razor",
+		"FilePath":"~/markdown/markdown-razor.md",
+		"Category":"Markdown",
+		"Tags":["Markdown","Docs","About","MarkdownRazor"]
+	},
+	{
 		"Name":"Home",
 		"Slug":"home",
 		"Src":"https://github.com/ServiceStack/ServiceStack/wiki/Home",
@@ -230,29 +254,5 @@
 		"FilePath":"~/logging/logging-overview.md",
 		"Category":"Logging",
 		"Tags":["Logging","Log4Net","EventLog","Nlog"]
-	},
-	{
-		"Name":"About Docs",
-		"Slug":"about",
-		"Src":"https://servicestack.net/docs/markdown/about",
-		"FilePath":"~/markdown/about.md",
-		"Category":"Markdown",
-		"Tags":["Markdown","Docs","About","MarkdownRazor"]
-	},
-	{
-		"Name":"Markdown Features",
-		"Slug":"markdown-features",
-		"Src":"https://servicestack.net/docs/markdown/markdown",
-		"FilePath":"~/markdown/markdown-features.md",
-		"Category":"Markdown",
-		"Tags":["Markdown","MarkdownRazor"]
-	},
-	{
-		"Name":"Markdown Razor",
-		"Slug":"markdown-razor",
-		"Src":"https://servicestack.net/docs/markdown/markdown-razor",
-		"FilePath":"~/markdown/markdown-razor.md",
-		"Category":"Markdown",
-		"Tags":["Markdown","Docs","About","MarkdownRazor"]
 	}
 ]

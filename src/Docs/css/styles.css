@@ -45,3 +45,5 @@ ul { margin-bottom: 10px; }
 
 #searchresults { border-top: 1px dotted #D2D2D2; border-bottom: 1px dotted #D2D2D2; padding: 10px 0; }
 LI.active > a { color: #f1f1f1 !important; }
+
+#about-section { float: right;margin: 30px;}
