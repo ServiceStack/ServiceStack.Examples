@@ -13,7 +13,7 @@
 }
 
 @if (Model.Results.Count > 0) {
-#### Showing Results 1 - @Len(Model.Results)
+#### Showing Results 1 - @Model.Results.Count
 }
 
 <div id="searchresults">
