@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{19ADDEEC-EAF9-4B42-8EEC-86CD389D834F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Docs</RootNamespace>
+    <AssemblyName>Docs</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\lib\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.shtml" />
+    <Content Include="css\default.css" />
+    <Content Include="css\styles.css" />
+    <Content Include="Global.asax" />
+    <Content Include="default.htm" />
+    <Content Include="img\arr-2.gif" />
+    <Content Include="img\boat.jpg" />
+    <Content Include="img\date.png" />
+    <Content Include="img\favicon.bmp" />
+    <Content Include="favicon.ico" />
+    <Content Include="img\field.gif" />
+    <Content Include="img\has_dropdown-hover.png" />
+    <Content Include="img\ico-rss-2.png" />
+    <Content Include="img\ico-rss.png" />
+    <Content Include="img\main-bg.jpg" />
+    <Content Include="img\main-bot.jpg" />
+    <Content Include="img\main-top.jpg" />
+    <Content Include="img\meta-bg.gif" />
+    <Content Include="img\meta-bot.gif" />
+    <Content Include="img\meta-comments-num.gif" />
+    <Content Include="img\meta-top.gif" />
+    <Content Include="img\nav-dd-arr.gif" />
+    <Content Include="img\post-bg.gif" />
+    <Content Include="img\searchform-field.gif" />
+    <Content Include="img\sidebar-list-arr.gif" />
+    <Content Include="img\textarea.gif" />
+    <Content Include="img\widgettitle.jpg" />
+    <Content Include="js\fn.js" />
+    <Content Include="js\jquery-1.5.1.min.js" />
+    <Content Include="js\l10n.js" />
+    <Content Include="obj\Debug\ServiceStack.Docs.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\ServiceStack.Docs.dll" />
+    <Content Include="obj\Debug\ServiceStack.Docs.pdb" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="contrib\servicestack-contrib.md" />
+    <None Include="examples\servicestack-examples.md" />
+    <None Include="framework\accessing-ihttprequest.md" />
+    <None Include="framework\caching-options.md" />
+    <None Include="framework\history-of-webservices.md" />
+    <None Include="framework\csv-format.md" />
+    <None Include="framework\home.md" />
+    <None Include="framework\json-report-format.md" />
+    <None Include="framework\nuget.md" />
+    <None Include="framework\overview.md" />
+    <None Include="framework\release-notes.md" />
+    <None Include="logging\logging-overview.md" />
+    <None Include="markdown\about.md" />
+    <None Include="markdown\markdown-razor.md" />
+    <None Include="markdown\markdown-features.md" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="ormlite\ormlite-overview.md" />
+    <None Include="Pages.json" />
+    <None Include="redis-admin-ui\redis-admin-ui-overview.md" />
+    <None Include="redis-client\designing-nosql-database.md" />
+    <None Include="redis-client\distributed-locking-with-redis.md" />
+    <None Include="redis-client\iredisclient-api.md" />
+    <None Include="redis-client\iredisnativeclient-api.md" />
+    <None Include="redis-client\iredistransaction-api.md" />
+    <None Include="redis-client\iredistypedclient-api.md" />
+    <None Include="redis-client\redis-client.md" />
+    <None Include="redis-client\redis-overview.md" />
+    <None Include="redis-client\redis-pubsub.md" />
+    <None Include="redis-client\redis-release-notes.md" />
+    <None Include="redis-client\redis-transactions.md" />
+    <None Include="redis-client\schemaless-nosql-migrations.md" />
+    <None Include="redis-client\useful-redis-links.md" />
+    <None Include="text-serializers\json-csv-jsv-serializers.md" />
+    <None Include="text-serializers\jsv-format.md" />
+    <None Include="Views\Category.md" />
+    <None Include="Views\Search.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Docs.Logic\Docs.Logic.csproj">
+      <Project>{2A606EB5-47BD-47B1-97EB-8C208DF63ABF}</Project>
+      <Name>Docs.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5416</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/docs</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

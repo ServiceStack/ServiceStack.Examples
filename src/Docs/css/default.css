@@ -1,0 +1,191 @@
+﻿/*
+Theme name: ChocoTheme
+Theme URI: http://cssmayo.com/freebies/free-wordpress-themes/chocotheme/
+Description: Stylish WordPress theme with two columns, right-sidebar. 3 color schemes availible. Theme options panel for background and navigation configuration.
+Author: CSSMayo
+Author URI: http://cssmayo.com/
+Version: 0.10
+Tags: theme-options, custom-colors, two-columns, dark, brown
+*/
+
+* { padding: 0; margin: 0; outline: 0; }
+
+body {
+    font-size: 13px;
+    line-height: 1.4;
+    font-family: Arial, "Trebuchet MS", Sans-Serif;
+    color: #444;
+    background: #3a2820;
+    text-align: left;
+}
+
+a img { border: 0; }
+a { color: #cd4517; text-decoration: none; cursor: pointer; }
+a:hover { text-decoration: underline; }
+
+h2, h3, h4, h5, h6 { font-family: "Trebuchet MS", "Myriad Pro", Tahoma, Sans-Serif; font-weight: normal; line-height: 1.2; }
+
+input, textarea, select, button, label { font-family: Arial, "Trebuchet MS", Sans-Serif; font-size: 12px; color: #444; }
+div.field { width: 280px; height: 15px; background: url(../img/field.gif) no-repeat 0 0; padding: 8px 5px 7px; overflow: hidden; }
+div.textarea { width: 324px; height: 125px; padding: 8px 5px 7px; background: url(../img/textarea.gif) no-repeat 0 0; }
+div.field input,
+div.textarea textarea { border: none; background: none; width: 100%; }
+div.textarea textarea { height: 125px; }
+
+.cl, .clear { display: block; height: 0; font-size: 0; line-height: 0; text-indent: -4000px; clear: both; }
+
+.alignright { float: right; }
+.alignleft { float: left; }
+
+p img { padding: 0; max-width: 100%; }
+img.centered { display: block; margin-left: auto; margin-right: auto; }
+img.alignright { margin: 0 0 5px 15px; display: inline; }
+img.alignleft { margin: 0 15px 5px 0; display: inline; }
+
+#page { width: 980px; margin: 0 auto; }
+
+#header { padding-top: 30px; height: 85px; position: relative; z-index: 100; }
+#header .description { font-size: 13px; line-height: 1; text-transform: uppercase; color: #c1ab7d; padding-top: 5px; }
+#header .description a { color: #9d6510; text-decoration: none; }
+
+h1 { font-family: "Trebuchet MS", Arial, Sans-Serif; font-size: 36px; line-height: 1; font-weight: bold; color: #d69959; }
+h1 a { text-decoration: none; color: #d69959; }
+h1 a span { color: #ffd7a5; }
+h1 a:hover { text-decoration: none; }
+
+#logo { float: left; display: inline; }
+
+#nav { float: right; display: inline; font-weight: bold; font-size: 12px; line-height: 30px; text-transform: uppercase; margin-top: 20px; }
+#nav ul li { float: left; display: inline; list-style-type: none; position: relative; }
+#nav ul li a { color: #fefefe; text-decoration: none; float: left; display: inline; padding-left: 18px; margin-right: 18px; margin-left: 5px; z-index: 10; position: relative; }
+#nav ul li a span { float: left; display: inline; padding-right: 18px; margin-right: -18px; position: relative; background-position: right 0 !important; }
+#nav ul li a span span { padding-right: 18px; margin-right: -10px; background: url(../img/nav-dd-arr.gif) no-repeat right center !important; padding-bottom: 0; }
+#nav ul li.hover a,
+#nav ul li.hover a span { background-image: url(../img/has_dropdown-hover.png) !important; color: #000; }
+#nav ul li.hover a span span { background-image: url(../img/nav-dd-arr.gif) !important; }
+#nav ul li .dropdown { display: none; background: #fff; border: solid 1px #2d2d2d; position: absolute; top: 29px; left: 5px; z-index: 1; width: 176px; padding: 20px 3px 0; }
+#nav ul li .dropdown { text-transform: none; font-weight: normal; line-height: 22px; }
+#nav ul li .dropdown ul li { border-bottom: dashed 1px #d3d5d5; float: none; display: block; }
+#nav ul li .dropdown ul li a { color: #9b9b9b; padding: 0; margin: 0; background: url(../img/arr-2.gif) no-repeat 7px center !important; float: none; display: block; }
+#nav ul li .dropdown ul li a:hover { color: #000; background: url(../img/arr-2.gif) no-repeat 7px center !important; }
+#nav ul li .dropdown ul li a { padding-left: 15px; }
+#nav ul li .dropdown .dropdown { display: none; left: 176px; top: 0; padding-top: 0; }
+#nav ul li.last { border-bottom: 0 !important; }
+
+#footer { padding: 15px 0 30px; text-align: center; font-size: 11px; color: #7e6a4f; }
+#footer a { color: #9d6510; text-decoration: none; }
+#footer a:hover { text-decoration: underline; }
+#footer p.rss { display: inline; padding-left: 14px; background: url(../img/ico-rss-2.png) no-repeat 0 center; }
+#footer p.rss a { color: #7e6a4f; }
+
+#main { background: repeat-y 0 0; width: 100%; position: relative; }
+#main-top { background: no-repeat 0 0; }
+#main-bot { background: no-repeat 0 bottom; height: 100%; padding: 50px 20px 70px 60px; min-height: 150px; }
+
+#rss-link { display: block; width: 50px; height: 55px; font-size: 0; line-height: 0; text-indent: -4000px; }
+#rss-link { position: absolute; top: -12px; right: -12px; }
+
+#content { float: left; display: inline; width: 645px; }
+
+.post { padding-bottom: 30px; background: url(../img/post-bg.gif) no-repeat 0 bottom; margin-bottom: 10px; position: relative; height: 100%; }
+.post h2, .list-page .post h3 { font-size: 27px; margin-bottom: 22px; }
+.post h2 a, .list-page .post h3 a { color: #000; text-decoration: none; }
+.post h2 a:hover, .list-page .post h3 a:hover { text-decoration: none; }
+.post .date { position: absolute; top: -7px; left: -123px; width: 75px; height: 80px; text-align: center; }
+.post .date .bg { background: no-repeat 0 0; width: 70px; height: 62px; padding: 18px 0 0 5px; }
+.post .date span { display: block; font-size: 16px; font-weight: bold; color: #f4b995; line-height: 1; text-transform: uppercase; }
+.post .date span.day { font-size: 26px; }
+.post .entry img { background: #fff; padding: 2px; border: solid 10px #e2e2e2; }
+.post .entry img.wp-smiley { background: #fff; padding: 0px; border: 0; }
+.post .entry p { margin-bottom: 18px; }
+.post .meta { padding-top: 13px; background: url(../img/meta-top.gif) no-repeat 0 0; }
+.post .meta { font-size: 10px; font-family: Verdana, Tahoma, Arial, Sans-Serif; color: #444; }
+.post .meta p { padding: 5px 0; line-height: 15px; }
+.post .meta .bg { background: #fafafa url(../img/meta-bg.gif) repeat-x 0 bottom; border-left: solid 1px #dedede; border-right: solid 1px #dedede; padding: 0 10px; height: 100%}
+.post .meta .bot { height: 4px; font-size: 0; line-height: 0; text-indent: -4000px; background: url(../img/meta-bot.gif) no-repeat 0 0; }
+.post .meta .comments-num { float: right; display: inline; font-size: 11px; color: #682815; font-weight: bold; }
+.post .meta .comments-num { padding: 5px 0 5px 30px; margin-left: 10px; background: url(../img/meta-comments-num.gif) no-repeat 0 3px; }
+
+.list-page #searchform { margin-top: 20px; }
+
+#sidebar { float: right; display: inline; width: 204px; margin-top: 80px; }
+.widget_calendar { width: 204px }
+#sidebar a { color: #FFE6A8; }
+
+#sidebar h2 { line-height: 52px; width: 185px; background: no-repeat 0 0; color: #2e2019; font-size: 20px; padding-left: 15px; }
+#sidebar ul li { list-style-type: none; }
+#sidebar ul li select { margin: 10px 0 10px 10px; width: 183px; padding: 2px; }
+#sidebar ul ul { padding: 0 10px 10px 3px; }
+#sidebar ul ul li { background: no-repeat 0 4px; border-bottom: solid 1px #423028; margin: 4px 6px; padding-left: 15px}
+#sidebar ul ul li ul { border: 0; padding-bottom: 0; }
+#sidebar ul ul li li { border: 0; padding-bottom: 5px; margin-bottom: 0; }
+
+#sidebar ul div { padding: 0 10px 10px 9px }
+
+#calendar_wrap { width: 203px; font-size: 12px; text-align: center; color: #f7f7f7; padding: 0 0 10px !important; }
+#calendar_wrap .nav { font-weight: bold; color: #c4a158; line-height: 24px; width: 130px; margin: 0 auto; position: relative; }
+
+#wp-calendar { width: 100%; }
+#wp-calendar tbody tr td a { border: dashed 1px #c4a158; color: #c4a158; text-decoration: none; width: 16px; line-height: 16px; text-align: center; margin: 0 auto; display: block; }
+#wp-calendar tbody tr td { border-right: solid 1px #423028; padding: 2px 0; }
+#wp-calendar tbody tr th { border: solid 1px #423028; border-left: 0; padding: 2px 0; color: #b5573a; font-weight: normal; }
+#wp-calendar tbody tr .last { border-right: none !important; }
+#wp-calendar tbody tr.last td { border-bottom: solid 1px #423028; }
+
+#sidebar #searchform { margin: 5px 0 15px 5px; }
+#sidebar #searchform label { font-weight: bold; color: #c4a158;  display: none; }
+#sidebar #searchform .field-place { width: 190px; height: 23px; background: no-repeat 0 0; padding: 2px; }
+#sidebar #searchform .field-place .field { border: 0; color: #c4a158; padding: 4px 5px 3px; width: 155px; background: none; float: left; display: inline; }
+#sidebar #searchform .field-place .button { float: right; display: inline; width: 23px; height: 23px; } 
+#sidebar #searchform .field-place .button { font-size: 0; line-height: 0; text-indent: -4000px; background: none; border: 0; cursor: pointer; }
+
+#respond { padding-bottom: 30px; background: url(../img/post-bg.gif) no-repeat 0 bottom; margin-bottom: 10px; }
+#respond h3 { font-size: 19px; } 
+#respond div.left { float: left; display: inline; width: 290px; }
+#respond div.right { float: right; display: inline; width: 334px; }
+#respond label { display: block; color: #ac2e13; font-size: 12px; margin: 5px 0 3px; }
+#respond .button { float: right; display: inline; margin-top: 20px; width: 119px; height: 30px; background: no-repeat 0 0; }
+#respond .button { border: 0; cursor: pointer; color: #fff; font-weight: bold; }
+
+.comment { list-style-type: none; font-size: 12px;  }
+.comment .comment-body { position: relative; height: 100%; position: relative; padding-left: 80px; padding-bottom: 25px; background: url(../img/post-bg.gif) no-repeat 0 bottom; margin-bottom: 15px; min-height: 90px; }
+.comment .avatar { position: absolute; top: 0; left: 0; }
+.comment .author { font-weight: bold; line-height: 1; }
+.comment .author a { color: #dd5324; }
+.comment .comment-meta { font-size: 10px; color: #b49969; margin-bottom: 3px; }
+.comment .comment-content p { margin-bottom: 15px; }
+.trackback .comment-body, .pingback .comment-body { padding-left: 0; }
+/* Big images in rich text editor should not break page layout */
+.post .entry { overflow: hidden; }
+/* Default size for headers */
+.post .entry h1 { font-size: 20px; line-height: 30px}
+.post .entry h2 { font-size: 18px; line-height: 27px}
+.post .entry h3 { font-size: 16px; line-height: 24px}
+.post .entry h4 { font-size: 14px; line-height: 21px}
+.post .entry h5 { font-size: 12px; line-height: 18px}
+.post .entry h6 { font-size: 10px; line-height: 15px}
+
+/* Reasanble margins for lists */
+.post .entry ul { margin-left: 25px; }
+.post .entry ol { margin-left: 25px; }
+
+.widget { color: #fff }
+.userloggedbtn {float: left !important; margin-left: 218px}
+.commentsnavigation { margin: 6px auto; }
+.reply { float: right; }
+.archives hr { margin: 6px 0; }
+.wp-caption { border: solid 1px #eee; text-align: center; margin: 6px}
+.wp-caption p { margin-bottom: 0 !important; padding: 0 5px;}
+.post .entry .wp-caption a img { border: 0 }
+.metaplace { padding: 9px; }
+.metaplace p {color: #fff }
+.commentlist li.last .comment-body { background-image: none; }
+.commentlist ul.children { margin-left: 25px; }
+
+p.tags { padding: 10px; font-size: 10px}
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignleft { float: left; }
+.alignright { float: right; }
+
+h2.pagetitle { font-size: 20px; }
+

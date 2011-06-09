@@ -1,38 +1,66 @@
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using ServiceStack.Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
-
-namespace ServiceStack.Northwind.ServiceModel.Operations
+public class Customers {}
+public class CustomerResponse : IHasResponseStatus
 {
-	[DataContract]
-	[RestService("/orders")]
-	[RestService("/orders/page/{Page}")]
-	[RestService("/customers/{CustomerId}/orders")]
-	public class Orders
+	public CustomerResponse()
 	{
-		[DataMember]
-		public int? Page { get; set; }
-
-		[DataMember]
-		public string CustomerId { get; set; }
+		this.ResponseStatus = new ResponseStatus();
 	}
-
-	[DataContract]
-	public class OrdersResponse : IHasResponseStatus
-	{
-		public OrdersResponse()
-		{
-			this.ResponseStatus = new ResponseStatus();
-			this.Results = new List<CustomerOrder>();
-		}
-
-		[DataMember]
-		public List<CustomerOrder> Results { get; set; }
-
-		[DataMember]
-		public ResponseStatus ResponseStatus { get; set; }
-	}
-
+	
+	public Customer Customer { get; set; }
+	
+	public ResponseStatus ResponseStatus { get; set; }
 }
+public class CustomersResponse : IHasResponseStatus
+{
+	public CustomersResponse()
+	{
+		this.ResponseStatus = new ResponseStatus();
+		this.Customers = new List<Customer>();
+	}
+	
+	public List<Customer> Customers { get; set; }
+	
+	public ResponseStatus ResponseStatus { get; set; }
+}
+public class CustomerDetails
+{
+	
+	public string Id { get; set; }
+}
+
+
+public class CustomerDetailsResponse : IHasResponseStatus
+{
+	public CustomerDetailsResponse()
+	{
+		this.ResponseStatus = new ResponseStatus();
+		this.CustomerOrders = new List<CustomerOrder>();
+	}
+	
+	public Customer Customer { get; set; }
+	
+	public List<CustomerOrder> CustomerOrders { get; set; }
+	
+	public ResponseStatus ResponseStatus { get; set; }
+}
+public class Orders
+{
+	
+	public int? Page { get; set; }
+	
+	public string CustomerId { get; set; }
+}
+public class OrdersResponse : IHasResponseStatus
+{
+	public OrdersResponse()
+	{
+		this.ResponseStatus = new ResponseStatus();
+		this.Results = new List<CustomerOrder>();
+	}
+	
+	public List<CustomerOrder> Results { get; set; }
+	
+	public ResponseStatus ResponseStatus { get; set; }
+}
+
+
