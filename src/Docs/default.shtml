@@ -18,7 +18,7 @@
             <!-- Logo -->
             <div id="logo">
                 <h1>
-                    <a href="~/">ServiceStack Docs</a></h1>
+                    <a href="~/default.htm">ServiceStack Docs</a></h1>
                 <div class="description">
                     ServiceStack project docs in one place</div>
             </div>

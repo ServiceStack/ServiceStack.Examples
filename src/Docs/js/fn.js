@@ -9,6 +9,7 @@ $(document).click(function (e)
 	var e = e || root.event, el = e.target || e.srcElement, cls = el.className;
 	if (el.tagName != "A"
 		|| el.href.indexOf("/docs/") == -1
+		|| el.href.indexOf("/docs/default.htm") != -1
 		|| el.href.indexOf("?") != -1
 		|| el.href.indexOf("/category/") != -1
 		|| !window.history.pushState

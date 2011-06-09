@@ -1,7 +1,7 @@
 See other [Markdown Features](markdown-features) in ServiceStack and how this Docs website 
 makes use of them in [About Docs](about).
 
-# Introduction
+# Introducing the new Markdown Razor View Engine
 
 Markdown Razor is the first HTML and Text (i.e. Markdown) view engine built into ServiceStack.
 The pages are simply plain-text Markdown surrounded by MVC Razor-like syntax which provides its 
@@ -123,13 +123,13 @@ At this point I think it would be a good to introduce some niceties in Markdown 
 Borrowing a page out of [@BrendanEich](http://twitter.com/BrendanEich) proposal for 
 [CoffeeScript's](http://jashkenas.github.com/coffee-script/) inspired 
 [Parens free syntax](http://brendaneich.com/2010/11/paren-free/) for JS.Next - you can simply 
-remove the parens for all block statements e.g:
+remove the parens from all block statements e.g:
 
 	@@foreach var p in products {
 	  - @@p.Name: (@@p.Price)
 	}
 
-Produces the same output, and going one step further you can remove the redundant **var** as well:
+Produces the same output, and to go one step further you can remove the redundant **var** as well :)
 
 	@@foreach p in products {
 	  - @@p.Name: (@@p.Price)
@@ -194,8 +194,8 @@ Both View engines generate the expected output, e.g:
 	}
 
 Markdown Razor doesn't need to do anything special with text blocks since all it does is look 
-for the ending brace '}'. This means if you want to output a brace '{' literal then you have to 
-double escape it, i.e. '{{'.
+for the ending brace '}'. This means if you want to output a brace literal '{' then you have to 
+double escape it with '{{' or '}}'.
 
 ### HTML Encoding
 Markdown Razor follows MVC Markdown behaviour where by default content emitted using a @@ block 
@@ -388,8 +388,8 @@ Well that's it for the comparison between MVC Razor and Markdown Razor as you ca
 is quite transferable with a lot of cases the syntax is exactly the same.
 
 As good as MVC Razor is with its wrist-friendly and expressive syntax, we believe Razor Markdown is
-even more so where thanks to Markdown you can even dispense with most of HTML's boiler plage 
-angle brackets. We think it makes an ideal solution for content heavy websites like this one.
+even better! Where thanks to Markdown you can even dispense with most of HTML's boiler plage 
+angle brackets :) We think it makes an ideal solution for content heavy websites like this one.
 
 Unlike ASP.NET's MVC Razor, Markdown Razor like all of ServiceStack is **completely Open Source** and 
 as such we welcome the contribution from the community via new features, Unit and 

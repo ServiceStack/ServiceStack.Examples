@@ -86,8 +86,6 @@
     <Content Include="img\textarea.gif" />
     <Content Include="img\widgettitle.jpg" />
     <Content Include="js\fn.js" />
-    <Content Include="js\jquery-1.5.1.min.js" />
-    <Content Include="js\l10n.js" />
     <Content Include="obj\Debug\ServiceStack.Docs.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\ServiceStack.Docs.dll" />
     <Content Include="obj\Debug\ServiceStack.Docs.pdb" />

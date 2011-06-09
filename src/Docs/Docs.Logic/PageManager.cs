@@ -25,6 +25,7 @@ namespace Docs.Logic
 			{
 				var json = File.ReadAllText(filePath);
 				this.Pages = JsonSerializer.DeserializeFromString<List<Page>>(json);
+				this.Pages.ForEach(x => x.FilePath = x.FilePath.MapServerPath());
 			}
 			else
 			{

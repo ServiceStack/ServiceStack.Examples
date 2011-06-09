@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.ServiceModel;
 using ServiceStack.Text;
 
 namespace Docs.Logic
@@ -10,11 +11,18 @@ namespace Docs.Logic
 		public string Query { get; set; }
 	}
 
-	public class SearchResponse
+	public class SearchResponse : IHasResponseStatus
 	{
+		public SearchResponse()
+		{
+			this.Results = new List<Page>();
+		}
+
 		public string Query { get; set; }
 
 		public List<Page> Results { get; set; }
+
+		public ResponseStatus ResponseStatus { get; set; }
 	}
 
 	public class SearchService : RestServiceBase<Search>
