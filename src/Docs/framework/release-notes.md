@@ -1,3 +1,56 @@
+#ServiceStack 2.20 Release Notes
+
+### New Markdown Razor View Engine
+The biggest feature in this release is the new Markdown support built-into ServiceStack and more
+specifically its **Markdown Razor View Engine**. Markdown Razor is an MVC Razor-inspired templating 
+engine that allows you to generate dynamic Markdown and HTML using plain Markdown and Razor Sytnax. 
+
+View the new [Markdown Razor Introduction](http://www.servicestack.net/docs/markdown/markdown-razor) 
+for more information.
+
+### ServiceStack.Docs Website Released
+The first website to take advantage of the new Markdown templating support in ServiceStack is
+**[http://www.servicestack.net/docs](http://www.servicestack.net/docs)** which is effectively built entirely
+using ServiceStack's GitHub project Markdown wiki and README.md pages. To render the entire website
+the transformed Markdown content is merged with a static **default.shtml** website template.
+
+A nice feature of a Markdown-enabled website is that since the Content is decoupled from the website
+template we are easily able to enhance the site using Ajax to load partial content page loads. This
+provides a faster browsing experience since the entire webpage doesn't have to be reloaded.
+
+See the [About ServiceStack Docs Website](http://www.servicestack.net/docs/markdown/about) for more 
+information.
+
+### MonoTouch support in ServiceStack C# Clients
+Support was added to the Generic JSON and JSV ServiceStack C# Clients to work around MonoTouch's
+No-JIT Restrictions. Unfortunately to do this we've had to create a new MonoTouch Build 
+configuration which doesn't use any C# Expressions or Reflection.Emit. So you need to download the
+MonoTouch ServiceStack builds for running in MonoTouch. 
+**[Download MonoTouch-v2.20.zip](https://github.com/ServiceStack/ServiceStack/tree/master/release/latest/MonoTouch)**
+
+An example MonoTouch project that uses these Sync and Async C# ServiceClients to talk to the 
+[RestFiles](www.servicestack.net/RestFiles/) web services is in the 
+[RestFilesClient Example project](https://github.com/ServiceStack/ServiceStack.Examples/tree/master/src/MonoTouch/RestFilesClient).
+
+## Other Features
+
+  - Added support for [IContainerAdapter](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Interfaces/Configuration/IContainerAdapter.cs) to let you [plug-in and use different IOC Containers](https://groups.google.com/d/topic/servicestack/A-W9scHaEBA/discussion)
+  - Allow alternate strategies [for resolving Service Types](https://groups.google.com/d/topic/servicestack/Sb7Rcnhte-E/discussion)
+  - If your IService implements IDisposable, it will be disposed straight after it's been executed.
+
+
+
+## Download
+* [**New users should download ServiceStack.Examples - v2.20**](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+* [Existing users can download just the ServiceStack.dlls - v2.20](https://github.com/ServiceStack/ServiceStack/downloads)
+
+.
+
+Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
+
+*****
+
+
 #ServiceStack 2.09 Release Notes
 
 ## ServiceStack is now on NuGet!
@@ -54,15 +107,6 @@ E.g. this is how you would disable 'JSV' and 'SOAP 1.1 & 1.2' endpoints:
 	    EnableFeatures = Feature.All.Remove(disableFeatures),
 	});
 
-
-
-## Download
-* [**New users should download ServiceStack.Examples - v2.09**](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
-* [Existing users can download just the ServiceStack.dlls - v2.09](https://github.com/ServiceStack/ServiceStack/downloads)
-
-.
-
-Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
 
 *****
 
