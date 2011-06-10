@@ -60,9 +60,11 @@ By default the **MarkdownViewBase** class provides the following properties and 
 		public virtual void OnLoad(){}      
     }
 
-See this websites **CustomMarkdownPage.cs** base class for an example on how to effectively use
-the base class to Resolve dependencies, inspect generated variables, generate **PagesMenu** and 
-other dynamic variables for output in the static website template.
+See this websites 
+**[CustomMarkdownPage.cs](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/Docs/Docs.Logic/CustomMarkdownPage.cs)** 
+base class for an example on how to effectively use the base class to Resolve dependencies, 
+inspect generated variables, generate **PagesMenu** and other dynamic variables for output 
+in the static website template.
 
 # Compared with ASP.NET MVC Razor Syntax
 
