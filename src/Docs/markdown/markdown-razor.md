@@ -1,17 +1,16 @@
-See other [Markdown Features](markdown-features) in ServiceStack and how this Docs website 
+See other [Markdown Features](markdown-features) in ServiceStack and how this website 
 makes use of them in [About Docs](about).
 
 # Introducing the new Markdown Razor View Engine
 
 Markdown Razor is the first HTML and Text (i.e. Markdown) view engine built into ServiceStack.
-The pages are simply plain-text Markdown surrounded by MVC Razor-like syntax which provides its 
-dynamic functionality.
+The pages are simply plain-text Markdown surrounded by MVC Razor-like syntax to provide 
+its enhanced dynamic functionality.
 
 ## Extensible with custom base classes and Helpers
 Markdown Razor is extensible in much the same way as MVC Razor is with the ability to define and 
 use your own **custom base class**, **Helpers** and **HtmlHelper** extension methods. 
-This allows you to call directly call util methods on your base class or helpers directly from 
-your templates.
+This allows you to call util methods on your base class or helpers directly from your templates.
 
 You can define a base class for all your markdown pages by implementing **MarkdownViewBase** and
 register it in your AppHost with:
@@ -24,9 +23,9 @@ register it in your AppHost with:
         }
     });
 
-If a **WebHostUrl** is specified, it replaces all **&#126/** in all static website and Markdown pages with it.
-Whilst **MarkdownGlobalHelpers** allows you to dynamically define helper methods available to all
-your pages. This has the same effect of declaring it in your base class e.g:
+If a **WebHostUrl** is specified, it replaces all **&#126/** in all static website and Markdown 
+pages with it. The **MarkdownGlobalHelpers** allow you to define global helper methods 
+available to all your pages. This has the same effect of declaring it in your base class e.g:
 
     public class CustomMarkdownPage : MarkdownViewBase {
 	    public CustomStaticHelpers Ext = new CustomStaticHelpers();
@@ -34,7 +33,6 @@ your pages. This has the same effect of declaring it in your base class e.g:
 
 Which you can access in your pages via **&#64;Ext.MyHelper(Model)**. Declaring instance methods on
 your custom base class allows you to access them without any prefix.
-
 
 ## MarkdownViewBase base class
 By default the **MarkdownViewBase** class provides the following properties and hooks:
@@ -241,14 +239,14 @@ would do:
 		</body>
 	</html>
 
-By default we use convention to associate the appropriate website template with the selected view 
-page where it uses the nearest **default.shtml** static template it finds, looking first in the
+By default we use convention to select the appropriate website template for the selected view 
+where it uses the nearest **default.shtml** static template it finds, looking first in the
 current directory than up parent directories. 
 
 Your View page names must be unique but can live anywhere in your **/View** directory so you are 
-free to structure your website templates and view pages accordingly. If for whatever you need more
-granularity in selecting website templates than we provide similar options to MVC for selecting a
-custom template:
+free to structure your website templates and view pages accordingly. If for whatever reason you 
+need more granularity in selecting website templates than we provide similar options to MVC for 
+selecting a custom template:
 
 #### Select Custom Template with MVC Razor
 ![MVC Razor Custom Layout Page](http://weblogs.asp.net/blogs/scottgu/image_thumb_3B228F67.png)
