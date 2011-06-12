@@ -89,7 +89,7 @@ The following basic page:
 
 Can be generated in MVC Razor with:
 
-![Hello World MVC Razor](http://weblogs.asp.net/blogs/scottgu/image_1B981538.png)
+![Hello World MVC Razor](http://weblogs.asp.net/blogs/scottgu/image_3276E6B4.png)
 
 
 And Markdown Razor with:
