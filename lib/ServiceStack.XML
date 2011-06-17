@@ -1431,6 +1431,12 @@
             Default owner, which equals <see cref="F:Funq.Owner.Container"/>.
             </summary>
         </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.Support.StaticFileHandler.SetDefaultFile(System.String)">
+            <summary>
+            Keep default file contents in-memory
+            </summary>
+            <param name="defaultFilePath"></param>
+        </member>
         <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheAdd(System.String,System.Object,System.DateTime)">
             <summary>
             Stores The value with key only if such key doesn't exist at the server yet. 

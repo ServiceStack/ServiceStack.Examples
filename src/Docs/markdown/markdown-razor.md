@@ -205,6 +205,21 @@ If you want to avoid HTML Encoding you have the same options as MVC Razor where 
 result in **@@Html.Raw(htmlString)** or if you're using an Extension method simply return a 
 **MvcHtmlString** instead of a normal string.
 
+Markdown also lets you mix and match HTML in your markdown although any markdown between the tags
+does not get converted to HTML. To tell Markdown Razor to evaulate the contents inside html
+**&lt;tag&gt;...&lt;/tag&gt;**'s need to prefixed with `^`, e.g. 
+(taken from the [/Views/Search.md](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/Docs/Views/Search.md) page):
+
+	^<div id="searchresults">
+
+	@@foreach page in Model.Results {
+	### @@page.Category > [@@page.Name](@@page.AbsoluteUrl)
+	@@page.Content
+	}
+
+	^</div>
+
+If we didn't prefix `^` we would see `### @@page.Category ...` repeating.
 
 # Layout/MasterPage Scenarios - The Basics
 

@@ -107,6 +107,14 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IRestPatchService`1">
+            <summary>
+            If the Service also implements this interface,
+            IRestPutService.Patch() will be used instead of IService.Execute() for 
+            EndpointAttributes.HttpPatch requests
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
         <member name="T:ServiceStack.Logging.ILog">
             <summary>
             Logs a message in a running application

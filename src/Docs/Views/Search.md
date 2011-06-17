@@ -10,16 +10,17 @@
   - Try different keywords.
   - Try more general keywords.
   - Try fewer keywords.
-}
+} else {
 
-@if (Model.Results.Count > 0) {
 #### Showing Results 1 - @Model.Results.Count
-}
 
-<div id="searchresults">
+^<div id="searchresults">
+
 @foreach page in Model.Results {
 ### @page.Category &gt; [@page.Name](@page.AbsoluteUrl)
 @page.Content
 }
-</div>
 
+^</div>
+
+}
