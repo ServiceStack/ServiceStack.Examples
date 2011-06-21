@@ -208,7 +208,7 @@ result in **@@Html.Raw(htmlString)** or if you're using an Extension method simp
 Markdown also lets you mix and match HTML in your markdown although any markdown between the tags
 does not get converted to HTML. To tell Markdown Razor to evaulate the contents inside html
 **&lt;tag&gt;...&lt;/tag&gt;**'s need to prefixed with `^`, e.g. 
-(taken from the [/Views/Search.md](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/Docs/Views/Search.md) page):
+(taken from the [/Views/Search.md](https://raw.github.com/ServiceStack/ServiceStack.Examples/master/src/Docs/Views/Search.md) page):
 
 	^<div id="searchresults">
 
@@ -270,7 +270,7 @@ selecting a custom template:
 
 #### With Markdown Razor
 
-	@@LayoutPage ~/websiteTemplate
+	@@Layout ~/websiteTemplate
 
 	# About this Site
 
@@ -282,7 +282,7 @@ selecting a custom template:
 	And obviously I can have code in here too. Here is the
 	current date/year: @@DateTime.Now.Year
 
-Note: In addition to **@@LayoutPage** we also support the more appropriate alias of **@@template**.
+Note: In addition to **@@Layout** we also support the more appropriate alias of **@@template**.
 
 ## Layout/MasterPage Scenarios - Adding Section Overrides
 
@@ -299,7 +299,7 @@ And you use in your website template like so:
 Markdown Razor supports the same **@@section** construct but allows you to embed it in your template
 via the standard variable substitution convention, e.g:
 
-	@@LayoutPage ~/websiteTemplate
+	@@Layout ~/websiteTemplate
 
 	# About this Site
 
