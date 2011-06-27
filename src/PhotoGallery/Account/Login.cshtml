@@ -1,0 +1,63 @@
+﻿@{
+    Page.Title = "Login";
+
+    if (IsPost) {
+        var email = Request["email"];
+        if (email.IsEmpty()) {
+            ModelState.AddError("email", "You must specify an email address.");
+        }
+
+        var password = Request["password"];
+        if (password.IsEmpty()) {
+            ModelState.AddError("password", "You must specify a password.");
+        }
+
+        if (ModelState.IsValid) {
+            var rememberMe = Request["rememberMe"].AsBool();
+            if (WebSecurity.Login(email, password, rememberMe)) {                            
+                string returnUrl = Request["returnUrl"];		
+                if (!returnUrl.IsEmpty()) {
+                    Context.RedirectLocal(returnUrl);
+                } else{
+                    Response.Redirect("~/");
+                }
+            } else {
+                ModelState.AddFormError("The email or password provided is incorrect.");
+            }
+        }
+    }
+}
+   
+<h1>Login</h1>
+
+<p>
+    Please enter your email and password below. If you don't have an account,
+    please <a href="@Href("Register")">Register</a>.
+</p>
+
+@Html.ValidationSummary(excludeFieldErrors: true)
+
+<form method="post" action="">
+    <fieldset class="no-legend">
+        <legend>Login</legend>
+        <ol>
+            <li class="email">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" title="Email Address" placeholder="Email address" class="@PhotoGallery.GetValidationClass("email")" />
+                @Html.ValidationMessage("email")
+            </li>
+            <li class="Password">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" title="Password" class="@PhotoGallery.GetValidationClass("password")" />
+                @Html.ValidationMessage("password")
+            </li>
+            <li class="remember-me">
+                <label class="checkbox" for="rememberMe">Remember Me?</label>
+                <input type="checkbox" id="rememberMe" name="rememberMe" value="true" title="Remember Me" />
+            </li>
+        </ol>
+        <p class="form-actions">
+            <input type="submit" value="Login" title="Login" />
+        </p>
+    </fieldset>
+</form>

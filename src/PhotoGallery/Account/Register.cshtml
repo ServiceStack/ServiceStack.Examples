@@ -1,0 +1,96 @@
+﻿@{
+    Page.Title = "Register";
+
+    if (IsPost) {
+        //if (!ReCaptcha.Validate("PRIVATE_KEY")) {
+        //    ModelState.AddFormError("Captcha response was not correct.");
+        //}
+
+        var email = Request["email"];
+        if (email.IsEmpty()) {
+            ModelState.AddError("email", "You must specify an email address.");
+        }
+
+        var password = Request["password"];
+        var confirmPassword = Request["confirmPassword"];
+
+        if (password.IsEmpty()) {
+            ModelState.AddError("password", "You must specify a password.");
+        }
+
+        if (confirmPassword.IsEmpty()) {
+            ModelState.AddError("confirmPassword", "You must specify a confirm password.");
+        }
+
+        if (password != confirmPassword) {
+            ModelState.AddFormError("The new password and confirmation password do not match.");
+        }
+
+        if (ModelState.IsValid) {
+            // Create the user profile
+            var db = Database.Open("PhotoGallery");
+
+            // Check if user already exists
+            var user = db.QuerySingle("SELECT Email FROM UserProfiles WHERE LOWER(Email) = LOWER(@0)", email);
+            if (user == null) {
+                // Insert email into the profile table
+                db.Execute("INSERT INTO UserProfiles (Email, DisplayName, Bio) VALUES (@0, @1, @2)", email, email, "");
+
+                // Create and associate a new entry in the membership database.
+                // If successful, continue processing the request
+                try {
+                    WebSecurity.CreateAccount(email, password);
+                    WebSecurity.Login(email, password);
+                    Response.Redirect("~/");
+                } catch (System.Web.Security.MembershipCreateUserException e) {
+                    ModelState.AddFormError(e.ToString());
+                }
+             } else {
+                // User already exists
+                ModelState.AddFormError("Email address is already in use.");
+             }
+        }
+    }
+}
+
+<h1>Account Creation</h1>
+<p>
+    Use the form below to create a new account. 
+</p>
+
+@Html.ValidationSummary(excludeFieldErrors: true)
+
+<form method="post" action="">
+    <fieldset class="no-legend">
+        <legend>Account Creation</legend>
+                <ol>
+            <li class="email">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" title="Email address" placeholder="Email address" class="@PhotoGallery.GetValidationClass("email")" />
+                @Html.ValidationMessage("email")
+            </li>
+            <li class="password">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" title="Password" class="@PhotoGallery.GetValidationClass("password")" />
+                @Html.ValidationMessage("password")
+            </li>
+            <li class="confirm-password">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" title="Confirm password" class="@PhotoGallery.GetValidationClass("confirmPassword")" />
+                @Html.ValidationMessage("confirmPassword")
+            </li>
+            <li class="recaptcha">
+                <div class="message info">
+                    <p>To enable CAPTCHA verification, uncomment ReCaptcha.GetHtml and replace 'PUBLIC_KEY'
+                    with your public key.  At the top of this page, uncomment ReCaptcha.Validate and
+                    replace 'PRIVATE_KEY' with your private key.</p>
+                    <p>Register for reCAPTCHA keys at <a href="http://recaptcha.net">reCAPTCHA.net</a>.</p>
+                </div>
+                @*@ReCaptcha.GetHtml("PUBLIC_KEY", theme: "white")*@
+            </li>
+        </ol>
+        <p class="form-actions">
+            <input type="submit" value="Register" title="Register" />
+        </p>
+    </fieldset>
+</form>

@@ -1,0 +1,45 @@
+﻿@{
+    var tagName = UrlData[0];
+    Page.Title = "View Tag - " + tagName;
+
+    var db = Database.Open("PhotoGallery");
+    var photos = db.Query(@"SELECT Photos.Id, Photos.FileTitle 
+                            FROM Photos, Photos_Tags 
+                            WHERE Photos.Id = Photos_Tags.Photos_Id AND Photos_Tags.Tags_TagName = @0", tagName).ToList();
+    var similarTags = db.Query(@"SELECT Tags_TagName AS TagName, COUNT(*) AS Count 
+                                 FROM Photos_Tags WHERE Photos_Id IN (SELECT Photos_Id FROM Photos_Tags WHERE Tags_TagName = @0) AND Tags_TagName != @0
+                                 GROUP BY Tags_TagName 
+                                 ORDER BY Count DESC", tagName).ToList();
+}
+
+<h1>@tagName</h1>
+
+@if (photos.Count == 0) {
+    <p>There are no photos with this tag.</p>
+} else {
+    if (photos.Count == 1) {
+        <p>There is one photo with this tag.</p>
+    } else {
+        <p>There are @photos.Count photos with this tag.</p>
+    }
+
+    <ul class="thumbnails">
+        @foreach (var photo in photos) {
+            <li>
+                <a href="@Href("~/Photo/View", photo.Id)">
+                    <img alt="thumbnail of @Path.GetFileNameWithoutExtension(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id)" class="thumbnail-border" />
+                    <span class="image-overlay">@Path.GetFileNameWithoutExtension(photo.FileTitle)</span>
+                </a>
+            </li>
+        }
+    </ul>
+
+    if (similarTags.Count > 0) {
+        <h2 class="similar-tags">Similar tags:</h2>
+        <ul class="tags">
+            @foreach (var t in similarTags) {
+                <li class="tag"><a href="@Href("~/Tag/View", t.TagName)">@t.TagName</a></li>
+            }
+        </ul>
+    }
+}

@@ -1,0 +1,53 @@
+﻿@{
+    var db = Database.Open("PhotoGallery");
+
+    var id = UrlData[0].AsInt();
+    var user = db.QuerySingle("SELECT UserId, DisplayName, Bio FROM UserProfiles WHERE UserId = @0", id);
+    if (user == null) {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    Page.Title = "User - " + user.DisplayName;
+
+    var photos = db.Query("SELECT Id, FileTitle FROM Photos WHERE UserId = @0 ORDER BY FileTitle", id).ToList();
+}
+
+<div class="sidebar">
+    <dl>
+        <dt>Display name</dt>
+        <dd>@user.DisplayName</dd>
+        <dt>Bio</dt>
+        <dd>
+            @if (user.Bio != "") {
+                <text>@user.Bio</text>
+            } else {
+                <text>This user has not created a biography.</text>
+            } 
+        </dd>
+    </dl>
+    @if (WebSecurity.CurrentUserId == user.UserId) {
+        <p>
+            You can <a href="@Href("~/User")">edit your profile</a> if you desire.
+        </p>
+    }
+</div>
+<div class="main">
+<h1>@(user.DisplayName)'s Photos</h1>
+    @if (photos.Count == 1) {
+        <h2>This user has uploaded one photo.</h2>
+    } else {
+        <h2>This user has uploaded @photos.Count photos.</h2>
+    }
+
+    <ul class="thumbnails user-photos">
+        @foreach (var photo in photos) {
+            <li>
+                <a href="@Href("~/Photo/View", photo.Id)">
+                    <img alt="thumbnail of @Path.GetFileNameWithoutExtension(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id)" class="thumbnail-border" />
+                    <span class="image-overlay">@Path.GetFileNameWithoutExtension(photo.FileTitle)</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

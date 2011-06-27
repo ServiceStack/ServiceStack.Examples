@@ -1,0 +1,38 @@
+﻿@using PhotoGallery.Logic.Models
+@{
+    Page.Title = "Photo Gallery";
+        
+//    var db = Database.Open("PhotoGallery");
+//    var galleries = db.Query(@"SELECT Galleries.Id, Galleries.Name, COUNT(Photos.Id) AS PhotoCount
+//                               FROM Galleries LEFT OUTER JOIN Photos ON Galleries.Id = Photos.GalleryId
+//                               GROUP BY Galleries.Id, Galleries.Name").ToList();
+
+	var galleries = new List<GalleryCount> {
+        new GalleryCount { Id = 1, Name = "Gallery 1", Count = 10 },
+        new GalleryCount { Id = 2, Name = "Gallery 2", Count = 20 },
+        new GalleryCount { Id = 3, Name = "Gallery 3", Count = 30 },
+    };
+}
+
+<h1>Galleries</h1>
+@if (galleries.Count == 1) {
+    <p>There is one gallery.</p> 
+} else {
+    <p>There are @galleries.Count galleries.</p>
+}
+<ul class="thumbnails gallery">
+    @foreach (var gallery in galleries) {
+        <li class="gallery">
+            <a href="@Href("~/Gallery/View", gallery.Id)">
+                <img alt="Images from @gallery.Name" src="@Href("~/Gallery/Thumbnail", gallery.Id)" class="thumbnail-no-border" />
+                <span class="below-image">@gallery.Name</span>
+                <span class="image-overlay">@gallery.PhotoCount photo(s)</span>
+            </a>
+        </li>
+    } 
+</ul>
+<p class="actions">
+@if (WebSecurity.IsAuthenticated) {
+    <a href="@Href("~/Gallery/New")">Create a New Gallery</a>
+}
+</p>

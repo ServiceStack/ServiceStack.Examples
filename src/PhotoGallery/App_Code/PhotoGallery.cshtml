@@ -1,0 +1,13 @@
+﻿@helper GetValidationClass(string fieldName) {
+    var p = CurrentPage as WebPage;
+    if (p == null) {
+        return;
+    }
+
+    var className = "input-validation-valid";
+    var modelState = p.ModelState[fieldName];
+    if (modelState != null && modelState.Errors.Count != 0) {
+        className = "input-validation-error";
+    }
+    @className
+}

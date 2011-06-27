@@ -1,0 +1,42 @@
+﻿@{
+    WebSecurity.RequireAuthenticatedUser();
+
+    Page.Title = "New Gallery";
+
+    if (IsPost) {
+        var galleryName = Request["Name"];
+        if (galleryName.IsEmpty()) {
+            ModelState.AddError("Name", "You must specify a gallery name.");
+        }
+        if (ModelState.IsValid) {
+            var db = Database.Open("PhotoGallery");
+            var nameExists = db.QueryValue("SELECT COUNT(*) FROM Galleries WHERE LOWER(Name) = LOWER(@0)", galleryName) > 0;
+            if (nameExists) {
+                ModelState.AddError("Name", "A gallery with the supplied name already exists.");
+            } else {
+                //Create Gallery
+                db.Execute("INSERT INTO Galleries (Name) VALUES (@0)", galleryName);
+                // And redirect
+                Response.Redirect(Href("View", db.GetLastInsertId()));
+            }
+        }
+    }
+}
+
+<h1>New Gallery</h1>
+<form method="post" action="">
+    <fieldset>
+        <legend>New Gallery</legend>
+        <ol>
+            <li>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" title="Gallery name" placeholder="Gallery name" class="@PhotoGallery.GetValidationClass("name")" />
+                @Html.ValidationMessage("Name")
+            </li>
+        </ol>
+        <p class="form-actions">
+            <input type="submit" value="Create" title="Create gallery" />
+            <a href="@Href("~/Gallery")" title="Return to galleries">Cancel</a>
+        </p>
+    </fieldset>
+</form>

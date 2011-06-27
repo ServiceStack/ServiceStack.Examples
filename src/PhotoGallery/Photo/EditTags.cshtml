@@ -1,0 +1,68 @@
+﻿@{
+    WebSecurity.RequireAuthenticatedUser();
+
+    var photoId = UrlData[0].AsInt();
+
+    var db = Database.Open("PhotoGallery");
+
+    var photo = db.QuerySingle("SELECT * FROM Photos WHERE Id = @0", photoId);
+    if (photo == null) {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    Page.Title = "Photo Tags - " + photo.FileTitle;
+
+    if (IsPost) {
+        var newTags = Request["newTags"];
+        // prepare tags for processing
+        var tagNames = newTags.Split(';');
+
+        //Clear Tags associated with this image
+        db.Execute("DELETE FROM Photos_Tags WHERE Photos_Id = @0", photoId);
+        foreach (string tagName in tagNames) {
+            // get the tag ID for each tag, else create if doesn't exist
+            var trimmed = tagName.Trim();
+            bool exists = db.QueryValue("SELECT COUNT(*) FROM Tags WHERE TagName = @0", trimmed) > 0;
+            if (!exists) {
+    			//If tag doesn't exist, create it
+                db.Execute("INSERT INTO Tags (TagName) VALUES (@0)", trimmed);
+            }
+            //Associate image and tag
+            db.Execute("INSERT INTO Photos_Tags (Photos_Id, Tags_TagName) VALUES (@0, @1)", photoId, trimmed);
+        }
+        Response.Redirect(Href("View", photo.Id));
+    }
+
+    // get a list of all the tags for this photo, sorted
+    var tags = db.Query("SELECT TagName FROM Tags, Photos_Tags WHERE Tags_TagName = TagName AND Photos_Id = @0 ORDER BY TagName", photoId);
+
+    var tagsList = new List<string>();
+    foreach (var tag in tags) {
+        tagsList.Add(tag.TagName);
+    }
+    var tagStringToDisplay = String.Join("; ", tagsList.ToArray());
+}
+
+<div class="sidebar">
+    <h1>Edit Photo's Tags</h1>
+    <h2>@photo.FileTitle</h2>
+    <form method="post" action="">
+        <fieldset class="no-legend">
+            <legend>Edit Tags</legend>
+            <ol>
+                <li>
+                    <label for="newTags">Enter tags, semicolon-delimited:</label>
+                    <textarea id="newTags" name="newTags" title="Enter tags seperated by a semicolon" rows="4" cols="50" placeholder="Enter tags seperated by a semicolon">@tagStringToDisplay</textarea>
+                </li>
+            </ol>
+            <p class="form-actions">
+                <input type="submit" value="Save Changes" title="Save changes" />
+                <a href="@Href("~/Photo/View", photoId)" title="Do not save changes">Cancel</a>
+            </p>
+        </fieldset>
+    </form>
+</div>
+<div class="main">
+    <img alt="@Html.AttributeEncode(photo.FileTitle)" src="@Href("~/Photo/Thumbnail", photo.Id, new { size="large" })" />
+</div>
