@@ -2,7 +2,7 @@
 
 ServiceStack's JsonSerializer is optimized for serializing C# POCO types into and from JSON as fast, compact and cleanly as possible. In most cases C# objects serializes as you would expect them to without added json extensions or serializer-specific artefacts.
 
-JSON is a lightweight text serialization format with a spec that's so simple that it fits on one page: [[http://www.json.org]].
+JSON is a lightweight text serialization format with a spec that's so simple that it fits on one page: [http://www.json.org](json.org).
 
 The only valid values in JSON are:
 
@@ -70,7 +70,7 @@ Because the same wire format shared between Dictionaries, POCOs and anonymous ty
 
 Although the JSON Serializer is best optimized for serializing and deserializing .NET types, it's flexible enough to consume 3rd party JSON apis although this generally requires custom de-serialization to convert it into an idiomatic .NET type.
 
-[[https://github.com/ServiceStack/ServiceStack.Text/blob/master/tests/ServiceStack.Text.Tests/UseCases/GitHubRestTests.cs]]
+[https://github.com/ServiceStack/ServiceStack.Text/blob/master/tests/ServiceStack.Text.Tests/UseCases/GitHubRestTests.cs](GitHubRestTests.c)
 
   1. Using [JsonObject](https://github.com/ServiceStack/ServiceStack.Text/blob/master/src/ServiceStack.Text/JsonObject.cs)
   2. Using Generic .NET Collection classes
