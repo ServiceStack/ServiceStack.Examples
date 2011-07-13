@@ -216,6 +216,14 @@
 		"Tags":["JSON","JSV","CSV","Text","Overview"]
 	},
 	{
+		"Name":"JSON Serializer",
+		"Slug":"json-serializer",
+		"Src":"",
+		"FilePath":"~/text-serializers/json-serializer.md",
+		"Category":"Text Serializers",
+		"Tags":["JSON","Text","Overview"]
+	},
+	{
 		"Name":"JSV Format",
 		"Slug":"jsv-format",
 		"Src":"https://github.com/ServiceStack/ServiceStack.Text/wiki/JSV-Format",
