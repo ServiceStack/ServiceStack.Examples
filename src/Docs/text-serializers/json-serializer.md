@@ -172,7 +172,7 @@ In addition to using a Struct you can optionally use a custom C# IEnumerable typ
 
 Which serializes the Point into a compact JSON array:
 
-	new PointArray{ X = 1, Y = 2 }.ToJson() // = [1,2]
+	new Point { X = 1, Y = 2 }.ToJson() // = [1,2]
 
 ## Custom Deserialization
 
