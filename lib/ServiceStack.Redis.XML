@@ -347,32 +347,19 @@
             </summary>
             <param name="workItemId"></param>
         </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Lock(System.String,System.Int32,System.Int32)">
-            <summary>
-            acquire distributed, non-reentrant lock on key
-            </summary>
-            <param name="key">global key for this lock</param>
-            <param name="acquisitionTimeout">timeout for acquiring lock</param>
-            <param name="lockTimeout">timeout for lock, in seconds (stored as value against lock key) </param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Unlock">
-            <summary>
-            unlock key
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.CalculateLockExpire(System.TimeSpan,System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="ts"></param>
-            <param name="timeout"></param>
-            <returns></returns>
-        </member>
         <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.UpdateNextUnprocessed(`0)">
             <summary>
             
             </summary>
             <param name="newWorkItem"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            
+            </summary>
+            <param name="numProcessed"></param>
+            <param name="client"></param>
+            <returns></returns>
         </member>
         <member name="M:ServiceStack.Redis.Support.Queue.Implementation.RedisSequentialWorkQueue`1.DequeueManager.PopAndUnlock(System.Int32)">
             <summary>
@@ -392,6 +379,29 @@
             <summary>
             RAII disposal
             </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Lock(System.String,System.Int32,System.Int32,System.Int64@,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            acquire distributed, non-reentrant lock on key
+            </summary>
+            <param name="key">global key for this lock</param>
+            <param name="acquisitionTimeout">timeout for acquiring lock</param>
+            <param name="lockTimeout">timeout for lock, in seconds (stored as value against lock key) </param>
+            <param name="client"></param>
+            <param name="lockExpire"></param>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.Unlock(System.String,System.Int64,ServiceStack.Redis.IRedisClient)">
+            <summary>
+            unlock key
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Redis.Support.Locking.DistributedLock.CalculateLockExpire(System.TimeSpan,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ts"></param>
+            <param name="timeout"></param>
+            <returns></returns>
         </member>
         <member name="T:ServiceStack.Redis.Support.Queue.Implementation.RedisChronologicalWorkQueue`1">
             <summary>
@@ -1030,19 +1040,6 @@
             processed after which time it will shutdown all processing until Start() is called again.
             </summary>
         </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Lock(System.String,System.Int32,System.Int32)">
-            <summary>
-            acquire distributed, non-reentrant lock on key
-            </summary>
-            <param name="key">global key for this lock</param>
-            <param name="acquisitionTimeout">timeout for acquiring lock</param>
-            <param name="lockTimeout">timeout for lock, in seconds (stored as value against lock key) </param>
-        </member>
-        <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Unlock">
-            <summary>
-            unlock key
-            </summary>
-        </member>
         <member name="M:ServiceStack.Redis.Support.Queue.Implementation.SerializingRedisClient.Serialize(System.Object)">
             <summary>
              Serialize object to buffer
@@ -1291,6 +1288,11 @@
             <summary>
             Provide the factory implementation for creating a RedisCacheClient that 
             can be mocked and used by different 'Redis Client Managers' 
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Redis.Messaging.RedisMqHost.ReplyClientFactory">
+            <summary>
+            Inject your own Reply Client Factory to handle custom Message.ReplyTo urls.
             </summary>
         </member>
     </members>
