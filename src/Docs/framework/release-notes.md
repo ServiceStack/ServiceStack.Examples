@@ -1,4 +1,120 @@
-#ServiceStack 2.20 Release Notes
+#ServiceStack 2.28 Release Notes
+
+This release includes a few enhancements and catches up on all the pull requests and most of the issues that were submitted 
+since the last release.
+
+## ServiceStack is now using Trello.com for features/issue tracking
+ServiceStack now hosts and tracks its new issues and feature requests on a 
+[https://trello.com/board/servicestack-features-bugs/4e9fbbc91065f8e9c805641c](live public Trello dash board) where anyone 
+is welcome to add to, or simply check the progress of their features/issues in the work queue.
+
+## Special Thanks to Contributors
+We now have a special [contributor page](https://github.com/ServiceStack/ServiceStack/blob/master/CONTRIBUTORS.md) 
+and section on the [main project page](https://github.com/ServiceStack/ServiceStack) showing the many contributors to ServiceStack's 
+projects over the years. We hope we haven't missed anyone out - please send us a pull request if you would like to be added.
+
+###The major features in this release include:
+
+## Redis MQ Client/Server
+A redis-based message queue client/server that can be hosted in any .NET or ASP.NET application. The **RedisMqHost** lives in the
+[ServiceStack.Redis](https://github.com/ServiceStack/ServiceStack.Redis) project and brings the many benefits of using a Message Queue. 
+The current unoptimized version uses only a single background thread although initial benchmarks shows it can
+send/receive a promising 4.6k messages a second when access a local redis instance (on my dev workstation). 
+
+Major kudos goes to [Redis](http://redis.io) which thanks to its versatility, has Pub/Sub and Lists primitives that makes implementing a Queue trivial.
+
+The first version already sports the major features you've come to expect from a MQ: 
+
+  - Each service maintains its own Standard and Priority MQ's
+  - Automatic Retries on messages generating errors with Failed messages sent to a DLQ (Dead Letter Queue) when its Retry threshold is reached.
+  - Each message can have a ReplyTo pointing to any Queue, alternatively you can even provide a ServiceStack endpoint URL which will 
+    send the response to a Web Service instead. If the web service is not available it falls back into publishing it in the default 
+    Response Queue so you never lose a message!
+  - MQ/Web Services that don't return any output have their Request DTOs sent to a rolling **Out** queue which can be monitored 
+    by external services (i.e. the publisher/callee) to determine when the request has been processed.
+
+Although you can host **RedisMqHost** in any ASP.NET web app, the benefit of hosting inside ServiceStack is that your 
+**web services are already capaable** of processing Redis MQ messages **without any changes required** since they're already effectively 
+designed to work like a Message service to begin with, i.e. C# POCO-in -> C# POCO-out. 
+
+This is another example of ServiceStack's prescribed DTO-first architecture continues to pay dividends since each web service is a DI clean-room 
+allowing your **C# logic to be kept pure** as it only has to deal with untainted POCO DTOs, allowing your same web service to be re-used in: 
+SOAP, REST (JSON,XML,JSV,CSV,HTML) web services, view models for dynamic HTML pages and now as a MQ service!
+
+Eventually (based on feedback) there will be posts/documentation/examples forthcoming covering how to use it, in the meantime
+you can [https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Interfaces/Messaging/IMessageService.cs](Check out the Messaging API)
+to see how simple it is to use. To see some some working code showing some of the capabilities listed above, 
+[https://github.com/ServiceStack/ServiceStack.Redis/blob/master/tests/ServiceStack.Redis.Tests/RedisMqHostTests.cs](view the tests).
+
+Hooking up a basic send/reply example is as easy as:
+
+    //DTO messages:
+    public class Hello { public string Name { get; set; } }
+    public class HelloResponse { public string Result { get; set; } }
+
+    var redisFactory = new PooledRedisClientManager("localhost:6379");
+    var mqHost = new RedisMqHost(redisFactory, noOfRetries:2, null);
+
+    //Server - MQ Service Impl:
+    mqHost.RegisterHandler<Hello>(m =>
+        new HelloResponse { Result = "Hello, " + m.GetBody().Name });
+    mqHost.Start();
+
+    ...
+
+    //Client - Process Response:
+    mqHost.RegisterHandler<HelloResponse>(m => {
+        Consle.Log("Received: " + m.GetBody().Result);
+    });
+    mqHost.Start();
+
+    ...
+    
+    //Producer - Start publishing messages:
+    var mqClient = mqHost.CreateMessageQueueClient();
+    mqClient.Publish(new Hello { Name = "ServiceStack" });
+
+
+## JSON/JSV Serializers now supports Abstract/Interface and object types
+We're happy to report the most requested feature for ServiceStack's JSON/JSV serializers is now available at:
+[ServiceStack.Text v2.28](https://github.com/ServiceStack/ServiceStack.Text/downloads). 
+
+The JSON and JSV Text serializers now support serializing and deserializing DTOs with Interface / Abstract or object types.
+Amongst other things, this allows you to have an IInterface property which when serialized will include its concrete type information in a 
+**__type** property field (similar to other JSON serializers) which when serialized populates an instance of that 
+concrete type (provided it exists). Likewise you can also have polymorhic lists of a base type which should now deserialize correctly.
+
+As always performance was a primary objective when adding this feature and we should have a very peformant implementation of it.
+
+Note: This feature is automatically added to all Abstract/Interface/Object types, i.e. you don't need to include any 
+[KnownType] attributes to take advantage of it.
+
+## Other features/fixes:
+
+  - Added JSON/JSV custom serialization behaviour injection of BCL value types in e.g: [JsConfig](https://github.com/ServiceStack/ServiceStack.Text/blob/master/src/ServiceStack.Text/JsConfig.cs#L16)
+  - Serialization errors now return 400 status code
+  - Add option to propagate errors instead of being sent in the response [Tymek Majewski](https://github.com/letssellsomebananas)
+  - Added UserAgent to IHttpRequest type
+  - Add useful overloads to HttpResult class
+    - SetPermantentCookie/SetSessionCookie/SetCookie
+    - LastModified 
+  - Fix compression bug in `RequestContext.ToOptimizedResult()`
+  - byte[] responses are written directly to the response stream with the ContentType: application/octet-stream
+
+## Download
+
+  * [**New users should download ServiceStack.Examples - v2.28**](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+  * [Existing users can download just the ServiceStack.dlls - v2.28](https://github.com/ServiceStack/ServiceStack/downloads)
+  * [Also available on NuGet](http://www.servicestack.net/docs/framework/nuget)
+
+.
+
+Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
+
+*****
+
+
+##ServiceStack 2.20 Release Notes
 
 ### New Markdown Razor View Engine
 The biggest feature in this release is the new Markdown support built-into ServiceStack and more
@@ -37,18 +153,6 @@ An example MonoTouch project that uses these Sync and Async C# ServiceClients to
   - Added support for [IContainerAdapter](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Interfaces/Configuration/IContainerAdapter.cs) to let you [plug-in and use different IOC Containers](https://groups.google.com/d/topic/servicestack/A-W9scHaEBA/discussion)
   - Allow alternate strategies [for resolving Service Types](https://groups.google.com/d/topic/servicestack/Sb7Rcnhte-E/discussion)
   - If your IService implements IDisposable, it will be disposed straight after it's been executed.
-
-
-
-## Download
-* [**New users should download ServiceStack.Examples - v2.20**](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
-* [Existing users can download just the ServiceStack.dlls - v2.20](https://github.com/ServiceStack/ServiceStack/downloads)
-
-.
-
-Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
-
-*****
 
 
 #ServiceStack 2.09 Release Notes
