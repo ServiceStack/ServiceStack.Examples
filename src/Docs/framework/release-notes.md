@@ -5,7 +5,7 @@ since the last release.
 
 ## ServiceStack is now using Trello.com for features/issue tracking
 ServiceStack now hosts and tracks its new issues and feature requests on a 
-[https://trello.com/board/servicestack-features-bugs/4e9fbbc91065f8e9c805641c](live public Trello dash board) where anyone 
+[live public Trello dash board](https://trello.com/board/servicestack-features-bugs/4e9fbbc91065f8e9c805641c) where anyone 
 is welcome to add to, or simply check the progress of their features/issues in the work queue.
 
 ## Special Thanks to Contributors
@@ -13,13 +13,13 @@ We now have a special [contributor page](https://github.com/ServiceStack/Service
 and section on the [main project page](https://github.com/ServiceStack/ServiceStack) showing the many contributors to ServiceStack's 
 projects over the years. We hope we haven't missed anyone out - please send us a pull request if you would like to be added.
 
-###The major features in this release include:
+The major features in this release include:
 
 ## Redis MQ Client/Server
 A redis-based message queue client/server that can be hosted in any .NET or ASP.NET application. The **RedisMqHost** lives in the
 [ServiceStack.Redis](https://github.com/ServiceStack/ServiceStack.Redis) project and brings the many benefits of using a Message Queue. 
 The current unoptimized version uses only a single background thread although initial benchmarks shows it can
-send/receive a promising 4.6k messages a second when access a local redis instance (on my dev workstation). 
+send/receive a promising **4.6k messages /sec** when accessing a local redis instance (on my dev workstation). 
 
 Major kudos goes to [Redis](http://redis.io) which thanks to its versatility, has Pub/Sub and Lists primitives that makes implementing a Queue trivial.
 
@@ -35,16 +35,16 @@ The first version already sports the major features you've come to expect from a
 
 Although you can host **RedisMqHost** in any ASP.NET web app, the benefit of hosting inside ServiceStack is that your 
 **web services are already capaable** of processing Redis MQ messages **without any changes required** since they're already effectively 
-designed to work like a Message service to begin with, i.e. C# POCO-in -> C# POCO-out. 
+designed to work like a Message service to begin with, i.e. **C# POCO-in -> C# POCO-out**. 
 
 This is another example of ServiceStack's prescribed DTO-first architecture continues to pay dividends since each web service is a DI clean-room 
 allowing your **C# logic to be kept pure** as it only has to deal with untainted POCO DTOs, allowing your same web service to be re-used in: 
 SOAP, REST (JSON,XML,JSV,CSV,HTML) web services, view models for dynamic HTML pages and now as a MQ service!
 
 Eventually (based on feedback) there will be posts/documentation/examples forthcoming covering how to use it, in the meantime
-you can [https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Interfaces/Messaging/IMessageService.cs](Check out the Messaging API)
+you can [Check out the Messaging API](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Interfaces/Messaging/IMessageService.cs)
 to see how simple it is to use. To see some some working code showing some of the capabilities listed above, 
-[https://github.com/ServiceStack/ServiceStack.Redis/blob/master/tests/ServiceStack.Redis.Tests/RedisMqHostTests.cs](view the tests).
+[view the tests](https://github.com/ServiceStack/ServiceStack.Redis/blob/master/tests/ServiceStack.Redis.Tests/RedisMqHostTests.cs).
 
 Hooking up a basic send/reply example is as easy as:
 
@@ -79,15 +79,17 @@ Hooking up a basic send/reply example is as easy as:
 We're happy to report the most requested feature for ServiceStack's JSON/JSV serializers is now available at:
 [ServiceStack.Text v2.28](https://github.com/ServiceStack/ServiceStack.Text/downloads). 
 
-The JSON and JSV Text serializers now support serializing and deserializing DTOs with Interface / Abstract or object types.
+The JSON and JSV Text serializers now support serializing and deserializing DTOs with **Interface / Abstract or object types**.
 Amongst other things, this allows you to have an IInterface property which when serialized will include its concrete type information in a 
 **__type** property field (similar to other JSON serializers) which when serialized populates an instance of that 
-concrete type (provided it exists). Likewise you can also have polymorhic lists of a base type which should now deserialize correctly.
+concrete type (provided it exists). 
 
-As always performance was a primary objective when adding this feature and we should have a very peformant implementation of it.
+Likewise you can also have polymorhic lists e.g. of a base **Animal** type and be populated with a **Cats** and **Dogs** which should now deserialize correctly.
 
-Note: This feature is automatically added to all Abstract/Interface/Object types, i.e. you don't need to include any 
-[KnownType] attributes to take advantage of it.
+As always performance was a primary objective when adding this feature and as a result we should have a very peformant implementation of it.
+
+Note: This feature is **automatically** added to all **Abstract/Interface/Object** types, i.e. you **don't** need to include any 
+`[KnownType]` attributes to take advantage of it.
 
 ## Other features/fixes:
 
