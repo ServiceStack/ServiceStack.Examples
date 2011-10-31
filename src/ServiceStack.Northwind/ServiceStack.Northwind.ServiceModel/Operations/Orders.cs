@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using ServiceStack.Northwind.ServiceModel.Types;
+using ServiceStack.ServiceInterface.ServiceModel;
+
 public class Customers {}
 public class CustomerResponse : IHasResponseStatus
 {
