@@ -1,70 +1,31 @@
 using System.Collections.Generic;
 using ServiceStack.Northwind.ServiceModel.Types;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-public class Customers {}
-public class CustomerResponse : IHasResponseStatus
+namespace ServiceStack.Northwind.ServiceModel.Operations
 {
-	public CustomerResponse()
+	[RestService("/orders")]
+	[RestService("/orders/page/{Page}")]
+	[RestService("/customers/{CustomerId}/orders")]
+	public class Orders
 	{
-		this.ResponseStatus = new ResponseStatus();
+		public int? Page { get; set; }
+
+		public string CustomerId { get; set; }
 	}
-	
-	public Customer Customer { get; set; }
-	
-	public ResponseStatus ResponseStatus { get; set; }
-}
-public class CustomersResponse : IHasResponseStatus
-{
-	public CustomersResponse()
+
+	public class OrdersResponse : IHasResponseStatus
 	{
-		this.ResponseStatus = new ResponseStatus();
-		this.Customers = new List<Customer>();
+		public OrdersResponse()
+		{
+			this.ResponseStatus = new ResponseStatus();
+			this.Results = new List<CustomerOrder>();
+		}
+
+		public List<CustomerOrder> Results { get; set; }
+
+		public ResponseStatus ResponseStatus { get; set; }
 	}
-	
-	public List<Customer> Customers { get; set; }
-	
-	public ResponseStatus ResponseStatus { get; set; }
-}
-public class CustomerDetails
-{
-	
-	public string Id { get; set; }
-}
 
-
-public class CustomerDetailsResponse : IHasResponseStatus
-{
-	public CustomerDetailsResponse()
-	{
-		this.ResponseStatus = new ResponseStatus();
-		this.CustomerOrders = new List<CustomerOrder>();
-	}
-	
-	public Customer Customer { get; set; }
-	
-	public List<CustomerOrder> CustomerOrders { get; set; }
-	
-	public ResponseStatus ResponseStatus { get; set; }
 }
-public class Orders
-{
-	
-	public int? Page { get; set; }
-	
-	public string CustomerId { get; set; }
-}
-public class OrdersResponse : IHasResponseStatus
-{
-	public OrdersResponse()
-	{
-		this.ResponseStatus = new ResponseStatus();
-		this.Results = new List<CustomerOrder>();
-	}
-	
-	public List<CustomerOrder> Results { get; set; }
-	
-	public ResponseStatus ResponseStatus { get; set; }
-}
-
-
