@@ -1,6 +1,9 @@
 ﻿using System;
 using Funq;
 using RedisStackOverflow.ServiceInterface;
+using ServiceStack.Configuration;
+using ServiceStack.Logging;
+using ServiceStack.Logging.Support.Logging;
 using ServiceStack.Redis;
 using ServiceStack.WebHost.Endpoints;
 
@@ -27,6 +30,7 @@ namespace RedisStackOverflow
 	{
 		protected void Application_Start(object sender, EventArgs e)
 		{
+			if (ConfigUtils.GetAppSetting("log","false") == "true") LogManager.LogFactory = new ConsoleLogFactory();
 			new AppHost().Init();
 		}
 	}
