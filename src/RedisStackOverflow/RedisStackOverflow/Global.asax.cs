@@ -17,9 +17,9 @@ namespace RedisStackOverflow
 
 		public override void Configure(Container container)
 		{
-		    //Show StackTrace in Web Service Exceptions
+			//Show StackTrace in Web Service Exceptions
 			SetConfig(new EndpointHostConfig { DebugMode = true });
-			
+
 			//Register any dependencies you want injected into your services
 			container.Register<IRedisClientsManager>(c => new PooledRedisClientManager());
 			container.Register<IRepository>(c => new Repository(c.Resolve<IRedisClientsManager>()));
@@ -30,7 +30,7 @@ namespace RedisStackOverflow
 	{
 		protected void Application_Start(object sender, EventArgs e)
 		{
-			if (ConfigUtils.GetAppSetting("log","false") == "true") LogManager.LogFactory = new ConsoleLogFactory();
+			if (ConfigUtils.GetAppSetting("log", false)) LogManager.LogFactory = new ConsoleLogFactory();
 			new AppHost().Init();
 		}
 	}
