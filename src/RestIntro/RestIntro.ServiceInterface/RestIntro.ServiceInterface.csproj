@@ -34,7 +34,9 @@
     <Reference Include="ServiceStack">
       <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=1.0.4102.22633, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
@@ -44,7 +46,9 @@
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=2.0.8.8681, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\..\lib\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
