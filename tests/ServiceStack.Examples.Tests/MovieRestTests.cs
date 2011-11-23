@@ -13,7 +13,13 @@ namespace ServiceStack.Examples.Tests
 	public class MovieRestTests
 		: TestHostBase
 	{
-		[Test]
+        [SetUp]
+        public void SetUp()
+        {
+            ConfigureDatabase.ReinitializeDatabase();
+        }
+
+	    [Test]
 		public void Can_list_all_movies()
 		{
 			var response = base.Send<MoviesResponse>(new Movies());
