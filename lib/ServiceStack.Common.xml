@@ -178,6 +178,140 @@
             <param name="enum"></param>
             <returns></returns>
         </member>
+        <member name="T:ServiceStack.Messaging.Rcon.ProcessingClient">
+            <summary>
+            Processing client used to interface with ServiceStack and allow a message to be processed.
+            Not an actual client.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.ProcessingClient.Publish(System.String,System.Byte[])">
+            <summary>
+            Publish the specified message into the durable queue @queueName
+            </summary>
+            <param name="queueName"></param>
+            <param name="messageBytes"></param>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.ProcessingClient.Notify(System.String,System.Byte[])">
+            <summary>
+            Publish the specified message into the transient queue @queueName
+            </summary>
+            <param name="queueName"></param>
+            <param name="messageBytes"></param>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.ProcessingClient.Get(System.String,System.Nullable{System.TimeSpan})">
+            <summary>
+            Synchronous blocking get.
+            </summary>
+            <param name="queueName"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.ProcessingClient.GetAsync(System.String)">
+            <summary>
+            Non blocking get message
+            </summary>
+            <param name="queueName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.ProcessingClient.WaitForNotifyOnAny(System.String[])">
+            <summary>
+            Blocking wait for notifications on any of the supplied channels
+            </summary>
+            <param name="channelNames"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.Messaging.Rcon.Client">
+            <summary>
+            Base rcon class.
+            </summary>
+        </member>
+        <member name="F:ServiceStack.Messaging.Rcon.Client._sock">
+            <summary>
+            Rcon connection socket. Always set to null when not connected.
+            </summary>
+        </member>
+        <member name="F:ServiceStack.Messaging.Rcon.Client._sequenceID">
+            <summary>
+            Unique ID for each message.
+            </summary>
+        </member>
+        <member name="F:ServiceStack.Messaging.Rcon.Client._registeredCallbacks">
+            <summary>
+            Registered callbacks.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Client.#ctor(System.Net.IPEndPoint)">
+            <summary>
+            Create a new instance of rcon.
+            </summary>
+            <param name="rconEndpoint">Endpoint to connect to, usually the game server with query port.</param>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Client.Connect">
+            <summary>
+            Attempts to connect to the game server for rcon operations.
+            </summary>
+            <returns>True if connection established, false otherwise.</returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Client.ProcessPacket(System.Byte[],ServiceStack.Messaging.Rcon.ClientSocketState)">
+            <summary>
+            Processes a received packet.
+            </summary>
+            <param name="packet">The packet.</param>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Client.Disconnect">
+            <summary>
+            Disconnects from rcon.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Client.InternalSend(System.Byte[][])">
+            <summary>
+            Sends message to the server.
+            </summary>
+            <param name="words">Words to send.</param>
+        </member>
+        <member name="E:ServiceStack.Messaging.Rcon.Client.OnDisconnected">
+            <summary>
+            Disconnected event.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Client.Endpoint">
+            <summary>
+            Game server endpoint.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Client.LastException">
+            <summary>
+            Last exception that occured during operation.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Client.Connected">
+            <summary>
+            Connected?
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Client.SequenceID">
+            <summary>
+            Gets the next unique ID to be used for transmisson. Read this before sending to pair responses to sent messages.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.Messaging.Rcon.Client.OnDisconnectedHandler">
+            <summary>
+            Event delegate when disconnected from the server.
+            </summary>
+            <param name="rcon"></param>
+        </member>
+        <member name="T:ServiceStack.Messaging.Rcon.Client.AsyncCallback">
+            <summary>
+            Delegate for async callbacks.
+            </summary>
+            <param name="rcon"></param>
+            <param name="packet"></param>
+        </member>
+        <member name="T:ServiceStack.Messaging.Rcon.NotConnectedException">
+            <summary>
+            Exception thrown when attempting to send on a non-connected service client.
+            </summary>
+        </member>
         <member name="T:ServiceStack.Common.Support.InMemoryLogFactory">
             <summary>
             Note: InMemoryLog keeps all logs in memory, so don't use it long running exceptions
@@ -284,6 +418,11 @@
             <param name="recursionInfo">Tracks how deeply nested we are</param>
             <returns></returns>
         </member>
+        <member name="T:ServiceStack.Net30.ExtendTuple">
+            <summary>
+            Helper extensions for tuples
+            </summary>
+        </member>
         <member name="M:ServiceStack.Common.Utils.FuncUtils.TryExec(System.Action)">
             <summary>
             Invokes the action provided and returns true if no excpetion was thrown.
@@ -299,10 +438,127 @@
             <param name="type"></param>
             <returns>Namespace of type</returns>
         </member>
+        <member name="T:ServiceStack.Messaging.Rcon.Server">
+            <summary>
+            Hosting services via a binary-safe TCP-based protocol.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.RegisterHandler``1(System.Func{ServiceStack.Messaging.IMessage{``0},System.Object})">
+            <summary>
+            Register DTOs and hanlders the MQ Host will process
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="processMessageFn"></param>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.GetStatus">
+            <summary>
+            Get Total Current Stats for all Message Handlers
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.GetStatsDescription">
+            <summary>
+            Get a Stats dump
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.Start">
+            <summary>
+            Start the MQ Host. Stops the server and restarts if already started.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.Stop">
+            <summary>
+            Stop the MQ Host if not already stopped. 
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.Server.ProcessPacket(System.Byte[],System.Net.Sockets.Socket,ServiceStack.Messaging.Rcon.ClientSocketState)">
+            <summary>
+            Processes a received packet.
+            </summary>
+            <param name="packet">The packet.</param>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Server.MessageFactory">
+            <summary>
+            Factory to create consumers and producers that work with this service
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Packet.FromServer">
+            <summary>
+            True if the packet originated on the server.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Packet.IsResponse">
+            <summary>
+            True if the packet is a response from a sent packet.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Packet.Sequence">
+            <summary>
+            Sequence identifier. Unique to the connection.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.Messaging.Rcon.Packet.Words">
+            <summary>
+            Words.
+            </summary>
+        </member>
         <member name="T:ServiceStack.ServiceModel.Serialization.StringMapTypeDeserializer">
             <summary>
             Serializer cache of delegates required to create a type from a string map (e.g. for REST urls)
             </summary>
+        </member>
+        <member name="T:ServiceStack.Messaging.Rcon.PacketCodec">
+            <summary>
+            Contains methods required for encoding and decoding rcon packets.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.DecodePacket(System.Byte[])">
+            <summary>
+            Decodes a packet.
+            </summary>
+            <param name="packet">The packet.</param>
+            <returns>A packet object.</returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.DecodeHeader(System.Byte[])">
+            <summary>
+            Decodes the packet header.
+            </summary>
+            <param name="packet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.DecodeWords(System.Byte[])">
+            <summary>
+            Decodes words in a packet.
+            </summary>
+            <param name="packet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.EncodePacket(System.Boolean,System.Boolean,System.UInt32,System.Byte[][])">
+            <summary>
+            Encodes a packet for transmission to the server.
+            </summary>
+            <param name="fromServer"></param>
+            <param name="isResponse"></param>
+            <param name="id"></param>
+            <param name="words"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.EncodeHeader(System.Boolean,System.Boolean,System.UInt32)">
+            <summary>
+            Encodes a packet header.
+            </summary>
+            <param name="fromServer"></param>
+            <param name="isResponse"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Messaging.Rcon.PacketCodec.EncodeWords(System.Byte[][])">
+            <summary>
+            Encodes words.
+            </summary>
+            <param name="words"></param>
+            <returns></returns>
         </member>
         <member name="M:ServiceStack.Common.Reflection.PropertyAccessor`1.TypedGetPropertyFn``1">
             <summary>

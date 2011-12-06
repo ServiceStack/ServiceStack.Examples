@@ -127,12 +127,6 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="T:ServiceStack.Messaging.Message`1">
-            <summary>
-            Basic implementation of IMessage[T]
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
         <member name="T:ServiceStack.DataAccess.IBasicPersistenceProvider`1">
             <summary>
             For providers that want a cleaner API with a little more perf
@@ -903,6 +897,11 @@
             Signal that this response has been handled and no more processing should be done
             </summary>
         </member>
+        <member name="M:ServiceStack.ServiceHost.IHttpResponse.Flush">
+            <summary>
+            Response.Flush() and OutputStream.Flush() seem to have different behaviour in ASP.NET
+            </summary>
+        </member>
         <member name="P:ServiceStack.ServiceHost.IHttpResponse.IsClosed">
             <summary>
             Gets a value indicating whether this instance is closed.
@@ -1032,6 +1031,12 @@
             <summary>
             Util class to create unique queue names for runtime types
             </summary>
+        </member>
+        <member name="T:ServiceStack.Messaging.Message`1">
+            <summary>
+            Basic implementation of IMessage[T]
+            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="T:ServiceStack.LogicFacade.IServiceModelFinder">
             <summary>

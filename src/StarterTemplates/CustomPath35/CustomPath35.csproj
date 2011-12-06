@@ -13,6 +13,7 @@
     <RootNamespace>CustomPath35</RootNamespace>
     <AssemblyName>CustomPath35</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,7 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface, Version=1.0.4080.41519, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ServiceStack.ServiceInterface, Version=1.0.4340.22386, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -62,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.htm" />
-    <Content Include="jqunback-1.51.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
