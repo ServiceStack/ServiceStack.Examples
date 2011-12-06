@@ -1,4 +1,131 @@
-#ServiceStack 2.28 Release Notes
+#ServiceStack 3.09 Release Notes
+
+## Latest version of Dapper built-in
+
+Now in ServiceStack is StackOverflow's own [benchmark leading](http://www.servicestack.net/benchmarks/) Micro ORM **[Dapper](http://code.google.com/p/dapper-dot-net/)**.
+This means a fresh NuGet install of ServiceStack now includes the 2 fastest Micro ORMS for .NET! :)
+
+OrmLite and Dapper are very similar in design in that they're simply useful extension methods on ADO.NET's `System.Data.*` interfaces, the difference being Dapper has extension methods of `IDbConnection` whilst OrmLite methods hangs off the lower `IDbCommand`. And because they both make use of 'clean POCOs' - they can be used interchangibly together on the same DB connection. This also allows them to both make use of `OrmLiteConnectionFactory` to configure connection manager over your DB ConnectionString.
+
+## Mvc Mini Profiler now baked in
+
+We've made ServiceStack's [HTML5 JSON Report Format](https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat) even better by now including the excellent [Mvc Mini Profiler](http://code.google.com/p/mvc-mini-profiler/) - by [@jarrod_dixon](https://twitter.com/jarrod_dixon) and [@samsaffron](https://twitter.com/samsaffron).
+It's the same profiler used to profile and help speed up sites like [Stack Overflow](http://www.stackoverflow.com) and more recently the much faster [NuGet v2.0](http://nuget.org) website.
+
+As the MVC Mini Profiler is optimized for a .NET 4.0 MVC app, we've made some changes in order to integrate it into ServiceStack:
+  
+  - Make it work in .NET 3.0 by backporting .NET 4.0 classes into **ServiceStack.Net30** namespace (Special thanks to OSS! :)
+    - Using Mono's **ConcurrentDictionary** classes
+    - Using [Lokad.com's Tuples](http://code.google.com/p/lokad-shared-libraries/source/browse/Source/Lokad.Shared/Tuples/Tuple.cs)
+  - Switched to using ServiceStack's much faster [Json Serializer](http://www.servicestack.net/docs/text-serializers/json-serializer)
+  - Reduced the overall footprint by replacing the use of jQuery and jQuery.tmpl with a much smaller [jquip (jQuery-in-parts)](https://github.com/mythz/jquip) dependency.
+  - Moved to the **ServiceStack.MiniProfiler** namespace and renamed to **Profiler** to avoid clashing with another Mvc Mini Profiler in the same project
+
+As a side-effect of integrating the Mvc Mini Profiler all ServiceStack .NET 3.0 projects can make use of .NET 4.0's ConcurrentDictionary and Tuple support, hassle free!
+
+### Using the MVC Mini Profiler
+
+Just like the [Normal Mvc Mini Profiler](http://code.google.com/p/mvc-mini-profiler/) you can enable it by starting it in your Global.asax, here's how to enable it for local requests:
+ 
+  protected void Application_BeginRequest(object src, EventArgs e)
+  {
+    if (Request.IsLocal)
+      Profiler.Start();
+  }
+
+  protected void Application_EndRequest(object src, EventArgs e)
+  {
+    Profiler.Stop();
+  }
+
+That's it! Now everytime you view a web service in your browser (locally) you'll see a profiler view of your service broken down in different stages:
+
+![Hello MiniProfiler](http://www.servicestack.net/files/miniprofiler-hello.png)
+
+By default you get to see how long it took ServiceStack to de-serialize your request, run any Request / Response Filters and more importantly how long it took to **Execute** your service.
+
+The profiler includes special support for SQL Profiling that can easily be enabled for OrmLite and Dapper by getting it to use a Profiled Connection using a ConnectionFilter:
+
+  this.Container.Register<IDbConnectionFactory>(c =>
+    new OrmLiteConnectionFactory(
+      "~/App_Data/db.sqlite".MapHostAbsolutePath(),
+      SqliteOrmLiteDialectProvider.Instance) {
+        ConnectionFilter = x => new ProfiledDbConnection(x, Profiler.Current)
+      });
+
+Refer to the [Main MVC MiniProfiler home page](http://code.google.com/p/mvc-mini-profiler/) for instructions on how to configure profiling for Linq2Sql and EntityFramework.
+
+It's also trivial to add custom steps enabling even finer-grained profiling for your services. 
+Here's a [simple web service DB example](https://github.com/ServiceStack/ServiceStack/blob/master/tests/ServiceStack.WebHost.IntegrationTests/Services/ProfilerService.cs) 
+returning a list of Movies using both a simple DB query and a dreaded N+1 query.
+
+  public class MiniProfiler
+  {
+    public string Type { get; set; }
+  }
+
+  public class MiniProfilerService : ServiceBase<MiniProfiler>
+  {
+    public IDbConnectionFactory DbFactory { get; set; }
+
+    protected override object Run(MiniProfiler request)
+    {
+      var profiler = Profiler.Current;
+
+      using (var dbConn = DbFactory.OpenDbConnection())
+      using (var dbCmd = dbConn.CreateCommand())
+      using (profiler.Step("MiniProfiler Service"))
+      {
+        if (request.Type == "n1")
+        {
+          using (profiler.Step("N + 1 query"))
+          {
+            var results = new List<Movie>();
+            foreach (var movie in dbCmd.Select<Movie>())
+            {
+              results.Add(dbCmd.QueryById<Movie>(movie.Id));
+            }
+            return results;
+          }
+        }
+
+        using (profiler.Step("Simple Select all"))
+        {
+          return dbCmd.Select<Movie>();
+        }
+      }
+    }
+  }
+
+Calling the above service normally provides the following Profiler output:
+
+![Simple DB Example](http://www.servicestack.net/files/miniprofiler-simpledb.png)
+
+Whilst calling the service with the **n1** param yields the following warning:
+
+![Simple N+1 DB Example](http://www.servicestack.net/files/miniprofiler-simpledb-n1.png)
+
+In both cases you see the actual SQL statements performed by clicking the **SQL** link. The N+1 query provides shows the following:
+
+![N+1 DB Example SQL Statementes](http://www.servicestack.net/files/miniprofiler-simpledb-n1-sql.png)
+
+Notice the special attention the MVC MiniProfiler team put into identifying **Duplicate** queries - Thanks Guys!
+
+
+## Download v3.09
+
+  * **[Using Nuget to add ServiceStack to an existing ASP.NET or MVC application](http://nuget.org/packages/ServiceStack)**
+  * [Download ServiceStack.Examples projects and Starter Templates](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+  * [Download just the ServiceStack.dlls binaries](https://github.com/ServiceStack/ServiceStack/downloads)
+  * [Other ServiceStack projects available on NuGet](http://www.servicestack.net/docs/framework/nuget)
+
+.
+
+Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
+
+*****
+
+##ServiceStack 2.28 Release Notes
 
 This release includes a few enhancements and catches up on all the pull requests and most of the issues that were submitted 
 since the last release.
@@ -103,18 +230,7 @@ Note: This feature is **automatically** added to all **Abstract/Interface/Object
   - Fix compression bug in `RequestContext.ToOptimizedResult()`
   - byte[] responses are written directly to the response stream with the ContentType: application/octet-stream
 
-## Download
-
-  * [**New users should download ServiceStack.Examples - v2.28**](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
-  * [Existing users can download just the ServiceStack.dlls - v2.28](https://github.com/ServiceStack/ServiceStack/downloads)
-  * [Also available on NuGet](http://www.servicestack.net/docs/framework/nuget)
-
-.
-
-Follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/ServiceStack) for twitter updates
-
 *****
-
 
 ##ServiceStack 2.20 Release Notes
 
