@@ -4,6 +4,8 @@ for twitter updates.
 
 ServiceStack.Text is an independent, dependency-free assembly that contains all of ServiceStack's text processing functionality, including:
 
+Benchmarks for .NET's popular Binary and JSON Serializers are available at: [servicestack.net/benchmarks/](http://www.servicestack.net/benchmarks/)
+
 * [JsonSerializer](http://www.servicestack.net/mythz_blog/?p=344)
 * [TypeSerializer (JSV-Format)](https://github.com/ServiceStack/ServiceStack.Text/wiki/JSV-Format)
 * CsvSerializer

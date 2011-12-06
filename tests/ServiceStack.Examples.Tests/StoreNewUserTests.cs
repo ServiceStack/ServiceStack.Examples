@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceModel.Operations;
 using ServiceStack.Examples.ServiceModel.Types;
@@ -24,13 +24,19 @@ namespace ServiceStack.Examples.Tests
 			using (var dbCmd = dbConn.CreateCommand())
 			{
 				var service = new StoreNewUserService { ConnectionFactory = ConnectionFactory };
-				var response = (StoreNewUserResponse)service.Execute(request);
 
-				Assert.That(response.UserId, Is.EqualTo(1));
+			    var newUserRequest = new StoreNewUser
+			                             {
+			                                 UserName = "StoreNewUser_Test",
+                                             Email = "StoreNewUser@test.com",
+                                             Password = "password"
+			                             };
+                var response = (StoreNewUserResponse)service.Execute(newUserRequest);
 
-				var storedUser = dbCmd.First<User>("UserName = {0}", request.UserName);
-				Assert.That(storedUser.Email, Is.EqualTo(request.Email));
-				Assert.That(storedUser.Password, Is.EqualTo(request.Password));
+                var storedUser = dbCmd.First<User>("UserName = {0}", newUserRequest.UserName);
+                Assert.That(storedUser.Id, Is.EqualTo(response.UserId));
+                Assert.That(storedUser.Email, Is.EqualTo(newUserRequest.Email));
+                Assert.That(storedUser.Password, Is.EqualTo(newUserRequest.Password));
 			}
 		}
 
