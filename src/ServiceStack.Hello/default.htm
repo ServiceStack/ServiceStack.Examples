@@ -146,7 +146,22 @@
      {
      	margin: 0 0 0 10px;
      }
-
+          
+    .nuget-badge pre {
+        background-color: #202020;
+        border: 4px solid #c0c0c0;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        box-shadow: 2px 2px 3px #6e6e6e;
+        color: #e2e2e2;
+        display:block;
+        font: 1.5em 'andale mono', 'lucida console', monospace; 
+        line-height: 1.5em;
+        overflow: auto;
+        padding: 15px;
+        margin-right: 10px;
+    }
     </style>
 </head>
 <body>
@@ -172,9 +187,43 @@
         This tutorial will go through and develop and call a simple Hello world Web Service
         from scratch using <a href="http://www.servicestack.net">Service Stack</a> and VS.NET.
     </p>
+    
+    <h2>Installing via NuGet</h2>
+    <p>
+        If you have NuGet you can skip steps 1 - 3 below by installing one of the NuGet Host packages below:
+    </p>
 
+    <h3>
+        Install ServiceStack at the root path <b style="font-size: 20px">/</b>
+    </h3>
+    <p>
+        Create an empty ASP.NET Web Application and
+    </p>
 
-    <h2>1. Creating your application</h2>
+    <div class="nuget-badge">
+        <p>
+            <pre>PM&gt; Install-Package ServiceStack.Host.AspNet</pre>
+        </p>
+    </div>
+
+    <h3>
+        Install ServiceStack at the custom path <b style="font-size: 20px">/api</b>
+    </h3>
+    <p>
+        Create an empty ASP.NET MVC Web Application and
+    </p>
+
+    <div class="nuget-badge">
+        <p>
+            <pre>PM&gt; Install-Package ServiceStack.Host.Mvc</pre>
+        </p>
+    </div>
+
+    <p>
+        Once installed you can jump to <a href="#view-webservice">Viewing your Web Service</a>.
+    </p>
+
+    <h2>Install Manually - 1. Creating your application</h2>
     <p>
         Create a new ASP.NET Web Application by going into Visual Studio
         and selecting <strong>File -&gt; New -&gt; Project</strong> on the File menu.
@@ -321,7 +370,7 @@
         Done! You now have a working application :)
     </p>
 
-
+    <a name="view-webservice"></a>
     <h1>Viewing your Web Services</h1>
     <p>
         Now that you have a working Web Service lets see what ServiceStack does for you out of the box:
