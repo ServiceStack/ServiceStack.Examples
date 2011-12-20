@@ -10,8 +10,8 @@ namespace ServiceStack.MovieRest
 {
 	[RestService("/reset-movies")]
 	[Description("Resets the database back to the original Top 5 movies.")]
-	[DataContract] public class ResetMovies { }
-	[DataContract] public class ResetMoviesResponse { }
+	public class ResetMovies { }
+	public class ResetMoviesResponse { }
 
 	public class ResetMoviesService : RestServiceBase<ResetMovies>
 	{

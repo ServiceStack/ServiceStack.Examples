@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
+using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
@@ -44,8 +45,7 @@ namespace ServiceStack.MovieRest
 		/// </summary>
 		public override object OnGet(Movie movie)
 		{
-			return new MovieResponse
-			{
+			return new MovieResponse {
 				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(movie.Id))
 			};
 		}
@@ -62,8 +62,7 @@ namespace ServiceStack.MovieRest
 		/// </summary>
 		public override object OnPost(Movie movie)
 		{
-			var newMovieId = DbFactory.Exec(dbCmd =>
-			{
+			var newMovieId = DbFactory.Exec(dbCmd => {
 				dbCmd.Insert(movie);
 				return dbCmd.GetLastInsertId();
 			});
@@ -72,8 +71,7 @@ namespace ServiceStack.MovieRest
 				Movie = DbFactory.Exec(dbCmd => dbCmd.GetById<Movie>(newMovieId))
 			};
 
-			return new HttpResult(newMovie)
-			{
+			return new HttpResult(newMovie) {
 				StatusCode = HttpStatusCode.Created,
 				Headers = {
 					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + newMovieId }
@@ -106,8 +104,10 @@ namespace ServiceStack.MovieRest
 		public string Genre { get; set; }
 	}
 
+	[DataContract]
 	public class MoviesResponse
 	{
+		[DataMember]
 		public List<Movie> Movies { get; set; }
 	}
 
@@ -121,12 +121,12 @@ namespace ServiceStack.MovieRest
 		/// </summary>
 		public override object OnGet(Movies request)
 		{
-			return new MoviesResponse
-			{
-				Movies = request.Genre.IsNullOrEmpty()
-					? DbFactory.Exec(dbCmd => dbCmd.Select<Movie>())
-					: DbFactory.Exec(dbCmd => dbCmd.Select<Movie>("Genres LIKE {0}", "%" + request.Genre + "%"))
-			};
+			return DbFactory.Exec(dbCmd =>
+				new MoviesResponse {
+					Movies = request.Genre.IsNullOrEmpty()
+						? dbCmd.Select<Movie>()
+						: dbCmd.Select<Movie>("Genres LIKE {0}", "%" + request.Genre + "%")
+				});
 		}
 	}
 
