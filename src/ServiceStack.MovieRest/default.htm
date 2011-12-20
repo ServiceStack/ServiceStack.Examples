@@ -141,8 +141,9 @@
                 });
                 $.ajax({
                     url: $("FORM").attr("action"),
-                	type: "POST",
+                    type: "POST",
                     data: data,
+                    dataType: "json",
                     success: function ()
                     {
                         restLog($('FORM').attr('method'), $('FORM').attr('action'));

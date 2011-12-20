@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,8 +98,7 @@
     <Content Include="Global.asax" />
     <Content Include="img\bg-body-1024.png" />
     <Content Include="img\btn-github.png" />
-    <Content Include="jquery-1.4.2.min.js" />
-    <Content Include="jquery.form.js" />
+    <Content Include="jquery-1.7.1.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
