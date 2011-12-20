@@ -8,11 +8,13 @@
     <script type="text/javascript" src="jquery.form.js"></script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function ()
+        {
 
-            $.ajaxSetup({ cache:false });
+            $.ajaxSetup({ cache: false });
 
-            var restLog = function(method, url) {
+            var restLog = function (method, url)
+            {
                 //if (url.indexOf('?format') == -1) url += '?format=json';
                 if (method == "GET") url = '<a href="' + url + '" target="_blank">' + url + '</a>';
                 $("#restlog").prepend("<div><b class='ib'>" + method + "</b><i>" + url + "</i></div>");
@@ -20,15 +22,18 @@
 
             var allGenres = [];
 
-            var refreshExistingMovies = function() {
+            var refreshExistingMovies = function ()
+            {
                 var moviesUrl = "movies", jqFilter = $("SELECT[name=genres]"), filterGenre = jqFilter.val();
                 if (filterGenre) moviesUrl += "/genres/" + filterGenre;
 
                 restLog("GET", moviesUrl);
-                $.getJSON(moviesUrl, function(r) {
+                $.getJSON(moviesUrl, function (r)
+                {
 
                     var html = "";
-                    for (var i = 0; i < r.Movies.length; i++) {
+                    for (var i = 0; i < r.Movies.length; i++)
+                    {
                         var movie = r.Movies[i];
                         html += "<dd id='" + movie.Id + "'>"
                                  + "<label class='ib'>" + movie.Title + "</label>"
@@ -36,11 +41,13 @@
                                  + "<span class='ib lnk-delete'>delete</span>"
                         "</dd>";
 
-                        $.each(movie.Genres, function(i, genre) {
+                        $.each(movie.Genres, function (i, genre)
+                        {
                             if ($.inArray(genre, allGenres) == -1) allGenres.push(genre);
                         });
                         var genreHtml = '<option class="first" value="">[ All Genres ]</option>';
-                        $.each(allGenres, function(i, genre) {
+                        $.each(allGenres, function (i, genre)
+                        {
                             var selected = filterGenre == genre ? ' selected="selected"' : '';
                             genreHtml += '<option value="' + genre + '"' + selected + '>' + genre + '</option>';
                         });
@@ -50,36 +57,43 @@
                     $("#existing-movies").html(html);
 
 
-                    $("#existing-movies .lnk-delete").click(function() {
+                    $("#existing-movies .lnk-delete").click(function ()
+                    {
                         var request = { type: 'delete', url: "movies/" + $(this).parent().attr('id') };
                         restLog("DELETE", request.url);
                         request.success = refreshExistingMovies;
                         $.ajax(request);
                     });
 
-                    $("#existing-movies .lnk-update").click(function() {
+                    $("#existing-movies .lnk-update").click(function ()
+                    {
                         var movieId = $(this).parent().attr('id');
 
                         restLog("GET", "movies/" + movieId);
-                        $.getJSON("movies/" + movieId, function(r) {
+                        $.getJSON("movies/" + movieId, function (r)
+                        {
                             showDetailsForm(r.Movie);
                         });
                     });
                 });
             };
 
-            $("SELECT[name=genres]").change(function() {
+            $("SELECT[name=genres]").change(function ()
+            {
                 refreshExistingMovies();
             });
 
-            $("#btnReset").click(function() {
+            $("#btnReset").click(function ()
+            {
                 restLog("POST", "reset-movies");
-                $.post("reset-movies", function(r) {
+                $.post("reset-movies", function (r)
+                {
                     refreshExistingMovies();
                 });
             });
 
-            var showDetailsForm = function(updateMovie) {
+            var showDetailsForm = function (updateMovie)
+            {
                 var isUpdate = !!updateMovie;
                 var newMovie =
                 {
@@ -103,7 +117,8 @@
                 var title = isUpdate ? "Update " + movie.Title : "Add a new movie";
                 $("FORM H2").html(title);
 
-                for (var name in movie) {
+                for (var name in movie)
+                {
                     $("INPUT[name=" + name + "]").val(movie[name]);
                 }
                 var date = typeof movie['ReleaseDate'] == 'string'
@@ -114,17 +129,22 @@
                 $("FORM").fadeIn('fast');
             };
 
-            $("#btnAdd").click(function() {
+            $("#btnAdd").click(function ()
+            {
                 showDetailsForm();
             });
 
-            $('FORM').ajaxForm(function() {
-                restLog($('FORM').attr('method'), $('FORM').attr('action'));
-                $("FORM").hide();
-                refreshExistingMovies();
+            $('FORM').ajaxForm({
+                success: function ()
+                {
+                    restLog($('FORM').attr('method'), $('FORM').attr('action'));
+                    $("FORM").hide();
+                    refreshExistingMovies();
+                } 
             });
 
-            $("#csvformat B").click(function() {
+            $("#csvformat B").click(function ()
+            {
                 restLog("GET", "movies?format=csv");
                 location.href = "movies?format=csv";
             });
