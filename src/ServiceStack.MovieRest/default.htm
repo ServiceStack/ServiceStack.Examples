@@ -5,7 +5,6 @@
 
     <link href="default.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="jquery.form.js"></script>
 
     <script type="text/javascript">
         $(function ()
@@ -129,21 +128,32 @@
                 $("FORM").fadeIn('fast');
             };
 
-            $("#btnAdd").click(function ()
-            {
+            $("#btnAdd").click(function() {
                 showDetailsForm();
             });
 
-            $('FORM').ajaxForm({
-                success: function ()
-                {
-                    restLog($('FORM').attr('method'), $('FORM').attr('action'));
-                    $("FORM").hide();
-                    refreshExistingMovies();
-                } 
+            $("FORM").submit(function (e) {
+                e.preventDefault();
+                
+                var data = {};
+                $("FORM INPUT[type=text]").each(function(){
+                    data[this.name] = this.value;
+                });
+                $.ajax({
+                    url: $("FORM").attr("action"),
+                	type: "POST",
+                    data: data,
+                    success: function ()
+                    {
+                        restLog($('FORM').attr('method'), $('FORM').attr('action'));
+                        $("FORM").hide();
+                        refreshExistingMovies();
+                    }
+                });
             });
-
-            $("#csvformat B").click(function ()
+        	
+            
+        	$("#csvformat B").click(function ()
             {
                 restLog("GET", "movies?format=csv");
                 location.href = "movies?format=csv";
