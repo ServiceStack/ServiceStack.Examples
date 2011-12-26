@@ -188,6 +188,7 @@
         from scratch using <a href="http://www.servicestack.net">Service Stack</a> and VS.NET.
     </p>
     
+    <a name="nuget"></a>
     <h2>Installing via NuGet</h2>
     <p>
         If you have NuGet you can skip steps 1 - 3 below by installing one of the NuGet Host packages below:
@@ -223,6 +224,7 @@
         Once installed, you can explore ServiceStack features at <a href="#view-webservice">Viewing your Web Service</a>.
     </p>
 
+    <a name="manual"></a>
     <h2>Install Manually - 1. Creating your application</h2>
     <p>
         Create a new ASP.NET Web Application by going into Visual Studio
@@ -302,6 +304,7 @@
 	To avoid conflicts with ASP.NET MVC add ignore rule in Global.asax RegisterRoutes method e.g: <b>routes.IgnoreRoute ("servicestack/{*pathInfo}");</b>
 </p>
 
+    <a name="create"></a>
     <h2>3. Creating your first Web Service</h2>
 
     <p>
@@ -435,6 +438,7 @@
     </div>
 
 
+    <a name="predefinedroutes"></a>
     <h2>XML, JSON,
     <a href="https://github.com/ServiceStack/ServiceStack/wiki/HTML5ReportFormat">HTML5</a>,
     <a href="https://github.com/ServiceStack/ServiceStack.Text/wiki/JSV-Format">JSV</a>,
@@ -621,6 +625,7 @@
     </p>
 
 
+    <a name="customroutes"></a>
     <h2>REST Web Services</h2>
     <p>
         A new addition to Service Stack is the ability to define your own custom urls letting you
@@ -667,6 +672,57 @@
         without messy configuration and generated code mandated by other options.
     </p>
 
+    <a name="calling"></a>
+    <h2>Calling Web Services from Code</h2>
+    <p>
+        Using DTOs to define your web service interface makes it possible to provide strong-typed generic service clients without any code-gen or extra build-steps,
+        leading to a productive end-to-end type-safe communication gateway from client to server.
+    </p>
+    <p>
+        C#/.NET Clients can call the above Hello Service using any of the 
+        <a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/ServiceClient.Web/">JSON, JSV, XML or SOAP Service Clients</a>
+        with the code below:
+    </p>
+
+<code class="csharp">var response = client.Send&lt;HelloResponse&gt;(new Hello { Name = "World!" });
+Console.WriteLine(response.Result); // => Hello, World
+</code>
+    <h4>Async Example</h4>
+<code class="csharp">client.SendAsync&lt;HelloResponse&gt;(new Hello { Name = "World!" },
+    r => Console.WriteLine(r.Result), (r, ex) => { throw ex; });
+</code>
+
+    <p>
+        The Service Clients use the automatic <a href="#predefinedroutes">Pre-Defined Routes above</a>. 
+    </p>
+    <p>
+        In addition, the Service Clients also provide HTTP Verbs (Get, Post &amp; PostFile, Put, Delete) letting you call custom user-defined routes REST-fully e.g:
+    </p>
+
+<code class="csharp">var response = client.Get&lt;HelloResponse&gt;("/hello/World!");
+Console.WriteLine(response.Result); // => Hello, World
+</code>
+    <h4>Async Example</h4>
+<code class="csharp">client.GetAsync&lt;HelloResponse&gt;("/hello/World!",
+    r => Console.WriteLine(r.Result), (r, ex) => { throw ex; });
+</code>
+    
+    <h3>MonoTouch</h3>
+    <p>
+        Due to iOS's <a href="http://docs.xamarin.com/ios/about/limitations">No-JIT restrictions</a>, MonoTouch apps will need to use these 
+        <a href="https://github.com/ServiceStack/ServiceStack/tree/master/release/latest/MonoTouch">custom builds of ServiceStack's Serializers and Service Clients</a>.        
+    </p>
+
+    <h3>JavaScript</h3>
+    <p>
+        As ServiceStack returns 'clean responses' (i.e. your Serialized DTOs as-is), it can easily be called with other existing Http or Ajax clients, e.g. using jQuery:
+    </p>
+<code class="csharp">$.getJSON('servicestack/hello/World!', function(r){ 
+    alert(r.Result); 
+});
+</code>
+    <button onclick="$.getJSON('servicestack/hello/World!', function(r){ alert(r.Result); });">Try It</button>
+
     <h1>Download the code</h1>
     <p>
         Hopefully this tutorial shows just how easy it is to get started and quickly build
@@ -684,7 +740,7 @@
         <a id="mono" href="http://www.mono-project.com"><img src="img/Mono-powered-big.png" alt="powered by mono" /></a>
     </p>
 
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-7722718-7']);
