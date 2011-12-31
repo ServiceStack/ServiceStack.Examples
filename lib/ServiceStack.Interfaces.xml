@@ -177,9 +177,57 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IHttpRequest">
+            <summary>
+            A thin wrapper around ASP.NET or HttpListener's HttpRequest
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHttpRequest.TryResolve``1">
+            <summary>
+            Resolve a dependency from the AppHost's IOC
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHttpRequest.GetRawBody">
+            <summary>
+            The entire string contents of Request.InputStream
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.OriginalRequest">
+            <summary>
+            The underlying ASP.NET or HttpListener HttpRequest
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.OperationName">
+            <summary>
+            The name of the service being called (e.g. Request DTO Name)
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.ContentType">
+            <summary>
+            The request ContentType
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.ResponseContentType">
+            <summary>
+            The expected Response ContentType for this request
+            </summary>
+        </member>
         <member name="P:ServiceStack.ServiceHost.IHttpRequest.Items">
             <summary>
             Attach any data to this request that all filters and services can access.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.IsSecureConnection">
+            <summary>
+            e.g. is https or not
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpRequest.Files">
+            <summary>
+            Access to the multi-part/formdata files posted on this request
             </summary>
         </member>
         <member name="M:ServiceStack.Redis.IRedisSubscription.SubscribeToChannels(System.String[])">
@@ -892,14 +940,25 @@
             The source type is what the type the attribute is decorated on which can only be resolved at runtime.
             </summary>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IHttpResponse">
+            <summary>
+            A thin wrapper around ASP.NET or HttpListener's HttpResponse
+            </summary>
+        </member>
         <member name="M:ServiceStack.ServiceHost.IHttpResponse.Close">
             <summary>
-            Signal that this response has been handled and no more processing should be done
+            Signal that this response has been handled and no more processing should be done.
+            When used in a request or response filter, no more filters or processing is done on this request.
             </summary>
         </member>
         <member name="M:ServiceStack.ServiceHost.IHttpResponse.Flush">
             <summary>
             Response.Flush() and OutputStream.Flush() seem to have different behaviour in ASP.NET
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHttpResponse.OriginalResponse">
+            <summary>
+            The underlying ASP.NET or HttpListener HttpResponse
             </summary>
         </member>
         <member name="P:ServiceStack.ServiceHost.IHttpResponse.IsClosed">
@@ -929,6 +988,19 @@
             <summary>
             Returns a ReadOnly ICacheClient using the hosts defined in ReadOnlyHosts.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ServiceStack.CacheAccess.ISessionFactory">
+            <summary>
+            Retrieves a User Session
+            </summary>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.ISessionFactory.GetOrCreateSession(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse)">
+            <summary>
+            Gets the session for this request, creates one if it doesn't exist.
+            </summary>
+            <param name="httpReq"></param>
+            <param name="httpRes"></param>
             <returns></returns>
         </member>
         <member name="T:ServiceStack.CacheAccess.ICacheClient">
@@ -1081,6 +1153,34 @@
             Logs the specified message.
             </summary>
             <param name="message">The message.</param>
+        </member>
+        <member name="T:ServiceStack.CacheAccess.ISession">
+            <summary>
+            A Users Session
+            </summary>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.ISession.Set``1(System.String,``0)">
+            <summary>
+            Set a typed value at key
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.ISession.Get``1(System.String)">
+            <summary>
+            Get a typed value at key
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ServiceStack.CacheAccess.ISession.Item(System.String)">
+            <summary>
+            Store any object at key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:ServiceStack.ServiceHost.ServiceAttribute">
             <summary>

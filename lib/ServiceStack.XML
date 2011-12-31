@@ -1656,13 +1656,13 @@
             <summary>
             When <see cref="M:ServiceStack.MiniProfiler.Profiler.Start(ServiceStack.MiniProfiler.ProfileLevel)"/> is called, if the current request url contains any items in this property,
             no profiler will be instantiated and no results will be displayed.
-            Default value is { "/mini-profiler-", "/content/", "/scripts/", "/favicon.ico" }.
+            Default value is { "/ss-", "/content/", "/scripts/", "/favicon.ico" }.
             </summary>
         </member>
         <member name="P:ServiceStack.MiniProfiler.Profiler.Settings.RouteBasePath">
             <summary>
             The path under which ALL routes are registered in, defaults to the application root.  For example, "~/myDirectory/" would yield
-            "/myDirectory/mini-profiler-includes.js" rather than just "/mini-profiler-includes.js"
+            "/myDirectory/ss-includes.js" rather than just "/mini-profiler-includes.js"
             Any setting here should be in APP RELATIVE FORM, e.g. "~/myDirectory/"
             </summary>
         </member>
