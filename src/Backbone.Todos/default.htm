@@ -60,9 +60,9 @@
     <!-- Templates -->
 
     <script type="text/template" id="item-template">
-      <div class="todo <%= Done ? 'Done' : '' %>">
+      <div class="todo <%= done ? 'done' : '' %>">
         <div class="display">
-          <input class="check" type="checkbox" <%= Done ? 'checked="checked"' : '' %> />
+          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
           <div class="todo-content"></div>
           <span class="todo-destroy"></span>
         </div>
@@ -73,24 +73,22 @@
     </script>
 
     <script type="text/template" id="stats-template">
-      <% if (Total) { %>
+      <% if (total) { %>
         <span class="todo-count">
-          <span class="number"><%= Remaining %></span>
-          <span class="word"><%= Remaining == 1 ? 'item' : 'items' %></span> left.
+          <span class="number"><%= remaining %></span>
+          <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
         </span>
       <% } %>
-      <% if (Done) { %>
+      <% if (done) { %>
         <span class="todo-clear">
           <a href="#">
-            Clear <span class="number-done"><%= Done %></span>
-            completed <span class="word-done"><%= Done == 1 ? 'item' : 'items' %></span>
+            Clear <span class="number-done"><%= done %></span>
+            completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span>
           </a>
         </span>
       <% } %>
     </script>
-
-
-
+    
 <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-7722718-7']);

@@ -41,6 +41,11 @@ namespace Backbone.Todos
 			return todo;
 		}
 
+		public override object OnPut(Todo request)
+		{
+			return OnPost(request);
+		}
+
 		public override object OnDelete(Todo request)
 		{
 			RedisManager.ExecAs<Todo>(r => r.DeleteById(request.Id));
@@ -56,6 +61,9 @@ namespace Backbone.Todos
 
 		public override void Configure(Funq.Container container)
 		{
+			//Set JSON web services to return idiomatic JSON camelCase properties
+			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
+
 			//Register Redis factory in Funq IOC
 			container.Register<IRedisClientsManager>(new BasicRedisClientManager("localhost:6379"));
 
