@@ -4,7 +4,7 @@ for twitter updates.
 
 #Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
-# Download
+## Download
 
 You can find the latest releases for download at:
 
