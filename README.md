@@ -4,6 +4,13 @@ for twitter updates.
 
 #Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
+# Download
+
+You can find the latest releases for download at:
+
+* [ServiceStack.Examples/downloads](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+
+
 ## Live Demo
 
 A live demo and tutorials are available at the following locations:
@@ -33,13 +40,6 @@ A live demo and tutorials are available at the following locations:
 * [Calling SOAP 1.2 Web Service Examples](http://servicestack.net/ServiceStack.Examples.Clients/Soap12.aspx)
 
 _All live examples hosted on CentOS/Nginx/FastCGI/Mono_
-
-# Download
-
-You can find the latest releases for download at:
-
-* [ServiceStack.Examples/downloads](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
-
 
 ### Troubleshooting
 
