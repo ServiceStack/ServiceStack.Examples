@@ -11,3 +11,5 @@ These starter templates show the default configuration required to run ServiceSt
 Run run the script below to start the hosts above on VS.NET WebDev.WebServer.EXE at ports 5001-5004:
 start_vs2010_webserver.bat
 
+When embedding static files in a Console or Windows Service host, remember to set the Build Action = "Content" and Copy to Output Directory settings.
+
