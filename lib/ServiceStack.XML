@@ -145,6 +145,69 @@
             inbound requests.
             </summary>
         </member>
+        <member name="T:ServiceStack.WebHost.Endpoints.IAppHost">
+            <summary>
+            ASP.NET or HttpListener ServiceStack host
+            </summary>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.Register``1(``0)">
+            <summary>
+            Register dependency in AppHost IOC on Startup
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.RegisterAs``2">
+            <summary>
+            AutoWired Registration of an interface with a concrete type in AppHost IOC on Startup.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TAs"></typeparam>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.TryResolve``1">
+            <summary>
+            Resolve a dependency from the AppHost IOC
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.RegisterService(System.Type,System.String[])">
+            <summary>
+            Register an Adhoc web service on Startup
+            </summary>
+            <param name="serviceType"></param>
+            <param name="atRestPaths"></param>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ContentTypeFilters">
+            <summary>
+            Register custom ContentType serializers
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.RequestFilters">
+            <summary>
+            Add Request Filters
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ResponseFilters">
+            <summary>
+            Add Response Filters
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.HtmlProviders">
+            <summary>
+            Add alternative HTML View Engines
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.CatchAllHandlers">
+            <summary>
+            Provide a catch-all handler that doesn't match any routes
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.Config">
+            <summary>
+            The AppHost config
+            </summary>
+        </member>
         <member name="M:ServiceStack.WebHost.Endpoints.Support.HttpListenerBase.Start(System.String)">
             <summary>
             Starts the Web Service
@@ -2219,6 +2282,24 @@
 		</summary><typeparam name="TService">Type of the service to retrieve.</typeparam><typeparam name="TArg1">First argument to pass to the factory delegate that may create the instace.</typeparam><typeparam name="TArg2">Second argument to pass to the factory delegate that may create the instace.</typeparam><typeparam name="TArg3">Third argument to pass to the factory delegate that may create the instace.</typeparam><typeparam name="TArg4">Fourth argument to pass to the factory delegate that may create the instace.</typeparam><typeparam name="TArg5">Fifth argument to pass to the factory delegate that may create the instace.</typeparam><typeparam name="TArg6">Sixth argument to pass to the factory delegate that may create the instace.</typeparam><returns>
 			The resolved service instance or <see langword="null"/> if it cannot be resolved.
 		</returns>
+        </member>
+        <member name="M:Funq.Container.RegisterAutoWired``1">
+            <summary>
+            Register an autowired dependency
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Funq.Container.RegisterAutoWiredAs``2">
+            <summary>
+            Register an autowired dependency as a separate type
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Funq.Container.RegisterAs``2">
+            <summary>
+            Alias for RegisterAutoWiredAs
+            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="P:Funq.Container.DefaultOwner">
             <summary>

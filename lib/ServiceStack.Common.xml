@@ -433,6 +433,31 @@
             <param name="action">The action.</param>
             <returns></returns>
         </member>
+        <member name="M:ServiceStack.Common.Utils.PathUtils.MapProjectPath(System.String)">
+            <summary>
+            Maps the path of a file in the context of a VS project
+            </summary>
+            <param name="relativePath">the relative path</param>
+            <returns>the absolute path</returns>
+            <remarks>Assumes static content is two directories above the /bin/ directory,
+            eg. in a unit test scenario  the assembly would be in /bin/Debug/.</remarks>
+        </member>
+        <member name="M:ServiceStack.Common.Utils.PathUtils.MapAbsolutePath(System.String)">
+            <summary>
+            Maps the path of a file in a self-hosted scenario
+            </summary>
+            <param name="relativePath">the relative path</param>
+            <returns>the absolute path</returns>
+            <remarks>Assumes static content is copied to /bin/ folder with the assemblies</remarks>
+        </member>
+        <member name="M:ServiceStack.Common.Utils.PathUtils.MapHostAbsolutePath(System.String)">
+            <summary>
+            Maps the path of a file in an Asp.Net hosted scenario
+            </summary>
+            <param name="relativePath">the relative path</param>
+            <returns>the absolute path</returns>
+            <remarks>Assumes static content is in the parent folder of the /bin/ directory</remarks>
+        </member>
         <member name="M:ServiceStack.ServiceModel.Support.XmlSerializerWrapper.GetNamespace(System.Type)">
             <summary>
             Gets the namespace from an attribute marked on the type's definition

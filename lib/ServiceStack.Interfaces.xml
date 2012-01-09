@@ -276,6 +276,20 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IHasRequestFilter">
+            <summary>
+            This interface can be implemented by an attribute
+            which adds an request filter for the specific request DTO the attribute marked.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHasRequestFilter.RequestFilter(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse,System.Object)">
+            <summary>
+            The request filter is executed before the service.
+            </summary>
+            <param name="req">The http request wrapper</param>
+            <param name="res">The http response wrapper</param>
+            <param name="requestDto">The request DTO</param>
+        </member>
         <member name="T:ServiceStack.Logging.Support.Logging.TestLogger">
             <summary>
             Tests logger which  stores all log messages in a member list which can be examined later
@@ -1003,6 +1017,20 @@
             <param name="httpRes"></param>
             <returns></returns>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IHasResponseFilter">
+            <summary>
+            This interface can be implemented by an attribute
+            which adds an response filter for the specific response DTO the attribute marked.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHasResponseFilter.ResponseFilter(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse,System.Object)">
+            <summary>
+            The response filter is executed after the service
+            </summary>
+            <param name="req">The http request wrapper</param>
+            <param name="res">The http response wrapper</param>
+            <param name="requestDto">The response DTO</param>
+        </member>
         <member name="T:ServiceStack.CacheAccess.ICacheClient">
             <summary>
             A common interface implementation that is implemeneted by most cache providers
@@ -1250,6 +1278,20 @@
             Initializes a new instance of the <see cref="T:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus"/> class.
             
             A response status without an errorcode == success
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus"/> class.
+            
+            A response status with an errorcode == failure
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus"/> class.
+            
+            A response status with an errorcode == failure
             </summary>
         </member>
         <member name="P:ServiceStack.ServiceInterface.ServiceModel.ResponseStatus.ErrorCode">
