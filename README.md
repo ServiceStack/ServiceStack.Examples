@@ -27,6 +27,9 @@ A live demo and tutorials are available at the following locations:
 ### [Creating a StackOverflow-like app in Redis](http://servicestack.net/RedisStackOverflow/)
 [![Redis StackOverflow](http://servicestack.net/showcase/img/redisstackoverflow-400x350.png)](http://servicestack.net/RedisStackOverflow/)
 
+### [Northwind dataset services](http://servicestack.net/ServiceStack.Northwind/)
+[![Redis StackOverflow](http://servicestack.net/showcase/img/northwind-400x350.png)](http://servicestack.net/ServiceStack.Northwind/)
+
 ### [Complete REST Web service example](http://servicestack.net/ServiceStack.MovieRest/)
 [![REST at the Movies!](http://servicestack.net/showcase/img/movierest-400x350.png)](http://servicestack.net/ServiceStack.MovieRest/)
 
