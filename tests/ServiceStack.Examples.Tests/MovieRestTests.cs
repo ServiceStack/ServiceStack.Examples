@@ -16,7 +16,7 @@ namespace ServiceStack.Examples.Tests
         [SetUp]
         public void SetUp()
         {
-            ConfigureDatabase.ReinitializeDatabase();
+            //ConfigureDatabase.Init();
         }
 
 	    [Test]
