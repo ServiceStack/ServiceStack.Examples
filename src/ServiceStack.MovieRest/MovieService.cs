@@ -9,10 +9,13 @@ using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
+using ServiceStack.ServiceHost;
 
 namespace ServiceStack.MovieRest
 {
 	[Description("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
+	[RestService("/movies", "POST,PUT,PATCH")]
+	[RestService("/movies/{Id}")]
 	public class Movie
 	{
 		public Movie()
@@ -84,7 +87,7 @@ namespace ServiceStack.MovieRest
 		/// </summary>
 		public override object OnPut(Movie movie)
 		{
-			DbFactory.Exec(dbCmd => dbCmd.Save(movie));
+			DbFactory.Exec(dbCmd => dbCmd.Update(movie));
 			return null;
 		}
 
@@ -99,6 +102,8 @@ namespace ServiceStack.MovieRest
 	}
 
 	[Description("Find movies by genre, or all movies if no genre is provided")]
+	[RestService("/movies", "GET, OPTIONS")]
+	[RestService("/movies/genres/{Genre}")]
 	public class Movies
 	{
 		public string Genre { get; set; }
