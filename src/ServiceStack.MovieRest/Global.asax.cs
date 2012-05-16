@@ -24,10 +24,22 @@ namespace ServiceStack.MovieRest
 			resetMovies.Post(null);
 
 			Routes
-			  .Add<Movie>("/movies", "POST,PUT")
+			  .Add<Movie>("/movies")
 			  .Add<Movie>("/movies/{Id}")
 			  .Add<Movies>("/movies")
 			  .Add<Movies>("/movies/genres/{Genre}");
+
+			SetConfig(new EndpointHostConfig
+			{
+				GlobalResponseHeaders = {
+						{ "Access-Control-Allow-Origin", "*" },
+						{ "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
+						{ "Access-Control-Allow-Headers", "Content-Type, X-Requested-With" },
+					},
+					//EnableFeatures = onlyEnableFeatures,
+					//DebugMode = true, //Show StackTraces for easier debugging
+			});
+
 		}
 	}
 
