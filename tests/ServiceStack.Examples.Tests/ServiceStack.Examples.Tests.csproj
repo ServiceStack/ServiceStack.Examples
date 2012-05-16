@@ -76,9 +76,6 @@
     <Reference Include="ServiceStack.OrmLite.Sqlite">
       <HintPath>..\..\lib\ServiceStack.OrmLite.Sqlite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceClient.Web">
-      <HintPath>..\..\lib\ServiceStack.ServiceClient.Web.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>

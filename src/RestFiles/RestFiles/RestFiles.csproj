@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A8D2349-6E97-47A2-AC49-EFE7D89C0344}</ProjectGuid>
+    <ProjectGuid>{70B9EEDE-BC2A-42EB-933D-A94D7D4275CB}</ProjectGuid>
     <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,7 +102,6 @@
     <Content Include="img\Mozilla_logo.png" />
     <Content Include="img\Opera_logo.png" />
     <Content Include="img\public.png" />
-    <Content Include="img\rip-ie6.jpg" />
     <Content Include="img\row_bg.png" />
     <Content Include="img\Safari_logo.jpg" />
     <Content Include="img\txt.png" />
