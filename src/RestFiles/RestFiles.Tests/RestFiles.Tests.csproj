@@ -69,9 +69,6 @@
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceClient.Web">
-      <HintPath>..\..\..\lib\ServiceStack.ServiceClient.Web.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
