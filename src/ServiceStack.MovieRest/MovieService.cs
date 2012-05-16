@@ -14,7 +14,7 @@ using ServiceStack.ServiceHost;
 namespace ServiceStack.MovieRest
 {
 	[Description("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
-	[RestService("/movies", "POST,PUT,PATCH")]
+	[RestService("/movies", "POST,PUT,PATCH,DELETE")]
 	[RestService("/movies/{Id}")]
 	public class Movie
 	{
@@ -88,7 +88,14 @@ namespace ServiceStack.MovieRest
 		public override object OnPut(Movie movie)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.Update(movie));
-			return null;
+
+			return new HttpResult()
+			{
+				StatusCode = HttpStatusCode.NoContent,
+				Headers = {
+					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + movie.Id }
+				}
+			};
 		}
 
 		/// <summary>
@@ -97,7 +104,14 @@ namespace ServiceStack.MovieRest
 		public override object OnDelete(Movie request)
 		{
 			DbFactory.Exec(dbCmd => dbCmd.DeleteById<Movie>(request.Id));
-			return null;
+
+			return new HttpResult()
+			{
+				StatusCode = HttpStatusCode.NoContent,
+				Headers = {
+					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + request.Id }
+				}
+			};
 		}
 	}
 
