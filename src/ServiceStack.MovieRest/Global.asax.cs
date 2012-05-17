@@ -3,6 +3,7 @@ using Funq;
 using ServiceStack.Common.Utils;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
+using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.MovieRest
@@ -15,6 +16,8 @@ namespace ServiceStack.MovieRest
 
 		public override void Configure(Container container)
 		{
+			JsConfig.DateHandler = JsonDateHandler.ISO8601;	
+
 			container.Register<IDbConnectionFactory>(c =>
 				new OrmLiteConnectionFactory(
 					"~/App_Data/db.sqlite".MapHostAbsolutePath(),
