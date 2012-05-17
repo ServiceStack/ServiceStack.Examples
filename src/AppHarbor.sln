@@ -86,8 +86,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs", "Docs\Docs.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs.Logic", "Docs\Docs.Logic\Docs.Logic.csproj", "{2A606EB5-47BD-47B1-97EB-8C208DF63ABF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_the first project is the working site in AppHarbor", "_the first project is the working site in AppHarbor", "{6E61A14F-68C6-4566-AF0E-90CEE30F43A3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -428,7 +426,6 @@ Global
 		{BDE04BD3-40A0-4B8E-A0B9-7729FFB7D1C2} = {79CD1278-66D5-458A-B75D-06EF4CC050A9}
 		{19ADDEEC-EAF9-4B42-8EEC-86CD389D834F} = {ABD851F4-394B-4999-BCD2-12CE41BEFE9D}
 		{2A606EB5-47BD-47B1-97EB-8C208DF63ABF} = {ABD851F4-394B-4999-BCD2-12CE41BEFE9D}
-		{D217E359-75BD-4875-817A-40A4819C4E83} = {6E61A14F-68C6-4566-AF0E-90CEE30F43A3}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = ..\Client\RemoteInfoClient\RemoteInfoClient.csproj
