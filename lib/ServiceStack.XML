@@ -164,12 +164,12 @@
             <typeparam name="T"></typeparam>
             <typeparam name="TAs"></typeparam>
         </member>
-        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.TryResolve``1">
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.Release(System.Object)">
             <summary>
-            Resolve a dependency from the AppHost IOC
+            Allows the clean up for executed autowired services and filters.
+            Calls directly after services and filters are executed.
             </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
+            <param name="instance"></param>
         </member>
         <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.RegisterService(System.Type,System.String[])">
             <summary>
@@ -177,6 +177,12 @@
             </summary>
             <param name="serviceType"></param>
             <param name="atRestPaths"></param>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.LoadPlugin(ServiceStack.WebHost.Endpoints.IPlugin[])">
+            <summary>
+            Apply plugins to this AppHost
+            </summary>
+            <param name="plugins"></param>
         </member>
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ContentTypeFilters">
             <summary>
@@ -201,6 +207,11 @@
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.CatchAllHandlers">
             <summary>
             Provide a catch-all handler that doesn't match any routes
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.RequestBinders">
+            <summary>
+            Provide a custom model minder for a specific Request DTO
             </summary>
         </member>
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.Config">
@@ -1159,6 +1170,26 @@
             Deletes a specified cookie by setting its value to empty and expiration to -1 days
             </summary>
         </member>
+        <member name="M:ServiceStack.ServiceHost.Cookies.AddPermanentCookie(System.String,System.String)">
+            <summary>
+            Sets a persistent cookie which never expires
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.Cookies.AddSessionCookie(System.String,System.String)">
+            <summary>
+            Sets a session cookie which expires after the browser session closes
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.Cookies.DeleteCookie(System.String)">
+            <summary>
+            Deletes a specified cookie by setting its value to empty and expiration to -1 days
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.Cookies.AddCookie(System.Net.Cookie)">
+            <summary>
+            Sets a persistent cookie which expires after the given time
+            </summary>
+        </member>
         <member name="T:Funq.ReuseScope">
             <summary>
             Determines visibility and reuse of instances provided by the container.
@@ -1823,13 +1854,13 @@
         </member>
         <member name="M:ServiceStack.ServiceHost.RequestContextExtensions.ToOptimizedResultUsingCache``1(ServiceStack.ServiceHost.IRequestContext,ServiceStack.CacheAccess.ICacheClient,System.String,System.Func{``0})">
             <summary>
-            Overload for the <see cref="M:ServiceStack.CacheAccess.Providers.ContentCacheManager.Resolve``1(System.Func{``0},ServiceStack.ServiceHost.IRequestContext,ServiceStack.CacheAccess.ICacheClient,System.String,System.Nullable{System.TimeSpan})"/> method returning the most
+            Overload for the <see cref="!:ContentCacheManager.Resolve"/> method returning the most
             optimized result based on the MimeType and CompressionType from the IRequestContext.
             </summary>
         </member>
         <member name="M:ServiceStack.ServiceHost.RequestContextExtensions.ToOptimizedResultUsingCache``1(ServiceStack.ServiceHost.IRequestContext,ServiceStack.CacheAccess.ICacheClient,System.String,System.Nullable{System.TimeSpan},System.Func{``0})">
             <summary>
-            Overload for the <see cref="M:ServiceStack.CacheAccess.Providers.ContentCacheManager.Resolve``1(System.Func{``0},ServiceStack.ServiceHost.IRequestContext,ServiceStack.CacheAccess.ICacheClient,System.String,System.Nullable{System.TimeSpan})"/> method returning the most
+            Overload for the <see cref="!:ContentCacheManager.Resolve"/> method returning the most
             optimized result based on the MimeType and CompressionType from the IRequestContext.
             <param name="expireCacheIn">How long to cache for, null is no expiration</param>
             </summary>
@@ -1842,6 +1873,18 @@
             <param name="requestContext"></param>
             <param name="cacheClient"></param>
             <param name="cacheKeys"></param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerResolveCache.CreateInstance(System.Type)">
+            <summary>
+            Creates instance using straight Resolve approach.
+            This will throw an exception if resolution fails
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerResolveCache.CreateInstance(System.Type,System.Boolean)">
+            <summary>
+            Creates instance using the TryResolve approach if tryResolve = true.
+            Otherwise uses Resolve approach, which will throw an exception if resolution fails
+            </summary>
         </member>
         <member name="T:ServiceStack.MiniProfiler.SqlFormatters.InlineFormatter">
             <summary>
@@ -2301,6 +2344,13 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:Funq.Container.AutoWire(System.Object)">
+            <summary>
+            Auto-wires an existing instance, 
+            ie all public properties are tried to be resolved.
+            </summary>
+            <param name="instance"></param>
+        </member>
         <member name="P:Funq.Container.DefaultOwner">
             <summary>
 			Default owner for new registrations. <see cref="F:Funq.Owner.Container"/> by default.
@@ -2316,59 +2366,12 @@
             More familiar name for the new crowd.
             </summary>
         </member>
-        <member name="T:ServiceStack.CacheAccess.Providers.ContentCacheManager">
-            <summary>
-            Provides static helper methods to serialize and compress results
-            </summary>
-        </member>
-        <member name="M:ServiceStack.CacheAccess.Providers.ContentCacheManager.Resolve``1(System.Func{``0},ServiceStack.ServiceHost.IRequestContext,ServiceStack.CacheAccess.ICacheClient,System.String,System.Nullable{System.TimeSpan})">
-            <summary>
-            Returns a serialized dto based on the mime-type, created using the factoryFn().
-            If the correct mimeType is found, it will return the cached result.
-            If a compressionType is set it will return a compressed version of the result.
-            If no result is found, the dto is created by the factoryFn()
-            The dto is set on the cacheClient[cacheKey] =&gt; factoryFn()
-            e.g. urn:user:1 =&gt; dto
-            The serialized dto is set on the cacheClient[cacheKey.mimeType] =&gt; serialized(factoryFn())
-            e.g. urn:user:1.xml =&gt; xmlDto
-            Finally, if a compressionType is specified, the compressed dto is set on the
-            cacheClient[cacheKey.mimeType.compressionType] =&gt; compressed(serialized(factoryFn()))
-            e.g. urn:user:1.xml.gzip =&gt; compressedXmlDto
-            </summary>
-            <typeparam name="TResult">The type of the result.</typeparam>
-            <param name="factoryFn">The factory fn.</param>
-            <param name="serializationContext">The serialization context.</param>
-            <param name="compressionType">Type of the compression. -optional null means no compression</param>
-            <param name="cacheClient">The cache client</param>
-            <param name="cacheKey">The base cache key</param>
-            <param name="expireCacheIn">How long to cache for, default is no expiration</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.CacheAccess.Providers.ContentCacheManager.Clear(ServiceStack.CacheAccess.ICacheClient,System.String[])">
-            <summary>
-            Clears all the serialized and compressed caches set 
-            by the 'Resolve' method for the cacheKey provided
-            </summary>
-            <param name="cacheClient">The cache client.</param>
-            <param name="cacheKeys">The cache keys.</param>
-        </member>
-        <member name="M:ServiceStack.CacheAccess.Providers.ContentCacheManager.ResolveFromCache``1(ServiceStack.CacheAccess.Providers.ContentSerializer{``0},ServiceStack.CacheAccess.ICacheClient,System.String)">
-            <summary>
-            Helper method on ContentSerializer to 'Resolve' the serialized/compressed
-            result using the cacheClient and cacheKey provided
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="contentSerializer">The content serializer.</param>
-            <param name="cacheClient">The cache client.</param>
-            <param name="cacheKey">The cache key.</param>
-            <returns></returns>
-        </member>
         <member name="T:ServiceStack.WebHost.Endpoints.Ext.AllFilesHandler">
             <summary>
             Summary description for $codebehindclassname$
             </summary>
         </member>
-        <member name="M:ServiceStack.WebHost.EndPoints.Formats.MarkdownFormat.SerializeToStream(ServiceStack.ServiceHost.IRequestContext,System.Object,System.IO.Stream)">
+        <member name="M:ServiceStack.WebHost.Endpoints.Formats.MarkdownFormat.SerializeToStream(ServiceStack.ServiceHost.IRequestContext,System.Object,System.IO.Stream)">
             <summary>
             Render Markdown for text/markdown and text/plain ContentTypes
             </summary>
@@ -3121,6 +3124,30 @@
             implementation accordingly. This is required to support OracleCommand from dapper-dot-net
             </summary>
         </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerTypeExtensions.RegisterAutoWiredType(Funq.Container,System.Type,System.Type,Funq.ReuseScope)">
+            <summary>
+            Registers the type in the IoC container and
+            adds auto-wiring to the specified type.
+            </summary>
+            <param name="serviceType"></param>
+            <param name="inFunqAsType"></param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerTypeExtensions.RegisterAutoWiredType(Funq.Container,System.Type,Funq.ReuseScope)">
+            <summary>
+            Registers the type in the IoC container and
+            adds auto-wiring to the specified type.
+            The reuse scope is set to none (transient).
+            </summary>
+            <param name="serviceTypes"></param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerTypeExtensions.RegisterAutoWiredTypes(Funq.Container,System.Collections.Generic.IEnumerable{System.Type},Funq.ReuseScope)">
+            <summary>
+            Registers the types in the IoC container and
+            adds auto-wiring to the specified types.
+            The reuse scope is set to none (transient).
+            </summary>
+            <param name="serviceTypes"></param>
+        </member>
         <member name="T:ServiceStack.WebHost.Endpoints.AppHostBase">
             <summary>
             Inherit from this class if you want to host your web services inside an
@@ -3359,11 +3386,21 @@
             Serializes <paramref name="o"/> to a json string.
             </summary>
         </member>
-        <member name="T:ServiceStack.CacheAccess.Providers.ContentSerializer`1">
+        <member name="M:Funq.AutoWireHelpers.GenerateAutoWireFn``1">
             <summary>
-            Encapsulates the behaviour of serving compressed or uncompressed 
-            serialized results for a particular MimeType and CompressionType.
+            Generates a function which creates and auto-wires <see cref="!:TService"/>.
             </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="lambdaParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Funq.AutoWireHelpers.AutoWire(Funq.Container,System.Object)">
+            <summary>
+            Auto-wires an existing instance of a specific type.
+            The auto-wiring progress is also cached to be faster 
+            when calling next time with the same type.
+            </summary>
+            <param name="instance"></param>
         </member>
         <member name="T:ServiceStack.MiniProfiler.Data.ProfiledDbProviderFactory">
             <summary>

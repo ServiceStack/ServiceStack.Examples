@@ -182,7 +182,7 @@
             A thin wrapper around ASP.NET or HttpListener's HttpRequest
             </summary>
         </member>
-        <member name="M:ServiceStack.ServiceHost.IHttpRequest.TryResolve``1">
+        <member name="M:ServiceStack.ServiceHost.IResolver.TryResolve``1">
             <summary>
             Resolve a dependency from the AppHost's IOC
             </summary>
@@ -276,6 +276,57 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:ServiceStack.ServiceHost.IRequestLogger">
+            <summary>
+            Log every service request
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IRequestLogger.Log(ServiceStack.ServiceHost.IRequestContext,System.Object,System.Object)">
+            <summary>
+            Log a request
+            </summary>
+            <param name="requestContext">The RequestContext</param>
+            <param name="requestDto">Request DTO</param>
+            <param name="response">Response DTO or Exception</param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IRequestLogger.GetLatestLogs(System.Nullable{System.Int32})">
+            <summary>
+            View the most recent logs
+            </summary>
+            <param name="take"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.EnableSessionTracking">
+            <summary>
+            Turn On/Off Session Tracking
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.EnableResponseTracking">
+            <summary>
+            Turn On/Off Tracking of Responses
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.EnableErrorTracking">
+            <summary>
+            Turn On/Off Tracking of Exceptions
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.RequiresRole">
+            <summary>
+            Limit access to /requestlogs service to role
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.ExcludeRequestDtoTypes">
+            <summary>
+            Don't log requests of these types.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.HideRequestBodyForRequestDtoTypes">
+            <summary>
+            Don't log request bodys for services with sensitive information.
+            By default Auth and Registration requests are hidden.
+            </summary>
+        </member>
         <member name="T:ServiceStack.ServiceHost.IHasRequestFilter">
             <summary>
             This interface can be implemented by an attribute
@@ -289,6 +340,13 @@
             <param name="req">The http request wrapper</param>
             <param name="res">The http response wrapper</param>
             <param name="requestDto">The request DTO</param>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHasRequestFilter.Priority">
+            <summary>
+            Order in which Request Filters are executed. 
+            &lt;0 Executed before global request filters
+            &gt;0 Executed after global request filters
+            </summary>
         </member>
         <member name="T:ServiceStack.Logging.Support.Logging.TestLogger">
             <summary>
@@ -447,6 +505,11 @@
             This instructs the generator tool to generate translator methods for the types supplied.
             A {TypeName}.generated.cs partial class will be generated that contains the methods required
             to generate to and from that type.
+            </summary>
+        </member>
+        <member name="T:ServiceStack.ServiceInterface.ServiceModel.RequestLogEntry">
+            <summary>
+            A log entry added by the IRequestLogger
             </summary>
         </member>
         <member name="T:ServiceStack.ServiceHost.IServiceRoutes">
@@ -965,6 +1028,12 @@
             When used in a request or response filter, no more filters or processing is done on this request.
             </summary>
         </member>
+        <member name="M:ServiceStack.ServiceHost.IHttpResponse.End">
+            <summary>
+            Calls Response.End() on ASP.NET HttpResponse otherwise is an alias for Close().
+            Useful when you want to prevent ASP.NET to provide it's own custom error page.
+            </summary>
+        </member>
         <member name="M:ServiceStack.ServiceHost.IHttpResponse.Flush">
             <summary>
             Response.Flush() and OutputStream.Flush() seem to have different behaviour in ASP.NET
@@ -1017,6 +1086,12 @@
             <param name="httpRes"></param>
             <returns></returns>
         </member>
+        <member name="M:ServiceStack.CacheAccess.ISessionFactory.GetOrCreateSession">
+            <summary>
+            Gets the session for this request, creates one if it doesn't exist.
+            Only for ASP.NET apps. Uses the HttpContext.Current singleton.
+            </summary>
+        </member>
         <member name="T:ServiceStack.ServiceHost.IHasResponseFilter">
             <summary>
             This interface can be implemented by an attribute
@@ -1030,6 +1105,23 @@
             <param name="req">The http request wrapper</param>
             <param name="res">The http response wrapper</param>
             <param name="requestDto">The response DTO</param>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IHasResponseFilter.Priority">
+            <summary>
+            Order in which Response Filters are executed. 
+            &lt;0 Executed before global response filters
+            &gt;0 Executed after global response filters
+            </summary>
+        </member>
+        <member name="T:ServiceStack.ServiceHost.IRequiresRequestStream">
+            <summary>
+            Implement on Request DTOs that need access to the raw Request Stream
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceHost.IRequiresRequestStream.RequestStream">
+            <summary>
+            The raw Http Request Input Stream
+            </summary>
         </member>
         <member name="T:ServiceStack.CacheAccess.ICacheClient">
             <summary>
@@ -1120,6 +1212,19 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="values">The values.</param>
+        </member>
+        <member name="M:ServiceStack.Redis.IRedisClient.GetTypedClient``1">
+            <summary>
+            Returns a high-level typed client API
+            Shorter Alias is As&lt;T&gt;();
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ServiceStack.Redis.IRedisClient.As``1">
+            <summary>
+            Returns a high-level typed client API
+            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="T:ServiceStack.Messaging.QueueNames`1">
             <summary>
