@@ -13,6 +13,7 @@
     <RootNamespace>Docs</RootNamespace>
     <AssemblyName>Docs</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,9 +87,6 @@
     <Content Include="img\textarea.gif" />
     <Content Include="img\widgettitle.jpg" />
     <Content Include="js\fn.js" />
-    <Content Include="obj\Debug\ServiceStack.Docs.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\ServiceStack.Docs.dll" />
-    <Content Include="obj\Debug\ServiceStack.Docs.pdb" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
