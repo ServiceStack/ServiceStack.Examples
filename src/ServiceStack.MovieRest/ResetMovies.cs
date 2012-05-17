@@ -8,7 +8,7 @@ using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.MovieRest
 {
-	[RestService("/reset-movies")]
+    [RestService("/reset-movies", "GET,POST")]
 	[Description("Resets the database back to the original Top 5 movies.")]
 	public class ResetMovies { }
 	public class ResetMoviesResponse { }
@@ -26,7 +26,12 @@ namespace ServiceStack.MovieRest
 
 		public IDbConnectionFactory DbFactory { get; set; }
 
-		public override object OnPost(ResetMovies request)
+        public override object OnGet(ResetMovies request)
+        {
+            return OnPost(request);
+        }
+
+        public override object OnPost(ResetMovies request)
 		{
 			DbFactory.Exec(dbCmd =>
 			{
