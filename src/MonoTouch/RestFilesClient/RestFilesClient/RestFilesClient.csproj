@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B8A976FA-7EFE-4096-ABA9-61AFC9CCD525}</ProjectGuid>
-    <ProjectTypeGuids>{E613F3A2-FE9C-494F-B74E-F63BCB86FEA6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>RestFilesClient</RootNamespace>
-    <MainNibFile>MainWindow.xib</MainNibFile>
     <AssemblyName>RestFilesClient</AssemblyName>
-    <MtouchMinimumOS>3.0</MtouchMinimumOS>
-    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,12 +20,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
-    <MtouchDebug>True</MtouchDebug>
-    <MtouchUseLlvm>false</MtouchUseLlvm>
+    <MtouchDebug>true</MtouchDebug>
     <ConsolePause>false</ConsolePause>
-    <MtouchUseSGen>false</MtouchUseSGen>
-    <MtouchUseThumb>false</MtouchUseThumb>
-    <MtouchArch>ARMv6</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -37,12 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
-    <MtouchDebug>False</MtouchDebug>
-    <MtouchUseSGen>false</MtouchUseSGen>
     <ConsolePause>false</ConsolePause>
-    <MtouchUseLlvm>false</MtouchUseLlvm>
-    <MtouchUseThumb>false</MtouchUseThumb>
-    <MtouchArch>ARMv6</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,13 +40,9 @@
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchUseSGen>false</MtouchUseSGen>
-    <MtouchDebug>True</MtouchDebug>
+    <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
     <ConsolePause>false</ConsolePause>
-    <MtouchUseThumb>false</MtouchUseThumb>
-    <MtouchArch>ARMv6</MtouchArch>
-    <MtouchUseLlvm>false</MtouchUseLlvm>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -66,34 +50,23 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchUseSGen>false</MtouchUseSGen>
-    <MtouchDebug>False</MtouchDebug>
-    <MtouchUseThumb>false</MtouchUseThumb>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchArch>ARMv6</MtouchArch>
-    <MtouchUseLlvm>false</MtouchUseLlvm>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="RestFiles.ServiceModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\RestFiles.ServiceModel.dll</HintPath>
+    <Reference Include="ServiceStack.Common.MonoTouch">
+      <HintPath>..\Lib\ServiceStack.Common.MonoTouch.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=1.0.4144.40978, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\ServiceStack.Common.dll</HintPath>
+    <Reference Include="ServiceStack.Interfaces.MonoTouch">
+      <HintPath>..\Lib\ServiceStack.Interfaces.MonoTouch.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=1.0.4139.10634, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="ServiceStack.Text.MonoTouch">
+      <HintPath>..\Lib\ServiceStack.Text.MonoTouch.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=2.0.9.3883, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\ServiceStack.Text.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -103,9 +76,18 @@
       <DependentUpon>MainWindow.xib</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
+    <Compile Include="RestFiles.ServiceModel\Operations\Files.cs" />
+    <Compile Include="RestFiles.ServiceModel\Operations\RevertFiles.cs" />
+    <Compile Include="RestFiles.ServiceModel\Types\File.cs" />
+    <Compile Include="RestFiles.ServiceModel\Types\FileResult.cs" />
+    <Compile Include="RestFiles.ServiceModel\Types\Folder.cs" />
+    <Compile Include="RestFiles.ServiceModel\Types\FolderResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xib" />
+    <InterfaceDefinition Include="MainWindow.xib" xmlns="" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="RestFiles.ServiceModel\" />
+  </ItemGroup>
 </Project>
