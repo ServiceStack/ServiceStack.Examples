@@ -142,6 +142,11 @@
             Specifies if cookies should be stored
             </summary>
         </member>
+        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.DisableAutoCompression">
+            <summary>
+            Whether to Accept Gzip,Deflate Content-Encoding and to auto decompress responses
+            </summary>
+        </member>
         <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.UserName">
             <summary>
             The user name for basic authentication
@@ -213,6 +218,15 @@
             Process all messages pending
             </summary>
             <param name="mqClient"></param>
+        </member>
+        <member name="M:ServiceStack.Messaging.IMessageHandler.ProcessQueue(ServiceStack.Messaging.IMessageQueueClient,System.String,System.Func{System.Boolean})">
+            <summary>
+            Process messages from a single queue.
+            </summary>
+            <param name="mqClient"></param>
+            <param name="queueName">The queue to process</param>
+            <param name="doNext">A predicate on whether to continue processing the next message if any</param>
+            <returns></returns>
         </member>
         <member name="M:ServiceStack.Messaging.IMessageHandler.GetStats">
             <summary>

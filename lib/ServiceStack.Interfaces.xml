@@ -281,13 +281,14 @@
             Log every service request
             </summary>
         </member>
-        <member name="M:ServiceStack.ServiceHost.IRequestLogger.Log(ServiceStack.ServiceHost.IRequestContext,System.Object,System.Object)">
+        <member name="M:ServiceStack.ServiceHost.IRequestLogger.Log(ServiceStack.ServiceHost.IRequestContext,System.Object,System.Object,System.TimeSpan)">
             <summary>
             Log a request
             </summary>
             <param name="requestContext">The RequestContext</param>
             <param name="requestDto">Request DTO</param>
             <param name="response">Response DTO or Exception</param>
+            <param name="elapsed">How long did the Request take</param>
         </member>
         <member name="M:ServiceStack.ServiceHost.IRequestLogger.GetLatestLogs(System.Nullable{System.Int32})">
             <summary>
@@ -311,7 +312,7 @@
             Turn On/Off Tracking of Exceptions
             </summary>
         </member>
-        <member name="P:ServiceStack.ServiceHost.IRequestLogger.RequiresRole">
+        <member name="P:ServiceStack.ServiceHost.IRequestLogger.RequiredRoles">
             <summary>
             Limit access to /requestlogs service to role
             </summary>
@@ -340,6 +341,12 @@
             <param name="req">The http request wrapper</param>
             <param name="res">The http response wrapper</param>
             <param name="requestDto">The request DTO</param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHasRequestFilter.Copy">
+            <summary>
+            A new shallow copy of this filter is used on every request.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:ServiceStack.ServiceHost.IHasRequestFilter.Priority">
             <summary>
@@ -739,6 +746,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ServiceStack.Messaging.IMessageService.GetStatus">
+            <summary>
+            Get the status of the service. Potential Statuses: Disposed, Stopped, Stopping, Starting, Started
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ServiceStack.Messaging.IMessageService.GetStatsDescription">
             <summary>
             Get a Stats dump
@@ -1104,7 +1117,12 @@
             </summary>
             <param name="req">The http request wrapper</param>
             <param name="res">The http response wrapper</param>
-            <param name="requestDto">The response DTO</param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.IHasResponseFilter.Copy">
+            <summary>
+            A new shallow copy of this filter is used on every request.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:ServiceStack.ServiceHost.IHasResponseFilter.Priority">
             <summary>
