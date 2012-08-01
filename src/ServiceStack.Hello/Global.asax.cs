@@ -7,22 +7,14 @@ using ServiceStack.WebHost.Endpoints;
 namespace ServiceStack.Hello
 {
 	/// Create the name of your Web Service (i.e. the Request DTO)
-	[DataContract]
-	[Description("ServiceStack's Hello World web service.")]
-	[RestService("/hello")] //Optional: Define an alternate REST-ful url for this service
-	[RestService("/hello/{Name}")]
-	[RestService("/hello/{Name*}")] 
 	public class Hello
 	{
-		[DataMember]
 		public string Name { get; set; }
 	}
 
 	/// Define your Web Service response (i.e. Response DTO)
-	[DataContract]
 	public class HelloResponse
 	{
-		[DataMember]
 		public string Result { get; set; }
 	}
 
@@ -45,7 +37,13 @@ namespace ServiceStack.Hello
 			public HelloAppHost() 
 				: base("Hello Web Services", typeof(HelloService).Assembly) { }
 
-			public override void Configure(Funq.Container container) { }
+			public override void Configure(Funq.Container container)
+			{
+                //register user-defined REST-ful urls
+                Routes
+                  .Add<Hello>("/hello")
+                  .Add<Hello>("/hello/{Name}");			    
+			}
 		}
 
 		protected void Application_Start(object sender, EventArgs e)
