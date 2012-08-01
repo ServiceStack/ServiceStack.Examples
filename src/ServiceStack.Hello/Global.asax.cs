@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 using ServiceStack.WebHost.Endpoints;
 
