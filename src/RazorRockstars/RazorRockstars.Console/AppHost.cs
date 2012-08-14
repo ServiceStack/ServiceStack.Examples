@@ -4,7 +4,6 @@ using Funq;
 using ServiceStack.Common;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.Razor;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -22,7 +21,7 @@ namespace RazorRockstars.Console
             Plugins.Add(new RazorFormat());
 
             container.Register<IDbConnectionFactory>(
-                new OrmLiteConnectionFactory(":memory:", false, SqliteOrmLiteDialectProvider.Instance));
+                new OrmLiteConnectionFactory(":memory:", false, SqliteDialect.Provider));
 
             using (var db = container.Resolve<IDbConnectionFactory>().OpenDbConnection())
             {

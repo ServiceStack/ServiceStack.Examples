@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{30BA8DF9-4698-4051-B8E9-84C81E330E24}</ProjectGuid>
+    <ProjectGuid>{ED32DF44-0DAC-4222-8DD3-B785D983BE4F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RazorRockstars.Console</RootNamespace>
