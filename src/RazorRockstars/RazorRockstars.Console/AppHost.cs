@@ -28,7 +28,7 @@ namespace RazorRockstars.Console
                 db.CreateTable<Rockstar>(overwrite: false); //Create table if not exists
                 db.Insert(Rockstar.SeedData); //Populate with seed data
             }
-        }
+		}
 
         private static void Main(string[] args)
         {
@@ -37,7 +37,8 @@ namespace RazorRockstars.Console
             appHost.Start("http://*:1337/");
             System.Console.WriteLine("Listening on http://localhost:1337/ ...");
             System.Console.ReadLine();
-        }
+			System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+		}
     }
 
     public class Rockstar

@@ -56,9 +56,6 @@
     <Reference Include="ServiceStack.OrmLite">
       <HintPath>..\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Razor">
-      <HintPath>..\lib\ServiceStack.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\lib\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
