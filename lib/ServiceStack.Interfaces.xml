@@ -680,11 +680,6 @@
             Response DTO
             </summary>
         </member>
-        <member name="P:ServiceStack.ServiceHost.IHttpResult.TemplateName">
-            <summary>
-            A specific template, if not the default (for HTML, Markdown, etc. ContentTypes)
-            </summary>
-        </member>
         <member name="P:ServiceStack.ServiceHost.IHttpResult.ResponseFilter">
             <summary>
             if not provided, get's injected by ServiceStack

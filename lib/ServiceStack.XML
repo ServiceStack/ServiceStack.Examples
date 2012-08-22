@@ -209,7 +209,7 @@
             Add Response Filters
             </summary>
         </member>
-        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.HtmlProviders">
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ViewEngines">
             <summary>
             Add alternative HTML View Engines
             </summary>
@@ -1268,6 +1268,16 @@
             <summary>
             Use this to treat Request.Items[] as a cache by returning pre-computed items to save 
             calculating them multiple times.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.Extensions.HttpRequestExtensions.SetItem(ServiceStack.ServiceHost.IHttpRequest,System.String,System.Object)">
+            <summary>
+            Store an entry in the IHttpRequest.Items Dictionary
+            </summary>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.Extensions.HttpRequestExtensions.GetItem(ServiceStack.ServiceHost.IHttpRequest,System.String)">
+            <summary>
+            Get an entry from the IHttpRequest.Items Dictionary
             </summary>
         </member>
         <member name="T:ServiceStack.MiniProfiler.SqlTiming">

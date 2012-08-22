@@ -800,6 +800,16 @@
             Required to cast the ValueType to an object for caching
             </summary>
         </member>
+        <member name="M:ServiceStack.Common.RequestContextExtensions.SetItem(ServiceStack.ServiceHost.IRequestContext,System.String,System.Object)">
+            <summary>
+            Store an entry in the IHttpRequest.Items Dictionary
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.RequestContextExtensions.GetItem(ServiceStack.ServiceHost.IRequestContext,System.String)">
+            <summary>
+            Get an entry from the IHttpRequest.Items Dictionary
+            </summary>
+        </member>
         <member name="T:ServiceStack.Common.UrnId">
             <summary>
             Creates a Unified Resource Name (URN) with the following formats:
