@@ -5,27 +5,26 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ServiceStack.Northwind.ServiceModel.Operations
 {
-	[RestService("/orders")]
-	[RestService("/orders/page/{Page}")]
-	[RestService("/customers/{CustomerId}/orders")]
-	public class Orders
-	{
-		public int? Page { get; set; }
+    [Route("/orders")]
+    [Route("/orders/page/{Page}")]
+    [Route("/customers/{CustomerId}/orders")]
+    public class Orders
+    {
+        public int? Page { get; set; }
 
-		public string CustomerId { get; set; }
-	}
+        public string CustomerId { get; set; }
+    }
 
-	public class OrdersResponse : IHasResponseStatus
-	{
-		public OrdersResponse()
-		{
-			this.ResponseStatus = new ResponseStatus();
-			this.Results = new List<CustomerOrder>();
-		}
+    public class OrdersResponse : IHasResponseStatus
+    {
+        public OrdersResponse()
+        {
+            this.ResponseStatus = new ResponseStatus();
+            this.Results = new List<CustomerOrder>();
+        }
 
-		public List<CustomerOrder> Results { get; set; }
+        public List<CustomerOrder> Results { get; set; }
 
-		public ResponseStatus ResponseStatus { get; set; }
-	}
-
+        public ResponseStatus ResponseStatus { get; set; }
+    }
 }

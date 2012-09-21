@@ -1,26 +1,36 @@
 ﻿using System;
 using ServiceStack.WebHost.Endpoints;
 using StarterTemplates.Common;
+using Funq;
 
 namespace RootPath40
 {
-	public class AppHost
-		: AppHostBase
-	{
-		public AppHost()
-			: base("StarterTemplate ASP.NET Host", typeof(HelloService).Assembly) { }
+    /// <summary>
+    /// Create your ServiceStack web service application with a singleton AppHost.
+    /// </summary>
+    public class AppHost : AppHostBase
+    {
+        /// <summary>
+        /// Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
+        /// </summary>
+        public AppHost() : base("StarterTemplate ASP.NET Host", typeof(HelloService).Assembly) { }
 
-		public override void Configure(Funq.Container container)
-		{
-			container.Register(new TodoRepository());
-		}
-	}
+        /// <summary>
+        /// Configure the container with the necessary routes for your ServiceStack application.
+        /// </summary>
+        /// <param name="container">The built-in IoC used with ServiceStack.</param>
+        public override void Configure(Container container)
+        {
+            container.Register(new TodoRepository());
+        }
+    }
 
-	public class Global : System.Web.HttpApplication
-	{
-		void Application_Start(object sender, EventArgs e)
-		{
-			new AppHost().Init();
-		}
-	}
+    public class Global : System.Web.HttpApplication
+    {
+        void Application_Start(object sender, EventArgs e)
+        {
+            //Initialize your application
+            (new AppHost()).Init();
+        }
+    }
 }

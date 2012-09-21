@@ -1,0 +1,159 @@
+﻿body
+{
+    background: #fff url(../Images/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 0 5px 20px 10px;
+    width: 940px;
+}
+
+a img
+{
+    border: none;
+}
+
+#header-links
+{
+    top: 10px;
+    left: 270px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+
+code
+{
+    background-color: ghostWhite !important;
+    border: 1px solid #DEDEDE !important;
+    color: #444 !important;
+    font-size: 12px !important;
+    line-height: 1.5em !important;
+    margin: 1em 0px !important;
+    overflow: auto !important;
+    padding: 0.5em !important;
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+    white-space: pre;
+}
+
+h1
+{
+    border-top: 4px solid #AAA;
+    font-size: 170% !important;
+    margin-top: 1.5em;
+    padding-top: 0.5em;
+}
+h1.title
+{
+    border: none;
+}
+
+h2
+{
+    border-top: 4px solid #E0E0E0 !important;
+    font-size: 150% !important;
+    margin-top: 1.5em !important;
+    padding-top: 0.5em !important;
+}
+h2 A
+{
+    color: #039;
+}
+
+.endpoints h3
+{
+    border-top: 1px solid #E0E0E0 !important;
+    padding: .5em 0 0 0;
+}
+
+.lnk-src
+{
+    clear: right;
+    padding: 6px 17px 0 0;
+    float: right;
+}
+
+h3 B
+{
+    color: #061;
+}
+h4 B
+{
+    color: #555;
+    padding: 0 3px;
+}
+h4 I
+{
+    color: #AAA;
+    padding: 0 2px;
+    font-style: normal;
+}
+
+input[type=text]
+{
+    width: 100px;
+}
+
+td
+{
+    padding: 0 10px;
+}
+
+em
+{
+    font-size: 90%;
+    color: #666;
+}
+
+#btn-download
+{
+    display: block;
+    margin: 15px 0;
+    text-align: center;
+}
+#mono
+{
+    float: right;
+    padding: 0 20px 20px 0;
+}
+
+h3.hr
+{
+    border-top: 1px solid #ccc;
+    margin: 25px 0 0 0;
+    padding: 5px 0 0 0;
+}
+
+#configpath
+{
+    margin: 0 0 40px 0;
+}
+#configpath dt
+{
+    line-height: 30px;
+    font-weight: bold;
+}
+#configpath dd
+{
+    margin: 0 0 0 10px;
+}
+
+.nuget-badge pre
+{
+    background-color: #202020;
+    border: 4px solid #c0c0c0;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 2px 2px 3px #6e6e6e;
+    color: #e2e2e2;
+    display: block;
+    font: 1.5em 'andale mono' , 'lucida console' , monospace;
+    line-height: 1.5em;
+    overflow: auto;
+    padding: 15px;
+    margin-right: 10px;
+}

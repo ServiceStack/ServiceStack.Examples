@@ -6,34 +6,32 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace RestFiles.ServiceModel.Operations
 {
-	[Description("GET the File or Directory info at {Path}\n"
+    /// <summary>
+    /// Define your ServiceStack web service request (i.e. the Request DTO).
+    /// </summary> 
+    [Description("GET the File or Directory info at {Path}\n"
                + "POST multipart/formdata to upload a new file to any {Path} in the /ReadWrite folder\n"
                + "PUT {TextContents} to replace the contents of a text file in the /ReadWrite folder\n")]
-	[RestService("/files")]
-	[RestService("/files/{Path*}")]
-	[DataContract]
-	public class Files
-	{
-		[DataMember]
-		public string Path { get; set; }
+    [Route("/files")]
+    [Route("/files/{Path*}")]	
+    public class Files
+    {		
+        public string Path { get; set; }		
+        public string TextContents { get; set; }		
+        public bool ForDownload { get; set; }
+    }
 
-		[DataMember]
-		public string TextContents { get; set; }
+    /// <summary>
+    /// Define your ServiceStack web service response (i.e. Response DTO).
+    /// </summary>
+    public class FilesResponse : IHasResponseStatus
+    {		
+        public FolderResult Directory { get; set; }		
+        public FileResult File { get; set; }
 
-		[DataMember]
-		public bool ForDownload { get; set; }
-	}
-
-	[DataContract]
-	public class FilesResponse : IHasResponseStatus
-	{
-		[DataMember]
-		public FolderResult Directory { get; set; }
-
-		[DataMember]
-		public FileResult File { get; set; }
-
-		//Auto inject and serialize web service exceptions
-		[DataMember] public ResponseStatus ResponseStatus { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets the ResponseStatus. The built-in IoC used with ServiceStack autowires this property.
+        /// </summary>		 
+        public ResponseStatus ResponseStatus { get; set; }
+    }
 }

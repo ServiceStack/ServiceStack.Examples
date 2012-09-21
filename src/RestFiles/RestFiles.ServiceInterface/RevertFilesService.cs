@@ -1,72 +1,66 @@
 using System.IO;
+using System.Linq;
 using RestFiles.ServiceModel.Operations;
+using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Utils;
 using ServiceStack.ServiceInterface;
 
 namespace RestFiles.ServiceInterface
 {
-	public class RevertFilesService
-		: RestServiceBase<RevertFiles>
-	{
-		public AppConfig Config { get; set; }
+    /// <summary>
+    /// Define your ServiceStack web service request (i.e. Request DTO).
+    /// </summary>
+    public class RevertFilesService : RestServiceBase<RevertFiles>
+    {
+        /// <summary>
+        /// Gets or sets the AppConfig. The built-in IoC used with ServiceStack autowires this property.
+        /// </summary>
+        public AppConfig Config { get; set; }
 
-		public override object OnPost(RevertFiles request)
-		{
-			var rootDir = Config.RootDirectory;
+        public override object OnPost(RevertFiles request)
+        {
+            var rootDir = Config.RootDirectory;
 
-			if (Directory.Exists(rootDir))
-			{
-				Directory.Delete(rootDir, true);
-			}
+            if (Directory.Exists(rootDir))
+            {
+                Directory.Delete(rootDir, true);
+            }
 
-			Directory.CreateDirectory(rootDir);
+            CopyFiles(rootDir, "~/".MapHostAbsolutePath(), ".cs", ".htm", ".md");
 
-			foreach (var filePath in Directory.GetFiles("~/".MapHostAbsolutePath()))
-			{
-				if (!filePath.EndsWith(".cs")
-					&& !filePath.EndsWith(".htm")
-					&& !filePath.EndsWith(".md")) continue;
+            var servicesDir = Path.Combine(rootDir, "services");
+            CopyFiles(servicesDir, "~/../RestFiles.ServiceInterface/".MapHostAbsolutePath(), "Service.cs");
 
-				var fileName = Path.GetFileName(filePath);
-				if (filePath.EndsWith(".cs")) fileName += ".txt";
-				File.Copy(filePath, Path.Combine(rootDir, fileName));
-			}
+            var testsDir = Path.Combine(rootDir, "tests");
+            CopyFiles(testsDir, "~/../RestFiles.Tests/".MapHostAbsolutePath(), ".cs");
 
-			var servicesDir = Path.Combine(rootDir, "services");
-			Directory.CreateDirectory(servicesDir);
-			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceInterface/".MapHostAbsolutePath()))
-			{
-				if (!filePath.EndsWith("Service.cs")) continue;
-				
-				File.Copy(filePath, Path.Combine(servicesDir, Path.GetFileName(filePath) + ".txt"));
-			}
+            var dtosDir = Path.Combine(rootDir, "dtos");
 
-			var testsDir = Path.Combine(rootDir, "tests");
-			Directory.CreateDirectory(testsDir);
-			foreach (var filePath in Directory.GetFiles("~/../RestFiles.Tests/".MapHostAbsolutePath()))
-			{
-				if (!filePath.EndsWith(".cs")) continue;
-				
-				File.Copy(filePath, Path.Combine(testsDir, Path.GetFileName(filePath) + ".txt"));
-			}
+            var opsDtoPath = Path.Combine(dtosDir, "Operations");
+            CopyFiles(opsDtoPath, "~/../RestFiles.ServiceModel/Operations/".MapHostAbsolutePath());
 
-			var dtosDir = Path.Combine(rootDir, "dtos");
+            var typesDtoPath = Path.Combine(dtosDir, "Types");
+            CopyFiles(typesDtoPath, "~/../RestFiles.ServiceModel/Types/".MapHostAbsolutePath());
 
-			var opsDtoPath = Path.Combine(dtosDir, "Operations");
-			Directory.CreateDirectory(opsDtoPath);
-			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceModel/Operations/".MapHostAbsolutePath()))
-			{
-				File.Copy(filePath, Path.Combine(opsDtoPath, Path.GetFileName(filePath) + ".txt"));
-			}
-			var typesDtoPath = Path.Combine(dtosDir, "Types");
-			Directory.CreateDirectory(typesDtoPath);
-			foreach (var filePath in Directory.GetFiles("~/../RestFiles.ServiceModel/Types/".MapHostAbsolutePath()))
-			{
-				File.Copy(filePath, Path.Combine(typesDtoPath, Path.GetFileName(filePath) + ".txt"));
-			}
+            return new RevertFilesResponse();
+        }
 
-			return new RevertFilesResponse();
-		}
-
-	}
+        private static void CopyFiles(string path, string filesPath, params string[] excludedFiles)
+        {
+            Directory.CreateDirectory(path);
+            var files = Directory.GetFiles(filesPath);
+            foreach (var file in files)
+            {
+                if (excludedFiles.IsEmpty() || excludedFiles.Any(x => file.EndsWith(x)))
+                {
+                    var fileName = Path.GetFileName(file);
+                    if (file.EndsWith(".cs"))
+                    {
+                        fileName += ".txt";
+                    }
+                    File.Copy(file, Path.Combine(path, fileName));
+                }
+            }
+        }
+    }
 }

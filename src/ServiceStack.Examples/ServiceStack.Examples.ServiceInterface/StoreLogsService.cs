@@ -6,25 +6,24 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
-	public class StoreLogsService
-		: IService<StoreLogs>
-	{
-		//Example of ServiceStack's built-in Funq IOC property injection
-		public IDbConnectionFactory ConnectionFactory { get; set; }
+    public class StoreLogsService
+        : IService<StoreLogs>
+    {
+        //Example of ServiceStack's built-in Funq IOC property injection
+        public IDbConnectionFactory ConnectionFactory { get; set; }
 
-		public object Execute(StoreLogs request)
-		{
-			using (var dbConn = ConnectionFactory.OpenDbConnection())
-			using (var dbCmd = dbConn.CreateCommand())
-			{
-				if (!request.Loggers.IsNullOrEmpty()) dbCmd.SaveAll(request.Loggers);
+        public object Execute(StoreLogs request)
+        {
+            using (var dbConn = ConnectionFactory.OpenDbConnection())
+            {
+                if (!request.Loggers.IsNullOrEmpty()) { dbConn.SaveAll(request.Loggers); }
 
-				return new StoreLogsResponse
-				{
-					ExistingLogs = new ArrayOfLogger(dbCmd.Select<Logger>())
-				};
-			}
-		}
-	}
+                return new StoreLogsResponse
+                {
+                    ExistingLogs = new ArrayOfLogger(dbConn.Select<Logger>())
+                };
+            }
+        }
+    }
 
 }
