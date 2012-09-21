@@ -42,27 +42,34 @@
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>..\..\..\lib\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.11\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\..\lib\ServiceStack.Common.dll</HintPath>
+    <Reference Include="ServiceStack.Common, Version=3.9.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.11\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.11\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\..\..\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.Sqlite32.3.9.9\lib\net35\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite.Sqlite">
-      <HintPath>..\..\..\lib\ServiceStack.OrmLite.Sqlite.dll</HintPath>
+    <Reference Include="ServiceStack.OrmLite.SqliteNET">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.Sqlite32.3.9.9\lib\net35\ServiceStack.OrmLite.SqliteNET.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.9\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\..\lib\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.9.11\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>..\..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
+    <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ServiceStack.3.9.11\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=3.9.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.11\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -71,6 +78,9 @@
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.Sqlite32.3.9.9\lib\net35\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -92,6 +102,7 @@
     </Content>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="packages.config" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

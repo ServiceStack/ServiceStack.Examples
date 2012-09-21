@@ -16,7 +16,7 @@ namespace Docs.Logic
 		public override void OnLoad()
 		{
 			Page page;
-			var pageManager = TryResolve<PageManager>();
+			var pageManager = AppHost.TryResolve<PageManager>();
 			pageManager.PageMap.TryGetValue(MarkdownPage.FilePath, out page);
 
 			object cat;

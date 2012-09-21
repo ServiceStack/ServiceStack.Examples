@@ -1,0 +1,457 @@
+BODY
+{
+    background: #fff url(../Images/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 0 5px 20px 10px;
+    width: 940px;
+}
+DD, DL, DT, UL, LI {
+    margin: 0;
+    padding: 0;
+}
+
+A IMG
+{ 
+    border: none;
+}
+#header-links
+{
+    top: 10px;
+    left: 270px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+code
+{
+    background-color: ghostWhite !important;
+    border: 1px solid #DEDEDE !important;
+    color: #444 !important;
+    font-size: 12px !important;
+    line-height: 1.5em !important;
+    margin: 1em 0px !important;
+    overflow: auto !important;
+    padding: 0.5em !important;
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+    white-space: pre;
+}
+H1
+{
+    font-size: 170% !important;
+    margin-top: 0.65em;
+    padding-top: 0.5em;
+}
+H2
+{
+    border-top: 4px solid #E0E0E0 !important;
+    font-size: 150% !important;
+    margin-top: 2em !important;
+    padding-top: 0.5em !important;
+}
+INPUT[type=text]
+{
+    width: 400px;
+    padding: 2px 5px;
+}
+.lnk-src
+{
+    padding: 26px 17px 0 0;
+    float: right;
+}
+.ib
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+}
+* html .ib
+{
+    display: inline;
+}
+*:first-child + html .ib
+{
+    display: inline;
+}
+H1 A
+{
+    background: url(http://www.servicestack.net/logo-servicestack.png) no-repeat;
+    display: block;
+    height: 38px;
+    padding: 70px 30px 0 120px;
+    color: #051;
+    margin: 0 50px 0 0;
+    text-decoration: none;
+}
+#summary
+{
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background: #ffc;
+    color: #000;
+    font: 14px/18px helvetica;
+    border: solid 1px #ccf;
+    text-align: center;
+}
+#summary A
+{
+    color: blue;
+}
+#summary B
+{
+}
+
+H4
+{
+}
+
+FORM 
+{
+    display: none;
+}
+
+BUTTON 
+{
+    padding: 5px 10px;
+}
+
+
+#status
+{
+    float:left;
+}
+#status H4
+{
+    margin:0;
+    padding:0;
+}
+
+
+#user
+{
+    text-align:right;
+    float: right;
+    margin-right: 10px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#user B
+{
+    display:none;
+    border-right: solid 1px #ccc;
+    margin-right: 5px;
+    padding-right: 10px;
+}
+#user H4
+{
+    margin: 15px 0 0 0;
+    padding: 0 0 0 15px;
+}
+
+H4 EM
+{
+    color: #666;
+    font-style:normal;
+}
+
+#add
+{
+    display:none;
+    text-align:center;
+    margin: 0 -25px 0 0;
+}
+#add INPUT, #add TEXTAREA
+{
+    width: 300px;
+    padding: 3px;
+    font: 13px arial;
+    border: solid 1px #ccf;
+}
+#add TEXTAREA {
+    height: 150px;
+}
+#add INPUT.error, #add TEXTAREA.error
+{
+    border: solid 1px #c00;
+    background: #fee;
+}
+#add SPAN.error
+{
+    display:block;
+    color:#c00;
+}
+#add i
+{
+    vertical-align:top;
+    color:#c00;
+    font-size: 16px;
+    padding: 10px 0 0 0;
+}
+
+.question
+{
+    border-bottom: solid 1px #EEE;
+    padding: 0 0 5px 0;
+    margin: 0 0 5px 0;
+    width: 580px;
+}
+.question H4
+{
+    padding: 5px;
+    margin: 0 0 0 0;
+    font: bold 17px Helvetica;
+    color: #07C;
+}
+.question DL
+{
+    width: 50px;
+    text-align: center;
+    margin: 0 5px 0 0;
+    background: #eee;
+    padding: 0 4px 4px 4px;
+}
+.question DT
+{
+    display: block;
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.question DD
+{
+    display: block;
+    margin: 0;
+    font-size: 13px;
+}
+.question DL.answered
+{
+    background: #75845C;
+    color: #fff;
+}
+.question DL.unanswered
+{
+    background: #9A4444;
+    color: #fff;
+}
+.question DIV.ib
+{
+    width: 450px;
+}
+.del
+{
+    width: 16px;
+    height: 16px;
+    float: right;
+    background: url(../Images/delete_icon.png) no-repeat;
+}
+
+.by
+{
+    float: right;
+    font-size: 11px;
+    text-align:right;
+}
+.by I
+{
+    display: block;
+    color:#07C;
+    font-style:normal;
+}
+.by EM
+{
+    font-weight:bold;
+    color: #999;
+}
+
+*[data-cmd]
+{
+    color:#07C;
+    cursor:pointer;
+}
+*[data-cmd]:hover
+{
+    text-decoration: underline;
+}
+
+.tag, .page
+{
+    font-weight:normal;
+    background: #E0EAF1;
+    border-bottom: solid 1px #3E6D8E;
+    border-right: solid 1px #7F9FB6;
+    margin: 0 2px;
+    padding: 2px;
+}
+.tag:hover, .page:hover
+{
+    color:#fff;
+    background: #3E6D8E;
+    cursor:pointer;
+    text-decoration:none;
+}
+.page
+{
+    padding: 2px 5px;
+}
+#paging
+{
+    margin: 15px 0 0 0;
+}
+
+#question
+{
+}
+.question-votes
+{
+    vertical-align: top;
+    width: 50px;
+    margin: -5px 0 0 0;
+    text-align:center;
+    font-size: 24px;
+    color: #808185;
+}
+.question-votes H4
+{
+    margin: 0;
+    padding: 0;
+}
+.question-votes B
+{
+    display:block;
+    height: 26px;
+    cursor:pointer;
+}
+.question-votes B.up {
+    background: url(../Images/vote-up.png) no-repeat 50% bottom;
+}
+.question-votes B.down {
+    background: url(../Images/vote-down.png) no-repeat 50% top;
+}
+.question-votes B.up.user-selected {
+    background: url(../Images/myvote-up.png) no-repeat 50% bottom;
+}
+.question-votes B.down.user-selected {
+    background: url(../Images/myvote-down.png) no-repeat 50% bottom;
+}
+.question-content
+{
+    margin: 0 0 0 10px;
+    width: 500px;
+}
+#question .tags
+{
+    margin: 10px 0 0 60px;
+}
+#question-answers
+{
+    margin: 30px 0 0 0;
+    width: 580px;
+}
+#question-answers H3
+{
+    border-bottom: solid 1px #666;
+}
+#question-answers .answer
+{
+    padding: 5px;
+    border-bottom: solid 1px #AAA;
+}
+#question-answers .answer .by
+{
+    float:none;
+    margin: 10px 0 10px 0;
+}
+
+#your-answer TEXTAREA
+{
+    width: 500px;
+    height: 200px;
+}
+
+#toptags
+{
+    padding: 10px 0 0 0;
+}
+#toptags H3, #notes H3
+{
+    text-align:center;
+}
+#toptags DL
+{
+    text-align: left;
+    margin: 0 0 0 30px;
+}
+#toptags DD
+{
+    display: block;
+    height: 26px;
+}
+#toptags DD STRONG
+{
+    font-size: 15px;
+    margin: 0 0 0 5px;
+}
+#notes
+{
+    margin: 30px 0 0 0;
+}
+#notes DL
+{
+    text-align:left;
+    background: #f1f1f1;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+#notes DD
+{
+    padding: 2px;
+}
+#notes #btn-download
+{
+    margin: 0 60px 0 0;
+    padding: 0 0 60px 0;
+}
+
+#disclaimer
+{
+    margin: 15px 0 0 0;
+    color: #666;
+    font-size:11px;
+}
+
+#mono
+{
+    display: block;
+    float: right;
+    margin: 7px 20px 0 0;
+}
+#trivia
+{
+    margin: 3px 0 0 0;
+    padding: 1px 4px;
+    color: #444;
+    font-size: 12px;
+    background: #f1f1f1;
+}
+#trivia B
+{
+    color: #333;	
+}
+#footer
+{
+    position:fixed;
+    height: 30px;
+    left: 0;
+    bottom: 0;
+    width: 943px;
+    border-top: solid 1px #999;
+    background: #f1f1f1;
+    padding: 10px;
+}

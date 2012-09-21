@@ -2,37 +2,22 @@ using System;
 using System.Runtime.Serialization;
 
 namespace ServiceStack.Northwind.ServiceModel.Types
-{
-	[DataContract]
+{	
 	public class Order
-	{
-		[DataMember]
-		public int Id { get; set; }
-		[DataMember]
-		public string CustomerId { get; set; }
-		[DataMember]
-		public int EmployeeId { get; set; }
-		[DataMember]
-		public DateTime? OrderDate { get; set; }
-		[DataMember]
-		public DateTime? RequiredDate { get; set; }
-		[DataMember]
-		public DateTime? ShippedDate { get; set; }
-		[DataMember]
-		public int? ShipVia { get; set; }
-		[DataMember]
-		public decimal Freight { get; set; }
-		[DataMember]
-		public string ShipName { get; set; }
-		[DataMember]
-		public string ShipAddress { get; set; }
-		[DataMember]
-		public string ShipCity { get; set; }
-		[DataMember]
-		public string ShipRegion { get; set; }
-		[DataMember]
-		public string ShipPostalCode { get; set; }
-		[DataMember]
+	{		
+		public int Id { get; set; }		
+		public string CustomerId { get; set; }		
+		public int EmployeeId { get; set; }		
+		public DateTime? OrderDate { get; set; }		
+		public DateTime? RequiredDate { get; set; }		
+		public DateTime? ShippedDate { get; set; }		
+		public int? ShipVia { get; set; }		
+		public decimal Freight { get; set; }		
+		public string ShipName { get; set; }		
+		public string ShipAddress { get; set; }		
+		public string ShipCity { get; set; }		
+		public string ShipRegion { get; set; }		
+		public string ShipPostalCode { get; set; }		
 		public string ShipCountry { get; set; }
 	}
 }

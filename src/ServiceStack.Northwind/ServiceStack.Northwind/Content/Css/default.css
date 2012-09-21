@@ -1,0 +1,135 @@
+﻿BODY, H1, H2, H3
+{
+    margin: 0;
+    padding: 0;
+}
+BODY
+{
+    background: #fff url(../Images/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    width: 940px;
+}
+#body
+{
+    padding: 0 5px 120px 10px;
+}
+P
+{
+    width: 760px;
+}
+A IMG
+{
+    border: none;
+}
+A
+{
+    color: #00F;
+}
+#header-links
+{
+    top: 10px;
+    left: 270px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+#github
+{
+    position: absolute;
+    top: 40px;
+    left: 755px;
+}
+H1
+{
+    margin: 70px 0 10px 0;
+    padding: 0 0 0 70px;
+    line-height: 60px;
+    background: url(../Images/database-icon.jpg) no-repeat;
+}
+DT
+{
+    font-weight: bold;
+}
+DT, DD
+{
+    line-height: 20px;
+}
+TABLE
+{
+    border-collapse: collapse;
+    border: solid 1px #ccc;
+    margin: 0 0 20px 0;
+}
+TH
+{
+    text-align: left;
+    text-shadow: #fff 1px 1px -1px;
+    background: #f1f1f1;
+    white-space: nowrap;
+    font-weight: bold;
+}
+TH, TD
+{
+    padding: 4px 8px;
+    font-size: 13px;
+    font-family: Arial;
+}
+TD
+{
+    vertical-align: top;
+}
+TD.c3 A
+{
+    padding: 0 10px;
+    line-height: 13px;
+    border-right: solid 1px #eee;
+}
+TD.c3 A:first-child
+{
+    padding-left: 0;
+}
+TD.c4
+{
+    color: #888;
+}
+
+H2
+{
+    margin: 50px 0 20px 0;
+    padding: 10px 0 0 0;
+    border-top: solid 4px #ccc;
+}
+
+#footer
+{
+    background: #f1f1f1 url(../Images/bg-footer.png) repeat-x 0 0;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    width: 963px;
+}
+#logo
+{
+    position: absolute;
+    padding: 15px 0 0 10px;
+}
+#mono
+{
+    position: absolute;
+    left: 860px;
+    margin: 10px 0 0 0;
+}
+#demo
+{
+    padding: 15px 0 5px 0;
+    text-align: center;
+}
+#disclaimer
+{
+    text-align: center;
+    color: #444;
+    font-size: 11px;
+}

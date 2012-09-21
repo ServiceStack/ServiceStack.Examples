@@ -16,56 +16,51 @@ using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Examples.Host.Web
 {
-	/// <summary>
-	/// An example of a AppHost to have your services running inside a webserver.
-	/// </summary>
-	public class AppHost 
-		: AppHostBase
-	{
-		private static ILog log;
+    /// <summary>
+    /// An example of a AppHost to have your services running inside a webserver.
+    /// </summary>
+    public class AppHost : AppHostBase
+    {
+        private static ILog log;
 
-		public AppHost()
-			: base("ServiceStack Examples", typeof(GetFactorialService).Assembly)
-		{
-			LogManager.LogFactory = new ConsoleLogFactory();
-			log = LogManager.GetLogger(typeof (AppHost));
-		}
+        public AppHost() : base("ServiceStack Examples", typeof(GetFactorialService).Assembly)
+        {
+            LogManager.LogFactory = new ConsoleLogFactory();
+            log = LogManager.GetLogger(typeof (AppHost));
+        }
 
-		public override void Configure(Container container)
-		{
-			//Permit modern browsers (e.g. Firefox) to allow sending of any REST HTTP Method
-			base.SetConfig(new EndpointHostConfig
-			{
-				GlobalResponseHeaders =
-					{
-						{ "Access-Control-Allow-Origin", "*" },
-						{ "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
-					},
-			});
+        public override void Configure(Container container)
+        {
+            //Permit modern browsers (e.g. Firefox) to allow sending of any REST HTTP Method
+            base.SetConfig(new EndpointHostConfig
+            {
+                GlobalResponseHeaders =
+                    {
+                        { "Access-Control-Allow-Origin", "*" },
+                        { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
+                    },
+            });
 
-			container.Register<IResourceManager>(new ConfigurationResourceManager());
+            container.Register<IResourceManager>(new ConfigurationResourceManager());
+            container.Register(c => new ExampleConfig(c.Resolve<IResourceManager>()));
 
-			container.Register(c => new ExampleConfig(c.Resolve<IResourceManager>()));
-			var appConfig = container.Resolve<ExampleConfig>();
+            var appConfig = container.Resolve<ExampleConfig>();
 
-			container.Register<IDbConnectionFactory>(c =>
-				new OrmLiteConnectionFactory(
-					appConfig.ConnectionString.MapHostAbsolutePath(),
-					SqliteOrmLiteDialectProvider.Instance));
+            container.Register<IDbConnectionFactory>(c =>
+                new OrmLiteConnectionFactory(
+                    appConfig.ConnectionString.MapHostAbsolutePath(),
+                    SqliteOrmLiteDialectProvider.Instance));
 
-			ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
+            ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
 
+            //The MemoryCacheClient is a great way to get started with caching; nothing external to setup.
+            container.Register<ICacheClient>(c => new MemoryCacheClient());
 
-			//register different cache implementations depending on availability
-			const bool hasRedis = false;
-			if (hasRedis)
-				container.Register<ICacheClient>(c => new BasicRedisClientManager());
-			else
-				container.Register<ICacheClient>(c => new MemoryCacheClient());
+            //If you give Redis a try, you won't be disappointed. This however requires Redis to be installed.
+            //container.Register<ICacheClient>(c => new BasicRedisClientManager());
 
-
-			log.InfoFormat("AppHost Configured: " + DateTime.Now);
-		}
-	}
+            log.InfoFormat("AppHost Configured: {0}", DateTime.Now);
+        }
+    }
 
 }

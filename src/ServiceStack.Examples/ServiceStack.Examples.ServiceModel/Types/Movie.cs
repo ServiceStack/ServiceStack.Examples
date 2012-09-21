@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
 
-/*
- * Examples of preliminery REST method support in ServiceStack
- */
-
 namespace ServiceStack.Examples.ServiceModel.Types
 {
 	[DataContract(Namespace = ExampleConfig.DefaultNamespace)]
@@ -16,26 +12,13 @@ namespace ServiceStack.Examples.ServiceModel.Types
 		{
 			this.Genres = new List<string>();
 		}
-
-		[DataMember]
-		public string Id { get; set; }
-
-		[DataMember]
-		public string Title { get; set; }
-
-		[DataMember]
-		public decimal Rating { get; set; }
-
-		[DataMember]
-		public string Director { get; set; }
-
-		[DataMember]
-		public DateTime ReleaseDate { get; set; }
-
-		[DataMember]
-		public string TagLine { get; set; }
-
-		[DataMember]
+		
+		public string Id { get; set; }		
+		public string Title { get; set; }		
+		public decimal Rating { get; set; }		
+		public string Director { get; set; }		
+		public DateTime ReleaseDate { get; set; }		
+		public string TagLine { get; set; }		
 		public List<string> Genres { get; set; }
 
 		/// <summary>

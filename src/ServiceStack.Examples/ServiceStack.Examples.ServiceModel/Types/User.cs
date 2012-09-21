@@ -7,20 +7,11 @@ namespace ServiceStack.Examples.ServiceModel.Types
 	[DataContract(Namespace = ExampleConfig.DefaultNamespace)]
 	public class User
 	{
-		[AutoIncrement]
-		[DataMember]
-		public int Id { get; set; }
-
-		[DataMember]
-		public string UserName { get; set; }
-
-		[DataMember]
-		public string Email { get; set; }
-
-		[DataMember]
-		public string Password { get; set; }
-
-		[DataMember]
+		[AutoIncrement]		
+		public int Id { get; set; }		
+		public string UserName { get; set; }		
+		public string Email { get; set; }		
+		public string Password { get; set; }		
 		public Guid GlobalId { get; set; }
 	}
 }

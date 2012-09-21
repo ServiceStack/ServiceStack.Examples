@@ -7,8 +7,8 @@ using ServiceStack.ServiceInterface;
 namespace StarterTemplates.Common
 {
 	//Register REST Paths
-	[RestService("/todos")]
-	[RestService("/todos/{Id}")]
+	[Route("/todos")]
+	[Route("/todos/{Id}")]
 	public class Todo //REST Resource DTO
 	{
 		public long Id { get; set; }
@@ -42,7 +42,6 @@ namespace StarterTemplates.Common
 			return null;
 		}
 	}
-
 
 	/// <summary>
 	/// In-memory repository, so we can run the TODO app without any dependencies
