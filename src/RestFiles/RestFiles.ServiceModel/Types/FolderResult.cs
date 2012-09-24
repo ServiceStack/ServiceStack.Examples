@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace RestFiles.ServiceModel.Types
-{
-	[DataContract]
+{	
 	public class FolderResult
 	{
 		public FolderResult()
@@ -11,11 +10,8 @@ namespace RestFiles.ServiceModel.Types
 			Folders = new List<Folder>();
 			Files = new List<File>();
 		}
-
-		[DataMember]
-		public List<Folder> Folders { get; set; }
-
-		[DataMember]
+		
+		public List<Folder> Folders { get; set; }		
 		public List<File> Files { get; set; }
 	}
 }

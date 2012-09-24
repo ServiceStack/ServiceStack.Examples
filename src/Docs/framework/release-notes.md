@@ -312,7 +312,7 @@ In your AppHost Configure() script you can register paths against your Request D
     .Add<Todo>("/todos")
     .Add<Todo>("/todos/{Id}");    
     
-This is an alternative to the `[RestService("/hello")]` attribute which was previously required on your Request DTOs.
+This is an alternative to the `[Route("/hello")]` attribute which was previously required on your Request DTOs.
 They should work as expected, where any match will route that request to the designated service. All variables enclosed with `{Id}` will be populated on the selected Request DTO with that value of the path component. 
 
 `Routes.Add<Hello>("/hello/{Name*}")` is a special case that matches every path beginning with **/hello/** where the **Hello** Request DTOs **Name** property is populated with the contents of the remaining url path. E.g. /hello/**any/path/here** will be populated in Hello.`{Name}` property.

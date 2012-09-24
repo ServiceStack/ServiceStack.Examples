@@ -1,0 +1,178 @@
+BODY
+{
+    background: #fff url(../Images/bg-body-1024.png) repeat-y top left;
+    font: normal normal normal 13.34px/normal helvetica, arial, freesans, clean, sans-serif;
+    padding: 0 5px 20px 10px;
+    width: 940px;
+}
+A IMG 
+{ 
+    border: none;
+}
+#header-links
+{
+    top: 10px;
+    left:270px;
+    position: absolute;
+}
+#header-links A, #footer-links A
+{
+    color: #0000FF;
+    margin-left: 0.5em;
+}
+code
+{
+    background-color: ghostWhite !important;
+    border: 1px solid #DEDEDE !important;
+    color: #444 !important;
+    font-size: 12px !important;
+    line-height: 1.5em !important;
+    margin: 1em 0px !important;
+    overflow: auto !important;
+    padding: 0.5em !important;
+    display: block;
+    font-family: monospace;
+    margin: 1em 0px;
+    white-space: pre;
+}
+H1
+{
+    font-size: 170% !important;
+    margin-top: 0.65em;
+    padding-top: 0.5em;
+}
+H2
+{
+    border-top: 4px solid #E0E0E0 !important;
+    font-size: 150% !important;
+    margin-top: 1.5em !important;
+    padding-top: 0.5em !important;
+}
+INPUT[type=text]
+{
+    width: 400px;
+    padding: 2px 5px;
+}
+.lnk-src
+{
+    padding: 26px 17px 0 0;
+    float: right;
+}
+.ib
+{
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+}
+* html .ib
+{
+    display: inline;
+}
+*:first-child + html .ib
+{
+    display: inline;
+}
+H1 A
+{
+    background: url(http://www.servicestack.net/logo-servicestack.png) no-repeat;
+    display: block;
+    height: 40px;
+    padding: 70px 30px 0 120px;
+    color: #051;
+    margin: 0 50px 20px 0;
+    text-decoration: none;
+}
+#summary
+{
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background: #ffc;
+    color: green;
+    font-size: 16px;
+    border: solid 1px #ccc;
+    font-weight: bold;
+    text-align: center;
+}
+#summary A
+{
+    color: blue;
+}
+#summary B
+{
+}
+
+#btnReset
+{
+    float: right;
+    margin: 20px 0 0 0;
+}
+DT
+{
+    margin: 10px 0 5px 0;
+}
+#existing-movies DD LABEL
+{
+    width: 300px;
+}
+.lnk-update, .lnk-delete
+{
+    margin-left: 10px;
+    color: Blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+H4
+{
+    position: absolute;
+    top: 270px;
+    left: 580px;
+}
+#restlog
+{
+    position: absolute;
+    top: 290px;
+    left: 580px;
+    width: 360px;
+    height: 600px;
+    overflow-y:scroll;
+    font-size: 14px !important;
+    line-height: 18px !important;
+}
+#restlog B
+{
+    width: 70px;
+}
+
+FORM 
+{
+    display: none;
+}
+
+SELECT[name=genres]
+{
+    padding: 4px;
+    position:absolute;
+    left: 345px;
+    margin-top: 20px;
+}
+
+#btn-download {
+    display:block;
+    border-top: solid 4px #E0E0E0;
+    margin: 20px 0 20px 0px;
+    padding: 10px 0 0 0;
+}
+
+#csvformat
+{
+    background: url(http://www.servicestack.net/excel16x16.gif) no-repeat top left;
+    padding: 0 0 0 20px;
+    margin: 15px 0 0 0;
+}
+#csvformat B
+{
+    color: Blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

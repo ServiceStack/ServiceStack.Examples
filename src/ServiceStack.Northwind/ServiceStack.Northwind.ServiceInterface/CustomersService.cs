@@ -5,14 +5,19 @@ using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
-	public class CustomersService : RestServiceBase<Customers>
-	{
-		public IDbConnectionFactory DbFactory { get; set; }
+    /// <summary>
+    /// Create your ServiceStack rest-ful web service implementation. 
+    /// </summary>
+    public class CustomersService : RestServiceBase<Customers>
+    {
+        /// <summary>
+        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
+        /// </summary>
+        public IDbConnectionFactory DbFactory { get; set; }
 
-		public override object OnGet(Customers request)
-		{
-			return new CustomersResponse { Customers = DbFactory.Exec(dbCmd => dbCmd.Select<Customer>()) };
-		}
-	}
-
+        public override object OnGet(Customers request)
+        {
+            return new CustomersResponse { Customers = DbFactory.Run(dbCmd => dbCmd.Select<Customer>()) };
+        }
+    }
 }

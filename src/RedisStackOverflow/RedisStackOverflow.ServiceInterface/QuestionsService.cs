@@ -7,80 +7,74 @@ using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace RedisStackOverflow.ServiceInterface
 {
-	[RestService("/questions", "GET")]
-	[RestService("/questions/page/{Page}")]
-	[RestService("/questions/tagged/{Tag}")]
-	[RestService("/users/{UserId}/questions")]
-	[DataContract]
-	public class Questions
-	{
-		[DataMember]
-		public int? Page { get; set; }
+    /// <summary>
+    /// Define your ServiceStack web service request (i.e. the Request DTO).
+    /// </summary>  
+    [Route("/questions", "GET")]
+    [Route("/questions/page/{Page}")]
+    [Route("/questions/tagged/{Tag}")]
+    [Route("/users/{UserId}/questions")]
+    public class Questions
+    {
+        public int? Page { get; set; }
+        public string Tag { get; set; }
+        public long? UserId { get; set; }
+    }
 
-		[DataMember]
-		public string Tag { get; set; }
+    /// <summary>
+    /// Define your ServiceStack web service response (i.e. Response DTO).
+    /// </summary>
+    public class QuestionsResponse
+    {
+        public QuestionsResponse()
+        {
+            //Comment this out if you wish to receive the response status.
+            this.ResponseStatus = new ResponseStatus();
+        }
 
-		[DataMember]
-		public long? UserId { get; set; }
-	}
+        public List<QuestionResult> Results { get; set; }
 
-	[DataContract]
-	public class QuestionsResponse
-	{
-		public QuestionsResponse()
-		{
-			this.ResponseStatus = new ResponseStatus();
-		}
+        /// <summary>
+        /// Gets or sets the ResponseStatus. The built-in Ioc used with ServiceStack autowires this property with service exceptions.
+        /// </summary>
+        public ResponseStatus ResponseStatus { get; set; }
+    }
 
-		[DataMember]
-		public List<QuestionResult> Results { get; set; }
+    public class QuestionResult
+    {
+        public QuestionResult()
+        {
+            this.Answers = new List<AnswerResult>();
+        }
 
-		//For automatic injection of service exceptions
-		[DataMember] public ResponseStatus ResponseStatus { get; set; }
-	}
+        public Question Question { get; set; }
+        public User User { get; set; }
+        public int AnswersCount { get; set; }
+        public int VotesUpCount { get; set; }
+        public int VotesDownCount { get; set; }
+        public List<AnswerResult> Answers { get; set; }
+    }
 
-	[DataContract]
-	public class QuestionResult
-	{
-		public QuestionResult()
-		{
-			this.Answers = new List<AnswerResult>();
-		}
+    /// <summary>
+    /// Create your ServiceStack rest-ful web service implementation. 
+    /// </summary>
+    public class QuestionsService : RestServiceBase<Questions>
+    {
+        /// <summary>
+        /// Gets or sets the repository. The built-in IoC used with ServiceStack autowires this property.
+        /// </summary>
+        public IRepository Repository { get; set; }
 
-		[DataMember]
-		public Question Question { get; set; }
+        public override object OnGet(Questions request)
+        {
+            if (!request.Tag.IsNullOrEmpty())
+                return new QuestionsResponse { Results = Repository.GetQuestionsTaggedWith(request.Tag) };
 
-		[DataMember]
-		public User User { get; set; }
+            if (request.UserId.HasValue)
+                return new QuestionsResponse { Results = Repository.GetQuestionsByUser(request.UserId.Value) };
 
-		[DataMember]
-		public int AnswersCount { get; set; }
-
-		[DataMember]
-		public int VotesUpCount { get; set; }
-
-		[DataMember]
-		public int VotesDownCount { get; set; }
-
-		[DataMember]
-		public List<AnswerResult> Answers { get; set; }
-	}
-
-	public class QuestionsService
-	: RestServiceBase<Questions>
-	{
-		public IRepository Repository { get; set; }
-
-		public override object OnGet(Questions request)
-		{
-			if (!request.Tag.IsNullOrEmpty())
-				return new QuestionsResponse { Results = Repository.GetQuestionsTaggedWith(request.Tag) };
-
-			if (request.UserId.HasValue)
-				return new QuestionsResponse { Results = Repository.GetQuestionsByUser(request.UserId.Value) };
-
-			var pageOffset = request.Page.GetValueOrDefault(0) * 10;
-			return new QuestionsResponse { Results = Repository.GetRecentQuestionResults(pageOffset, pageOffset + 10) };
-		}
-	}
+            var pageOffset = request.Page.GetValueOrDefault(0) * 10;
+            return new QuestionsResponse { Results = Repository.GetRecentQuestionResults(pageOffset, pageOffset + 10) };
+        }
+    }
 }

@@ -10,33 +10,43 @@ using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Northwind
 {
-	public class AppHost 
-		: AppHostBase
-	{
-		public AppHost() : base("Northwind Web Services", typeof(CustomersService).Assembly) { }
+    /// <summary>
+    /// Create your ServiceStack web service application with a singleton AppHost.
+    /// </summary>  
+    public class AppHost : AppHostBase
+    {
+        /// <summary>
+        /// Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
+        /// </summary>
+        public AppHost() : base("Northwind Web Services", typeof(CustomersService).Assembly) { }
 
-		public override void Configure(Container container)
-		{
-			container.Register<IDbConnectionFactory>(
-				new OrmLiteConnectionFactory(
-				"~/Nortwind.sqlite".MapHostAbsolutePath(), 
-				SqliteOrmLiteDialectProvider.Instance));
+        /// <summary>
+        /// Configure the container with the necessary routes for your ServiceStack application.
+        /// </summary>
+        /// <param name="container">The built-in IoC used with ServiceStack.</param>
+        public override void Configure(Container container)
+        {
+            container.Register<IDbConnectionFactory>(
+                new OrmLiteConnectionFactory(
+                "~/Nortwind.sqlite".MapHostAbsolutePath(), 
+                SqliteOrmLiteDialectProvider.Instance));
 
-			//Using an in-memory cache
-			container.Register<ICacheClient>(new MemoryCacheClient());
+            //Using an in-memory cache
+            container.Register<ICacheClient>(new MemoryCacheClient());
 
-			//Or if Haz Redis
-			//container.Register<ICacheClient>(new PooledRedisClientManager());
+            //Or if Haz Redis
+            //container.Register<ICacheClient>(new PooledRedisClientManager());
 
-			VCardFormat.Register(this);
-		}
-	}
+            VCardFormat.Register(this);
+        }
+    }
 
-	public class Global : System.Web.HttpApplication
-	{
-		protected void Application_Start(object sender, EventArgs e)
-		{
-			new AppHost().Init();
-		}
-	}
+    public class Global : System.Web.HttpApplication
+    {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            //Initialize your application
+            (new AppHost()).Init();
+        }
+    }
 }

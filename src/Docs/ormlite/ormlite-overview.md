@@ -143,8 +143,8 @@ Below is a complete stand-alone example. No other config or classes is required 
 
     //Setup SQL Server Connection Factory
     var dbFactory = new OrmLiteConnectionFactory(
-    	@"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\App_Data\Database1.mdf;Integrated Security=True;User Instance=True",
-    	SqlServerOrmLiteDialectProvider.Instance);
+        @"Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\App_Data\Database1.mdf;Integrated Security=True;User Instance=True",
+        SqlServerOrmLiteDialectProvider.Instance);
 
     //Use in-memory Sqlite DB instead
     //var dbFactory = new OrmLiteConnectionFactory(
@@ -259,7 +259,7 @@ Nearly all extension methods hang off the implementation agnostic `IDbCommand`.
 
 For a one-time use of a connection, you can query straight of the `IDbFactory` with:
 
-    var customers = dbFactory.Exec(dbCmd => dbCmd.Where<Customer>(new { Age = 30 }));
+    var customers = DbFactory.Run(dbCmd => dbCmd.Where<Customer>(new { Age = 30 }));
 
 The **Select** methods allow you to construct Sql using C# `string.Format()` syntax.
 If you're SQL doesn't start with a **SELECT** statement, it is assumed a WHERE clause is being provided, e.g:
@@ -326,179 +326,179 @@ For simplicity, and to be able to have the same POCO class persisted in db4o, me
 
 In its simplest useage, OrmLite can persist any POCO type without any attributes required:
 
-	public class SimpleExample
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-	}
+    public class SimpleExample
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 
-	//Set once before use (i.e. in a static constructor).
-	OrmLiteConfig.DialectProvider = new SqliteOrmLiteDialectProvider();
+    //Set once before use (i.e. in a static constructor).
+    OrmLiteConfig.DialectProvider = new SqliteOrmLiteDialectProvider();
 
-	using (IDbConnection db = "/path/to/db.sqlite".OpenDbConnection())
-	using (IDbCommand dbConn = db.CreateCommand())
-	{
-		dbConn.CreateTable<SimpleExample>(true);
-		dbConn.Insert(new SimpleExample { Id=1, Name="Hello, World!"});
-		var rows = dbConn.Select<SimpleExample>();
+    using (IDbConnection db = "/path/to/db.sqlite".OpenDbConnection())
+    using (IDbCommand dbConn = db.CreateCommand())
+    {
+        dbConn.CreateTable<SimpleExample>(true);
+        dbConn.Insert(new SimpleExample { Id=1, Name="Hello, World!"});
+        var rows = dbConn.Select<SimpleExample>();
 
-		Assert.That(rows, Has.Count(1));
-		Assert.That(rows[0].Id, Is.EqualTo(1));
-	}
+        Assert.That(rows, Has.Count(1));
+        Assert.That(rows[0].Id, Is.EqualTo(1));
+    }
 
 To get a better idea of the features of OrmLite lets walk through a complete example using sample tables from the Northwind database. 
 _ (Full source code for this example is [available here](https://github.com/ServiceStack/ServiceStack.OrmLite/blob/master/tests/ServiceStack.OrmLite.Tests/ShippersExample.cs).) _
 
 So with no other configuration using only the classes below:
 
-	[Alias("Shippers")]
-	public class Shipper
-		: IHasId<int>
-	{
-		[AutoIncrement]
-		[Alias("ShipperID")]
-		public int Id { get; set; }
+    [Alias("Shippers")]
+    public class Shipper
+        : IHasId<int>
+    {
+        [AutoIncrement]
+        [Alias("ShipperID")]
+        public int Id { get; set; }
 
-		[Required]
-		[Index(Unique = true)]
-		[StringLength(40)]
-		public string CompanyName { get; set; }
+        [Required]
+        [Index(Unique = true)]
+        [StringLength(40)]
+        public string CompanyName { get; set; }
 
-		[StringLength(24)]
-		public string Phone { get; set; }
+        [StringLength(24)]
+        public string Phone { get; set; }
 
-		[References(typeof(ShipperType))]
-		public int ShipperTypeId { get; set; }
-	}
+        [References(typeof(ShipperType))]
+        public int ShipperTypeId { get; set; }
+    }
 
-	[Alias("ShipperTypes")]
-	public class ShipperType
-		: IHasId<int>
-	{
-		[AutoIncrement]
-		[Alias("ShipperTypeID")]
-		public int Id { get; set; }
+    [Alias("ShipperTypes")]
+    public class ShipperType
+        : IHasId<int>
+    {
+        [AutoIncrement]
+        [Alias("ShipperTypeID")]
+        public int Id { get; set; }
 
-		[Required]
-		[Index(Unique = true)]
-		[StringLength(40)]
-		public string Name { get; set; }
-	}
+        [Required]
+        [Index(Unique = true)]
+        [StringLength(40)]
+        public string Name { get; set; }
+    }
 
-	public class SubsetOfShipper
-	{
-		public int ShipperId { get; set; }
-		public string CompanyName { get; set; }
-	}
+    public class SubsetOfShipper
+    {
+        public int ShipperId { get; set; }
+        public string CompanyName { get; set; }
+    }
 
-	public class ShipperTypeCount
-	{
-		public int ShipperTypeId { get; set; }
-		public int Total { get; set; }
-	}
+    public class ShipperTypeCount
+    {
+        public int ShipperTypeId { get; set; }
+        public int Total { get; set; }
+    }
 
 
 ### Creating tables 
 Creating tables is a simple 1-liner:
 
-	using (IDbConnection dbConn = ":memory:".OpenDbConnection())
-	using (IDbCommand dbCmd = dbConn.CreateCommand())
-	{
-		const bool overwrite = false;
-		dbCmd.CreateTables(overwrite, typeof(Shipper), typeof(ShipperType));
-	}
+    using (IDbConnection dbConn = ":memory:".OpenDbConnection())
+    using (IDbCommand dbCmd = dbConn.CreateCommand())
+    {
+        const bool overwrite = false;
+        dbCmd.CreateTables(overwrite, typeof(Shipper), typeof(ShipperType));
+    }
 
-	/* In debug mode the line above prints:
-	DEBUG: CREATE TABLE "Shippers" 
-	(
-	  "ShipperID" INTEGER PRIMARY KEY AUTOINCREMENT, 
-	  "CompanyName" VARCHAR(40) NOT NULL, 
-	  "Phone" VARCHAR(24) NULL, 
-	  "ShipperTypeId" INTEGER NOT NULL, 
+    /* In debug mode the line above prints:
+    DEBUG: CREATE TABLE "Shippers" 
+    (
+      "ShipperID" INTEGER PRIMARY KEY AUTOINCREMENT, 
+      "CompanyName" VARCHAR(40) NOT NULL, 
+      "Phone" VARCHAR(24) NULL, 
+      "ShipperTypeId" INTEGER NOT NULL, 
 
-	  CONSTRAINT "FK_Shippers_ShipperTypes" FOREIGN KEY ("ShipperTypeId") REFERENCES "ShipperTypes" ("ShipperID") 
-	);
-	DEBUG: CREATE UNIQUE INDEX uidx_shippers_companyname ON "Shippers" ("CompanyName" ASC);
-	DEBUG: CREATE TABLE "ShipperTypes" 
-	(
-	  "ShipperTypeID" INTEGER PRIMARY KEY AUTOINCREMENT, 
-	  "Name" VARCHAR(40) NOT NULL 
-	);
-	DEBUG: CREATE UNIQUE INDEX uidx_shippertypes_name ON "ShipperTypes" ("Name" ASC);
-	*/
+      CONSTRAINT "FK_Shippers_ShipperTypes" FOREIGN KEY ("ShipperTypeId") REFERENCES "ShipperTypes" ("ShipperID") 
+    );
+    DEBUG: CREATE UNIQUE INDEX uidx_shippers_companyname ON "Shippers" ("CompanyName" ASC);
+    DEBUG: CREATE TABLE "ShipperTypes" 
+    (
+      "ShipperTypeID" INTEGER PRIMARY KEY AUTOINCREMENT, 
+      "Name" VARCHAR(40) NOT NULL 
+    );
+    DEBUG: CREATE UNIQUE INDEX uidx_shippertypes_name ON "ShipperTypes" ("Name" ASC);
+    */
 
 
 ### Transaction Support
 As we have direct access to IDbCommand and friends - playing with transactions is easy:
 
-	int trainsTypeId, planesTypeId;
-	using (IDbTransaction dbTrans = dbCmd.BeginTransaction())
-	{
-		dbCmd.Insert(new ShipperType { Name = "Trains" });
-		trainsTypeId = (int) dbCmd.GetLastInsertId();
+    int trainsTypeId, planesTypeId;
+    using (IDbTransaction dbTrans = dbCmd.BeginTransaction())
+    {
+        dbCmd.Insert(new ShipperType { Name = "Trains" });
+        trainsTypeId = (int) dbCmd.GetLastInsertId();
 
-		dbCmd.Insert(new ShipperType { Name = "Planes" });
-		planesTypeId = (int) dbCmd.GetLastInsertId();
+        dbCmd.Insert(new ShipperType { Name = "Planes" });
+        planesTypeId = (int) dbCmd.GetLastInsertId();
 
-		dbTrans.Commit();
-	}
-	using (IDbTransaction dbTrans = dbCmd.BeginTransaction(IsolationLevel.ReadCommitted))
-	{
-		dbCmd.Insert(new ShipperType { Name = "Automobiles" });
-		Assert.That(dbCmd.Select<ShipperType>(), Has.Count(3));
+        dbTrans.Commit();
+    }
+    using (IDbTransaction dbTrans = dbCmd.BeginTransaction(IsolationLevel.ReadCommitted))
+    {
+        dbCmd.Insert(new ShipperType { Name = "Automobiles" });
+        Assert.That(dbCmd.Select<ShipperType>(), Has.Count(3));
 
-		dbTrans.Rollback();
-	}
-	Assert.That(dbCmd.Select<ShipperType>(), Has.Count(2));
+        dbTrans.Rollback();
+    }
+    Assert.That(dbCmd.Select<ShipperType>(), Has.Count(2));
 
 
 ### CRUD Operations 
 No ORM is complete without the standard crud operations:
 
-	//Performing standard Insert's and Selects
-	dbCmd.Insert(new Shipper { CompanyName = "Trains R Us", Phone = "555-TRAINS", ShipperTypeId = trainsTypeId });
-	dbCmd.Insert(new Shipper { CompanyName = "Planes R Us", Phone = "555-PLANES", ShipperTypeId = planesTypeId });
-	dbCmd.Insert(new Shipper { CompanyName = "We do everything!", Phone = "555-UNICORNS", ShipperTypeId = planesTypeId });
+    //Performing standard Insert's and Selects
+    dbCmd.Insert(new Shipper { CompanyName = "Trains R Us", Phone = "555-TRAINS", ShipperTypeId = trainsTypeId });
+    dbCmd.Insert(new Shipper { CompanyName = "Planes R Us", Phone = "555-PLANES", ShipperTypeId = planesTypeId });
+    dbCmd.Insert(new Shipper { CompanyName = "We do everything!", Phone = "555-UNICORNS", ShipperTypeId = planesTypeId });
 
-	var trainsAreUs = dbCmd.First<Shipper>("ShipperTypeId = {0}", trainsTypeId);
-	Assert.That(trainsAreUs.CompanyName, Is.EqualTo("Trains R Us"));
-	Assert.That(dbCmd.Select<Shipper>("CompanyName = {0} OR Phone = {1}", "Trains R Us", "555-UNICORNS"), Has.Count(2));
-	Assert.That(dbCmd.Select<Shipper>("ShipperTypeId = {0}", planesTypeId), Has.Count(2));
+    var trainsAreUs = dbCmd.First<Shipper>("ShipperTypeId = {0}", trainsTypeId);
+    Assert.That(trainsAreUs.CompanyName, Is.EqualTo("Trains R Us"));
+    Assert.That(dbCmd.Select<Shipper>("CompanyName = {0} OR Phone = {1}", "Trains R Us", "555-UNICORNS"), Has.Count(2));
+    Assert.That(dbCmd.Select<Shipper>("ShipperTypeId = {0}", planesTypeId), Has.Count(2));
 
-	//Lets update a record
-	trainsAreUs.Phone = "666-TRAINS";
-	dbCmd.Update(trainsAreUs);
-	Assert.That(dbCmd.GetById<Shipper>(trainsAreUs.Id).Phone, Is.EqualTo("666-TRAINS"));
+    //Lets update a record
+    trainsAreUs.Phone = "666-TRAINS";
+    dbCmd.Update(trainsAreUs);
+    Assert.That(dbCmd.GetById<Shipper>(trainsAreUs.Id).Phone, Is.EqualTo("666-TRAINS"));
 
-	//Then make it disappear
-	dbCmd.Delete(trainsAreUs);
-	Assert.That(dbCmd.GetByIdOrDefault<Shipper>(trainsAreUs.Id), Is.Null);
+    //Then make it disappear
+    dbCmd.Delete(trainsAreUs);
+    Assert.That(dbCmd.GetByIdOrDefault<Shipper>(trainsAreUs.Id), Is.Null);
 
-	//And bring it back again
-	dbCmd.Insert(trainsAreUs);
+    //And bring it back again
+    dbCmd.Insert(trainsAreUs);
 
 
 ### Performing custom queries 
 And with access to raw sql when you need it - the database is your oyster :)
 
-	//Select only a subset from the table
-	var partialColumns = dbCmd.Select<SubsetOfShipper>(typeof (Shipper), "ShipperTypeId = {0}", planesTypeId);
-	Assert.That(partialColumns, Has.Count(2));
+    //Select only a subset from the table
+    var partialColumns = dbCmd.Select<SubsetOfShipper>(typeof (Shipper), "ShipperTypeId = {0}", planesTypeId);
+    Assert.That(partialColumns, Has.Count(2));
 
-	//Select into another POCO class that matches the sql results
-	var rows = dbCmd.Select<ShipperTypeCount>(
-		"SELECT ShipperTypeId, COUNT(*) AS Total FROM Shippers GROUP BY ShipperTypeId ORDER BY COUNT(*)");
+    //Select into another POCO class that matches the sql results
+    var rows = dbCmd.Select<ShipperTypeCount>(
+        "SELECT ShipperTypeId, COUNT(*) AS Total FROM Shippers GROUP BY ShipperTypeId ORDER BY COUNT(*)");
 
-	Assert.That(rows, Has.Count(2));
-	Assert.That(rows[0].ShipperTypeId, Is.EqualTo(trainsTypeId));
-	Assert.That(rows[0].Total, Is.EqualTo(1));
-	Assert.That(rows[1].ShipperTypeId, Is.EqualTo(planesTypeId));
-	Assert.That(rows[1].Total, Is.EqualTo(2));
+    Assert.That(rows, Has.Count(2));
+    Assert.That(rows[0].ShipperTypeId, Is.EqualTo(trainsTypeId));
+    Assert.That(rows[0].Total, Is.EqualTo(1));
+    Assert.That(rows[1].ShipperTypeId, Is.EqualTo(planesTypeId));
+    Assert.That(rows[1].Total, Is.EqualTo(2));
 
 
-	//And finally lets quickly clean up the mess we've made:
-	dbCmd.DeleteAll<Shipper>();
-	dbCmd.DeleteAll<ShipperType>();
+    //And finally lets quickly clean up the mess we've made:
+    dbCmd.DeleteAll<Shipper>();
+    dbCmd.DeleteAll<ShipperType>();
 
-	Assert.That(dbCmd.Select<Shipper>(), Has.Count(0));
-	Assert.That(dbCmd.Select<ShipperType>(), Has.Count(0));
+    Assert.That(dbCmd.Select<Shipper>(), Has.Count(0));
+    Assert.That(dbCmd.Select<ShipperType>(), Has.Count(0));

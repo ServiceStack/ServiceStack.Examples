@@ -5,56 +5,54 @@ using ServiceStack.ServiceInterface;
 
 namespace RedisStackOverflow.ServiceInterface
 {
-	[DataContract]
-	[RestService("/stats")]
-	public class Stats { }
+    /// <summary>
+    /// Define your ServiceStack web service request (i.e. the Request DTO).
+    /// </summary> 
+    [Route("/stats")]
+    public class Stats { }
+    
+    public class SiteStats
+    {
+        public SiteStats()
+        {
+            this.TopTags = new List<Tag>();
+        }
+        
+        public int QuestionsCount { get; set; }		
+        public int AnswersCount { get; set; }		
+        public List<Tag> TopTags { get; set; }
+    }
+    
+    public class Tag
+    {		
+        public string Name { get; set; }		
+        public int Score { get; set; }
+    }
 
-	[DataContract]
-	public class SiteStats
-	{
-		public SiteStats()
-		{
-			this.TopTags = new List<Tag>();
-		}
+    /// <summary>
+    /// Define your ServiceStack web service response (i.e. Response DTO).
+    /// </summary>
+    public class StatsResponse
+    {		
+        public SiteStats Result { get; set; }
+    }
 
-		[DataMember]
-		public int QuestionsCount { get; set; }
+    /// <summary>
+    /// Create your ServiceStack rest-ful web service implementation. 
+    /// </summary>
+    public class StatsService : RestServiceBase<Stats>
+    {
+        /// <summary>
+        /// Gets or sets the repository. The built-in IoC used with ServiceStack autowires this property.
+        /// </summary>
+        public IRepository Repository { get; set; }
 
-		[DataMember]
-		public int AnswersCount { get; set; }
-
-		[DataMember]
-		public List<Tag> TopTags { get; set; }
-	}
-
-	[DataContract]
-	public class Tag
-	{
-		[DataMember]
-		public string Name { get; set; }
-
-		[DataMember]
-		public int Score { get; set; }
-	}
-
-	[DataContract]
-	public class StatsResponse
-	{
-		[DataMember]
-		public SiteStats Result { get; set; }
-	}
-
-	public class StatsService
-		: RestServiceBase<Stats>
-	{
-		public IRepository Repository { get; set; }
-
-		public override object OnGet(Stats request)
-		{
-			return new StatsResponse
-			{
-				Result = Repository.GetSiteStats()
-			};
-		}
-	}
+        public override object OnGet(Stats request)
+        {
+            return new StatsResponse
+            {
+                Result = Repository.GetSiteStats()
+            };
+        }
+    }
 }
