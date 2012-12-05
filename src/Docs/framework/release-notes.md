@@ -5,7 +5,7 @@
 Now in ServiceStack is StackOverflow's own [benchmark leading](http://www.servicestack.net/benchmarks/) Micro ORM **[Dapper](http://code.google.com/p/dapper-dot-net/)**.
 This means a fresh NuGet install of ServiceStack now includes the 2 fastest Micro ORMS for .NET! :)
 
-OrmLite and Dapper are very similar in design in that they're simply useful extension methods on ADO.NET's `System.Data.*` interfaces, the difference being Dapper has extension methods of `IDbConnection` whilst OrmLite methods hangs off the lower `IDbCommand`. And because they both make use of 'clean POCOs' - they can be used interchangibly together on the same DB connection. This also allows them to both make use of `OrmLiteConnectionFactory` to configure connection manager over your DB ConnectionString.
+OrmLite and Dapper are very similar in design in that they're simply useful extension methods on ADO.NET's `System.Data.*` interfaces, the difference being Dapper has extension methods of `IDbConnection` whilst OrmLite methods hangs off the lower `IDbCommand`. And because they both make use of 'clean POCOs' - they can be used interchangeably together on the same DB connection. This also allows them to both make use of `OrmLiteConnectionFactory` to configure connection manager over your DB ConnectionString.
 
 ## Mvc Mini Profiler now baked in
 
@@ -38,7 +38,7 @@ Just like the [Normal Mvc Mini Profiler](http://code.google.com/p/mvc-mini-profi
     Profiler.Stop();
   }
 
-That's it! Now everytime you view a web service in your browser (locally) you'll see a profiler view of your service broken down in different stages:
+That's it! Now every time you view a web service in your browser (locally) you'll see a profiler view of your service broken down in different stages:
 
 ![Hello MiniProfiler](http://www.servicestack.net/files/miniprofiler-hello.png)
 
@@ -107,7 +107,7 @@ Whilst calling the service with the **n1** param yields the following warning:
 
 In both cases you see the actual SQL statements performed by clicking the **SQL** link. The N+1 query provides shows the following:
 
-![N+1 DB Example SQL Statementes](http://www.servicestack.net/files/miniprofiler-simpledb-n1-sql.png)
+![N+1 DB Example SQL Statements](http://www.servicestack.net/files/miniprofiler-simpledb-n1-sql.png)
 
 Notice the special attention the MVC MiniProfiler team put into identifying **Duplicate** queries - Thanks Guys!
 
@@ -158,10 +158,10 @@ The first version already sports the major features you've come to expect from a
     send the response to a Web Service instead. If the web service is not available it falls back into publishing it in the default 
     Response Queue so you never lose a message!
   - MQ/Web Services that don't return any output have their Request DTOs sent to a rolling **Out** queue which can be monitored 
-    by external services (i.e. the publisher/callee) to determine when the request has been processed.
+    by external services (i.e. the publisher/caller) to determine when the request has been processed.
 
 Although you can host **RedisMqHost** in any ASP.NET web app, the benefit of hosting inside ServiceStack is that your 
-**web services are already capaable** of processing Redis MQ messages **without any changes required** since they're already effectively 
+**web services are already capable** of processing Redis MQ messages **without any changes required** since they're already effectively 
 designed to work like a Message service to begin with, i.e. **C# POCO-in -> C# POCO-out**. 
 
 This is another example of ServiceStack's prescribed DTO-first architecture continues to pay dividends since each web service is a DI clean-room 
@@ -211,16 +211,16 @@ Amongst other things, this allows you to have an IInterface property which when 
 **__type** property field (similar to other JSON serializers) which when serialized populates an instance of that 
 concrete type (provided it exists). 
 
-Likewise you can also have polymorhic lists e.g. of a base **Animal** type and be populated with a **Cats** and **Dogs** which should now deserialize correctly.
+Likewise you can also have polymorphic lists e.g. of a base **Animal** type and be populated with a **Cats** and **Dogs** which should now deserialize correctly.
 
-As always performance was a primary objective when adding this feature and as a result we should have a very peformant implementation of it.
+As always performance was a primary objective when adding this feature, and as a result we should have a well performing implementation of it.
 
 Note: This feature is **automatically** added to all **Abstract/Interface/Object** types, i.e. you **don't** need to include any 
 `[KnownType]` attributes to take advantage of it.
 
 ## Other features/fixes:
 
-  - Added JSON/JSV custom serialization behaviour injection of BCL value types in e.g: [JsConfig](https://github.com/ServiceStack/ServiceStack.Text/blob/master/src/ServiceStack.Text/JsConfig.cs#L16)
+  - Added JSON/JSV custom serialization behavior injection of BCL value types in e.g: [JsConfig](https://github.com/ServiceStack/ServiceStack.Text/blob/master/src/ServiceStack.Text/JsConfig.cs#L16)
   - Serialization errors now return 400 status code
   - Add option to propagate errors instead of being sent in the response [Tymek Majewski](https://github.com/letssellsomebananas)
   - Added UserAgent to IHttpRequest type
@@ -279,11 +279,11 @@ An example MonoTouch project that uses these Sync and Async C# ServiceClients to
 
 As we have received a number of requests to provide NuGet packages for ServiceStack and its components, we're now happy to say we're now NuGet compliant! Where a configured and working ServiceStack web framework is just 1 NuGet command away :)
 
-[![Install-Pacakage ServiceStack](http://servicestack.net/img/nuget-servicestack.png)](~/framework/nuget)
+[![Install-Package ServiceStack](http://servicestack.net/img/nuget-servicestack.png)](~/framework/nuget)
 
 This will add the ServiceStack dlls to your standard VS.NET ASP.NET Web Application, Register ServiceStack handler in your Web.Config, configure your AppHost and create both a **[Hello](http://servicestack.net/ServiceStack.Hello/)** and a fully-operational **[TODO REST service](http://servicestack.net/Backbone.Todos/)**.
 
-Together with just 2 static content files ([default.htm](https://github.com/ServiceStack/ServiceStack/blob/master/NuGet/ServiceStack/content/default.htm) and [jqunback-1.51.js](https://github.com/AjaxStack/AjaxStack)) you get a fully configured and working REST-ful application (*which as an aside benefit we hope encourages .NET developers into the [beautiful world of Backbone.js](http://documentcloud.github.com/backbone/) and Single Page Ajax Applications*).
+Together with just 2 static content files ([default.htm](https://github.com/ServiceStack/ServiceStack/blob/master/NuGet/ServiceStack/content/default.htm) and [jqunback-1.51.js](https://github.com/AjaxStack/AjaxStack)) you get a fully configured and working RESTful application (*which as an aside benefit we hope encourages .NET developers into the [beautiful world of Backbone.js](http://documentcloud.github.com/backbone/) and Single Page Ajax Applications*).
 
 The NuGet package of ServiceStack is essentially the **RootPath** Starter Template. The other starting templates, e.g. Windows Service, Console Hosts, hosting ServiceStack at custom /api paths are still available in the [ServiceStack.Examples downloads](https://github.com/ServiceStack/ServiceStack.Examples/downloads).
 
@@ -295,10 +295,10 @@ Although this normally shouldn't warrant a release line item, for the technology
 We believe the overview slides provide the best starting point for new developers looking to find out the benefits of ServiceStack and how they can easily develop REST services with it. Today, we're releasing the following 2 slides:
 
 ### [ServiceStack Overview and Features](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
-[![Install-Pacakage ServiceStack](http://servicestack.net/img/slides-01-overview-300.png)](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
+[![Install-Package ServiceStack](http://servicestack.net/img/slides-01-overview-300.png)](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
 
 ### [Creating REST Web Services](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
-[![Install-Pacakage ServiceStack](http://servicestack.net/img/slides-02-create-rest-service-300.png)](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
+[![Install-Package ServiceStack](http://servicestack.net/img/slides-02-create-rest-service-300.png)](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
 
 ## Better configuration
 
@@ -336,7 +336,7 @@ E.g. this is how you would disable 'JSV' and 'SOAP 1.1 & 1.2' endpoints:
 
 Unlike in previous releases, the ServiceStack framework itself has largely remained unchanged. This update is focused towards including [Backbone.js](http://documentcloud.github.com/backbone/) into ServiceStack.Examples project. 
 
-[Backbone.js](http://documentcloud.github.com/backbone/) is a beautifully-designed and elegant light-weight JavaScript framework that allows you to build you're ajax applications separated into **Views** and **Models** connected via key-value data-binding and declarative custom event handling. Of special interest to us is its ability to supply a url and have it **automatically connect your Models** with your **Backend REST services**, which we're happy to report works well with ServiceStack's JSON services.
+[Backbone.js](http://documentcloud.github.com/backbone/) is a beautifully-designed and elegant light-weight JavaScript framework that allows you to build you're Ajax applications separated into **Views** and **Models** connected via key-value data-binding and declarative custom event handling. Of special interest to us is its ability to supply a url and have it **automatically connect your Models** with your **Backend REST services**, which we're happy to report works well with ServiceStack's JSON services.
 
 From the [author](http://twitter.com/jashkenas) of the popular and game-changing libraries [CoffeeScript](http://jashkenas.github.com/coffee-script/) and [Underscore.js](http://documentcloud.github.com/underscore/) - Backbone.js differentiates itself from other javascript frameworks in that it promotes a clean separation of concerns and a modular application design, which is hard to achieve with other frameworks that couple themselves too tightly with the DOM. 
 
@@ -396,10 +396,10 @@ To deploy on MONO you can just XCOPY/SFTP the files across as-is (i.e. as compil
   * If you want to use a custom path i.e. **/api** your ASP.NET virtual path also needs to start with your httpHandler path. Which is why an ASP.NET application hosted on **/ApiPath35/api** works as expected whilst one at **/CustomPath35/api** does not.
   
 
-## Eating our own dogfood 
+## Eating our own dog food 
 ### ServiceStack.NET now running example projects on both Nginx/FastCGI and Apache/mod_mono on the same server 
   
-With a few linux admin tweaks to add and assign a new virtual network interface with a new IP Address, we're easily able to run both Nginx/FastCGI and Apache/mod_mono HTTP servers on the same server, both configured to point to ServiceStack ASP.NET GitHub Example Projects.
+With a few Linux admin tweaks to add and assign a new virtual network interface with a new IP Address, we're easily able to run both Nginx/FastCGI and Apache/mod_mono HTTP servers on the same server, both configured to point to ServiceStack ASP.NET GitHub Example Projects.
 
 [[http://www.servicestack.net]] is running Nginx/FastCGI configuration while the sub domain [[http://api.servicestack.net]] is running Apache/mod_mono (the recommended MONO ASP.NET configuration).
 
@@ -464,7 +464,7 @@ I invite all ServiceStack users who want to share their generic high-level funct
 ### [New HTML5 Report Format Added](~/framework/json-report-format)
 
 The biggest feature added in this release is likely the new HTML5 report format that generates a human-readable HTML view of your web services response when viewing it in a web browser.
-Good news is, like the [[ServiceStack-CSV-Format]] it works with your existing webservices as-is, with no configuration or code-changes required.
+Good news is, like the [[ServiceStack-CSV-Format]] it works with your existing web services as-is, with no configuration or code-changes required.
   
 [![HTML5 Report Format](http://servicestack.net/img/HTML5Format.png)](~/framework/json-report-format)
 
@@ -474,14 +474,14 @@ Here are some results of web services created before the newer HTML5 and CSV for
   * **RestMovies** [All Movie listings](http://servicestack.net/ServiceStack.MovieRest/movies)
   * **RestFiles** [Root Directory](http://servicestack.net/RestFiles/files)
 
-Use the **?format=[json|xml|html|csv|jsv]** to toggle and view the same webservice in different formats.
+Use the **?format=[json|xml|html|csv|jsv]** to toggle and view the same web service in different formats.
 
 ### New ServiceStack.Northwind Example project added
 
 In order to be able to better demonstrate features with a 'real-world' DataSet, a new ServiceStack.Northwind project has been added which inspects the Northwind dataset from an SQLite database.
 A live demo is hosted at [[http://servicestack.net/ServiceStack.Northwind/]]. Here are some links below to better demonstrate the new HTML format with a real-world dataset:
 
-#### Nortwind Database REST web services
+#### Northwind Database REST web services
   * [All Customers](http://servicestack.net/ServiceStack.Northwind/customers) 
   * [Customer Detail](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI)
   * [Customer Orders](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI/orders)
@@ -509,7 +509,7 @@ The above code caches the most optimal output based on browser capabilities, i.e
 
 To see the difference caching provides, here are cached equivalents of the above REST web service calls:
 
-#### Nortwind Database **Cached** REST web services
+#### Northwind Database **Cached** REST web services
   * [All Customers](http://servicestack.net/ServiceStack.Northwind/cached/customers) 
   * [Customer Detail](http://servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI)
   * [Customer Orders](http://servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI/orders)
@@ -517,7 +517,7 @@ To see the difference caching provides, here are cached equivalents of the above
 
 ### API Changes
 
-The underlying IHttpRequest (an adapter interface over ASP.NET/HttpListener HTTP Requests) can now be retrieved within your webservice to be able to query the different HTTP Request properties:
+The underlying IHttpRequest (an adapter interface over ASP.NET/HttpListener HTTP Requests) can now be retrieved within your web service to be able to query the different HTTP Request properties:
 
     var httpReq = base.RequestContext.Get<IHttpRequest>();
     
@@ -540,10 +540,10 @@ Also added is the ability to resolve existing web services (already auto-wired b
 ## New RestFiles project added to [ServiceStack.Examples](https://github.com/ServiceStack/ServiceStack.Examples/) GitHub project:
 #### Live demo available at: [servicestack.net/RestFiles/](http://servicestack.net/RestFiles/)
 
-  * Provides a complete remote file system management over a [REST-ful api](http://servicestack.net/RestFiles/servicestack/metadata) 
-  * The complete REST-ful /files web service implementation is only [**1 C# page class**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs)
-  * Includes a pure ajax client to provide a **GitHub-like** file browsing experience, written in only [**1 static HTML page, using only jQuery**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
-   * [C# integration test examples](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/) are also included showing how to access this REST-ful api over sync and async C# clients
+  * Provides a complete remote file system management over a [RESTful api](http://servicestack.net/RestFiles/servicestack/metadata) 
+  * The complete RESTful /files web service implementation is only [**1 C# page class**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs)
+  * Includes a pure Ajax client to provide a **GitHub-like** file browsing experience, written in only [**1 static HTML page, using only jQuery**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
+   * [C# integration test examples](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/) are also included showing how to access this RESTful api over sync and async C# clients
 
 Read the rest of the [Rest Files README.md](https://github.com/ServiceStack/ServiceStack.Examples/tree/master/src/RestFiles/RestFiles) for a more detailed overview about the project.
 

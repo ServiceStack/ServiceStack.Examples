@@ -140,12 +140,12 @@ code
     border: 1px solid #DEDEDE !important;
     color: #444 !important;
     font-size: 12px !important;
-    line-height: 1.5em !important;
+    line-height: 1.2em !important;
     margin: 1em 0px !important;
     overflow: auto !important;
-    padding: 0.5em !important;
+    padding: 0.3em !important;
     display: block;
-    font-family: monospace;
+    font-family: Consolas;
     margin: 1em 0px;
     white-space: pre;
 }

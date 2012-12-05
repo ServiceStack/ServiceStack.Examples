@@ -7,12 +7,12 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.Northwind.ServiceInterface
 {
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class CachedCustomersService : RestServiceBase<CachedCustomers>
     {
         /// <summary>
-        /// Gets or sets the cache client. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the cache client. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public ICacheClient CacheClient { get; set; }
 
@@ -30,12 +30,12 @@ namespace ServiceStack.Northwind.ServiceInterface
     }
 
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class CachedCustomerDetailsService : RestServiceBase<CachedCustomerDetails>
     {
         /// <summary>
-        /// Gets or sets the cache client. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the cache client. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public ICacheClient CacheClient { get; set; }
 
@@ -53,12 +53,12 @@ namespace ServiceStack.Northwind.ServiceInterface
     }
 
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class CachedOrdersService : RestServiceBase<CachedOrders>
     {
         /// <summary>
-        /// Gets or sets the cache client. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the cache client. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public ICacheClient CacheClient { get; set; }
 

@@ -298,7 +298,7 @@ All **Insert**, **Update**, and **Delete** methods take multiple params, while `
 **GetLastInsertId** returns the last inserted records auto incremented primary key.
 
 `Save` and `SaveAll` will Insert if no record with **Id** exists, otherwise it Updates. 
-Both take multiple items, optimized to perform a single read to check for existing records and are executed within a sinlge transaction.
+Both take multiple items, optimized to perform a single read to check for existing records and are executed within a single transaction.
 
 Methods containing the word **Each** return an IEnumerable<T> and are lazily loaded (i.e. non-buffered).
 
@@ -319,7 +319,7 @@ GetById(s), QueryById(s), etc provide strong-typed convenience methods to fetch 
 
 # Limitations 
 
-For simplicity, and to be able to have the same POCO class persisted in db4o, memcached, redis or on the filesystem (i.e. providers included in ServiceStack), each model must have an '`Id`' property which is its primary key.  
+For simplicity, and to be able to have the same POCO class persisted in db4o, memcached, redis or on the file system (i.e. providers included in ServiceStack), each model must have an '`Id`' property which is its primary key.  
 
 
 # More Examples 

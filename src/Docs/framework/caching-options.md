@@ -26,7 +26,7 @@ Which are simply existing web services wrapped using **ICacheClient** that are c
 ## ICacheClient the Common Interface
 
 
-	//A common interface implementation that is implemeneted by most cache providers
+	//A common interface implementation that is implemented by most cache providers
 	public interface ICacheClient 
 		: IDisposable
 	{

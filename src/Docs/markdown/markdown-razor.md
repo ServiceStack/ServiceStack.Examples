@@ -28,8 +28,8 @@ pages with it. The **MarkdownGlobalHelpers** allow you to define global helper m
 available to all your pages. This has the same effect of declaring it in your base class e.g:
 
     public class CustomMarkdownPage : MarkdownViewBase {
-	    public CustomStaticHelpers Ext = new CustomStaticHelpers();
-	}
+        public CustomStaticHelpers Ext = new CustomStaticHelpers();
+    }
 
 Which you can access in your pages via **&#64;Ext.MyHelper(Model)**. Declaring instance methods on
 your custom base class allows you to access them without any prefix.
@@ -38,26 +38,26 @@ your custom base class allows you to access them without any prefix.
 By default the **MarkdownViewBase** class provides the following properties and hooks:
 
     public class MarkdownViewBase {
-		
-		public IAppHost AppHost; //Access Config, resolve dependencies, etc.
-		public MarkdownPage MarkdownPage; //This precompiled Markdown page with Metadata
-		public HtmlHelper Html; //ASP.NET MVC's HtmlHelper
-		public bool RenderHtml; //Flag to on whether you should you generate HTML or Markdown
+        
+        public IAppHost AppHost; //Access Config, resolve dependencies, etc.
+        public MarkdownPage MarkdownPage; //This precompiled Markdown page with Metadata
+        public HtmlHelper Html; //ASP.NET MVC's HtmlHelper
+        public bool RenderHtml; //Flag to on whether you should you generate HTML or Markdown
 
-		/*
-		  All variables passed to and created by your page. 
-		  The Response DTO is stored and accessible via the 'Model' variable.
+        /*
+          All variables passed to and created by your page. 
+          The Response DTO is stored and accessible via the 'Model' variable.
 
-		  All variables and outputs created are stored in ScopeArgs which is what's available
-		  to your website template. The Generated page is stored in the 'Body' variable.
+          All variables and outputs created are stored in ScopeArgs which is what's available
+          to your website template. The Generated page is stored in the 'Body' variable.
         */
-		public Dictionary<string,object> ScopeArgs;
+        public Dictionary<string,object> ScopeArgs;
 
-		//Called before page is executed
+        //Called before page is executed
         public virtual void InitHelpers(){} 
 
         //Called after page is executed before it's merged with the website template if any
-		public virtual void OnLoad(){}      
+        public virtual void OnLoad(){}      
     }
 
 See this websites 
@@ -94,11 +94,11 @@ Can be generated in MVC Razor with:
 
 And Markdown Razor with:
 
-	# Razor Example
+    # Razor Example
 
-	###  Hello @@name, the year is @@DateTime.Now.Year
+    ###  Hello @@name, the year is @@DateTime.Now.Year
 
-	Checkout [this product](/Product/Details/@@productId)
+    Checkout [this product](/Product/Details/@@productId)
 
 ### Loops and Nested HTML Sample
 
@@ -114,9 +114,9 @@ With MVC Razor:
 
 With Markdown Razor:
 
-	@@foreach (var p in products) {
-	  - @@p.Name: (@@p.Price)
-	}
+    @@foreach (var p in products) {
+      - @@p.Name: (@@p.Price)
+    }
 
 ### Parens-Free
 At this point I think it would be a good to introduce some niceties in Markdown Razor of its own. 
@@ -125,15 +125,15 @@ Borrowing a page out of [@BrendanEich](http://twitter.com/BrendanEich) proposal 
 [Parens free syntax](http://brendaneich.com/2010/11/paren-free/) for JS.Next - you can simply 
 remove the parens from all block statements e.g:
 
-	@@foreach var p in products {
-	  - @@p.Name: (@@p.Price)
-	}
+    @@foreach var p in products {
+      - @@p.Name: (@@p.Price)
+    }
 
 Produces the same output, and to go one step further you can remove the redundant **var** as well :)
 
-	@@foreach p in products {
-	  - @@p.Name: (@@p.Price)
-	}
+    @@foreach p in products {
+      - @@p.Name: (@@p.Price)
+    }
 
 Which makes the Markdown Razor's version a bit more wrist-friendly then its MVCs cousin :)
 
@@ -144,11 +144,11 @@ Which makes the Markdown Razor's version a bit more wrist-friendly then its MVCs
 
 #### If statements in Markdown Razor:
 
-	@@if (products.Count == 0) {
-	Sorry - no products in this category
-	} else {
-	We have products for you!
-	}
+    @@if (products.Count == 0) {
+    Sorry - no products in this category
+    } else {
+    We have products for you!
+    }
 
 #### Multi-line and Multi-token statements
 ![MVC Razor Multi-line statements](http://weblogs.asp.net/blogs/scottgu/image_thumb_4B321FC5.png)
@@ -158,10 +158,10 @@ take advantage for variable syntax declarations, e.g:
 
 #### Markdown replacement for Multi-line Statements
 
-	@@var number = 1
-	@@var message = ""Number is "" + number
+    @@var number = 1
+    @@var message = ""Number is "" + number
 
-	Your Message: @@message
+    Your Message: @@message
 
 
 ### Integrating Content and Code
@@ -173,7 +173,7 @@ Does it break with email addresses and other usages of @ in HTML?
 
 #### With Markdown Razor
 
-	Send mail to scottgu@microsoft.com telling him the time: @@DateTime.Now.
+    Send mail to scottgu@microsoft.com telling him the time: @@DateTime.Now.
 
 Both View engines generate the expected output, e.g:
 
@@ -187,18 +187,18 @@ Both View engines generate the expected output, e.g:
 
 #### With Markdown Razor
 
-	@@if (DateTime.Now.Year == 2011) {
-	If the year is 2011 then print this 
-	multi-line text block and 
-	the date: @@DateTime.Now
-	}
+    @@if (DateTime.Now.Year == 2011) {
+    If the year is 2011 then print this 
+    multi-line text block and 
+    the date: @@DateTime.Now
+    }
 
 Markdown Razor doesn't need to do anything special with text blocks since all it does is look 
 for the ending brace '}'. This means if you want to output a brace literal '{' then you have to 
 double escape it with '{{' or '}}'.
 
 ### HTML Encoding
-Markdown Razor follows MVC Markdown behaviour where by default content emitted using a @@ block 
+Markdown Razor follows MVC Markdown behavior where by default content emitted using a @@ block 
 is automatically HTML encoded to better protect against XSS attack scenarios. 
 
 If you want to avoid HTML Encoding you have the same options as MVC Razor where you can wrap your
@@ -206,18 +206,18 @@ result in **@@Html.Raw(htmlString)** or if you're using an Extension method simp
 **MvcHtmlString** instead of a normal string.
 
 Markdown also lets you mix and match HTML in your markdown although any markdown between the tags
-does not get converted to HTML. To tell Markdown Razor to evaulate the contents inside html
+does not get converted to HTML. To tell Markdown Razor to evaluate the contents inside html
 **&lt;tag&gt;...&lt;/tag&gt;**'s need to prefixed with `^`, e.g. 
 (taken from the [/Views/Search.md](https://raw.github.com/ServiceStack/ServiceStack.Examples/master/src/Docs/Views/Search.md) page):
 
-	^<div id="searchresults">
+    ^<div id="searchresults">
 
-	@@foreach page in Model.Results {
-	### @@page.Category > [@@page.Name](@@page.AbsoluteUrl)
-	@@page.Content
-	}
+    @@foreach page in Model.Results {
+    ### @@page.Category > [@@page.Name](@@page.AbsoluteUrl)
+    @@page.Content
+    }
 
-	^</div>
+    ^</div>
 
 If we didn't prefix `^` we would see `### @@page.Category ...` repeating.
 
@@ -237,24 +237,24 @@ same mechanism to embed the body like any other variable i.e. following the plac
 of **&lt;--@@VarName--&gt;** so to embed the View page output in the above master template you 
 would do:
 
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<title>Simple Site</title>
-		</head>
-		<body>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Simple Site</title>
+        </head>
+        <body>
     
-			<div id=""header"">
-				<a href=""/"">Home</a>
-				<a href=""/About"">About</a>
-			</div>
+            <div id=""header"">
+                <a href=""/"">Home</a>
+                <a href=""/About"">About</a>
+            </div>
         
-			<div id=""body"">
-				<!--@@Body-->
-			</div>
+            <div id=""body"">
+                <!--@@Body-->
+            </div>
     
-		</body>
-	</html>
+        </body>
+    </html>
 
 By default we use convention to select the appropriate website template for the selected view 
 where it uses the nearest **default.shtml** static template it finds, looking first in the
@@ -270,17 +270,17 @@ selecting a custom template:
 
 #### With Markdown Razor
 
-	@@Layout ~/websiteTemplate
+    @@Layout ~/websiteTemplate
 
-	# About this Site
+    # About this Site
 
-	This is some content that will make up the ""about"" 
-	page of our web-site. We'll use this in conjunction
-	with a layout template. The content you are seeing here
-	comes from ^^^websiteTemplate.
+    This is some content that will make up the ""about"" 
+    page of our web-site. We'll use this in conjunction
+    with a layout template. The content you are seeing here
+    comes from ^^^websiteTemplate.
 
-	And obviously I can have code in here too. Here is the
-	current date/year: @@DateTime.Now.Year
+    And obviously I can have code in here too. Here is the
+    current date/year: @@DateTime.Now.Year
 
 Note: In addition to **@@Layout** we also support the more appropriate alias of **@@template**.
 
@@ -299,60 +299,60 @@ And you use in your website template like so:
 Markdown Razor supports the same **@@section** construct but allows you to embed it in your template
 via the standard variable substitution convention, e.g:
 
-	@@Layout ~/websiteTemplate
+    @@Layout ~/websiteTemplate
 
-	# About this Site
+    # About this Site
 
-	This is some content that will make up the ""about"" 
-	page of our web-site. We'll use this in conjunction
-	with a layout template. The content you are seeing here
-	comes from ^^^websiteTemplate.
+    This is some content that will make up the ""about"" 
+    page of our web-site. We'll use this in conjunction
+    with a layout template. The content you are seeing here
+    comes from ^^^websiteTemplate.
 
-	And obviously I can have code in here too. Here is the
-	current date/year: @@DateTime.Now.Year
+    And obviously I can have code in here too. Here is the
+    current date/year: @@DateTime.Now.Year
 
-	@@section Menu {
-	  - About Item 1
-	  - About Item 2
-	}
+    @@section Menu {
+      - About Item 1
+      - About Item 2
+    }
 
-	@@section Footer {
-	This is my custom footer for Home
-	}
+    @@section Footer {
+    This is my custom footer for Home
+    }
 
 And these sections and body can be used in the website template like:
 
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<title>Simple Site</title>
-		</head>
-		<body>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Simple Site</title>
+        </head>
+        <body>
     
-			<div id="header">
-				<a href="/">Home</a>
-				<a href="/About">About</a>
-			</div>
+            <div id="header">
+                <a href="/">Home</a>
+                <a href="/About">About</a>
+            </div>
         
-			<div id="left-menu">
-				<!--@@Menu-->
-			</div>
+            <div id="left-menu">
+                <!--@@Menu-->
+            </div>
         
-			<div id="body">
-				<!--@@Body-->
-			</div>
+            <div id="body">
+                <!--@@Body-->
+            </div>
         
-			<div id="footer">
-				<!--@@Footer-->
-			</div>
+            <div id="footer">
+                <!--@@Footer-->
+            </div>
     
-		</body>
-	</html>
+        </body>
+    </html>
 
 ## Encapsulation and Re-Use with HTML Helpers
 
 In order to encapsulate and better be able to re-use HTML Helper utils MVC Razor includes a few 
-different ways to componentize and re-use code with HTMLHelper extension methods and declarative helpers. 
+different ways to componentized and re-use code with HTMLHelper extension methods and declarative helpers. 
 
 ### Code Based HTML Helpers
 
@@ -364,17 +364,17 @@ similar although to make this work we need to inherit from the **MarkdownViewBas
 generic base class so we know what Model to provide the strong-typed extensions for. You can do this
 using the **@@model** directive specifying the full type name:
 
-	@@model ServiceStack.ServiceHost.Tests.Formats.Product
-	<fieldset>
-		<legend>Edit Product</legend>
+    @@model ServiceStack.ServiceHost.Tests.Formats.Product
+    <fieldset>
+        <legend>Edit Product</legend>
     
-		<div>
-			@@Html.LabelFor(m => m.ProductID)
-		</div>
-		<div>
-			@@Html.TextBoxFor(m => m.ProductID)
-		</div>
-	</fieldset>
+        <div>
+            @@Html.LabelFor(m => m.ProductID)
+        </div>
+        <div>
+            @@Html.TextBoxFor(m => m.ProductID)
+        </div>
+    </fieldset>
 
 Whilst we ported most of MVC HtmlHelper extension methods as-is, we did rip out all the validation
 logic which appeared to be unnecessarily complex and too coupled with MVC's code-base.
@@ -387,12 +387,12 @@ Whilst we don't support MVC Razors quasi C# quasi-html approach of defining decl
 we do allow you to on a per instance basis (or globally) import helpers in custom Fields using the 
 **@@helper** syntax:
 
-	@@helper Prod: MyHelpers.ExternalProductHelper
+    @@helper Prod: MyHelpers.ExternalProductHelper
 
-	<fieldset>
-		<legend>All Products</legend>
-		@@Prod.ProductTable(Model)
-	</fieldset
+    <fieldset>
+        <legend>All Products</legend>
+        @@Prod.ProductTable(Model)
+    </fieldset
 
 You can register Global helpers and a custom base class using the **MarkdownGlobalHelpers** and
 **MarkdownBaseType** AppHost Config options as shown at the top of this article.
@@ -403,7 +403,7 @@ Well that's it for the comparison between MVC Razor and Markdown Razor as you ca
 is quite transferable with a lot of cases the syntax is exactly the same.
 
 As good as MVC Razor is with its wrist-friendly and expressive syntax, we believe Razor Markdown is
-even better! Where thanks to Markdown you can even dispense with most of HTML's boiler plage 
+even better! Where thanks to Markdown you can even dispense with most of HTML's boiler plate 
 angle brackets :) We think it makes an ideal solution for content heavy websites like this one.
 
 Unlike ASP.NET's MVC Razor, Markdown Razor like all of ServiceStack is **completely Open Source** and 
