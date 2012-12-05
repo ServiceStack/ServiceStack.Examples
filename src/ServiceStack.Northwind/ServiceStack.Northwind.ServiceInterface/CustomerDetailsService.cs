@@ -9,12 +9,12 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.Northwind.ServiceInterface
 {
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class CustomerDetailsService : RestServiceBase<CustomerDetails>
     {
         /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public IDbConnectionFactory DbFactory { get; set; }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Custom media types vs data formats</title>
+    <title>Custom media types vs. data formats</title>
     <link rel="stylesheet" type="text/css" href="Content/Css/vcard-format.css" />
 </head>
 <body>
@@ -25,7 +25,7 @@
             media types and formats.
         </p>
         <h3>
-            Specific Media Types vs Data Formats</h3>
+            Specific Media Types vs. Data Formats</h3>
         <p>
             It's not given as much prominence as ServiceStack's other formats simply because
             supporting specific media types require more custom development effort so are unlike
@@ -45,12 +45,12 @@
         <p>
             So when it's beneficial to, adding Custom Media Types in Service Stack is easy where
             in just <b>1 Line of Code</b> you can register your format and have it immediately
-            availble in ServiceStack's REST pipeline and auto-generated <a href="metadata">/metadata</a>
+            available in ServiceStack's REST pipeline and auto-generated <a href="metadata">/metadata</a>
             pages.
         </p>
         <p>
             Below is a live example of what is possible when we add the VCard format to the
-            Northwinds <b>Customer</b> web services. It allows us to provide the unusual relationship
+            Northwind <b>Customer</b> web services. It allows us to provide the unusual relationship
             giving our MONO web server deep access into your Windows Outlook client :)
         </p>
         <a href="customers/ALFKI?format=x-vcard">
@@ -70,18 +70,17 @@
             Registering a custom format in ServiceStack</h4>
         <p>
             In the <b>Register()</b> method we simply tell ServiceStack that we have a new <b>ContentType</b>
-            available and supply the Stream serialisers that it should use whenever processing
+            available and supply the Stream serializers that it should use whenever processing
             that ContentType.
         </p>
         <p>
-            With just this 1 line of config: <b><code>appHost.ContentTypeFilters.Register(VCardContentType,
-                SerializeToStream, DeserializeFromStream);</code></b><br />
+            With just this 1 line of config: <b><code>appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);</code></b><br />
             We now have your custom format registered into ServiceStack who will now use the
             supplied Content serializers whenever this Content-Type is requested by the client
             in any of the following ways:
         </p>
         <ul>
-            <li>REST URL overridng response format using the QueryString: <a href="customers/ALFKI?format=x-vcard">
+            <li>REST URL overriding response format using the QueryString: <a href="customers/ALFKI?format=x-vcard">
                 /customers/ALFKI?format=x-vcard</a></li>
             <li>Auto generated format url: <a href="x-vcard/syncreply/customers/ALFKI">/x-vcard/syncreply/customers/ALFKI</a></li>
             <li>Using the <b>Accept: text/x-vcard</b> HTTP header at the REST URL: <a href="customers/ALFKI">
@@ -98,37 +97,51 @@
             HTTP header added to signal to the browser that this resource is to be treated as
             an attachment using the prescribed filename.
         </p>
-        <code>private const string VCardContentType = "text/x-vcard"; public static void Register(IAppHost
-            appHost) { appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream,
-            DeserializeFromStream); appHost.ResponseFilters.Add((req, res, dto) =&gt; { if (req.ResponseContentType
-            == VCardContentType) { res.AddHeader(HttpHeaders.ContentDisposition, string.Format("attachment;filename={0}.vcf",
-            req.OperationName)); } }); }</code>
+        <code>private const string VCardContentType = "text/x-vcard";
+public static void Register(IAppHost appHost) { 
+    appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);
+    appHost.ResponseFilters.Add((req, res, dto) =&gt; {
+        if (req.ResponseContentType == VCardContentType) {
+            res.AddHeader(HttpHeaders.ContentDisposition, string.Format("attachment;filename={0}.vcf", req.OperationName));
+        }
+    });
+}</code>
         <p>
             With the x-vcard format now registered in ServiceStack, the only thing left to to
             is implement the Content-Type SerializeToStream routine. Unlike the data formats
-            it is not as simple as just serioulizing the Respone DTO. In this case we need to
+            it is not as simple as just serializing the Response DTO. In this case we need to
             detect if the response DTO contains a customer and if it does return its data in
             the <a href="http://en.wikipedia.org/wiki/VCard">VCard format</a>.
         </p>
-        <code>public static void SerializeToStream(IRequestContext requestContext, object response,
-            Stream stream) { var customerDetailsResponse = response as CustomerDetailsResponse;
-            using (var sw = new StreamWriter(stream)) { if (customerDetailsResponse != null)
-            { WriteCustomer(sw, customerDetailsResponse.Customer); } var customers = response
-            as CustomersResponse; if (customers != null) { customers.Customers.ForEach(x =>
-            WriteCustomer(sw, x)); } } } public static void WriteCustomer(StreamWriter sw, Customer
-            customer) { sw.WriteLine("BEGIN:VCARD"); sw.WriteLine("VERSION:2.1"); sw.WriteLine("FN:"
-            + customer.ContactName); sw.WriteLine("ORG:" + customer.CompanyName); sw.WriteLine("TITLE:"
-            + customer.ContactTitle); sw.WriteLine("EMAIL;TYPE=PREF,INTERNET:" + customer.Email);
-            sw.WriteLine("TEL;HOME;VOICE:" + customer.Phone); sw.WriteLine("TEL;WORK;FAX:" +
-            customer.Fax); sw.WriteLine("ADR;TYPE=HOME;" + new[] { customer.Address, customer.City,
-            customer.PostalCode }.Join(";")); sw.WriteLine("END:VCARD"); }</code>
+        <code>public static void SerializeToStream(IRequestContext requestContext, object response, Stream stream) { 
+    var customerDetailsResponse = response as CustomerDetailsResponse;
+    using (var sw = new StreamWriter(stream)) {
+        if (customerDetailsResponse != null)
+        {
+            WriteCustomer(sw, customerDetailsResponse.Customer);
+        }
+        var customers = response as CustomersResponse; 
+        if (customers != null) { 
+            customers.Customers.ForEach(x => WriteCustomer(sw, x)); 
+        } 
+    } 
+} 
+public static void WriteCustomer(StreamWriter sw, Customer customer) { 
+    sw.WriteLine("BEGIN:VCARD"); sw.WriteLine("VERSION:2.1");
+    sw.WriteLine("FN:" + customer.ContactName); sw.WriteLine("ORG:" + customer.CompanyName);
+    sw.WriteLine("TITLE:" + customer.ContactTitle); sw.WriteLine("EMAIL;TYPE=PREF,INTERNET:" + customer.Email);
+    sw.WriteLine("TEL;HOME;VOICE:" + customer.Phone); sw.WriteLine("TEL;WORK;FAX:" + customer.Fax);
+    sw.WriteLine("ADR;TYPE=HOME;" + new[] { customer.Address, customer.City, customer.PostalCode }.Join(";"));
+    sw.WriteLine("END:VCARD"); 
+}</code>
         <p>
             And that's the entire VCard format in a single loosely-coupled class. No other concepts
-            / artefacts are required to make this work, you can just simply plug it into ServiceStack
+            / artifacts are required to make this work, you can just simply plug it into ServiceStack
             the the following 1 Line of Code:
         </p>
-        <code>public override void Configure(Container container) { VCardFormat.Register(this);
-            }</code>
+        <code>public override void Configure(Container container) {
+    VCardFormat.Register(this);
+}</code>
     </div>
 </body>
 </html>
