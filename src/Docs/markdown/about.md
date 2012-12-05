@@ -16,7 +16,7 @@ or [Markdown only](?format=text.bare) of the current page outside of the website
 
 ### Non-invasive Ajax-enhanced web experience
 To show how to take advantage of the partial-content support in ServiceStack, browsers 
-that support the **history.pushState** API have enhanced behaviour applied to them where
+that support the **history.pushState** API have enhanced behavior applied to them where
 links to other parts of the website are done via non-obtrusive partial page loads. 
 
 This improves browsing experience performance since the browser only has to load the content html
@@ -28,7 +28,7 @@ Although most of this website is static it contains a couple of dynamic pages th
 Markdown Razor View engine template in ServiceStack. The [Search](~/search/Redis) 
 and [Category](~/category/Redis%20Client) web services both have
 view templates which when defined take over the **html format** for that REST service. Unlike other
-web frameworks these dynamic pages are **first-class webservices** where you can optionally use 
+web frameworks these dynamic pages are **first-class web services** where you can optionally use 
 REST clients to consume these services in JSON, XML, ... formats e.g. here are the above pages in JSON: 
 
   - [/search/Redis?format=json](~/search/Redis?format=json)

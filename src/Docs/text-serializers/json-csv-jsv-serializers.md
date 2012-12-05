@@ -15,7 +15,7 @@ Benchmarks for .NET's popular Binary and JSON Serializers are available at: [ser
 
 ## NuGet ServiceStack.Text
 
-![Install-Pacakage ServiceStack.Text](http://servicestack.net/img/nuget-servicestack.text.png)
+![Install-Package ServiceStack.Text](http://servicestack.net/img/nuget-servicestack.text.png)
 
 ## ServiceStack.JsonSerializer - the fastest JSON Serializer for .NET
 For reasons outlined [in this blog post](http://www.servicestack.net/mythz_blog/?p=344) I decided to re-use *TypeSerializer's* text processing-core to create ServiceStack.JsonSerializer - the fastest JSON Serializer for .NET.
@@ -113,7 +113,7 @@ Out of all the serializers benchmarked, it is the only one to remain competitive
 
 Below is a series of benchmarks serialize the different tables in the [Northwind database](http://code.google.com/p/servicestack/source/browse/trunk/Common/Northwind.Benchmarks/Northwind.Common/DataModel/NorthwindData.cs) (3202 records) with the most popular serializers available for .NET:
 
-### Combined results for serializing / deserialzing a single row of each table in the Northwind database 1,000,000 times
+### Combined results for serializing / deserializing a single row of each table in the Northwind database 1,000,000 times
 _[view the detailed benchmarks](http://www.servicestack.net/benchmarks/NorthwindDatabaseRowsSerialization.1000000-times.2010-02-06.html)_
 
 <table>
@@ -121,7 +121,7 @@ _[view the detailed benchmarks](http://www.servicestack.net/benchmarks/Northwind
 <tr>
 <th>Serializer</th>
 <th>Size</th>
-<th>Peformance</th>
+<th>Performance</th>
 </tr>
 </thead>
 <tbody>

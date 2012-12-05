@@ -205,18 +205,18 @@
                         </div>
                         <h5>Server code</h5>
                         <code class="server-code">
-	public class GetFactorialService : IService&lt;GetFactorial&gt;
-	{
-		public object Execute(GetFactorial request)
-		{
-			return new GetFactorialResponse { Result = GetFactorial(request.ForNumber) };
-		}
+    public class GetFactorialService : IService&lt;GetFactorial&gt;
+    {
+        public object Execute(GetFactorial request)
+        {
+            return new GetFactorialResponse { Result = GetFactorial(request.ForNumber) };
+        }
 
-		static long GetFactorial(long n)
-		{
-			return n &gt; 1 ? n * GetFactorial(n - 1) : 1;
-		}
-	}
+        static long GetFactorial(long n)
+        {
+            return n &gt; 1 ? n * GetFactorial(n - 1) : 1;
+        }
+    }
                         </code>
                     </div>
                 </div>
@@ -275,49 +275,49 @@
                         <h5>Server code</h5>
                         <code class="server-code">
     public class GetFibonacciNumbersService
-	    : IService&lt;GetFibonacciNumbers&gt;
+        : IService&lt;GetFibonacciNumbers&gt;
     {
-	    private readonly ExampleConfig config;
+        private readonly ExampleConfig config;
 
-	    //Example of ServiceStack's built-in Funq IOC constructor injection
-	    public GetFibonacciNumbersService(ExampleConfig config)
-	    {
-		    this.config = config;
-	    }
+        //Example of ServiceStack's built-in Funq IOC constructor injection
+        public GetFibonacciNumbersService(ExampleConfig config)
+        {
+            this.config = config;
+        }
 
-	    public object Execute(GetFibonacciNumbers request)
-	    {
-		    var skip = request.Skip.GetValueOrDefault(0);
-		    var take = request.Take.GetValueOrDefault(config.DefaultFibonacciLimit);
+        public object Execute(GetFibonacciNumbers request)
+        {
+            var skip = request.Skip.GetValueOrDefault(0);
+            var take = request.Take.GetValueOrDefault(config.DefaultFibonacciLimit);
 
-		    var results = new List&lt;long&gt;();
+            var results = new List&lt;long&gt;();
 
-		    var i = 0;
-		    foreach (var fibonacciNumber in GetFibonacciNumbersNumbers())
-		    {
-			    if (i++ &lt; skip) continue;
+            var i = 0;
+            foreach (var fibonacciNumber in GetFibonacciNumbersNumbers())
+            {
+                if (i++ &lt; skip) continue;
 
-			    results.Add(fibonacciNumber);
+                results.Add(fibonacciNumber);
 
-			    if (results.Count == take) break;
-		    }
+                if (results.Count == take) break;
+            }
 
-		    return new GetFibonacciNumbersResponse { Results = new ArrayOfLong(results) };
-	    }
+            return new GetFibonacciNumbersResponse { Results = new ArrayOfLong(results) };
+        }
 
-	    static IEnumerable&lt;long&gt; GetFibonacciNumbersNumbers()
-	    {
-		    long n1 = 0;
-		    long n2 = 1;
+        static IEnumerable&lt;long&gt; GetFibonacciNumbersNumbers()
+        {
+            long n1 = 0;
+            long n2 = 1;
 
-		    while (true)
-		    {
-			    var n3 = n1 + n2;
-			    yield return n3;
-			    n1 = n2;
-			    n2 = n3;
-		    }
-	    }
+            while (true)
+            {
+                var n3 = n1 + n2;
+                yield return n3;
+                n1 = n2;
+                n2 = n3;
+            }
+        }
     }
                         </code>
                     </div>
@@ -394,37 +394,37 @@
                         <code class="server-code">
     public class StoreNewUserService : IService&lt;StoreNewUser&gt;
     {
-	    //Example of ServiceStack's built-in Funq IOC property injection
-	    public IDbConnectionFactory ConnectionFactory { get; set; }
+        //Example of ServiceStack's built-in Funq IOC property injection
+        public IDbConnectionFactory ConnectionFactory { get; set; }
 
-	    public object Execute(StoreNewUser request)
-	    {
-		    using (var dbConn = ConnectionFactory.OpenDbConnection())
-		    using (var dbCmd = dbConn.CreateCommand())
-		    {
-			    var existingUsers = dbCmd.Select&lt;User&gt;("UserName = {0}",
-			      request.UserName).ToList();
+        public object Execute(StoreNewUser request)
+        {
+            using (var dbConn = ConnectionFactory.OpenDbConnection())
+            using (var dbCmd = dbConn.CreateCommand())
+            {
+                var existingUsers = dbCmd.Select&lt;User&gt;("UserName = {0}",
+                  request.UserName).ToList();
 
-			    if (existingUsers.Count &gt; 0)
-			    {
-				    return new StoreNewUserResponse {
-					    ResponseStatus = new ResponseStatus {
-					      ErrorCode = "UserNameMustBeUnique"
-					    }
-				    };
-			    }
+                if (existingUsers.Count &gt; 0)
+                {
+                    return new StoreNewUserResponse {
+                        ResponseStatus = new ResponseStatus {
+                          ErrorCode = "UserNameMustBeUnique"
+                        }
+                    };
+                }
 
-			    var newUser = new User {
-			        UserName = request.UserName,
-			        Email = request.Email,
-			        Password = request.Password
-			    };
+                var newUser = new User {
+                    UserName = request.UserName,
+                    Email = request.Email,
+                    Password = request.Password
+                };
 
-			    dbCmd.Insert(newUser);
+                dbCmd.Insert(newUser);
 
-			    return new StoreNewUserResponse { UserId = dbCmd.GetLastInsertId() };
-		    }
-	    }
+                return new StoreNewUserResponse { UserId = dbCmd.GetLastInsertId() };
+            }
+        }
     }
                         </code>
                     </div>
@@ -502,30 +502,30 @@
                         <code class="server-code">
     public class GetUsersService : IService&lt;GetUsers&gt;
     {
-	    //Example of ServiceStack's built-in Funq IOC property injection
-	    public IDbConnectionFactory ConnectionFactory { get; set; }
+        //Example of ServiceStack's built-in Funq IOC property injection
+        public IDbConnectionFactory ConnectionFactory { get; set; }
 
-	    public object Execute(GetUsers request)
-	    {
-		    using (var dbConn = ConnectionFactory.OpenDbConnection())
-		    using (var dbCmd = dbConn.CreateCommand())
-		    {
-			    var users = new List&lt;User&gt;();
+        public object Execute(GetUsers request)
+        {
+            using (var dbConn = ConnectionFactory.OpenDbConnection())
+            using (var dbCmd = dbConn.CreateCommand())
+            {
+                var users = new List&lt;User&gt;();
 
-			    if (request.UserIds != null &amp;&amp; request.UserIds.Count &gt; 0)
-			    {
-				    users.AddRange(dbCmd.GetByIds&lt;User&gt;(request.UserIds));
-			    }
+                if (request.UserIds != null &amp;&amp; request.UserIds.Count &gt; 0)
+                {
+                    users.AddRange(dbCmd.GetByIds&lt;User&gt;(request.UserIds));
+                }
 
-			    if (request.UserNames != null &amp;&amp; request.UserNames.Count &gt; 0)
-			    {
-				    users.AddRange(dbCmd.Select&lt;User&gt;(
-				        "UserName IN ({0})", request.UserNames.SqlInValues()));
-			    }
+                if (request.UserNames != null &amp;&amp; request.UserNames.Count &gt; 0)
+                {
+                    users.AddRange(dbCmd.Select&lt;User&gt;(
+                        "UserName IN ({0})", request.UserNames.SqlInValues()));
+                }
 
-			    return new GetUsersResponse { Users = new ArrayOfUser(users) };
-		    }
-	    }
+                return new GetUsersResponse { Users = new ArrayOfUser(users) };
+            }
+        }
     }
                         </code>
                     </div>

@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind.ServiceInterface", "ServiceStack.Northwind.ServiceInterface\ServiceStack.Northwind.ServiceInterface.csproj", "{A724F80D-4341-4ECA-AC43-CF84A3F03779}"
 EndProject
 Global
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = 1bc1117c-b346-4ab4-8051-02530021fb51
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
