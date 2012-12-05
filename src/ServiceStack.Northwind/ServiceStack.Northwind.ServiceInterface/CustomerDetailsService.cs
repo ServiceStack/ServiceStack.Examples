@@ -22,8 +22,7 @@ namespace ServiceStack.Northwind.ServiceInterface
         {
             var customer = DbFactory.Run(dbCmd => dbCmd.GetByIdOrDefault<Customer>(request.Id));
             if (customer == null)
-                throw new HttpError(HttpStatusCode.NotFound,
-                    new ArgumentException("Customer does not exist: " + request.Id));
+                throw new HttpError(HttpStatusCode.NotFound, new ArgumentException("Customer does not exist: " + request.Id));
 
             var ordersService = base.ResolveService<OrdersService>();
             var ordersResponse = (OrdersResponse)ordersService.Get(new Orders { CustomerId = customer.Id });

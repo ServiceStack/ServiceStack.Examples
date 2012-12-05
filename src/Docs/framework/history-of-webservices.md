@@ -16,7 +16,7 @@ The W3C defines a "web service" as "a software system designed to support intero
 
 The key parts of this definition are that it should be interoperable and that it facilitates communication over a network. Unfortunately over the years different companies have had different ideas on what the most ideal interoperable protocol should be, leaving a debt-load of legacy binary and proprietary protocols in its wake.
 
-## HTTP the defacto web services transport protocol
+## HTTP the de facto web services transport protocol
 HTTP the Internet's protocol is the undisputed champ and will be for the foreseeable future. It's universally accepted, can be proxied and is pretty much the only protocol allowed through most firewalls which is the reason why Service Stack (and most other Web Service frameworks) support it. Note: the future roadmap will also support the more optimized HTML5 'Web Sockets' standard.
 
 ## XML the winning serialization format?
@@ -27,12 +27,12 @@ Out of the ashes another winning format looking to follow in HTTP's success, is 
   * Verifiable
   * Provides a rich set of common data types
   * Can define higher-level custom types
-XML doesn't come without its disadvantages which currently are centred around it being verbose and being slow to parse resulting wasted CPU cycles.
+XML doesn't come without its disadvantages which currently are centered around it being verbose and being slow to parse resulting wasted CPU cycles.
 
-## REST vs SOAP
+## REST vs. SOAP
 Despite the win, all is not well in XML camp. It seems that two teams are at odds looking to branch the way XML is used in web services. On one side, I'll label the REST camp (despite REST being more than just XML) approach to developing web services is centred around resources and prefers to err on simplicity and convention choosing to re-use the other existing HTTP metaphors where they're semantically correct. E.g. calling GET on the URL `http://host/customers` will most likely return a list of customers, whilst PUT'ing a 'Customer' against the same url will, if supported append the 'Customer' to the existing list of customers.
 
-The URL's used in REST-ful web services also form a core part of the API, it is normally logically formed and clearly describes the type of data that is expected, e.g. viewing a particular customers order would look something like:
+The URL's used in RESTful web services also form a core part of the API, it is normally logically formed and clearly describes the type of data that is expected, e.g. viewing a particular customers order would look something like:
 
   * GET `http://location/customers/mythz/orders/1001` - would return details about order '1001' which was placed by the customer 'mythz'.
 The benefit of using a logical URL scheme is that other parts of your web services API can be inferred, e.g.
@@ -40,7 +40,7 @@ The benefit of using a logical URL scheme is that other parts of your web servic
   * GET `http://location/customers/mythz/orders` - would return all of 'mythz' orders
   * GET `http://location/customers/mythz` - would return details about the customer 'mythz'
   * GET `http://location/customers` - would return a list of all customers
-If supported, you may have access to different operations on the same resources via the other HTTP methods: POST, PUT and DELETE. One of the limitations of having a REST-ful web services API is that although the API may be conventional and inferable by humans, it isn't friendly to computers and likely requires another unstructured document accompanying the web services API identifying the list, schema and capabilities of each service. This makes it a hard API to provide rich tooling support for or to be able to generate a programmatic API against.
+If supported, you may have access to different operations on the same resources via the other HTTP methods: POST, PUT and DELETE. One of the limitations of having a RESTful web services API is that although the API may be conventional and inferable by humans, it isn't friendly to computers and likely requires another unstructured document accompanying the web services API identifying the list, schema and capabilities of each service. This makes it a hard API to provide rich tooling support for or to be able to generate a programmatic API against.
 
 NOTE: If you're interested in learning more about REST one of the articles I highly recommend is [http://tomayko.com/writings/rest-to-my-wife](http://tomayko.com/writings/rest-to-my-wife)
 

@@ -20,7 +20,7 @@ For most cases if you require access to Redis-specific functionality you would w
   * [IRedisClient](~/redis-client/iredisclient-api) - Provides a friendlier, more descriptive API that lets you store values as strings (UTF8 encoding).
   * [IRedisTypedClient](~/redis-client/iredistypedclient-api) - created with `IRedisClient.GetTypedClient<T>()` - it returns a 'strongly-typed client' that provides a typed-interface for all redis value operations that works against any C#/.NET POCO type.
 
-The class heirachy for the C# Redis clients effectively look like:
+The class hierarchy for the C# Redis clients effectively look like:
 
     RedisTypedClient (POCO) > RedisClient (string) > RedisNativeClient (raw byte[])
 

@@ -4,20 +4,18 @@ using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Common.Utils;
 using ServiceStack.Configuration;
-using ServiceStack.DataAccess;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceInterface.Support;
 using ServiceStack.Logging;
 using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.Redis;
 using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Examples.Host.Web
 {
     /// <summary>
-    /// An example of a AppHost to have your services running inside a webserver.
+    /// An example of a AppHost to have your services running inside a web server.
     /// </summary>
     public class AppHost : AppHostBase
     {
