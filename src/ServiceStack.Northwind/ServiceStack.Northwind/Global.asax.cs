@@ -18,9 +18,7 @@ namespace Northwind
         /// Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
         /// </summary>
         public AppHost()
-            : base("Northwind Web Services", typeof(CustomersService).Assembly)
-        {
-        }
+            : base("Northwind Web Services", typeof(CustomersService).Assembly) {}
 
         /// <summary>
         /// Configure the container with the necessary routes for your ServiceStack application.

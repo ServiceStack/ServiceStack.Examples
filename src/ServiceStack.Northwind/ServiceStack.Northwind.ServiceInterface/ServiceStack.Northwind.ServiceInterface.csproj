@@ -8,7 +8,7 @@
     <ProjectGuid>{A724F80D-4341-4ECA-AC43-CF84A3F03779}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceStack.Northwind.ServiceInterface</RootNamespace>
+    <RootNamespace>Northwind.ServiceInterface</RootNamespace>
     <AssemblyName>ServiceStack.Northwind.ServiceInterface</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

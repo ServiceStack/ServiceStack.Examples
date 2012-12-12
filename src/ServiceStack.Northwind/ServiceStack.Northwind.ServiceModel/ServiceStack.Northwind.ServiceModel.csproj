@@ -8,7 +8,7 @@
     <ProjectGuid>{14856482-95D3-4A02-968C-665F3D08F94D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceStack.Northwind.ServiceModel</RootNamespace>
+    <RootNamespace>Northwind.ServiceModel</RootNamespace>
     <AssemblyName>ServiceStack.Northwind.ServiceModel</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
