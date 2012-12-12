@@ -3,46 +3,36 @@ using ServiceStack.Common.Extensions;
 using ServiceStack.Northwind.ServiceModel.Operations;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class OrdersService : RestServiceBase<Orders>
+    public class OrdersService : ServiceStack.ServiceInterface.Service
     {
         private const int PageCount = 20;
 
-        /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
-        /// </summary>
-        public IDbConnectionFactory DbFactory { get; set; }
-
-        public override object OnGet(Orders request)
+        public OrdersResponse Get(Orders request)
         {
-            using (var dbConn = DbFactory.OpenDbConnection())
-            {
-                var orders = request.CustomerId.IsNullOrEmpty()
-                    ? dbConn.Select<Order>("ORDER BY OrderDate DESC LIMIT {0}, {1}", (request.Page.GetValueOrDefault(1) - 1) * PageCount, PageCount)
-                    : dbConn.Select<Order>("CustomerId = {0}", request.CustomerId);
+            var orders = request.CustomerId.IsNullOrEmpty()
+                ? Db.Select<Order>("ORDER BY OrderDate DESC LIMIT {0}, {1}", (request.Page.GetValueOrDefault(1) - 1) * PageCount, PageCount)
+                : Db.Select<Order>("CustomerId = {0}", request.CustomerId);
 
-                if (orders.Count == 0) { return new OrdersResponse(); }
+            if (orders.Count == 0) { return new OrdersResponse(); }
 
-                var orderDetails = dbConn.Select<OrderDetail>(
-                    "OrderId IN ({0})", new SqlInValues(orders.ConvertAll(x => x.Id)));
+            var orderDetails = Db.Select<OrderDetail>(
+                "OrderId IN ({0})", new SqlInValues(orders.ConvertAll(x => x.Id)));
 
-                var orderDetailsLookup = orderDetails.ToLookup(o => o.OrderId);
+            var orderDetailsLookup = orderDetails.ToLookup(o => o.OrderId);
 
-                var customerOrders = orders.ConvertAll(o =>
-                    new CustomerOrder
-                    {
-                        Order = o,
-                        OrderDetails = orderDetailsLookup[o.Id].ToList()
-                    });
+            var customerOrders = orders.ConvertAll(o =>
+                new CustomerOrder {
+                    Order = o,
+                    OrderDetails = orderDetailsLookup[o.Id].ToList()
+                });
 
-                return new OrdersResponse { Results = customerOrders };
-            }
+            return new OrdersResponse { Results = customerOrders };
         }
     }
 }

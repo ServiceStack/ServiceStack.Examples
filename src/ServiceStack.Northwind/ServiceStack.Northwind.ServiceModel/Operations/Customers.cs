@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;
@@ -9,7 +8,7 @@ namespace ServiceStack.Northwind.ServiceModel.Operations
     [Route("/customers")]
     public class Customers { }
     
-    public class CustomersResponse : IHasResponseStatus
+    public class CustomersResponse
     {
         public CustomersResponse()
         {

@@ -5,7 +5,6 @@ using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Common.Utils;
 using ServiceStack.Northwind.ServiceInterface;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Northwind
@@ -30,7 +29,7 @@ namespace ServiceStack.Northwind
         public override void Configure(Container container)
         {
             container.Register<IDbConnectionFactory>(
-                new OrmLiteConnectionFactory("~/Nortwind.sqlite".MapHostAbsolutePath(), SqliteOrmLiteDialectProvider.Instance));
+                new OrmLiteConnectionFactory("~/Nortwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
 
             //Using an in-memory cache
             container.Register<ICacheClient>(new MemoryCacheClient());

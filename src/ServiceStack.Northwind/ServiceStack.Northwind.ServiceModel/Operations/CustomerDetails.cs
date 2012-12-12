@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;

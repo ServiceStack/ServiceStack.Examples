@@ -15,7 +15,7 @@ namespace ServiceStack.Northwind.ServiceModel.Operations
         public string CustomerId { get; set; }
     }
 
-    public class OrdersResponse : IHasResponseStatus
+    public class OrdersResponse
     {
         public OrdersResponse()
         {

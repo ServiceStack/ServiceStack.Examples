@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 
 namespace ServiceStack.Northwind.ServiceModel.Operations
