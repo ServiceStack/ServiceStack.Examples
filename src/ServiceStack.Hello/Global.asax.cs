@@ -24,9 +24,9 @@ namespace ServiceStack.Hello
     /// <summary>
     /// Create your ServiceStack web service implementation.
     /// </summary>
-    public class HelloService : IService<Hello>
+    public class HelloService : IService
     {
-        public object Execute(Hello request)
+        public object Any(Hello request)
         {
             //Looks strange when the name is null so we replace with a generic name.
             var name = request.Name ?? "John Doe";

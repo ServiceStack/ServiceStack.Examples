@@ -200,9 +200,9 @@
     <code class="csharp">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray;">///</span><span style="color:green;">&nbsp;</span><span style="color:gray;">&lt;summary&gt;</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray;">///</span><span style="color:green;">&nbsp;Create&nbsp;your&nbsp;ServiceStack&nbsp;web&nbsp;service&nbsp;implementation.</span>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gray;">///</span><span style="color:green;">&nbsp;</span><span style="color:gray;">&lt;/summary&gt;</span>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">public</span>&nbsp;<span style="color:blue;">class</span>&nbsp;<span style="color:#2b91af;">HelloService</span>&nbsp;:&nbsp;<span style="color:#2b91af;">IService</span>&lt;<span style="color:#2b91af;">Hello</span>&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">public</span>&nbsp;<span style="color:blue;">class</span>&nbsp;<span style="color:#2b91af;">HelloService</span>&nbsp;:&nbsp;<span style="color:#2b91af;">IService</span>
 &nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">public</span>&nbsp;<span style="color:blue;">object</span>&nbsp;Execute(<span style="color:#2b91af;">Hello</span>&nbsp;request)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">public</span>&nbsp;<span style="color:blue;">object</span>&nbsp;Any(<span style="color:#2b91af;">Hello</span>&nbsp;request)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;">//Looks&nbsp;strange&nbsp;when&nbsp;the&nbsp;name&nbsp;is&nbsp;null&nbsp;so&nbsp;we&nbsp;replace&nbsp;with&nbsp;a&nbsp;generic&nbsp;name.</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue;">var</span>&nbsp;name&nbsp;=&nbsp;request.Name&nbsp;??&nbsp;<span style="color:#a31515;">&quot;John&nbsp;Doe&quot;</span>;
