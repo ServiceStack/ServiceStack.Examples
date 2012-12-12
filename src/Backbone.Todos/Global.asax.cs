@@ -22,23 +22,16 @@ namespace Backbone.Todos
     /// <summary>
     /// Create your ServiceStack rest-ful web service implementation. 
     /// </summary>
-    public class TodoService : RestServiceBase<Todo>
+    public class TodoService : Service
     {
-        /// <summary>
-        /// Gets or sets the Redis Manager. The built-in IoC used with ServiceStack autowires this property.
-        /// </summary>
-        public IRedisClientsManager RedisManager { get; set; }
-
-        public override object OnGet(Todo todo)
+        public object Get(Todo todo)
         {
             //Return a single Todo if the id is provided.
             if (todo.Id != default(long))
-            {
-                return RedisManager.ExecAs<Todo>(r => r.GetById(todo.Id));
-            }
+                return Redis.As<Todo>().GetById(todo.Id);
 
             //Return all Todos items.
-            return RedisManager.ExecAs<Todo>(r => r.GetAll());
+            return Redis.As<Todo>().GetAll();
         }
 
         /// <summary>
@@ -46,14 +39,16 @@ namespace Backbone.Todos
         /// </summary>
         /// <param name="todo">The todo.</param>
         /// <returns></returns>
-        public override object OnPost(Todo todo)
+        public object Post(Todo todo)
         {
-            RedisManager.ExecAs<Todo>(r =>
-            {
-                //Get next id for new todo
-                if (todo.Id == default(long)) todo.Id = r.GetNextSequence();
-                r.Store(todo);
-            });
+            var redis = Redis.As<Todo>();
+            
+            //Get next id for new todo
+            if (todo.Id == default(long)) 
+                todo.Id = redis.GetNextSequence();
+            
+            redis.Store(todo);
+            
             return todo;
         }
 
@@ -62,15 +57,18 @@ namespace Backbone.Todos
         /// </summary>
         /// <param name="todo">The todo.</param>
         /// <returns></returns>
-        public override object OnPut(Todo todo)
+        public object Put(Todo todo)
         {
-            return OnPost(todo);
+            return Post(todo);
         }
 
-        public override object OnDelete(Todo todo)
+        /// <summary>
+        /// Handles Deleting the Todo item
+        /// </summary>
+        /// <param name="todo"></param>
+        public void Delete(Todo todo)
         {
-            RedisManager.ExecAs<Todo>(r => r.DeleteById(todo.Id));
-            return null;
+            Redis.As<Todo>().DeleteById(todo.Id);
         }
     }
 
