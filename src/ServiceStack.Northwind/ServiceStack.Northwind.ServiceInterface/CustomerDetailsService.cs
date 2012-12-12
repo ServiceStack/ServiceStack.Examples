@@ -9,12 +9,12 @@ using ServiceStack.ServiceInterface;
 namespace ServiceStack.Northwind.ServiceInterface
 {
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class CustomerDetailsService : RestServiceBase<CustomerDetails>
     {
         /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public IDbConnectionFactory DbFactory { get; set; }
 
@@ -22,8 +22,7 @@ namespace ServiceStack.Northwind.ServiceInterface
         {
             var customer = DbFactory.Run(dbCmd => dbCmd.GetByIdOrDefault<Customer>(request.Id));
             if (customer == null)
-                throw new HttpError(HttpStatusCode.NotFound,
-                    new ArgumentException("Customer does not exist: " + request.Id));
+                throw new HttpError(HttpStatusCode.NotFound, new ArgumentException("Customer does not exist: " + request.Id));
 
             var ordersService = base.ResolveService<OrdersService>();
             var ordersResponse = (OrdersResponse)ordersService.Get(new Orders { CustomerId = customer.Id });

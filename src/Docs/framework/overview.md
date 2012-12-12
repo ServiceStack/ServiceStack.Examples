@@ -8,59 +8,59 @@ For more info check out [servicestack.net](http://www.servicestack.net).
 
 Simple REST service example
 ===========================
-	
-	//Web Service Host Configuration
-	public class AppHost : AppHostBase
-	{
-		public AppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) {}
+    
+    //Web Service Host Configuration
+    public class AppHost : AppHostBase
+    {
+        public AppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) {}
 
-		public override void Configure(Funq.Container container)
-		{
-			//Register Web Service dependencies
-			container.Register(new TodoRepository());
+        public override void Configure(Funq.Container container)
+        {
+            //Register Web Service dependencies
+            container.Register(new TodoRepository());
 
-			//Register user-defined REST-ful routes			
-			Routes
-			  .Add<Todo>("/todos")
-			  .Add<Todo>("/todos/{Id}");
-		}
-	}
-	
+            //Register user-defined RESTful routes			
+            Routes
+              .Add<Todo>("/todos")
+              .Add<Todo>("/todos/{Id}");
+        }
+    }
+    
 
-	//REST Resource DTO
-	public class Todo 
-	{
-		public long Id { get; set; }
-		public string Content { get; set; }
-		public int Order { get; set; }
-		public bool Done { get; set; }
-	}
+    //REST Resource DTO
+    public class Todo 
+    {
+        public long Id { get; set; }
+        public string Content { get; set; }
+        public int Order { get; set; }
+        public bool Done { get; set; }
+    }
 
-	//Todo REST Service implementation
-	public class TodoService : RestServiceBase<Todo>
-	{
-		public TodoRepository Repository { get; set; }  //Injected by IOC
+    //Todo REST Service implementation
+    public class TodoService : RestServiceBase<Todo>
+    {
+        public TodoRepository Repository { get; set; }  //Injected by IOC
 
-		public override object OnGet(Todo request)
-		{
-			if (request.Id != default(long))
-				return Repository.GetById(request.Id);
+        public override object OnGet(Todo request)
+        {
+            if (request.Id != default(long))
+                return Repository.GetById(request.Id);
 
-			return Repository.GetAll();
-		}
+            return Repository.GetAll();
+        }
 
-		//Called for both new and updated TODOs
-		public override object OnPost(Todo todo)
-		{
-			return Repository.Store(todo);
-		}
+        //Called for both new and updated TODOs
+        public override object OnPost(Todo todo)
+        {
+            return Repository.Store(todo);
+        }
 
-		public override object OnDelete(Todo request)
-		{
-			Repository.DeleteById(request.Id);
-			return null;
-		}
-	}
+        public override object OnDelete(Todo request)
+        {
+            Repository.DeleteById(request.Id);
+            return null;
+        }
+    }
 
 
 ### Calling the above TODO REST service from any C#/.NET Client
@@ -82,7 +82,7 @@ Simple REST service example
 ### Calling the TODO REST service from jQuery
 
     $.getJSON("http://localhost/Backbone.Todo/todos", function(todos) {
-    	alert(todos.length == 1);
+        alert(todos.length == 1);
     });
 
 
@@ -101,7 +101,7 @@ host of functionality for free, out of the box without any configuration require
     [JSON](http://www.servicestack.net/Backbone.Todos/todos?format=json), [JSV](http://www.servicestack.net/Backbone.Todos/todos?format=jsv),
     [CSV](http://www.servicestack.net/Backbone.Todos/todos?format=csv) 
     
-  * [A HTML5 Report format to view your webservics data in a human-friendly view](http://www.servicestack.net/Backbone.Todos/todos?format=html)
+  * [A HTML5 Report format to view your web services data in a human-friendly view](http://www.servicestack.net/Backbone.Todos/todos?format=html)
   
   * [An auto generated api metadata page, with links to your web service XSD's and WSDL's](http://www.servicestack.net/Backbone.Todos/metadata)
   
@@ -141,7 +141,7 @@ Unlike other web services frameworks ServiceStack let's you develop web services
 This lets ServiceStack and other tools to have a greater intelligence about your services allowing:
 
 - [Multiple serialization formats (JSON, XML, JSV and SOAP with extensible plugin model for more)](http://servicestack.net/ServiceStack.Hello/servicestack/metadata)
-- [A single re-usable C# Generic Client (In JSON, JSV, XML and SOAP flavours) that can talk to all your services.](https://github.com/ServiceStack/ServiceStack.Extras/blob/master/doc/UsageExamples/UsingServiceClients.cs)
+- [A single re-usable C# Generic Client (In JSON, JSV, XML and SOAP flavors) that can talk to all your services.](https://github.com/ServiceStack/ServiceStack.Extras/blob/master/doc/UsageExamples/UsingServiceClients.cs)
 - [Re-use your Web Service DTOs (i.e. no code-gen) on your client applications so you're never out-of-sync](https://github.com/ServiceStack/ServiceStack.Extras/blob/master/doc/UsageExamples/UsingServiceClients.cs)
 - [Automatic serialization of Exceptions in your DTOs ResponseStatus](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceInterface/ServiceBase.cs#L154)
 - [The possibility of a base class for all your services to put high-level application logic (i.e security, logging, etc)](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceInterface/ServiceBase.cs#L24)
@@ -162,14 +162,14 @@ Service Stack was heavily influenced by [**Martin Fowlers Data Transfer Object P
 >The solution is to create a Data Transfer Object that can hold all the data for the call. It needs to be serializable to go across the connection. 
 >Usually an assembler is used on the server side to transfer data between the DTO and any domain objects.
 
-The Request and Response DTO's used to define web services in ServiceStack are standard `DataContract` POCO's while the implementation just needs to inherit from a testable and dependency-free `IService<TRequestDto>`. As a bonus for keeping your DTO's in a separate dependency-free .dll, you're able to re-use them in your C#/.NET clients providing a strongly-typed API without any code-gen what-so-ever. Also your DTO's *define everything* Service Stack does not pollute your web services with any additional custom artefacts or markup.
+The Request and Response DTO's used to define web services in ServiceStack are standard `DataContract` POCO's while the implementation just needs to inherit from a testable and dependency-free `IService<TRequestDto>`. As a bonus for keeping your DTO's in a separate dependency-free .dll, you're able to re-use them in your C#/.NET clients providing a strongly-typed API without any code-gen what-so-ever. Also your DTO's *define everything* Service Stack does not pollute your web services with any additional custom artifacts or markup.
 
-Service Stack re-uses the custom artefacts above and with zero-config and without imposing any extra burden on the developer adds discover-ability and provides hosting of your web service on a number of different physical end-points which as of today includes: XML (+REST), JSON (+REST), JSV (+REST) and SOAP 1.1 / SOAP 1.2.
+Service Stack re-uses the custom artifacts above and with zero-config and without imposing any extra burden on the developer adds discover-ability and provides hosting of your web service on a number of different physical end-points which as of today includes: XML (+REST), JSON (+REST), JSV (+REST) and SOAP 1.1 / SOAP 1.2.
 
 ### WCF the anti-DTO Web Services Framework
-Unfortunately this best-practices convention is effectively discouraged by Microsoft's WCF SOAP Web Services framework as they encourage you to develop API-specific RPC method calls by mandating the use method signatures to define your web services API. This results in less re-usable, more client-sepcfic APIs that encourages more remote method calls. 
+Unfortunately this best-practices convention is effectively discouraged by Microsoft's WCF SOAP Web Services framework as they encourage you to develop API-specific RPC method calls by mandating the use method signatures to define your web services API. This results in less re-usable, more client-specific APIs that encourages more remote method calls. 
 
-Unhappy with this perceived anit-pattern in WCF, ServiceStack was born providing a Web Sevice framework that embraces best-practices for calling remote services, using config-free, convention-based DTO's.
+Unhappy with this perceived anit-pattern in WCF, ServiceStack was born providing a Web Service framework that embraces best-practices for calling remote services, using config-free, convention-based DTO's.
 
 
 ### Full support for unit and integration tests
@@ -243,7 +243,7 @@ If you have suggestions for new features or want to prioritize the existing ones
 ## Similar open source projects
 Similar Open source .NET projects for developing or accessing web services include:
 
- * Open Rasta - REST-ful web service framwork:
+ * Open Rasta - RESTful web service framework:
      * [http://trac.caffeine-it.com/openrasta](http://trac.caffeine-it.com/openrasta)
 
  * Rest Sharp - an open source REST client for .NET
@@ -254,11 +254,11 @@ Similar Open source .NET projects for developing or accessing web services inclu
 
 For IIS 6.0-only web servers (i.e. without IIS 7 and compatibility-mode) IIS and ASP.NET requires mapping an extension in order to embed ServiceStack. You can use a default handled ASP.NET extension like *.ashx e.g.
 
-	<add path="servicestack.ashx" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/>
+    <add path="servicestack.ashx" type="ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory, ServiceStack" verb="*"/>
 
 Which will change your urls will now look like:
 
-	http://localhost/servicestack.ashx/xml/syncreply/Hello?Name=World
+    http://localhost/servicestack.ashx/xml/syncreply/Hello?Name=World
 
 
 

@@ -4,7 +4,7 @@
 
 These examples are simply links to existing ServiceStack web services, which based on your browsers user-agent (i.e. Accept: 'text/html') provides this HTML format instead of the other serialization formats. 
 
-  - **Nortwind Database: **  [All Customers](http://servicestack.net/ServiceStack.Northwind/customers), [Customer Detail](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI), [Customer Orders](http://servicestack.net/ServiceStack.Northwind/orders)
+  - **Northwind Database: **  [All Customers](http://servicestack.net/ServiceStack.Northwind/customers), [Customer Detail](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI), [Customer Orders](http://servicestack.net/ServiceStack.Northwind/orders)
   - **RedisStackOverflow: **  [Latest Questions](http://servicestack.net/RedisStackOverflow/questions) and [Site Stats](http://servicestack.net/RedisStackOverflow/stats)
   - **RestMovies: **  [All Movie listings](http://servicestack.net/ServiceStack.MovieRest/movies)
   - **RestFiles: **  [Root Directory](http://servicestack.net/RestFiles/files)
@@ -23,15 +23,15 @@ Features include:
 
 ### Human Friendly output
 Based on convention, it generates a recursive and cascading view of your data using a combination of different sized definition lists and tables where appropriate.
-After it's rendered convenience behaviour is applied allowing you to sort your tabular data, view the embedded JSON contents as well as providing links back to the original web service that generated the report including links to the other formats supported.
+After it's rendered convenience behavior is applied allowing you to sort your tabular data, view the embedded JSON contents as well as providing links back to the original web service that generated the report including links to the other formats supported.
 
 ### Completely self-contained
 The report does not have any external CSS, JavaScript or Images which also helps achieve its super-fast load-time and rendering speed.
 
 ### Embeds the complete snapshot of your web services data
-The report embeds a complete, unaltered version of your 'JSON webservice' capturing a snapshot of the state of your data at a given point in time. 
-It's perfect for backups with the same document containing a human and programatic access to the data. 
-The JSON data is embedded inside a valid and well-formed document, making it programatically accessible using a standard XML/HTML parser. 
+The report embeds a complete, unaltered version of your 'JSON web service' capturing a snapshot of the state of your data at a given point in time. 
+It's perfect for backups with the same document containing a human and programmatic access to the data. 
+The JSON data is embedded inside a valid and well-formed document, making it programmatically accessible using a standard XML/HTML parser. 
 The report also includes an interface to allow humans to copy it from a textbox.
   
 ### It's Fast
@@ -55,7 +55,7 @@ Instead of using a server programming and template language to generate the HTML
 
     <script id="dto" type="text/json">{jsondto}</script>
 
-Because of the browser behaviour of the script tag, you can embed any markup or javascript unescaped.
+Because of the browser behavior of the script tag, you can embed any markup or javascript unescaped.
 Unless it has none or a 'javascript' type attribute, the browser doesn't execute it letting you to access the contents with:
 
     document.getElementById('dto').innerHTML
@@ -63,7 +63,7 @@ Unless it has none or a 'javascript' type attribute, the browser doesn't execute
 From there, javascript invoked just before the closing body tag (i.e. the fastest time to run DOM-altering javascript) which takes the data, 
 builds up a html string and injects the generated markup in the contents of the page.
 
-After the report is rendered, and because JavaScript can :) UX-friendly behaviours are applied to the document allowing the user to sort the table data on each column as well as providing an easy way to take a copy of the JSON datasource.
+After the report is rendered, and because JavaScript can :) UX-friendly behaviors are applied to the document allowing the user to sort the table data on each column as well as providing an easy way to take a copy of the JSON data source.
 
 For what it does, the JavaScript is very terse considering no JavaScript framework was used. In most cases the JSON payload is a lot larger than the entire JavaScript used to render the report :)
 

@@ -10,26 +10,26 @@ Although working in a clean-room can be ideal ideal from re-usability and testab
 
 Just like using built-in Funq IOC container, the way to tell ServiceStack to inject the request context is by implementing the [IRequiresRequestContext](https://github.com/ServiceStack/ServiceStack.Interfaces/blob/master/src/ServiceStack.ServiceHost/IRequiresRequestContext.cs) interface which will get the [IRequestContext](https://github.com/ServiceStack/ServiceStack.Interfaces/blob/master/src/ServiceStack.ServiceHost/IRequestContext.cs) inject before each request.
 
-	public interface IRequestContext : IDisposable
-	{
-		T Get<T>() where T : class;
+    public interface IRequestContext : IDisposable
+    {
+        T Get<T>() where T : class;
 
-		string IpAddress { get; }
+        string IpAddress { get; }
 
-		IDictionary<string, Cookie> Cookies { get; }
+        IDictionary<string, Cookie> Cookies { get; }
 
-		EndpointAttributes EndpointAttributes { get; }
+        EndpointAttributes EndpointAttributes { get; }
 
-		IRequestAttributes RequestAttributes { get; }
+        IRequestAttributes RequestAttributes { get; }
 
-		string MimeType { get; }
+        string MimeType { get; }
 
-		string CompressionType { get; }
+        string CompressionType { get; }
 
-		string AbsoluteUri { get; }
+        string AbsoluteUri { get; }
 
-		IFile[] Files { get; }
-	}
+        IFile[] Files { get; }
+    }
 
 
 This will allow your services to inspect any Cookies or download any Files that were sent with the request.
@@ -41,29 +41,29 @@ A recent addition to ServiceStack is the ability to register custom Request and 
 * The Request Filters are applied before the service gets called and accepts:
 _([IHttpRequest](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceHost/IHttpRequest.cs), [IHttpResponse](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceHost/IHttpResponse.cs), RequestDto)_ e.g:
     
-	    //Add a request filter to check if the user has a session initialized
-	    this.RequestFilters.Add((httpReq, httpReq, requestDto) =>
-	    {
-			var sessionId = httpReq.GetCookieValue("user-session");
-			if (sessionId == null)
-			{
-				httpReq.ReturnAuthRequired();
-			}
-	    });
+        //Add a request filter to check if the user has a session initialized
+        this.RequestFilters.Add((httpReq, httpReq, requestDto) =>
+        {
+            var sessionId = httpReq.GetCookieValue("user-session");
+            if (sessionId == null)
+            {
+                httpReq.ReturnAuthRequired();
+            }
+        });
     
 
 * The Response Filters are applied after your service is called and accepts:
 _([IHttpRequest](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceHost/IHttpRequest.cs), [IHttpResponse](https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.ServiceHost/IHttpResponse.cs), ResponseDto)_ e.g:
 
-	    //Add a response filter to add a 'Content-Disposition' header so browsers treat it as a native .csv file
-	    this.ResponseFilters.Add((req, res, dto) =>
-	    {
-			if (req.ResponseContentType == ContentType.Csv)
-			{
-			    res.AddHeader(HttpHeaders.ContentDisposition,
-				string.Format("attachment;filename={0}.csv", req.OperationName));
-			}
-	    });
+        //Add a response filter to add a 'Content-Disposition' header so browsers treat it as a native .csv file
+        this.ResponseFilters.Add((req, res, dto) =>
+        {
+            if (req.ResponseContentType == ContentType.Csv)
+            {
+                res.AddHeader(HttpHeaders.ContentDisposition,
+                string.Format("attachment;filename={0}.csv", req.OperationName));
+            }
+        });
 
 
 [<Wiki Home](~/framework/home)

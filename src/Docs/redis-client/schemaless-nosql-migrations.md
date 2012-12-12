@@ -4,7 +4,7 @@ This page runs through a typical example to show how painless typical data migra
   * [Designing a NoSQL Database using Redis](~/redis-client/designing-nosql-database)
   * Painless data migrations using Redis and other schema-less NoSQL datastores
 
-# Painless data migrations with schema-less NoSQL datastores and Redis 
+# Painless data migrations with schema-less NoSQL data stores and Redis 
 
 Developing *new* greenfield database systems utilizing a RDBMS back-end is mostly a trouble-free experience. Before the system is live, you're able to easily modify a schema by nuking the entire application database, and re-creating it with automated DDL scripts that will create and populate it with test data that fits your new schema. 
 
@@ -247,10 +247,10 @@ When you want more control over the migration of your old data, adding a custom 
 			NoOfComments = old.Comments.Count, //populate using logic from old data
 		});
 
-		//Persist the new migrated blogposts 
+		//Persist the new migrated blog posts 
 		redisNewBlogPosts.StoreAll(migratedBlogPosts);
 
-		//Read out the newly stored blogposts
+		//Read out the newly stored blog posts
 		var refreshedNewBlogPosts = redisNewBlogPosts.GetAll();
 		//Note: data renamed fields are successfully migrated to the new schema
 		Console.WriteLine(refreshedNewBlogPosts.Dump());

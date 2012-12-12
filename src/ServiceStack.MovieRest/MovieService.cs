@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
-using System.Runtime.Serialization;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
@@ -56,12 +55,12 @@ namespace ServiceStack.MovieRest
     }
 
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack restful web service implementation. 
     /// </summary>
     public class MovieService : RestServiceBase<Movie>
     {
         /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public IDbConnectionFactory DbFactory { get; set; }
 
@@ -163,12 +162,12 @@ namespace ServiceStack.MovieRest
     }
 
     /// <summary>
-    /// Create your ServiceStack rest-ful web service implementation. 
+    /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
     public class MoviesService : RestServiceBase<Movies>
     {
         /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
+        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
         /// </summary>
         public IDbConnectionFactory DbFactory { get; set; }
 

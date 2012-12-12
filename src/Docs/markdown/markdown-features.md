@@ -24,7 +24,7 @@ Allowing a clean url structure using just directory and file names.
 
 ### Partial Content
 The raw HTML and Markdown text of each page (without the website template) is available by appending 
-the following to the querystring:
+the following to the query string:
 
   - [?format=html.bare](?format=html.bare) - View content only in html
   - [?format=text.bare](?format=text.bare) - View content only in Markdown
@@ -50,7 +50,7 @@ The resolution order ServiceStack's uses to resolve the appropriate Markdown tem
   2. A view with the same name as the Response DTO, looking first in **/Views** then in **/Views/Shared**
   3. A view with the same name as the Request DTO, looking first in **/Views** then in **/Views/Shared**
 
-Markdown Razor templates are simply normal plain-text Markdown pages that support dynamic behaviour by 
+Markdown Razor templates are simply normal plain-text Markdown pages that support dynamic behavior by 
 using the familiar syntax of MVC's Razor i.e. all statements prefixed with the familiar &#64; symbol.
 
 #### Static website template
