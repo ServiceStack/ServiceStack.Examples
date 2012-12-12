@@ -37,8 +37,6 @@ namespace Backbone.Todos
         /// <summary>
         /// Handles creating and updating the Todo items.
         /// </summary>
-        /// <param name="todo">The todo.</param>
-        /// <returns></returns>
         public Todo Post(Todo todo)
         {
             var redis = Redis.As<Todo>();
@@ -55,8 +53,6 @@ namespace Backbone.Todos
         /// <summary>
         /// Handles creating and updating the Todo items.
         /// </summary>
-        /// <param name="todo">The todo.</param>
-        /// <returns></returns>
         public Todo Put(Todo todo)
         {
             return Post(todo);
@@ -65,7 +61,6 @@ namespace Backbone.Todos
         /// <summary>
         /// Handles Deleting the Todo item
         /// </summary>
-        /// <param name="todo"></param>
         public void Delete(Todo todo)
         {
             Redis.As<Todo>().DeleteById(todo.Id);
