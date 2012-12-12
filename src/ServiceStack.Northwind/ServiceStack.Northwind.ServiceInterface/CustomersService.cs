@@ -1,8 +1,8 @@
-﻿using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
+﻿using Northwind.ServiceModel.Operations;
+using Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
 
-namespace ServiceStack.Northwind.ServiceInterface
+namespace Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 

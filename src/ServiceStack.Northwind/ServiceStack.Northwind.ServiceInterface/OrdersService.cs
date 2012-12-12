@@ -1,15 +1,16 @@
 ﻿using System.Linq;
 using ServiceStack.Common.Extensions;
-using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
+using Northwind.ServiceModel.Operations;
+using Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Northwind.ServiceInterface
+namespace Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class OrdersService : ServiceStack.ServiceInterface.Service
+    public class OrdersService : Service
     {
         private const int PageCount = 20;
 

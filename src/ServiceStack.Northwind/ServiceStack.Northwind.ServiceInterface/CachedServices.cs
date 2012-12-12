@@ -1,13 +1,14 @@
 ﻿using ServiceStack.Common;
-using ServiceStack.Northwind.ServiceModel.Operations;
+using Northwind.ServiceModel.Operations;
 using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Northwind.ServiceInterface
+namespace Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class CachedCustomersService : ServiceStack.ServiceInterface.Service
+    public class CachedCustomersService : Service
     {
         public object Get(CachedCustomers request)
         {

@@ -1,13 +1,13 @@
 using System;
 using System.IO;
 using ServiceStack.Common.Web;
-using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
+using Northwind.ServiceModel.Operations;
+using Northwind.ServiceModel.Types;
 using ServiceStack.ServiceHost;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 
-namespace ServiceStack.Northwind.ServiceInterface
+namespace Northwind.ServiceInterface
 {
     public class VCardFormat
     {

@@ -1,6 +1,6 @@
 using ServiceStack.ServiceHost;
 
-namespace ServiceStack.Northwind.ServiceModel.Operations
+namespace Northwind.ServiceModel.Operations
 {    
     [Route("/cached/customers")]
     public class CachedCustomers {}

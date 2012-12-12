@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Net;
 using ServiceStack.Common.Web;
-using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
+using Northwind.ServiceModel.Operations;
+using Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
 
-namespace ServiceStack.Northwind.ServiceInterface
+namespace Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class CustomerDetailsService : ServiceStack.ServiceInterface.Service
+    public class CustomerDetailsService : Service
     {
         public CustomerDetailsResponse Get(CustomerDetails request)
         {

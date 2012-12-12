@@ -3,11 +3,11 @@ using Funq;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Common.Utils;
-using ServiceStack.Northwind.ServiceInterface;
+using Northwind.ServiceInterface;
 using ServiceStack.OrmLite;
 using ServiceStack.WebHost.Endpoints;
 
-namespace ServiceStack.Northwind
+namespace Northwind
 {
     /// <summary>
     /// Create your ServiceStack web service application with a singleton AppHost.

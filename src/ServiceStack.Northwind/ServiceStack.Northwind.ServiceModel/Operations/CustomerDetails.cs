@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using ServiceStack.Northwind.ServiceModel.Types;
+using Northwind.ServiceModel.Types;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace ServiceStack.Northwind.ServiceModel.Operations
+namespace Northwind.ServiceModel.Operations
 {    
     [Route("/customers/{Id}")]
     public class CustomerDetails
