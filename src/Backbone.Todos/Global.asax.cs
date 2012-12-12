@@ -39,7 +39,7 @@ namespace Backbone.Todos
         /// </summary>
         /// <param name="todo">The todo.</param>
         /// <returns></returns>
-        public object Post(Todo todo)
+        public Todo Post(Todo todo)
         {
             var redis = Redis.As<Todo>();
             
@@ -57,7 +57,7 @@ namespace Backbone.Todos
         /// </summary>
         /// <param name="todo">The todo.</param>
         /// <returns></returns>
-        public object Put(Todo todo)
+        public Todo Put(Todo todo)
         {
             return Post(todo);
         }
