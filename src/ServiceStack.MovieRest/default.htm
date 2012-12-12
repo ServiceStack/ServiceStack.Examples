@@ -118,19 +118,19 @@
             $("FORM").submit(function (e) {
                 e.preventDefault();
 
-                var data = {};
+                var data = {}, form = $(this);
                 $("FORM INPUT[type=text]").each(function () {
                     data[this.name] = this.value;
                 });
 
                 $.ajax({
-                    url: $("FORM").attr("action"),
-                    type: "POST",
+                    url: form.attr("action"),
+                    type: form.attr('method'),
                     data: data,
                     dataType: "json",
                     success: function () {
-                        restLog($('FORM').attr('method'), $('FORM').attr('action'));
-                        $("FORM").hide();
+                        restLog(form.attr('method'), form.attr('action'));
+                        form.hide();
                         refreshExistingMovies();
                     }
                 });

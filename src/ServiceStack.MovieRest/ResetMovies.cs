@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.MovieRest
 {
@@ -12,7 +10,7 @@ namespace ServiceStack.MovieRest
     /// </summary>
     /// <remarks>The route is defined here rather than in the AppHost.</remarks>
     [Route("/reset-movies", "GET,POST")]
-    [Description("Resets the database back to the original Top 5 movies.")]
+    [Api("Resets the database back to the original Top 5 movies.")]
     public class ResetMovies { }
 
     /// <summary>
@@ -23,7 +21,7 @@ namespace ServiceStack.MovieRest
     /// <summary>
     /// Create your ServiceStack rest-ful web service implementation. 
     /// </summary>
-    public class ResetMoviesService : RestServiceBase<ResetMovies>
+    public class ResetMoviesService : ServiceInterface.Service
     {
         public static List<Movie> Top5Movies = new List<Movie>
         {
@@ -34,35 +32,11 @@ namespace ServiceStack.MovieRest
             new Movie { ImdbId = "tt0060196", Title = "The Good, the Bad and the Ugly", Rating = 9.0m, Director = "Sergio Leone", ReleaseDate = new DateTime(1967,12,29), TagLine = "They formed an alliance of hate to steal a fortune in dead man's gold", Genres = new List<string>{"Adventure","Western"}, },
         };
 
-        /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack autowires this property.
-        /// </summary>
-        public IDbConnectionFactory DbFactory { get; set; }
-
-        /// <summary>
-        /// Overrides the OnGet request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        public override object OnGet(ResetMovies request)
-        {
-            return OnPost(request);
-        }
-
-        /// <summary>
-        /// Overrides the OnPost request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        public override object OnPost(ResetMovies request)
+        public object Any(ResetMovies request)
         {
             //Executes the specified delegate against the configured database.
-            DbFactory.Run(dbCmd =>
-            {
-                const bool overwriteTable = true;
-                dbCmd.CreateTable<Movie>(overwriteTable);
-                dbCmd.SaveAll(Top5Movies);
-            });
+            Db.DropAndCreateTable<Movie>();
+            Db.SaveAll(Top5Movies);
 
             return new ResetMoviesResponse();
         }

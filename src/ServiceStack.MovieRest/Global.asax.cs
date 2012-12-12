@@ -3,6 +3,7 @@ using Funq;
 using ServiceStack.Common.Utils;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
+using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 
@@ -24,15 +25,18 @@ namespace ServiceStack.MovieRest
         /// <param name="container">The built-in IoC used with ServiceStack.</param>
         public override void Configure(Container container)
         {
-            JsConfig.DateHandler = JsonDateHandler.ISO8601;
+            //JsConfig.DateHandler = JsonDateHandler.ISO8601;
 
             container.Register<IDbConnectionFactory>(c =>
                 new OrmLiteConnectionFactory(
                     "~/App_Data/db.sqlite".MapHostAbsolutePath(),
                     SqliteOrmLiteDialectProvider.Instance));
 
-            var resetMovies = container.Resolve<ResetMoviesService>();
-            resetMovies.Post(null);
+            //Call existing service
+            using (var resetMovies = container.Resolve<ResetMoviesService>())
+            {
+                resetMovies.Any(null);
+            }
 
             Routes
               .Add<Movie>("/movies")
@@ -40,17 +44,11 @@ namespace ServiceStack.MovieRest
               .Add<Movies>("/movies")
               .Add<Movies>("/movies/genres/{Genre}");
 
-            SetConfig(new EndpointHostConfig
-            {
-                GlobalResponseHeaders = {
-                        { "Access-Control-Allow-Origin", "*" },
-                        { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
-                        { "Access-Control-Allow-Headers", "Content-Type, X-Requested-With" },
-                    },
-                //EnableFeatures = onlyEnableFeatures,
-                //DebugMode = true, //Show StackTraces for easier debugging
-            });
+            Plugins.Add(new CorsFeature()); //Enable CORS
 
+            SetConfig(new EndpointHostConfig {
+                //DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
+            });
         }
     }
 

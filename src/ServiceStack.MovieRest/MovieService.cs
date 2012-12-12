@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net;
-using ServiceStack.Common.Extensions;
+using ServiceStack.Common;
 using ServiceStack.Common.Web;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
 
 namespace ServiceStack.MovieRest
@@ -16,7 +14,7 @@ namespace ServiceStack.MovieRest
     /// Define your ServiceStack web service request (i.e. Request DTO).
     /// </summary>
     /// <remarks>The route is defined here rather than in the AppHost.</remarks>
-    [Description("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
+    [Api("GET or DELETE a single movie by Id. Use POST to create a new Movie and PUT to update it")]
     [Route("/movies", "POST,PUT,PATCH,DELETE")]
     [Route("/movies/{Id}")]
     public class Movie
@@ -57,20 +55,15 @@ namespace ServiceStack.MovieRest
     /// <summary>
     /// Create your ServiceStack restful web service implementation. 
     /// </summary>
-    public class MovieService : RestServiceBase<Movie>
+    public class MovieService : ServiceInterface.Service
     {
-        /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
-        /// </summary>
-        public IDbConnectionFactory DbFactory { get; set; }
-
         /// <summary>
         /// GET /movies/{Id} 
         /// </summary>
-        public override object OnGet(Movie movie)
+        public MovieResponse Get(Movie movie)
         {
             return new MovieResponse {
-                Movie = DbFactory.Run(dbCmd => dbCmd.GetById<Movie>(movie.Id))
+                Movie = Db.Id<Movie>(movie.Id),
             };
         }
 
@@ -84,21 +77,19 @@ namespace ServiceStack.MovieRest
         /// 	{newMovie DTO in [xml|json|jsv|etc]}
         /// 
         /// </summary>
-        public override object OnPost(Movie movie)
+        public object Post(Movie movie)
         {
-            var newMovieId = DbFactory.Run(dbCmd => {
-                dbCmd.Insert(movie);
-                return dbCmd.GetLastInsertId();
-            });
+            Db.Insert(movie);
+            var newMovieId = Db.GetLastInsertId();
 
             var newMovie = new MovieResponse {
-                Movie = DbFactory.Run(dbCmd => dbCmd.GetById<Movie>(newMovieId))
+                Movie = Db.Id<Movie>(newMovieId),
             };
 
             return new HttpResult(newMovie) {
                 StatusCode = HttpStatusCode.Created,
                 Headers = {
-                    { HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + newMovieId }
+                    { HttpHeaders.Location, base.Request.AbsoluteUri.CombineWith(newMovieId.ToString()) }
                 }
             };
         }
@@ -106,15 +97,14 @@ namespace ServiceStack.MovieRest
         /// <summary>
         /// PUT /movies/{id}
         /// </summary>
-        public override object OnPut(Movie movie)
+        public object Put(Movie movie)
         {
-            DbFactory.Run(dbCmd => dbCmd.Update(movie));
+            Db.Update(movie);
 
-            return new HttpResult()
-            {
+            return new HttpResult {
                 StatusCode = HttpStatusCode.NoContent,
                 Headers = {
-                    { HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + movie.Id }
+                    { HttpHeaders.Location, this.RequestContext.AbsoluteUri.CombineWith(movie.Id.ToString()) }
                 }
             };
         }
@@ -122,15 +112,14 @@ namespace ServiceStack.MovieRest
         /// <summary>
         /// DELETE /movies/{Id}
         /// </summary>
-        public override object OnDelete(Movie request)
+        public object Delete(Movie request)
         {
-            DbFactory.Run(dbCmd => dbCmd.DeleteById<Movie>(request.Id));
+            Db.DeleteById<Movie>(request.Id);
 
-            return new HttpResult()
-            {
+            return new HttpResult {
                 StatusCode = HttpStatusCode.NoContent,
                 Headers = {
-                    { HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + request.Id }
+                    { HttpHeaders.Location, this.RequestContext.AbsoluteUri.CombineWith(request.Id.ToString()) }
                 }
             };
         }
@@ -140,7 +129,7 @@ namespace ServiceStack.MovieRest
     /// Define your ServiceStack web service request (i.e. Request DTO).
     /// </summary>
     /// <remarks>The route is defined here rather than in the AppHost.</remarks>
-    [Description("Find movies by genre, or all movies if no genre is provided")]
+    [Api("Find movies by genre, or all movies if no genre is provided")]
     [Route("/movies", "GET, OPTIONS")]
     [Route("/movies/genres/{Genre}")]
     public class Movies
@@ -150,39 +139,32 @@ namespace ServiceStack.MovieRest
 
     /// <summary>
     /// Define your ServiceStack web service response (i.e. Response DTO).
-    /// </summary>
-    
+    /// </summary>    
     public class MoviesResponse
     {
         /// <summary>
         /// Gets or sets the list of movies.
         /// </summary>
-        
+
         public List<Movie> Movies { get; set; }
     }
 
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class MoviesService : RestServiceBase<Movies>
+    public class MoviesService : ServiceInterface.Service
     {
-        /// <summary>
-        /// Gets or sets the database factory. The built-in IoC used with ServiceStack auto wires this property.
-        /// </summary>
-        public IDbConnectionFactory DbFactory { get; set; }
-
         /// <summary>
         /// GET /movies 
         /// GET /movies/genres/{Genre}
         /// </summary>
-        public override object OnGet(Movies request)
+        public object Get(Movies request)
         {
-            return DbFactory.Run(dbCmd =>
-                new MoviesResponse {
-                    Movies = request.Genre.IsNullOrEmpty()
-                        ? dbCmd.Select<Movie>()
-                        : dbCmd.Select<Movie>("Genres LIKE {0}", "%" + request.Genre + "%")
-                });
+            return new MoviesResponse {
+                Movies = request.Genre.IsNullOrEmpty()
+                    ? Db.Select<Movie>()
+                    : Db.Select<Movie>("Genres LIKE {0}", "%{0}%".Fmt(request.Genre))
+            };
         }
     }
 }
