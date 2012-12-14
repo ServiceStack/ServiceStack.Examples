@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RedisStackOverflow.ServiceModel;
 using ServiceStack.Common.Utils;
 using ServiceStack.Redis;
 using ServiceStack.Common.Extensions;

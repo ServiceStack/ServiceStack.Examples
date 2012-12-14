@@ -1,41 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using RedisStackOverflow.ServiceModel;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Redis;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace RedisStackOverflow.ServiceInterface
 {
     /// <summary>
-    /// Define your ServiceStack web service request (i.e. the Request DTO).
-    /// </summary> 
-    [Route("/reset")]
-    public class Reset { }
-
-    /// <summary>
-    /// Define your ServiceStack web service response (i.e. Response DTO).
-    /// </summary>
-    public class ResetResponse : IHasResponseStatus
-    {
-        public ResetResponse()
-        {
-            //Comment this out if you wish to receive the response status.
-            this.ResponseStatus = new ResponseStatus();
-        }
-
-        /// <summary>
-        /// Gets or sets the ResponseStatus. The built-in Ioc used with ServiceStack autowires this property with service exceptions.
-        /// </summary>
-        public ResponseStatus ResponseStatus { get; set; }
-    }
-
-    /// <summary>
     /// Create your ServiceStack rest-ful web service implementation. 
     /// </summary>
-    public class ResetService : RestServiceBase<Reset>
+    public class ResetService : Service
     {
         /// <summary>
         /// Gets or sets the Redis Manager. The built-in IoC used with ServiceStack autowires this property.
@@ -71,7 +45,7 @@ namespace RedisStackOverflow.ServiceInterface
             };
         }
 
-        public override object OnGet(Reset request)
+        public object Get(Reset request)
         {
             //Uncomment if you want this feature
             //throw new NotSupportedException("Disabling for Demo site. Based on the XSS attacks I know it will only be a matter of time before someone pulls the trigger.");

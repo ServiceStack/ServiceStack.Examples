@@ -1,13 +1,14 @@
 ﻿using Northwind.ServiceModel.Operations;
 using Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
 
 namespace Northwind.ServiceInterface
 {
     /// <summary>
     /// Create your ServiceStack RESTful web service implementation. 
     /// </summary>
-    public class CustomersService : ServiceStack.ServiceInterface.Service
+    public class CustomersService : Service
     {
         public CustomersResponse Get(Customers request)
         {
