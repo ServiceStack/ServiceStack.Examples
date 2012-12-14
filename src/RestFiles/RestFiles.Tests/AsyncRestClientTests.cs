@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using NUnit.Framework;
-using RestFiles.ServiceModel.Operations;
+using RestFiles.ServiceModel;
 using ServiceStack.Common.Web;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;

@@ -1,8 +1,7 @@
-using System.Runtime.Serialization;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace RestFiles.ServiceModel.Operations
+namespace RestFiles.ServiceModel
 {
     /// <summary>
     /// Define your ServiceStack web service request (i.e. the Request DTO).

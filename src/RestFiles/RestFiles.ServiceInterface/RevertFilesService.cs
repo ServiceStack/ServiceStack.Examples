@@ -1,6 +1,6 @@
 using System.IO;
 using System.Linq;
-using RestFiles.ServiceModel.Operations;
+using RestFiles.ServiceModel;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Utils;
 using ServiceStack.ServiceInterface;
@@ -36,8 +36,8 @@ namespace RestFiles.ServiceInterface
 
             var dtosDir = Path.Combine(rootDir, "dtos");
 
-            var opsDtoPath = Path.Combine(dtosDir, "Operations");
-            CopyFiles(opsDtoPath, "~/../RestFiles.ServiceModel/Operations/".MapHostAbsolutePath());
+            var opsDtoPath = dtosDir;
+            CopyFiles(opsDtoPath, "~/../RestFiles.ServiceModel/".MapHostAbsolutePath());
 
             var typesDtoPath = Path.Combine(dtosDir, "Types");
             CopyFiles(typesDtoPath, "~/../RestFiles.ServiceModel/Types/".MapHostAbsolutePath());

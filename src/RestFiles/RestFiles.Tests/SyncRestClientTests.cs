@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using RestFiles.ServiceModel.Operations;
+using RestFiles.ServiceModel;
 using ServiceStack.Common.Web;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;

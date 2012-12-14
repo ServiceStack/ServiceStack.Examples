@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using RestFiles.ServiceInterface.Support;
-using RestFiles.ServiceModel.Operations;
+using RestFiles.ServiceModel;
 using RestFiles.ServiceModel.Types;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
@@ -14,14 +14,14 @@ namespace RestFiles.ServiceInterface
     /// <summary>
     /// Define your ServiceStack web service request (i.e. Request DTO).
     /// </summary>
-    public class FilesService : RestServiceBase<Files>
+    public class FilesService : Service
     {
         /// <summary>
         /// Gets or sets the AppConfig. The built-in IoC used with ServiceStack autowires this property.
         /// </summary>
         public AppConfig Config { get; set; }
 
-        public override object OnGet(Files request)
+        public object Get(Files request)
         {
             var targetFile = GetAndValidateExistingPath(request);
 
@@ -37,7 +37,7 @@ namespace RestFiles.ServiceInterface
             return response;
         }
 
-        public override object OnPost(Files request)
+        public void Post(Files request)
         {
             var targetDir = GetPath(request);
 
@@ -56,11 +56,9 @@ namespace RestFiles.ServiceInterface
                 var newFilePath = Path.Combine(targetDir.FullName, uploadedFile.FileName);
                 uploadedFile.SaveTo(newFilePath);
             }
-
-            return new FilesResponse();
         }
 
-        public override object OnPut(Files request)
+        public void Put(Files request)
         {
             var targetFile = GetAndValidateExistingPath(request);
 
@@ -71,17 +69,12 @@ namespace RestFiles.ServiceInterface
                 throw new ArgumentNullException("TextContents");
 
             File.WriteAllText(targetFile.FullName, request.TextContents);
-
-            return new FilesResponse();
         }
 
-        public override object OnDelete(Files request)
+        public void Delete(Files request)
         {
             var targetFile = GetAndValidateExistingPath(request);
-
             File.Delete(targetFile.FullName);
-
-            return new FilesResponse();
         }
 
         private FolderResult GetFolderResult(string targetPath)
