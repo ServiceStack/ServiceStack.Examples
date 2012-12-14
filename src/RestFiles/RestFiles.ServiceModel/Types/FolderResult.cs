@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace RestFiles.ServiceModel.Types
 {	
