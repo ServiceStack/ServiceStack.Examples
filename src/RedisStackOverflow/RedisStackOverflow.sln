@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisStackOverflow.ServiceI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisStackOverflow", "RedisStackOverflow\RedisStackOverflow.csproj", "{CCAC74EA-08EE-41A8-BF01-8F1B7D207144}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisStackOverflow.ServiceModel", "RedisStackOverflow.ServiceModel\RedisStackOverflow.ServiceModel.csproj", "{BFAB0E32-43F3-4A0E-9409-FC57FCF4BF14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{CCAC74EA-08EE-41A8-BF01-8F1B7D207144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAC74EA-08EE-41A8-BF01-8F1B7D207144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCAC74EA-08EE-41A8-BF01-8F1B7D207144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFAB0E32-43F3-4A0E-9409-FC57FCF4BF14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFAB0E32-43F3-4A0E-9409-FC57FCF4BF14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFAB0E32-43F3-4A0E-9409-FC57FCF4BF14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFAB0E32-43F3-4A0E-9409-FC57FCF4BF14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
