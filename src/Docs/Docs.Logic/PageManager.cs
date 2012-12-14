@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ServiceStack.Common.Extensions;
-using ServiceStack.Configuration;
 using ServiceStack.ServiceHost;
 using ServiceStack.Text;
 
@@ -24,7 +23,7 @@ namespace Docs.Logic
 			if (File.Exists(filePath))
 			{
 				var json = File.ReadAllText(filePath);
-				this.Pages = JsonSerializer.DeserializeFromString<List<Page>>(json);
+                this.Pages = json.FromJson<List<Page>>();
 				this.Pages.ForEach(x => x.FilePath = x.FilePath.MapServerPath());
 			}
 			else

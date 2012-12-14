@@ -107,11 +107,11 @@ namespace Docs.Logic
 		}
 	}
 	
-	public class PageService : RestServiceBase<Page>
+	public class PageService : Service
 	{
 		public PageManager PageManager { get; set; }
 
-		public override object OnGet(Page request)
+		public object Get(Page request)
 		{
 			if (request.Name != null)
 			{

@@ -25,11 +25,11 @@ namespace Docs.Logic
 		public ResponseStatus ResponseStatus { get; set; }
 	}
 
-	public class SearchService : RestServiceBase<Search>
+	public class SearchService : Service
 	{
 		public PageManager PageManager { get; set; }
 
-		public override object OnGet(Search request)
+		public object Get(Search request)
 		{
 			var results = new List<Page>();
 			foreach (var page in PageManager.Pages)

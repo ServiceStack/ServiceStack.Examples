@@ -16,11 +16,11 @@ namespace Docs.Logic
 		public List<Page> Results { get; set; }
 	}
 
-	public class CategoryService : RestServiceBase<Category>
+	public class CategoryService : Service
 	{
 		public PageManager PageManager { get; set; }
 
-		public override object OnGet(Category request)
+		public object Get(Category request)
 		{
 			List<Page> pages = null;
 			if (!request.Name.IsNullOrEmpty())
