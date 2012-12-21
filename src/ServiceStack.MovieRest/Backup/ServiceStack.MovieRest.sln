@@ -1,9 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.MovieRest", "ServiceStack.MovieRest.csproj", "{EE3EB8BB-A24E-4F71-8277-1C6DAE652E2C}"
 EndProject
 Global
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = e2c4be4e-fd9d-4744-8aa5-3a4c14aca0ef
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -16,8 +19,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(CodealikeProperties) = postSolution
-		SolutionGuid = e2c4be4e-fd9d-4744-8aa5-3a4c14aca0ef
 	EndGlobalSection
 EndGlobal
