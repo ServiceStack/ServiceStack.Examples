@@ -8,7 +8,7 @@ for twitter updates.
 
 Download the [tarball](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip):
 
-    https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip
+[https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip)
 
 or clone this repo to download the source:
 
