@@ -4,11 +4,11 @@ for twitter updates.
 
 #Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
-## [Download](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+## Download
 
-You can find the latest releases for download at:
+Clone this repo to download the source:
 
-* [ServiceStack.Examples/downloads](https://github.com/ServiceStack/ServiceStack.Examples/downloads)
+    git clone git://github.com/ServiceStack/ServiceStack.Examples.git
 
 
 ## Live Demo
