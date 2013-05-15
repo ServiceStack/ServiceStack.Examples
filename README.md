@@ -6,7 +6,7 @@ for twitter updates.
 
 ## [Download](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip)
 
-Download the [tarball](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip):
+Download the tarball:
 
 [https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip)
 
