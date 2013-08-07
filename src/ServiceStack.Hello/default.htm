@@ -80,10 +80,13 @@
     <h2>
         2. Configuring Service Stack to run in your application</h2>
     <p>
-        Add a reference to the <a href="https://github.com/ServiceStack/ServiceStack/downloads">
-            latest ServiceStack.dll's</a> (or <a href="http://nuget.org/packages/ServiceStack">add
-                ServiceStack dlls using NuGet</a>) to your project:
+        Add a reference to the ServiceStack dlls with:
     </p>
+    <div class="nuget-badge">
+        <p>
+            <pre>PM&gt; Install-Package ServiceStack</pre>
+        </p>
+    </div>
     <p>
         There are 2 supported options available to register ServiceStack in your ASP.NET
         application <strong>Web.config</strong>:
@@ -125,10 +128,10 @@
             FUBU MVC</a>, etc.
     </p>
     <h4>
-        The location configuration below hosts your webservices at custom path: <b>/servicestack</b></h4>
+        The location configuration below hosts your webservices at custom path: <b>/api</b></h4>
     <code class="web-config">
 <span style="color:blue;">&nbsp;&nbsp;&lt;!--</span><span style="color:green;">&nbsp;ServiceStack:&nbsp;Required&nbsp;to&nbsp;host&nbsp;at:&nbsp;/servicestack&nbsp;</span><span style="color:blue;">--&gt;</span>
-<span style="color:blue;">&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">location</span><span style="color:blue;">&nbsp;</span><span style="color:red;">path</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">servicestack</span>&quot;<span style="color:blue;">&gt;</span>
+<span style="color:blue;">&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">location</span><span style="color:blue;">&nbsp;</span><span style="color:red;">path</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">api</span>&quot;<span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">system.web</span><span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">httpHandlers</span><span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">add</span><span style="color:blue;">&nbsp;</span><span style="color:red;">path</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">*</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">type</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory,&nbsp;ServiceStack</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">verb</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">*</span>&quot;<span style="color:blue;">/&gt;</span>
@@ -147,7 +150,7 @@
 <span style="color:blue;">&nbsp;&nbsp;&lt;!--</span><span style="color:green;">&nbsp;Required&nbsp;for&nbsp;MONO&nbsp;</span><span style="color:blue;">--&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">system.web</span><span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">httpHandlers</span><span style="color:blue;">&gt;</span>
-<span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">add</span><span style="color:blue;">&nbsp;</span><span style="color:red;">path</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">servicestack*</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">type</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory,&nbsp;ServiceStack</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">verb</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">*</span>&quot;<span style="color:blue;">/&gt;</span>
+<span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span><span style="color:#a31515;">add</span><span style="color:blue;">&nbsp;</span><span style="color:red;">path</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">api*</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">type</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">ServiceStack.WebHost.Endpoints.ServiceStackHttpHandlerFactory,&nbsp;ServiceStack</span>&quot;<span style="color:blue;">&nbsp;</span><span style="color:red;">verb</span><span style="color:blue;">=</span>&quot;<span style="color:blue;">*</span>&quot;<span style="color:blue;">/&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/</span><span style="color:#a31515;">httpHandlers</span><span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&lt;/</span><span style="color:#a31515;">system.web</span><span style="color:blue;">&gt;</span>
 <span style="color:blue;">&nbsp;&nbsp;&lt;!--</span><span style="color:green;">&nbsp;Required&nbsp;for&nbsp;IIS7&nbsp;</span><span style="color:blue;">--&gt;</span>
@@ -158,11 +161,11 @@
     </code>
     <p>
         Note: Due to limitations in IIS 6 - the <b>/custompath</b> must end with <b>.ashx</b>,
-        e.g: <b>path="servicestack.ashx"</b>
+        e.g: <b>path="api.ashx"</b>
     </p>
     <p>
         To avoid conflicts with ASP.NET MVC add ignore rule in Global.asax RegisterRoutes
-        method e.g: <b>routes.IgnoreRoute ("servicestack/{*pathInfo}");</b>
+        method e.g: <b>routes.IgnoreRoute ("api/{*pathInfo}");</b>
     </p>
     <a name="create"></a>
     <h2>
@@ -264,7 +267,7 @@
         The Web Service Index Metadata page</h4>
     <p>
         If everything is configured correctly you can go to the <strong><a href="servicestack/metadata">
-            /servicestack/metadata</a></strong> to see a list of your web services and the
+            /api/metadata</a></strong> to see a list of your web services and the
         various end points its available on.
     </p>
     <p>
@@ -290,12 +293,12 @@
         <h3>
             XML (<acronym title="Plain old XML">POX</acronym>), JSON, JSV, CSV urls</h3>
         <h4>
-            /servicestack/<b>[xml<i>|</i>json<i>|</i>html<i>|</i>jsv<i>|</i>csv]</b>/<b>[syncreply<i>|</i>asynconeway]</b>/<b>[servicename]</b>
+            /api/<b>[xml<i>|</i>json<i>|</i>html<i>|</i>jsv<i>|</i>csv]</b>/<b>[reply<i>|</i>oneway]</b>/<b>[servicename]</b>
         </h4>
         <h3>
             SOAP Web Service urls</h3>
         <h4>
-            /servicestack/<b>[soap11<i>|</i>soap12]</b>
+            /api/<b>[soap11<i>|</i>soap12]</b>
         </h4>
         <h3>
             User defined REST-ful urls</h3>
@@ -304,7 +307,7 @@
             in this case:
         </p>
         <h4>
-            /servicestack/<b>hello/<i>{Name}</i></b>
+            /api/<b>hello/<i>{Name}</i></b>
         </h4>
     </div>
     <a name="predefinedroutes"></a>
@@ -336,10 +339,10 @@
                     XML
                 </th>
                 <td>
-                    <a href="servicestack/xml/syncreply/Hello?Name=World">/servicestack/xml/syncreply/Hello?Name=World</a>
+                    <a href="servicestack/xml/syncreply/Hello?Name=World">/api/xml/reply/Hello?Name=World</a>
                 </td>
                 <td>
-                    <a href="servicestack/xml/metadata?op=Hello">/servicestack/xml/syncreply/Hello</a>
+                    <a href="servicestack/xml/metadata?op=Hello">/api/xml/reply/Hello</a>
                 </td>
                 <td>
                     <form action="servicestack/xml/syncreply/Hello" method="post">
@@ -355,10 +358,10 @@
                     JSON
                 </th>
                 <td>
-                    <a href="servicestack/json/syncreply/Hello?Name=World">/servicestack/json/syncreply/Hello?Name=World</a>
+                    <a href="servicestack/json/syncreply/Hello?Name=World">/api/json/reply/Hello?Name=World</a>
                 </td>
                 <td>
-                    <a href="servicestack/json/metadata?op=Hello">/servicestack/json/syncreply/Hello</a>
+                    <a href="servicestack/json/metadata?op=Hello">/api/json/reply/Hello</a>
                 </td>
                 <td>
                     <form action="servicestack/json/syncreply/Hello" method="post">
@@ -374,10 +377,10 @@
                     HTML
                 </th>
                 <td>
-                    <a href="servicestack/html/syncreply/Hello?Name=World">/servicestack/html/syncreply/Hello?Name=World</a>
+                    <a href="servicestack/html/syncreply/Hello?Name=World">/api/html/reply/Hello?Name=World</a>
                 </td>
                 <td>
-                    <a href="servicestack/html/metadata?op=Hello">/servicestack/html/syncreply/Hello</a>
+                    <a href="servicestack/html/metadata?op=Hello">/api/html/reply/Hello</a>
                 </td>
                 <td>
                     <form action="servicestack/html/syncreply/Hello" method="post">
@@ -393,10 +396,10 @@
                     JSV
                 </th>
                 <td>
-                    <a href="servicestack/jsv/syncreply/Hello?Name=World">/servicestack/jsv/syncreply/Hello?Name=World</a>
+                    <a href="servicestack/jsv/syncreply/Hello?Name=World">/api/jsv/reply/Hello?Name=World</a>
                 </td>
                 <td>
-                    <a href="servicestack/jsv/metadata?op=Hello">/servicestack/jsv/syncreply/Hello</a>
+                    <a href="servicestack/jsv/metadata?op=Hello">/api/jsv/reply/Hello</a>
                 </td>
                 <td>
                     <form action="servicestack/jsv/syncreply/Hello" method="post">
@@ -412,10 +415,10 @@
                     CSV
                 </th>
                 <td>
-                    <a href="servicestack/csv/syncreply/Hello?Name=World">/servicestack/csv/syncreply/Hello?Name=World</a>
+                    <a href="servicestack/csv/syncreply/Hello?Name=World">/api/csv/reply/Hello?Name=World</a>
                 </td>
                 <td>
-                    <a href="servicestack/csv/metadata?op=Hello">/servicestack/csv/syncreply/Hello</a>
+                    <a href="servicestack/csv/metadata?op=Hello">/api/csv/reply/Hello</a>
                 </td>
                 <td>
                     <form action="servicestack/csv/syncreply/Hello" method="post">
@@ -458,7 +461,7 @@
         Content-Types allowing you to call each web service using a HTML FORM. Here is the
         HTML for the live examples:
     </p>
-    <code class="html"><span style="color:blue;">&lt;</span><span style="color:maroon;">form</span>&nbsp;<span style="color:red;">action</span><span style="color:blue;">=</span><span style="color:blue;">&quot;servicestack/xml/syncreply/Hello&quot;</span>&nbsp;<span style="color:red;">method</span><span style="color:blue;">=</span><span style="color:blue;">&quot;post&quot;</span><span style="color:blue;">&gt;</span>
+    <code class="html"><span style="color:blue;">&lt;</span><span style="color:maroon;">form</span>&nbsp;<span style="color:red;">action</span><span style="color:blue;">=</span><span style="color:blue;">&quot;api/xml/syncreply/Hello&quot;</span>&nbsp;<span style="color:red;">method</span><span style="color:blue;">=</span><span style="color:blue;">&quot;post&quot;</span><span style="color:blue;">&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">label</span><span style="color:blue;">&gt;</span>Name:<span style="color:blue;">&lt;/</span><span style="color:maroon;">label</span><span style="color:blue;">&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">input</span>&nbsp;<span style="color:red;">type</span><span style="color:blue;">=</span><span style="color:blue;">&quot;text&quot;</span>&nbsp;<span style="color:red;">name</span><span style="color:blue;">=</span><span style="color:blue;">&quot;Name&quot;</span>&nbsp;<span style="color:red;">value</span><span style="color:blue;">=</span><span style="color:blue;">&quot;World!&quot;</span>&nbsp;<span style="color:blue;">/&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">input</span>&nbsp;<span style="color:red;">type</span><span style="color:blue;">=</span><span style="color:blue;">&quot;submit&quot;</span>&nbsp;<span style="color:blue;">/&gt;</span>
@@ -494,7 +497,7 @@
                     SOAP 1.1
                 </th>
                 <td>
-                    <a href="servicestack/soap11">/servicestack/soap11</a>
+                    <a href="servicestack/soap11">/api/soap11</a>
                 </td>
                 <td>
                     <a href="servicestack/soap11/metadata?op=Hello">soap11/metadata?op=Hello</a>
@@ -505,7 +508,7 @@
                     SOAP 1.2
                 </th>
                 <td>
-                    <a href="servicestack/soap12">/servicestack/soap12</a>
+                    <a href="servicestack/soap12">/api/soap12</a>
                 </td>
                 <td>
                     <a href="servicestack/soap12/metadata?op=Hello">soap12/metadata?op=Hello</a>
@@ -544,7 +547,7 @@
         <b>[Route("/hello/{Name}")]</b></h4>
     <p>
         Allows this web service to be called with: <a href="servicestack/hello/World!?format=json">
-            /servicestack/hello/World!</a>
+            /api/hello/World!</a>
     </p>
     <p>
         Just like the other endpoints, REST-ful urls can also be called with a HTML FORM
@@ -556,7 +559,7 @@
     <p>
         Which lets us now call this web service using the following HTML:
     </p>
-    <code class="html"><span style="color:blue;">&lt;</span><span style="color:maroon;">form</span>&nbsp;<span style="color:red;">action</span><span style="color:blue;">=</span><span style="color:blue;">&quot;servicestack/hello?format=json&quot;</span>&nbsp;<span style="color:red;">method</span><span style="color:blue;">=</span><span style="color:blue;">&quot;post&quot;</span><span style="color:blue;">&gt;</span>
+    <code class="html"><span style="color:blue;">&lt;</span><span style="color:maroon;">form</span>&nbsp;<span style="color:red;">action</span><span style="color:blue;">=</span><span style="color:blue;">&quot;api/hello?format=json&quot;</span>&nbsp;<span style="color:red;">method</span><span style="color:blue;">=</span><span style="color:blue;">&quot;post&quot;</span><span style="color:blue;">&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">label</span><span style="color:blue;">&gt;</span>Name:<span style="color:blue;">&lt;/</span><span style="color:maroon;">label</span><span style="color:blue;">&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">input</span>&nbsp;<span style="color:red;">type</span><span style="color:blue;">=</span><span style="color:blue;">&quot;text&quot;</span>&nbsp;<span style="color:red;">name</span><span style="color:blue;">=</span><span style="color:blue;">&quot;Name&quot;</span>&nbsp;<span style="color:red;">value</span><span style="color:blue;">=</span><span style="color:blue;">&quot;World!&quot;</span>&nbsp;<span style="color:blue;">/&gt;</span>
 &nbsp;&nbsp;&nbsp;<span style="color:blue;">&lt;</span><span style="color:maroon;">input</span>&nbsp;<span style="color:red;">type</span><span style="color:blue;">=</span><span style="color:blue;">&quot;submit&quot;</span>&nbsp;<span style="color:blue;">/&gt;</span>
@@ -589,51 +592,12 @@
             Hello Service Integration tests</a>.
     </p>
     <p>
-        C#/.NET Clients can call the above Hello Service using any of the <a href="https://github.com/ServiceStack/ServiceStack/blob/master/src/ServiceStack.Common/ServiceClient.Web/">
-            JSON, JSV, XML or SOAP Service Clients</a> with the code below:
-    </p>
-    <code class="csharp"><span style="color:blue;">var</span>&nbsp;response&nbsp;=&nbsp;client.Send&lt;<span style="color:#2b91af;">HelloResponse</span>&gt;(<span style="color:blue;">new</span>&nbsp;Hello
-{
-&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;=&nbsp;<span style="color:#a31515;">&quot;World!&quot;</span>
-});&nbsp;
-<span style="color:#2b91af;">Console</span>.WriteLine(response.Result);&nbsp;<span style="color:green;">//&nbsp;=&gt;&nbsp;Hello,&nbsp;World&nbsp;</span></code>
-    <h4>
-        Async Example</h4>
-    <code class="csharp">client.SendAsync&lt;<span style="color:#2b91af;">HelloResponse</span>&gt;(<span style="color:blue;">new</span>&nbsp;Hello&nbsp;
-{&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;=&nbsp;<span style="color:#a31515;">&quot;World!&quot;</span>&nbsp;
-},&nbsp;r&nbsp;=&gt;&nbsp;<span style="color:#2b91af;">Console</span>.WriteLine(r.Result),&nbsp;(r,&nbsp;ex)&nbsp;=&gt;&nbsp;{&nbsp;<span style="color:blue;">throw</span>&nbsp;ex;&nbsp;});</code>
-    <p>
-        The Service Clients use the automatic <a href="#predefinedroutes">Pre-Defined Routes
-            above</a>.
-    </p>
-    <p>
-        In addition, the Service Clients also provide HTTP Verbs (Get, Post &amp; PostFile,
-        Put, Delete) letting you call custom user-defined routes REST-fully e.g:
-    </p>
-    <code class="csharp"><span style="color:blue;">var</span>&nbsp;response&nbsp;=&nbsp;client.Get&lt;<span style="color:#2b91af;">HelloResponse</span>&gt;(<span style="color:#a31515;">&quot;/hello/World!&quot;</span>);
-<span style="color:#2b91af;">Console</span>.WriteLine(response.Result);&nbsp;<span style="color:green;">//&nbsp;=&gt;&nbsp;Hello,&nbsp;World</span></code>
-    <h4>
-        Async Example</h4>
-    <code class="csharp">client.GetAsync&lt;<span style="color:#2b91af;">HelloResponse</span>&gt;(<span style="color:#a31515;">&quot;/hello/World!&quot;</span>,&nbsp;r&nbsp;=&gt;&nbsp;<span style="color:#2b91af;">Console</span>.WriteLine(r.Result),&nbsp;(r,&nbsp;ex)&nbsp;=&gt;&nbsp;{&nbsp;<span style="color:blue;">throw</span>&nbsp;ex;&nbsp;});</code>
-    <h3>
-        MonoTouch</h3>
-    <p>
-        Due to iOS's <a href="http://docs.xamarin.com/ios/about/limitations">No-JIT restrictions</a>,
-        MonoTouch apps will need to use these <a href="https://github.com/ServiceStack/ServiceStack/tree/master/release/latest/MonoTouch">
-            custom builds of ServiceStack's Serializers and Service Clients</a>.
-    </p>
-    <h3>
-        JavaScript</h3>
-    <p>
-        As ServiceStack returns 'clean responses' (i.e. your Serialized DTOs as-is), it
-        can easily be called with other existing Http or Ajax clients, e.g. using jQuery:
-    </p>
-    <code class="csharp">$.getJSON(<span style="color:maroon;">&#39;servicestack/hello/World!&#39;</span>,&nbsp;<span style="color:blue;">function</span>&nbsp;(r)&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;alert(r.Result);
-});</code>
-    <button onclick="$.getJSON('servicestack/hello/World!', function(r){ alert(r.Result); });">
-        Try It</button>
+        C#/.NET Clients can call the above Hello Service using any of the <a href="https://github.com/ServiceStack/ServiceStack/wiki/C%23-client">
+            JSON, JSV, XML or SOAP Service Clients</a> as well as a 
+            <a href="https://github.com/ServiceStack/ServiceStack/wiki/SilverlightServiceClient">Silverlight</a>, 
+            <a href="https://github.com/ServiceStack/ServiceStack/wiki/Javascript-client">JavaScript</a>, 
+            <a href="https://github.com/ServiceStack/ServiceStack/wiki/Dart-Client">Dart</a> or even
+            <a href="https://github.com/ServiceStack/ServiceStack/wiki/Messaging-and-redis">MQ Client</a>.
     <a name="links"></a>
     <h2>
         Where to now?</h2>
@@ -644,20 +608,7 @@
         out the <a href="http://www.servicestack.net/ServiceStack.Northwind/">Northwind Database
             examples</a> to see how useful servicestack becomes with just a little db code.
     </p>
-    <h3>
-        Download the code</h3>
-    <p>
-        Hopefully this tutorial shows just how easy it is to get started and quickly build
-        web services with <a href="http://www.servicestack.net">Service Stack</a>.
-    </p>
-    <p>
-        The complete source code for this example is <a href="https://github.com/ServiceStack/ServiceStack.Examples/tree/master/src/ServiceStack.Hello">
-            viewable online</a> or available to download as zip package from the link below:
-        <a id="btn-download" href="https://github.com/ServiceStack/ServiceStack.Examples/downloads">
-            <img src="http://www.servicestack.net/btn-download.gif" alt="Download ServiceStack.Examples.zip">
-        </a><a id="mono" href="http://www.mono-project.com">
-            <img src="Content/Images/Mono-powered-big.png" alt="powered by mono" /></a>
-    </p>
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
         var _gaq = _gaq || [];
