@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using ServiceStack.Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
-
 namespace ServiceStack.Northwind.ServiceModel.Operations
 {
+	using System.Collections.Generic;
+	using System.Runtime.Serialization;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.ServiceInterface.ServiceModel;
+
 	[DataContract]
-	[RestService("/customers/{Id}")]
+	[Route("/customers/{Id}")]
 	public class CustomerDetails
 	{
 		[DataMember]
@@ -32,5 +32,4 @@ namespace ServiceStack.Northwind.ServiceModel.Operations
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }
 	}
-
 }

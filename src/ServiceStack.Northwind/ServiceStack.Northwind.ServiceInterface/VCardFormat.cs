@@ -1,14 +1,14 @@
-using System;
-using System.IO;
-using ServiceStack.Common.Web;
-using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.Text;
-using ServiceStack.WebHost.Endpoints;
-
 namespace ServiceStack.Northwind.ServiceInterface
 {
+	using System;
+	using System.IO;
+	using ServiceStack.Common.Web;
+	using ServiceStack.Northwind.ServiceModel.Operations;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.Text;
+	using ServiceStack.WebHost.Endpoints;
+
 	public class VCardFormat
 	{
 		private const string VCardContentType = "text/x-vcard";
@@ -18,13 +18,13 @@ namespace ServiceStack.Northwind.ServiceInterface
 			appHost.ContentTypeFilters.Register(VCardContentType, SerializeToStream, DeserializeFromStream);
 
 			appHost.ResponseFilters.Add((req, res, dto) =>
-			{
-				if (req.ResponseContentType == VCardContentType)
-				{
-					res.AddHeader(HttpHeaders.ContentDisposition,
-						string.Format("attachment;filename={0}.vcf", req.OperationName));
-				}
-			});
+				                            {
+					                            if (req.ResponseContentType == VCardContentType)
+					                            {
+						                            res.AddHeader(HttpHeaders.ContentDisposition,
+						                                          string.Format("attachment;filename={0}.vcf", req.OperationName));
+					                            }
+				                            });
 		}
 
 		public static void SerializeToStream(IRequestContext requestContext, object response, Stream stream)
@@ -55,7 +55,7 @@ namespace ServiceStack.Northwind.ServiceInterface
 			sw.WriteLine("TEL;HOME;VOICE:" + customer.Phone);
 			sw.WriteLine("TEL;WORK;FAX:" + customer.Fax);
 			sw.WriteLine("ADR;TYPE=HOME;"
-				+ new[] { customer.Address, customer.City, customer.PostalCode }.Join(";"));
+			             + new[] {customer.Address, customer.City, customer.PostalCode}.Join(";"));
 			sw.WriteLine("END:VCARD");
 		}
 
@@ -64,5 +64,4 @@ namespace ServiceStack.Northwind.ServiceInterface
 			throw new NotImplementedException();
 		}
 	}
-
 }

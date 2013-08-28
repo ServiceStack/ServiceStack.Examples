@@ -1,26 +1,26 @@
-﻿using System;
-using Funq;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
-using ServiceStack.Northwind.ServiceInterface;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.WebHost.Endpoints;
-
-namespace ServiceStack.Northwind
+﻿namespace ServiceStack.Northwind
 {
-	public class AppHost 
-		: AppHostBase
+	using System;
+	using System.Web;
+	using Funq;
+	using ServiceStack.CacheAccess;
+	using ServiceStack.CacheAccess.Providers;
+	using ServiceStack.Common.Utils;
+	using ServiceStack.Northwind.ServiceInterface;
+	using ServiceStack.OrmLite;
+	using ServiceStack.OrmLite.Sqlite;
+	using ServiceStack.WebHost.Endpoints;
+
+	public class AppHost : AppHostBase
 	{
-		public AppHost() : base("Northwind Web Services", typeof(CustomersService).Assembly) { }
+		public AppHost() : base("Northwind Web Services", typeof (CustomersService).Assembly)
+		{
+		}
 
 		public override void Configure(Container container)
 		{
 			container.Register<IDbConnectionFactory>(
-				new OrmLiteConnectionFactory(
-				"~/Nortwind.sqlite".MapHostAbsolutePath(), 
-				SqliteOrmLiteDialectProvider.Instance));
+				new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteOrmLiteDialectProvider.Instance));
 
 			//Using an in-memory cache
 			container.Register<ICacheClient>(new MemoryCacheClient());
@@ -32,7 +32,7 @@ namespace ServiceStack.Northwind
 		}
 	}
 
-	public class Global : System.Web.HttpApplication
+	public class Global : HttpApplication
 	{
 		protected void Application_Start(object sender, EventArgs e)
 		{

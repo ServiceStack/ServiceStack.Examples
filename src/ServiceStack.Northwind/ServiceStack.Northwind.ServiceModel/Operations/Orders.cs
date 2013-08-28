@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using ServiceStack.Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
-
 namespace ServiceStack.Northwind.ServiceModel.Operations
 {
-	[RestService("/orders")]
-	[RestService("/orders/page/{Page}")]
-	[RestService("/customers/{CustomerId}/orders")]
+	using System.Collections.Generic;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.ServiceInterface.ServiceModel;
+
+	[Route("/orders")]
+	[Route("/orders/page/{Page}")]
+	[Route("/customers/{CustomerId}/orders")]
 	public class Orders
 	{
 		public int? Page { get; set; }
@@ -27,5 +27,4 @@ namespace ServiceStack.Northwind.ServiceModel.Operations
 
 		public ResponseStatus ResponseStatus { get; set; }
 	}
-
 }

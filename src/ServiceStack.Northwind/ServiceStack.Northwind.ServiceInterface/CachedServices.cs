@@ -1,16 +1,18 @@
-﻿using ServiceStack.CacheAccess;
-using ServiceStack.Common;
-using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+﻿
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
-	public class CachedCustomersService : RestServiceBase<CachedCustomers>
+	using ServiceStack.CacheAccess;
+	using ServiceStack.Common;
+	using ServiceStack.Northwind.ServiceModel.Operations;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.ServiceInterface;
+
+	public class CachedCustomersService : ServiceStack.ServiceInterface.Service
 	{
 		public ICacheClient CacheClient { get; set; }
 
-		public override object OnGet(CachedCustomers request)
+		public object Get(CachedCustomers request)
 		{
 			return base.RequestContext.ToOptimizedResultUsingCache(
 				this.CacheClient, "urn:customers", () => {
@@ -20,34 +22,29 @@ namespace ServiceStack.Northwind.ServiceInterface
 		}
 	}
 
-	public class CachedCustomerDetailsService : RestServiceBase<CachedCustomerDetails>
+	public class CachedCustomerDetailsService : Service
 	{
 		public ICacheClient CacheClient { get; set; }
 
-		public override object OnGet(CachedCustomerDetails request)
+		public object Get(CachedCustomerDetails request)
 		{
 			var cacheKey = UrnId.Create<CustomerDetails>(request.Id);
 			return base.RequestContext.ToOptimizedResultUsingCache(
-				this.CacheClient, cacheKey, () =>
-				{
-					return (CustomerDetailsResponse)this.ResolveService<CustomerDetailsService>()
-						.Get(new CustomerDetails { Id = request.Id });
-				});
+				this.CacheClient, cacheKey, () => (CustomerDetailsResponse)this.ResolveService<CustomerDetailsService>()
+				                                                               .Get(new CustomerDetails { Id = request.Id }));
 		}
 	}
 
-	public class CachedOrdersService : RestServiceBase<CachedOrders>
+	public class CachedOrdersService : Service
 	{
 		public ICacheClient CacheClient { get; set; }
 
-		public override object OnGet(CachedOrders request)
+		public object Get(CachedOrders request)
 		{
 			var cacheKey = UrnId.Create<Orders>(request.CustomerId ?? "all", request.Page.GetValueOrDefault(0).ToString());
-			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
-				{
-					return (OrdersResponse)this.ResolveService<OrdersService>()
-						.Get(new Orders { CustomerId = request.CustomerId, Page = request.Page });
-				});
+			return base.RequestContext.ToOptimizedResultUsingCache(CacheClient, cacheKey, 
+				() => (OrdersResponse) ResolveService<OrdersService>()
+					.Get(new Orders { CustomerId = request.CustomerId, Page = request.Page }));
 		}
 	}
 

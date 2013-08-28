@@ -1,18 +1,17 @@
-﻿using ServiceStack.Northwind.ServiceModel.Operations;
-using ServiceStack.Northwind.ServiceModel.Types;
-using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
-
-namespace ServiceStack.Northwind.ServiceInterface
+﻿namespace ServiceStack.Northwind.ServiceInterface
 {
-	public class CustomersService : RestServiceBase<Customers>
+	using ServiceStack.Northwind.ServiceModel.Operations;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.OrmLite;
+	using ServiceStack.ServiceInterface;
+
+	public class CustomersService : Service
 	{
 		public IDbConnectionFactory DbFactory { get; set; }
 
-		public override object OnGet(Customers request)
+		public CustomersResponse Get(Customers request)
 		{
-			return new CustomersResponse { Customers = DbFactory.Exec(dbCmd => dbCmd.Select<Customer>()) };
+			return new CustomersResponse {Customers = DbFactory.Run(dbCmd => dbCmd.Select<Customer>())};
 		}
 	}
-
 }
