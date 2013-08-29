@@ -1,11 +1,17 @@
-using System.Runtime.Serialization;
-
-namespace Northwind.ServiceModel.Types
+namespace ServiceStack.Northwind.ServiceModel.Types
 {
+	using System.Runtime.Serialization;
+
+	[DataContract]
 	public class Category
-	{		
-		public int Id { get; set; }		
-		public string CategoryName { get; set; }		
+	{
+		[DataMember]
+		public int Id { get; set; }
+
+		[DataMember]
+		public string CategoryName { get; set; }
+
+		[DataMember]
 		public string Description { get; set; }
 	}
 }

@@ -1,22 +1,30 @@
-using System.Collections.Generic;
-using Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
+namespace ServiceStack.Northwind.ServiceModel.Operations
+{
+	using System.Collections.Generic;
+	using System.Runtime.Serialization;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.ServiceInterface.ServiceModel;
 
-namespace Northwind.ServiceModel.Operations
-{    
-    [Route("/customers")]
-    public class Customers { }
-    
-    public class CustomersResponse
-    {
-        public CustomersResponse()
-        {
-            this.ResponseStatus = new ResponseStatus();
-            this.Customers = new List<Customer>();
-        }
-        
-        public List<Customer> Customers { get; set; }        
-        public ResponseStatus ResponseStatus { get; set; }
-    }
+	[DataContract]
+	[Route("/customers")]
+	public class Customers
+	{
+	}
+
+	[DataContract]
+	public class CustomersResponse : IHasResponseStatus
+	{
+		public CustomersResponse()
+		{
+			this.ResponseStatus = new ResponseStatus();
+			this.Customers = new List<Customer>();
+		}
+
+		[DataMember]
+		public List<Customer> Customers { get; set; }
+
+		[DataMember]
+		public ResponseStatus ResponseStatus { get; set; }
+	}
 }
