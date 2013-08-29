@@ -6,6 +6,7 @@
 	using ServiceStack.Common.Utils;
 	using ServiceStack.OrmLite;
 	using ServiceStack.OrmLite.Sqlite;
+	using ServiceStack.ServiceHost;
 	using ServiceStack.ServiceInterface.Cors;
 	using ServiceStack.WebHost.Endpoints;
 
@@ -42,6 +43,7 @@
 			SetConfig(new EndpointHostConfig
 				          {
 					          DebugMode = true, //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
+							  MetadataVisibility = EndpointAttributes.Any
 				          });
 		}
 	}
