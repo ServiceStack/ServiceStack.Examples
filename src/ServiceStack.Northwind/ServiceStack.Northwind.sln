@@ -1,16 +1,20 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind", "ServiceStack.Northwind\ServiceStack.Northwind.csproj", "{3E968D84-7C23-42E9-A443-6355FAA845E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind.ServiceModel", "ServiceStack.Northwind.ServiceModel\ServiceStack.Northwind.ServiceModel.csproj", "{14856482-95D3-4A02-968C-665F3D08F94D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Northwind.ServiceInterface", "ServiceStack.Northwind.ServiceInterface\ServiceStack.Northwind.ServiceInterface.csproj", "{A724F80D-4341-4ECA-AC43-CF84A3F03779}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{58E21910-217C-437D-B2EB-548BDF01FA29}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(CodealikeProperties) = postSolution
-		SolutionGuid = 1bc1117c-b346-4ab4-8051-02530021fb51
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

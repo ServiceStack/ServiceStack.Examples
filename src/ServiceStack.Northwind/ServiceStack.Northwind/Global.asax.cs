@@ -1,50 +1,42 @@
-﻿using System;
-using Funq;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
-using Northwind.ServiceInterface;
-using ServiceStack.OrmLite;
-using ServiceStack.WebHost.Endpoints;
-
-namespace Northwind
+﻿namespace ServiceStack.Northwind
 {
-    /// <summary>
-    /// Create your ServiceStack web service application with a singleton AppHost.
-    /// </summary>
-    public class AppHost : AppHostBase
-    {
-        /// <summary>
-        /// Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
-        /// </summary>
-        public AppHost()
-            : base("Northwind Web Services", typeof(CustomersService).Assembly) {}
+	using System;
+	using System.Web;
+	using Funq;
+	using ServiceStack.CacheAccess;
+	using ServiceStack.CacheAccess.Providers;
+	using ServiceStack.Common.Utils;
+	using ServiceStack.Northwind.ServiceInterface;
+	using ServiceStack.OrmLite;
+	using ServiceStack.OrmLite.Sqlite;
+	using ServiceStack.WebHost.Endpoints;
 
-        /// <summary>
-        /// Configure the container with the necessary routes for your ServiceStack application.
-        /// </summary>
-        /// <param name="container">The built-in IoC used with ServiceStack.</param>
-        public override void Configure(Container container)
-        {
-            container.Register<IDbConnectionFactory>(
-                new OrmLiteConnectionFactory("~/Nortwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
+	public class AppHost : AppHostBase
+	{
+		public AppHost() : base("Northwind Web Services", typeof (CustomersService).Assembly)
+		{
+		}
 
-            //Using an in-memory cache
-            container.Register<ICacheClient>(new MemoryCacheClient());
+		public override void Configure(Container container)
+		{
+			container.Register<IDbConnectionFactory>(
+				new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteOrmLiteDialectProvider.Instance));
 
-            //Or if Haz Redis
-            //container.Register<ICacheClient>(new PooledRedisClientManager());
+			//Using an in-memory cache
+			container.Register<ICacheClient>(new MemoryCacheClient());
 
-            VCardFormat.Register(this);
-        }
-    }
+			//Or if Haz Redis
+			//container.Register<ICacheClient>(new PooledRedisClientManager());
 
-    public class Global : System.Web.HttpApplication
-    {
-        protected void Application_Start(object sender, EventArgs e)
-        {
-            //Initialize your application
-            (new AppHost()).Init();
-        }
-    }
+			VCardFormat.Register(this);
+		}
+	}
+
+	public class Global : HttpApplication
+	{
+		protected void Application_Start(object sender, EventArgs e)
+		{
+			new AppHost().Init();
+		}
+	}
 }

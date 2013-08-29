@@ -1,18 +1,17 @@
-﻿using Northwind.ServiceModel.Operations;
-using Northwind.ServiceModel.Types;
-using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
-
-namespace Northwind.ServiceInterface
+﻿namespace ServiceStack.Northwind.ServiceInterface
 {
-    /// <summary>
-    /// Create your ServiceStack RESTful web service implementation. 
-    /// </summary>
-    public class CustomersService : Service
-    {
-        public CustomersResponse Get(Customers request)
-        {
-            return new CustomersResponse { Customers = base.Db.Select<Customer>() };
-        }
-    }
+	using ServiceStack.Northwind.ServiceModel.Operations;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.OrmLite;
+	using ServiceStack.ServiceInterface;
+
+	public class CustomersService : Service
+	{
+		public IDbConnectionFactory DbFactory { get; set; }
+
+		public CustomersResponse Get(Customers request)
+		{
+			return new CustomersResponse {Customers = DbFactory.Run(dbCmd => dbCmd.Select<Customer>())};
+		}
+	}
 }

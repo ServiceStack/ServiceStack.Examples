@@ -1,30 +1,30 @@
-using System.Collections.Generic;
-using Northwind.ServiceModel.Types;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
-
-namespace Northwind.ServiceModel.Operations
+namespace ServiceStack.Northwind.ServiceModel.Operations
 {
-    [Route("/orders")]
-    [Route("/orders/page/{Page}")]
-    [Route("/customers/{CustomerId}/orders")]
-    public class Orders
-    {
-        public int? Page { get; set; }
+	using System.Collections.Generic;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.ServiceHost;
+	using ServiceStack.ServiceInterface.ServiceModel;
 
-        public string CustomerId { get; set; }
-    }
+	[Route("/orders")]
+	[Route("/orders/page/{Page}")]
+	[Route("/customers/{CustomerId}/orders")]
+	public class Orders
+	{
+		public int? Page { get; set; }
 
-    public class OrdersResponse
-    {
-        public OrdersResponse()
-        {
-            this.ResponseStatus = new ResponseStatus();
-            this.Results = new List<CustomerOrder>();
-        }
+		public string CustomerId { get; set; }
+	}
 
-        public List<CustomerOrder> Results { get; set; }
+	public class OrdersResponse : IHasResponseStatus
+	{
+		public OrdersResponse()
+		{
+			this.ResponseStatus = new ResponseStatus();
+			this.Results = new List<CustomerOrder>();
+		}
 
-        public ResponseStatus ResponseStatus { get; set; }
-    }
+		public List<CustomerOrder> Results { get; set; }
+
+		public ResponseStatus ResponseStatus { get; set; }
+	}
 }

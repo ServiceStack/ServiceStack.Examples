@@ -1,39 +1,51 @@
-﻿using System.Linq;
-using ServiceStack.Common.Extensions;
-using Northwind.ServiceModel.Operations;
-using Northwind.ServiceModel.Types;
-using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
-
-namespace Northwind.ServiceInterface
+﻿namespace ServiceStack.Northwind.ServiceInterface
 {
-    /// <summary>
-    /// Create your ServiceStack RESTful web service implementation. 
-    /// </summary>
-    public class OrdersService : Service
-    {
-        private const int PageCount = 20;
+	using System.Collections.Generic;
+	using System.Linq;
+	using ServiceStack.Common.Extensions;
+	using ServiceStack.Northwind.ServiceModel.Operations;
+	using ServiceStack.Northwind.ServiceModel.Types;
+	using ServiceStack.OrmLite;
+	using ServiceStack.ServiceInterface;
 
-        public OrdersResponse Get(Orders request)
-        {
-            var orders = request.CustomerId.IsNullOrEmpty()
-                ? Db.Select<Order>("ORDER BY OrderDate DESC LIMIT {0}, {1}", (request.Page.GetValueOrDefault(1) - 1) * PageCount, PageCount)
-                : Db.Select<Order>("CustomerId = {0}", request.CustomerId);
+	public class OrdersService : Service
+	{
+		private const int PageCount = 20;
 
-            if (orders.Count == 0) { return new OrdersResponse(); }
+		public IDbConnectionFactory DbFactory { get; set; }
 
-            var orderDetails = Db.Select<OrderDetail>(
-                "OrderId IN ({0})", new SqlInValues(orders.ConvertAll(x => x.Id)));
+		public object Get(Orders request)
+		{
+			using (var dbConn = DbFactory.OpenDbConnection())
+			using (var dbCmd = dbConn.CreateCommand())
+			{
+				List<Order> orders;
 
-            var orderDetailsLookup = orderDetails.ToLookup(o => o.OrderId);
+				if (request.CustomerId.IsNullOrEmpty())
+				{
+					orders = dbCmd.Select<Order>(order => order.OrderByDescending(o => o.OrderDate))
+					              .Skip((request.Page.GetValueOrDefault(1) - 1)*PageCount)
+					              .Take(PageCount)
+					              .ToList();
+				}
+				else orders = dbCmd.Select<Order>(order => order.Where(o => o.CustomerId == request.CustomerId));
 
-            var customerOrders = orders.ConvertAll(o =>
-                new CustomerOrder {
-                    Order = o,
-                    OrderDetails = orderDetailsLookup[o.Id].ToList()
-                });
+				if (orders.Count == 0)
+					return new OrdersResponse();
 
-            return new OrdersResponse { Results = customerOrders };
-        }
-    }
+				var orderDetails = dbCmd.Select<OrderDetail>(detail => Sql.In(detail.OrderId, orders.ConvertAll(x => x.Id)));
+
+				var orderDetailsLookup = orderDetails.ToLookup(o => o.OrderId);
+
+				var customerOrders = orders.ConvertAll(o =>
+				                                       new CustomerOrder
+					                                       {
+						                                       Order = o,
+						                                       OrderDetails = orderDetailsLookup[o.Id].ToList()
+					                                       });
+
+				return new OrdersResponse {Results = customerOrders};
+			}
+		}
+	}
 }

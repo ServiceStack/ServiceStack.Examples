@@ -6,11 +6,11 @@ using System.Runtime.Serialization;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Northwind.ServiceModel")]
+[assembly: AssemblyTitle("ServiceStack.Northwind.ServiceModel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Northwind.ServiceModel")]
+[assembly: AssemblyProduct("ServiceStack.Northwind.ServiceModel")]
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -36,6 +36,6 @@ using System.Runtime.Serialization;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: ContractNamespace("http://schemas.servicestack.net/types", ClrNamespace = "Northwind.ServiceModel")]
-[assembly: ContractNamespace("http://schemas.servicestack.net/types", ClrNamespace = "Northwind.ServiceModel.Operations")]
+[assembly: ContractNamespace("http://schemas.servicestack.net/types", ClrNamespace = "ServiceStack.Northwind.ServiceModel")]
+[assembly: ContractNamespace("http://schemas.servicestack.net/types", ClrNamespace = "ServiceStack.Northwind.ServiceModel.Operations")]
 
