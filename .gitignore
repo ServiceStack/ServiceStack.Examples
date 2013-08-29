@@ -43,3 +43,4 @@ App_Data/
 *.user
 packages
 *.ncrunch*
+*.gpState
