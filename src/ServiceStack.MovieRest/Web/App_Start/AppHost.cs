@@ -39,7 +39,7 @@ namespace ServiceStack.MovieRest.App_Start
 		{
 			//Set JSON web services to return idiomatic JSON camelCase properties
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
-
+			
 			container.Register<IDbConnectionFactory>(c => new OrmLiteConnectionFactory("~/App_Data/db.sqlite".MapHostAbsolutePath(), SqliteOrmLiteDialectProvider.Instance));
 
 			using (var resetMovies = container.Resolve<ResetMoviesService>())
