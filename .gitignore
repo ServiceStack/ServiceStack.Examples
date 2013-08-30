@@ -41,3 +41,6 @@ App_Data/
 *.resharper.user
 *.suo
 *.user
+packages
+*.ncrunch*
+*.gpState
