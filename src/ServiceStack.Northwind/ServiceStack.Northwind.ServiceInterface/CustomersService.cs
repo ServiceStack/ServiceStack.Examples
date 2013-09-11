@@ -7,8 +7,6 @@
 
 	public class CustomersService : Service
 	{
-		public IDbConnectionFactory DbFactory { get; set; }
-
 		public CustomersResponse Get(Customers request)
 		{
 			return new CustomersResponse { Customers = Db.Select<Customer>() };
