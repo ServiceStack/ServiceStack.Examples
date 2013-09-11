@@ -11,7 +11,7 @@
 
 		public CustomersResponse Get(Customers request)
 		{
-			return new CustomersResponse {Customers = DbFactory.Run(dbCmd => dbCmd.Select<Customer>())};
+			return new CustomersResponse { Customers = Db.Select<Customer>() };
 		}
 	}
 }
