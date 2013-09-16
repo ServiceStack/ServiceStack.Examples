@@ -58,10 +58,10 @@ namespace Backbone.Todos
     }
 
     // Create your ServiceStack web service application with a singleton AppHost.
-    public class ToDoAppHost : AppHostBase
+    public class AppHost : AppHostBase
     {
         // Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
-        public ToDoAppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) { }
+        public AppHost() : base("Backbone.js TODO", typeof(TodoService).Assembly) { }
 
         // Configure the container with the necessary routes for your ServiceStack application.
         public override void Configure(Container container)
@@ -84,7 +84,7 @@ namespace Backbone.Todos
         protected void Application_Start(object sender, EventArgs e)
         {
             //Initialize your ServiceStack AppHost
-            (new ToDoAppHost()).Init();
+            (new AppHost()).Init();
         }
     }
 }
