@@ -14,8 +14,7 @@ namespace ServiceStack.Examples.Tests.MonoTests
 					typeof(GetUsers), typeof(DeleteAllUsers), typeof(StoreNewUser), 
 					typeof(GetFactorial), typeof(GetFibonacciNumbers)
 				},
-				OptimizeForFlash = false,
-				IncludeAllTypesInAssembly = false,
+				OptimizeForFlash = false,				
 			}.ToString();
 
 			Console.WriteLine("xsd: " + xsd);

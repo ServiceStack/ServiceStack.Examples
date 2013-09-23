@@ -1,6 +1,7 @@
 ﻿using System;
 using Docs.Logic;
 using Funq;
+using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceHost;
 using ServiceStack.WebHost.Endpoints;

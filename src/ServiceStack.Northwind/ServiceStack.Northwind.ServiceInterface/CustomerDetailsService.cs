@@ -4,11 +4,10 @@ using ServiceStack.Common.Web;
 using ServiceStack.Northwind.ServiceModel.Operations;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
-    public class CustomerDetailsService : Service
+    public class CustomerDetailsService : ServiceStack.ServiceInterface.Service
     {
         public CustomerDetailsResponse Get(CustomerDetails request)
         {

@@ -6,7 +6,6 @@ using ServiceStack.Examples.ServiceInterface.Support;
 using ServiceStack.Logging;
 using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.WebHost.Endpoints;
 
@@ -48,7 +47,7 @@ namespace ServiceStack.Examples.Tests.Integration
 				 new OrmLiteConnectionFactory(
 					":memory:",			//Use an in-memory database instead
 					false,				//keep the same in-memory db connection open
-					SqliteOrmLiteDialectProvider.Instance));
+					SqliteDialect.Provider));
 
 			ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
 		}

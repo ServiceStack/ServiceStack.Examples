@@ -1,7 +1,4 @@
 using ServiceStack.MovieRest.App_Start;
-using WebActivator;
-
-[assembly: PreApplicationStartMethod(typeof (MovieAppHost), "Start")]
 
 namespace ServiceStack.MovieRest.App_Start
 {
@@ -13,13 +10,13 @@ namespace ServiceStack.MovieRest.App_Start
 	using ServiceStack.Text;
 	using ServiceStack.WebHost.Endpoints;
 
-	public class MovieAppHost
+	public class AppHost
 		: AppHostBase
 	{
 		/// <summary>
 		///     Initializes a new instance of your ServiceStack application, with the specified name and assembly containing the services.
 		/// </summary>
-		public MovieAppHost() : base("ServiceStack REST at the Movies!", typeof (MovieService).Assembly)
+		public AppHost() : base("ServiceStack REST at the Movies!", typeof (MovieService).Assembly)
 		{
 		}
 
@@ -31,7 +28,7 @@ namespace ServiceStack.MovieRest.App_Start
 			JsConfig.EmitCamelCaseNames = true;
 
 			container.Register<IDbConnectionFactory>(
-				c => new OrmLiteConnectionFactory("~/App_Data/db.sqlite".MapHostAbsolutePath(), SqliteOrmLiteDialectProvider.Instance));
+				c => new OrmLiteConnectionFactory("~/App_Data/db.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
 
 			using (var resetMovies = container.Resolve<ResetMoviesService>())
 			{
@@ -44,12 +41,6 @@ namespace ServiceStack.MovieRest.App_Start
 				          {
 					          DebugMode = true //Show StackTraces for easier debugging (default auto inferred by Debug/Release builds)
 				          });
-		}
-
-
-		public static void Start()
-		{
-			new MovieAppHost().Init();
 		}
 	}
 }

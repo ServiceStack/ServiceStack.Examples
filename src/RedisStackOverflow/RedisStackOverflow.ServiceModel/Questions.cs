@@ -16,9 +16,9 @@ namespace RedisStackOverflow.ServiceModel
 
     public class QuestionStat
     {
-        public int VotesUpCount { get; set; }
-        public int VotesDownCount { get; set; }
-        public int VotesTotal { get; set; }
+        public long VotesUpCount { get; set; }
+        public long VotesDownCount { get; set; }
+        public long VotesTotal { get; set; }
     }
 
     /// <summary>
@@ -104,9 +104,9 @@ namespace RedisStackOverflow.ServiceModel
 
         public Question Question { get; set; }
         public User User { get; set; }
-        public int AnswersCount { get; set; }
-        public int VotesUpCount { get; set; }
-        public int VotesDownCount { get; set; }
+        public long AnswersCount { get; set; }
+        public long VotesUpCount { get; set; }
+        public long VotesDownCount { get; set; }
         public List<AnswerResult> Answers { get; set; }
     }
 

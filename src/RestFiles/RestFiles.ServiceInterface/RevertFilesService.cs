@@ -10,14 +10,14 @@ namespace RestFiles.ServiceInterface
     /// <summary>
     /// Define your ServiceStack web service request (i.e. Request DTO).
     /// </summary>
-    public class RevertFilesService : RestServiceBase<RevertFiles>
+    public class RevertFilesService : Service
     {
         /// <summary>
         /// Gets or sets the AppConfig. The built-in IoC used with ServiceStack autowires this property.
         /// </summary>
         public AppConfig Config { get; set; }
 
-        public override object OnPost(RevertFiles request)
+        public object Post(RevertFiles request)
         {
             var rootDir = Config.RootDirectory;
 

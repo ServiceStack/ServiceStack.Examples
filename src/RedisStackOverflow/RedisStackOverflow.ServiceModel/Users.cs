@@ -33,8 +33,8 @@ namespace RedisStackOverflow.ServiceModel
     public class UserStat
     {
         public long UserId { get; set; }
-        public int QuestionsCount { get; set; }
-        public int AnswersCount { get; set; }
+        public long QuestionsCount { get; set; }
+        public long AnswersCount { get; set; }
     }
 
     /// <summary>

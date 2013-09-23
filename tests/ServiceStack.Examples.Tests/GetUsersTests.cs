@@ -22,16 +22,15 @@ namespace ServiceStack.Examples.Tests
 			};
 
 			var factory = new OrmLiteConnectionFactory(
-				InMemoryDb, false, SqliteOrmLiteDialectProvider.Instance);
+				InMemoryDb, false, SqliteDialect.Provider);
 
-			using (var dbConn = factory.OpenDbConnection())
-			using (var dbCmd = dbConn.CreateCommand())
+            using (var db = factory.Open())
 			{
-				dbCmd.CreateTable<User>(true);
-				dbCmd.Insert(new User { Id = 1, UserName = "User1" });
-				dbCmd.Insert(new User { Id = 2, UserName = "User2" });
-				dbCmd.Insert(new User { Id = 3, UserName = "User3" });
-				dbCmd.Insert(new User { Id = 4, UserName = "User4" });
+				db.DropAndCreateTable<User>();
+				db.Insert(new User { Id = 1, UserName = "User1" });
+				db.Insert(new User { Id = 2, UserName = "User2" });
+				db.Insert(new User { Id = 3, UserName = "User3" });
+				db.Insert(new User { Id = 4, UserName = "User4" });
 
 				var handler = new GetUsersService { ConnectionFactory = factory };
 

@@ -74,7 +74,7 @@ namespace Docs.Logic
 			if (isGithubWiki)
 			{
 				var markdownEditUrl = this.Src + "/_edit";
-				var editPageContents = markdownEditUrl.DownloadUrl();
+				var editPageContents = markdownEditUrl.GetStringFromUrl();
 				return editPageContents.ExtractContents("<textarea", "name=\"wiki[body]\">", "</textarea>");
 			}
 
@@ -82,7 +82,7 @@ namespace Docs.Logic
 							  ? this.Src.Replace("/blob/", "/raw/")
 							  : this.Src;
 
-			return markdownUrl.DownloadUrl();
+            return markdownUrl.GetStringFromUrl();
 		}
 
 		public void Save(string baseUrl, string contents)

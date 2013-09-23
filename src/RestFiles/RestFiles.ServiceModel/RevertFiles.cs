@@ -6,7 +6,7 @@ namespace RestFiles.ServiceModel
     /// <summary>
     /// Define your ServiceStack web service request (i.e. the Request DTO).
     /// </summary> 
-    [Route("revertfiles")]    
+    [Route("/revertfiles")]    
     public class RevertFiles { }
 
     /// <summary>

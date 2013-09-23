@@ -28,10 +28,12 @@ namespace RestIntro
             container.Register<IDbConnectionFactory>(
                 new OrmLiteConnectionFactory(
                 "~/RestIntro.sqlite".MapHostAbsolutePath(),
-                SqliteOrmLiteDialectProvider.Instance));
+                SqliteDialect.Provider));
 
-            container.Resolve<IDbConnectionFactory>()
-                .Run(dbCmd => dbCmd.CreateTable<Customer>(true));
+            using (var db = container.Resolve<IDbConnectionFactory>().Open())
+            {
+                db.DropAndCreateTable<Customer>();
+            }
         }
     }
 

@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Common.Extensions;
 using ServiceStack.Northwind.ServiceModel.Operations;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
-    public class OrdersService : Service
+    public class OrdersService : ServiceStack.ServiceInterface.Service
     {
         private const int PageCount = 20;
 
