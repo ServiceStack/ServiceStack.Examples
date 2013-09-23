@@ -56,10 +56,10 @@
       <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.63\lib\net35\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
-      <HintPath>..\..\lib\tests\Moq.dll</HintPath>
+      <HintPath>..\..\lib\Moq.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\lib\tests\nunit.framework.dll</HintPath>
+      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
       <HintPath>..\..\src\packages\ServiceStack.3.9.63\lib\net35\ServiceStack.dll</HintPath>
