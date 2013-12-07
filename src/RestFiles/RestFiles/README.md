@@ -16,13 +16,13 @@ Because of the advanced HTML5 features used its best viewed in a modern browser 
 The /files service exposes a complete strong-typed REST-ful API, the entire implementation of which fits in only   
 [1 C# class](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs).
 
-As it was developed using the http://servicestack.net Open Source .NET/Mono Web Services Framework
+As it was developed using the http://mono.servicestack.net Open Source .NET/Mono Web Services Framework
 it also able to expose this REST-ful API over a myraid of formats (with no extra code/config):
 
-  * [json](http://servicestack.net/RestFiles/files/dtos/Types?format=json)
-  * [xml](http://servicestack.net/RestFiles/files/dtos/Types?format=xml)
-  * [jsv](http://servicestack.net/RestFiles/files/dtos/Types?format=jsv&debug=true)
-  * [csv](http://servicestack.net/RestFiles/files/dtos/Types?format=csv)
+  * [json](http://mono.servicestack.net/RestFiles/files/dtos/Types?format=json)
+  * [xml](http://mono.servicestack.net/RestFiles/files/dtos/Types?format=xml)
+  * [jsv](http://mono.servicestack.net/RestFiles/files/dtos/Types?format=jsv&debug=true)
+  * [csv](http://mono.servicestack.net/RestFiles/files/dtos/Types?format=csv)
 
 *Note: The speed of web services are faster than what they appear, as the delay + animations are for
  gratuitous purposes only :) All but the xml format uses the high-performance cross-platform,
@@ -32,15 +32,15 @@ it also able to expose this REST-ful API over a myraid of formats (with no extra
 
 SOAP 1.1/1.2 endpoints are also available at the following url:
 
-  * [soap11](http://servicestack.net/RestFiles/servicestack/soap11)
-  * [soap12](http://servicestack.net/RestFiles/servicestack/soap12)
+  * [soap11](http://mono.servicestack.net/RestFiles/servicestack/soap11)
+  * [soap12](http://mono.servicestack.net/RestFiles/servicestack/soap12)
 
 As a result of the strong-typed DTO pattern used to define the the webservice, ServiceStack is able to
 generate the xsds, wsdls, metadata documentation on the fly at:
 
-  * [docs](http://servicestack.net/RestFiles/servicestack/metadata)
-  * [xsd](http://servicestack.net/RestFiles/servicestack/metadata?xsd=1)
-  * [wsdl](http://servicestack.net/RestFiles/servicestack/soap12) (HTTP GET)
+  * [docs](http://mono.servicestack.net/RestFiles/servicestack/metadata)
+  * [xsd](http://mono.servicestack.net/RestFiles/servicestack/metadata?xsd=1)
+  * [wsdl](http://mono.servicestack.net/RestFiles/servicestack/soap12) (HTTP GET)
 
 Caveat: XmlSchema is not fully implemented as of MONO <= 2.8, so in many cases you will need to
 host your service on a Windows/.NET server to view your web services XSD and WSDLS.

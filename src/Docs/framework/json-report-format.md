@@ -4,16 +4,16 @@
 
 These examples are simply links to existing ServiceStack web services, which based on your browsers user-agent (i.e. Accept: 'text/html') provides this HTML format instead of the other serialization formats. 
 
-  - **Northwind Database: **  [All Customers](http://servicestack.net/ServiceStack.Northwind/customers), [Customer Detail](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI), [Customer Orders](http://servicestack.net/ServiceStack.Northwind/orders)
-  - **RedisStackOverflow: **  [Latest Questions](http://servicestack.net/RedisStackOverflow/questions) and [Site Stats](http://servicestack.net/RedisStackOverflow/stats)
-  - **RestMovies: **  [All Movie listings](http://servicestack.net/ServiceStack.MovieRest/movies)
-  - **RestFiles: **  [Root Directory](http://servicestack.net/RestFiles/files)
+  - **Northwind Database: **  [All Customers](http://mono.servicestack.net/ServiceStack.Northwind/customers), [Customer Detail](http://mono.servicestack.net/ServiceStack.Northwind/customers/ALFKI), [Customer Orders](http://mono.servicestack.net/ServiceStack.Northwind/orders)
+  - **RedisStackOverflow: **  [Latest Questions](http://mono.servicestack.net/RedisStackOverflow/questions) and [Site Stats](http://mono.servicestack.net/RedisStackOverflow/stats)
+  - **RestMovies: **  [All Movie listings](http://mono.servicestack.net/ServiceStack.MovieRest/movies)
+  - **RestFiles: **  [Root Directory](http://mono.servicestack.net/RestFiles/files)
 
-[![HTML5 Report Format](http://servicestack.net/img/HTML5Format.png)](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI)
+[![HTML5 Report Format](http://mono.servicestack.net/img/HTML5Format.png)](http://mono.servicestack.net/ServiceStack.Northwind/customers/ALFKI)
 
 To see it in action, **view the source** in your browser. Webkit and Firefox users can simply go to the url below:
 
-    view-source:http://servicestack.net/ServiceStack.Northwind/customers/ALFKI
+    view-source:http://mono.servicestack.net/ServiceStack.Northwind/customers/ALFKI
 
 Note: To view the web services in a different format simply append **?format=[json|xml|html|csv|jsv]** to the query string.
 

@@ -7,7 +7,7 @@ Included is a ServiceStack web service layer which provide JSON, XML, JSV and SO
 Just like the RedisAdminUI this allows you to fully manage your redis-server instance using javascript from a browser.
 
 ##Live Demo
-A live demo of the RedisAdminUI can be found here [http://servicestack.net/RedisAdminUI/AjaxClient/](http://servicestack.net/RedisAdminUI/AjaxClient/)
+A live demo of the RedisAdminUI can be found here [http://mono.servicestack.net/RedisAdminUI/AjaxClient/](http://mono.servicestack.net/RedisAdminUI/AjaxClient/)
 
 View the demos live list of the [available web services](http://www.servicestack.net/RedisAdminUI/servicestack/metadata).
 
