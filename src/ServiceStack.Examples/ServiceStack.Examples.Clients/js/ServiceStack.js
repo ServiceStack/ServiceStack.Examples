@@ -1,5 +1,5 @@
 /**
- * JSON Service Client Gateway for http://ServiceStack.net Web Services.
+ * JSON Service Client Gateway for http://mono.servicestack.net Web Services.
  * @requires jQuery.ajax or goog closure libarary XhrIo
  * @param {string} the baseUri of ServiceStack web services.
  * @constructor

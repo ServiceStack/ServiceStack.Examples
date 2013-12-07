@@ -24,8 +24,8 @@ namespace RestFilesClient
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		JsonServiceClient gateway = new JsonServiceClient("http://servicestack.net/RestFiles");
-		//JsvServiceClient gateway = new JsvServiceClient("http://servicestack.net/RestFiles");
+		JsonServiceClient gateway = new JsonServiceClient("http://mono.servicestack.net/RestFiles");
+		//JsvServiceClient gateway = new JsvServiceClient("http://mono.servicestack.net/RestFiles");
 		
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)

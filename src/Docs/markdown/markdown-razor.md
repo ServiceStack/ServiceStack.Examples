@@ -16,7 +16,7 @@ You can define a base class for all your markdown pages by implementing **Markdo
 register it in your AppHost with:
 
     SetConfig(new EndpointHostConfig {
-        WebHostUrl = "http://servicestack.net/docs",   //Replace prefix with the Url supplied
+        WebHostUrl = "http://mono.servicestack.net/docs",   //Replace prefix with the Url supplied
         MarkdownBaseType = typeof(CustomMarkdownPage), //Set base class for all Markdown pages
         MarkdownGlobalHelpers = new Dictionary<string, Type> { 
             {"Ext", typeof(CustomStaticHelpers)}       //Define global Helpers e.g. at Ext.

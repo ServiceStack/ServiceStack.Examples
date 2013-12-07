@@ -18,7 +18,7 @@ namespace ConsoleUtil
 				var json = File.ReadAllText(filePath);
 				Pages = JsonSerializer.DeserializeFromString<List<Page>>(json);
 
-				var webHostUrl = "http://servicestack.net/docs/";
+				var webHostUrl = "http://mono.servicestack.net/docs/";
 				foreach (var page in Pages)
 				{
 					//ReplaceOldLinks(webHostUrl, page);
@@ -53,7 +53,7 @@ namespace ConsoleUtil
 
 			content = content.Replace(
 				"(https://github.com/ServiceStack/ServiceStack.Redis/wiki/Caching)",
-				"(http://servicestack.net/docs/framework/caching-options)");
+				"(http://mono.servicestack.net/docs/framework/caching-options)");
 
 			Save(srcPage, content);
 		}

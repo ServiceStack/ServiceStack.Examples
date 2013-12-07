@@ -4,15 +4,15 @@ To make it easier for developers to get started we're now maintaining NuGet pack
 
 So if you have [NuGet](http://nuget.org) installed, the easiest way to get started is to create a new ASP.NET Web Application and install the **ServiceStack** package:
 
-![Install-Package ServiceStack](http://servicestack.net/img/nuget-servicestack.png)
+![Install-Package ServiceStack](http://mono.servicestack.net/img/nuget-servicestack.png)
 
 This automates the following manual steps: 
 
 * Add the ServiceStack dlls to your standard VS.NET ASP.NET Web Application 
 * Register the ServiceStack handler in your Web.Config
 * Configure your AppHost 
-* Create a **[Hello](http://servicestack.net/ServiceStack.Hello/)** web service
-* Create a **[TODO](http://servicestack.net/Backbone.Todos/)** RESTful web service
+* Create a **[Hello](http://mono.servicestack.net/ServiceStack.Hello/)** web service
+* Create a **[TODO](http://mono.servicestack.net/Backbone.Todos/)** RESTful web service
 
 Although we believe this to be a popular starting point, it is not the only one as we have examples of Windows Services, Stand-alone Console Hosts, Hosting together with an existing web framework at a Custom Path - Templates available in the **/StarterTemplates** folder in the [ServiceStack.Examples project](https://github.com/ServiceStack/ServiceStack.Examples/downloads).
 
@@ -27,11 +27,11 @@ Downloadable separately from ServiceStack itself is it's string powers. Inside [
 * StringExtensions - Xml/Json/Csv/Url encoding, BaseConvert, Rot13, Hex escape, etc.
 * Stream, Reflection, List, DateTime, etc extensions and utils
 
-![Install-Package ServiceStack.Text](http://servicestack.net/img/nuget-servicestack.text.png)
+![Install-Package ServiceStack.Text](http://mono.servicestack.net/img/nuget-servicestack.text.png)
 
 ## NuGet ServiceStack.Redis
 
-With a hope to introduce more .NET developers to the high-performance and productive NoSQL worlds, we also include a full-featured [C# Redis client](~/redis-client/redis-client) allowing you to build [complete apps with it](http://servicestack.net/RedisStackOverflow/). [Redis](http://redis.io/) is the fastest NoSQL database in the world that is capable of achieving [about 110000 SETs and 81000 GETs per second](http://redis.io/topics/benchmarks).
+With a hope to introduce more .NET developers to the high-performance and productive NoSQL worlds, we also include a full-featured [C# Redis client](~/redis-client/redis-client) allowing you to build [complete apps with it](http://mono.servicestack.net/RedisStackOverflow/). [Redis](http://redis.io/) is the fastest NoSQL database in the world that is capable of achieving [about 110000 SETs and 81000 GETs per second](http://redis.io/topics/benchmarks).
 
 The C# Redis Client features:
 
@@ -46,7 +46,7 @@ For .NET developers new to Redis, we invite you to check out the following tutor
 * [Designing a NoSQL Database using Redis](~/redis-client/designing-nosql-database)
 * [Painless data migrations with schema-less NoSQL datastores](~/redis-client/schemaless-nosql-migrations)
 
-![Install-Package ServiceStack.Redis](http://servicestack.net/img/nuget-servicestack.redis.png)
+![Install-Package ServiceStack.Redis](http://mono.servicestack.net/img/nuget-servicestack.redis.png)
 
 ## NuGet ServiceStack.OrmLite
 
@@ -56,12 +56,12 @@ It's primary feature over other ORMs is its auto-support for blobs where any com
 
 Currently OrmLite comes in SQLite and SQL Server RDBMS's flavors and each are downloadable separately via NuGet:
 
-![Install-Package ServiceStack.OrmLite.SqlServer](http://servicestack.net/img/nuget-servicestack.ormlite.sqlserver.png)
+![Install-Package ServiceStack.OrmLite.SqlServer](http://mono.servicestack.net/img/nuget-servicestack.ormlite.sqlserver.png)
 
 For Sqlite 32 and 64bit embedded .NET libraries are available:
 
-![Install-Package ServiceStack.OrmLite.Sqlite32](http://servicestack.net/img/nuget-servicestack.ormlite.sqlite32.png)
+![Install-Package ServiceStack.OrmLite.Sqlite32](http://mono.servicestack.net/img/nuget-servicestack.ormlite.sqlite32.png)
 
-![Install-Package ServiceStack.OrmLite.Sqlite64](http://servicestack.net/img/nuget-servicestack.ormlite.sqlite64.png)
+![Install-Package ServiceStack.OrmLite.Sqlite64](http://mono.servicestack.net/img/nuget-servicestack.ormlite.sqlite64.png)
 
 

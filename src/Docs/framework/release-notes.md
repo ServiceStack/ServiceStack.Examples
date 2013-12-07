@@ -279,9 +279,9 @@ An example MonoTouch project that uses these Sync and Async C# ServiceClients to
 
 As we have received a number of requests to provide NuGet packages for ServiceStack and its components, we're now happy to say we're now NuGet compliant! Where a configured and working ServiceStack web framework is just 1 NuGet command away :)
 
-[![Install-Package ServiceStack](http://servicestack.net/img/nuget-servicestack.png)](~/framework/nuget)
+[![Install-Package ServiceStack](http://mono.servicestack.net/img/nuget-servicestack.png)](~/framework/nuget)
 
-This will add the ServiceStack dlls to your standard VS.NET ASP.NET Web Application, Register ServiceStack handler in your Web.Config, configure your AppHost and create both a **[Hello](http://servicestack.net/ServiceStack.Hello/)** and a fully-operational **[TODO REST service](http://servicestack.net/Backbone.Todos/)**.
+This will add the ServiceStack dlls to your standard VS.NET ASP.NET Web Application, Register ServiceStack handler in your Web.Config, configure your AppHost and create both a **[Hello](http://mono.servicestack.net/ServiceStack.Hello/)** and a fully-operational **[TODO REST service](http://mono.servicestack.net/Backbone.Todos/)**.
 
 Together with just 2 static content files ([default.htm](https://github.com/ServiceStack/ServiceStack/blob/master/NuGet/ServiceStack/content/default.htm) and [jqunback-1.51.js](https://github.com/AjaxStack/AjaxStack)) you get a fully configured and working RESTful application (*which as an aside benefit we hope encourages .NET developers into the [beautiful world of Backbone.js](http://documentcloud.github.com/backbone/) and Single Page Ajax Applications*).
 
@@ -295,10 +295,10 @@ Although this normally shouldn't warrant a release line item, for the technology
 We believe the overview slides provide the best starting point for new developers looking to find out the benefits of ServiceStack and how they can easily develop REST services with it. Today, we're releasing the following 2 slides:
 
 ### [ServiceStack Overview and Features](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
-[![Install-Package ServiceStack](http://servicestack.net/img/slides-01-overview-300.png)](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
+[![Install-Package ServiceStack](http://mono.servicestack.net/img/slides-01-overview-300.png)](https://docs.google.com/present/view?id=dg3mcfb_208gv3kcnd8)
 
 ### [Creating REST Web Services](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
-[![Install-Package ServiceStack](http://servicestack.net/img/slides-02-create-rest-service-300.png)](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
+[![Install-Package ServiceStack](http://mono.servicestack.net/img/slides-02-create-rest-service-300.png)](https://docs.google.com/present/view?id=dg3mcfb_213gsvvmmfk)
 
 ## Better configuration
 
@@ -344,7 +344,7 @@ From the [author](http://twitter.com/jashkenas) of the popular and game-changing
 
 Our first action was porting Backbone's example TODO app and replace its HTML5 localStorage backend with a ServiceStack REST + Redis one. This was quite easy to do and we were happy that [resulting C# server code for the REST backend](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/Backbone.Todos/Global.asax.cs) ended up weighing in at less than the size of VS.NET's default Web.config file :)
 
-Like the rest of our examples a **[live demo is available](http://servicestack.net/Backbone.Todos/)**.
+Like the rest of our examples a **[live demo is available](http://mono.servicestack.net/Backbone.Todos/)**.
 
 ### TODO app now in all Starter templates
 
@@ -466,25 +466,25 @@ I invite all ServiceStack users who want to share their generic high-level funct
 The biggest feature added in this release is likely the new HTML5 report format that generates a human-readable HTML view of your web services response when viewing it in a web browser.
 Good news is, like the [[ServiceStack-CSV-Format]] it works with your existing web services as-is, with no configuration or code-changes required.
   
-[![HTML5 Report Format](http://servicestack.net/img/HTML5Format.png)](~/framework/json-report-format)
+[![HTML5 Report Format](http://mono.servicestack.net/img/HTML5Format.png)](~/framework/json-report-format)
 
 Here are some results of web services created before the newer HTML5 and CSV formats existed:
 
-  * **RedisStackOverflow** [Latest Questions](http://servicestack.net/RedisStackOverflow/questions)
-  * **RestMovies** [All Movie listings](http://servicestack.net/ServiceStack.MovieRest/movies)
-  * **RestFiles** [Root Directory](http://servicestack.net/RestFiles/files)
+  * **RedisStackOverflow** [Latest Questions](http://mono.servicestack.net/RedisStackOverflow/questions)
+  * **RestMovies** [All Movie listings](http://mono.servicestack.net/ServiceStack.MovieRest/movies)
+  * **RestFiles** [Root Directory](http://mono.servicestack.net/RestFiles/files)
 
 Use the **?format=[json|xml|html|csv|jsv]** to toggle and view the same web service in different formats.
 
 ### New ServiceStack.Northwind Example project added
 
 In order to be able to better demonstrate features with a 'real-world' DataSet, a new ServiceStack.Northwind project has been added which inspects the Northwind dataset from an SQLite database.
-A live demo is hosted at [[http://servicestack.net/ServiceStack.Northwind/]]. Here are some links below to better demonstrate the new HTML format with a real-world dataset:
+A live demo is hosted at [[http://mono.servicestack.net/ServiceStack.Northwind/]]. Here are some links below to better demonstrate the new HTML format with a real-world dataset:
 
 #### Northwind Database REST web services
-  * [All Customers](http://servicestack.net/ServiceStack.Northwind/customers) 
-  * [Customer Detail](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI)
-  * [Customer Orders](http://servicestack.net/ServiceStack.Northwind/customers/ALFKI/orders)
+  * [All Customers](http://mono.servicestack.net/ServiceStack.Northwind/customers) 
+  * [Customer Detail](http://mono.servicestack.net/ServiceStack.Northwind/customers/ALFKI)
+  * [Customer Orders](http://mono.servicestack.net/ServiceStack.Northwind/customers/ALFKI/orders)
 
 
 ### Improved Caching
@@ -510,9 +510,9 @@ The above code caches the most optimal output based on browser capabilities, i.e
 To see the difference caching provides, here are cached equivalents of the above REST web service calls:
 
 #### Northwind Database **Cached** REST web services
-  * [All Customers](http://servicestack.net/ServiceStack.Northwind/cached/customers) 
-  * [Customer Detail](http://servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI)
-  * [Customer Orders](http://servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI/orders)
+  * [All Customers](http://mono.servicestack.net/ServiceStack.Northwind/cached/customers) 
+  * [Customer Detail](http://mono.servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI)
+  * [Customer Orders](http://mono.servicestack.net/ServiceStack.Northwind/cached/customers/ALFKI/orders)
 
 
 ### API Changes
@@ -538,9 +538,9 @@ Also added is the ability to resolve existing web services (already auto-wired b
     * [Async C# client examples](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/AsyncRestClientTests.cs)
 
 ## New RestFiles project added to [ServiceStack.Examples](https://github.com/ServiceStack/ServiceStack.Examples/) GitHub project:
-#### Live demo available at: [servicestack.net/RestFiles/](http://servicestack.net/RestFiles/)
+#### Live demo available at: [servicestack.net/RestFiles/](http://mono.servicestack.net/RestFiles/)
 
-  * Provides a complete remote file system management over a [RESTful api](http://servicestack.net/RestFiles/servicestack/metadata) 
+  * Provides a complete remote file system management over a [RESTful api](http://mono.servicestack.net/RestFiles/servicestack/metadata) 
   * The complete RESTful /files web service implementation is only [**1 C# page class**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.ServiceInterface/FilesService.cs)
   * Includes a pure Ajax client to provide a **GitHub-like** file browsing experience, written in only [**1 static HTML page, using only jQuery**](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles/default.htm)
    * [C# integration test examples](https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/) are also included showing how to access this RESTful api over sync and async C# clients
