@@ -2,9 +2,7 @@ using System;
 using System.IO;
 using NUnit.Framework;
 using RestFiles.ServiceModel;
-using ServiceStack.Common.Web;
-using ServiceStack.Service;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 
 /* For syntax highlighting and better readability of this file, view it on GitHub:
  * https://github.com/ServiceStack/ServiceStack.Examples/blob/master/src/RestFiles/RestFiles.Tests/SyncRestClientTests.cs
@@ -176,7 +174,7 @@ namespace RestFiles.Tests
 			}
 			catch (WebServiceException webEx)
 			{
-				Assert.That(webEx.StatusCode, Is.EqualTo(500));
+                Assert.That(webEx.StatusCode, Is.EqualTo(405));
 				var response = (FilesResponse)webEx.ResponseDto;
 				Assert.That(response.ResponseStatus.ErrorCode, Is.EqualTo(typeof(NotSupportedException).Name));
 				Assert.That(response.ResponseStatus.Message,

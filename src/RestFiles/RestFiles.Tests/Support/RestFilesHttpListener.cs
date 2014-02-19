@@ -1,7 +1,6 @@
 using Funq;
 using RestFiles.ServiceInterface;
-using ServiceStack.Common.Utils;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
 
 namespace RestFiles.Tests
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using ServiceStack.Common.Utils;
+using ServiceStack;
 using ServiceStack.Configuration;
 
 namespace RestFiles.ServiceInterface
@@ -13,7 +13,7 @@ namespace RestFiles.ServiceInterface
 			this.ExcludeDirectories = new List<string>();
 		}
 
-		public AppConfig(IResourceManager resources)
+		public AppConfig(IAppSettings resources)
 		{
 			this.RootDirectory = resources.GetString("RootDirectory").MapHostAbsolutePath()
 				.Replace('\\', Path.DirectorySeparatorChar);

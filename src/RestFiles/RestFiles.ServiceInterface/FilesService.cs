@@ -4,9 +4,7 @@ using System.Net;
 using RestFiles.ServiceInterface.Support;
 using RestFiles.ServiceModel;
 using RestFiles.ServiceModel.Types;
-using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 using File = System.IO.File;
 
 namespace RestFiles.ServiceInterface
@@ -51,7 +49,7 @@ namespace RestFiles.ServiceInterface
             if (!Directory.Exists(targetDir.FullName))
                 Directory.CreateDirectory(targetDir.FullName);
 
-            foreach (var uploadedFile in base.RequestContext.Files)
+            foreach (var uploadedFile in base.Request.Files)
             {
                 var newFilePath = Path.Combine(targetDir.FullName, uploadedFile.FileName);
                 uploadedFile.SaveTo(newFilePath);

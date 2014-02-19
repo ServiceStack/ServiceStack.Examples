@@ -1,5 +1,4 @@
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack;
 
 namespace RestFiles.ServiceModel
 {

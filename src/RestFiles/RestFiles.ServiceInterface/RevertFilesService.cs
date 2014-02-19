@@ -1,9 +1,7 @@
 using System.IO;
 using System.Linq;
 using RestFiles.ServiceModel;
-using ServiceStack.Common.Extensions;
-using ServiceStack.Common.Utils;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 namespace RestFiles.ServiceInterface
 {
