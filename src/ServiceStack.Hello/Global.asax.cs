@@ -1,7 +1,5 @@
 ﻿using System;
 using Funq;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Hello
 {
