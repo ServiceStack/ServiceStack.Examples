@@ -1,7 +1,6 @@
 ﻿using System;
+using ServiceStack;
 using ServiceStack.Redis;
-using ServiceStack.ServiceInterface;
-using ServiceStack.WebHost.Endpoints;
 using Funq;
 using ServiceStack.Text;
 
