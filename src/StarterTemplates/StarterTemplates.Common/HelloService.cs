@@ -1,8 +1,5 @@
 using System.ComponentModel;
-using System.Runtime.Serialization;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack;
 
 namespace StarterTemplates.Common
 {
@@ -29,9 +26,9 @@ namespace StarterTemplates.Common
     /// <summary>
     /// Create your ServiceStack web service implementation.
     /// </summary>
-    public class HelloService : ServiceBase<Hello>
+    public class HelloService : Service
     {
-        protected override object Run(Hello request)
+        public object Any(Hello request)
         {
             return new HelloResponse { Result = "Hello, " + request.Name };
         }

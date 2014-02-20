@@ -1,5 +1,5 @@
 ﻿using System;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
 using StarterTemplates.Common;
 using Funq;
 

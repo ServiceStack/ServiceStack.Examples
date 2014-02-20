@@ -1,5 +1,5 @@
 ﻿using System.ServiceProcess;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack;
 
 namespace WinServiceAppHost
 {

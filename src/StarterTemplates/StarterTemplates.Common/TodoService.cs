@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 //Entire implementation for the backend REST service of the TODO demo app
 namespace StarterTemplates.Common
@@ -18,11 +17,11 @@ namespace StarterTemplates.Common
 	}
 
 	//Todo REST Service implementation
-	public class TodoService : RestServiceBase<Todo>
+	public class TodoService : Service
 	{
 		public TodoRepository Repository { get; set; }  //Injected by IOC
 
-		public override object OnGet(Todo request)
+		public object Get(Todo request)
 		{
 			if (request.Id == default(long))
 				return Repository.GetAll();
@@ -31,15 +30,14 @@ namespace StarterTemplates.Common
 		}
 
 		//Called for new and update
-		public override object OnPost(Todo todo)
+		public object Post(Todo todo)
 		{
 			return Repository.Store(todo);
 		}
 
-		public override object OnDelete(Todo request)
+		public void Delete(Todo request)
 		{
 			Repository.DeleteById(request.Id);
-			return null;
 		}
 	}
 

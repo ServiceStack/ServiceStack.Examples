@@ -1,6 +1,4 @@
-﻿using ServiceStack.WebHost.Endpoints;
-
-namespace WinServiceAppHost
+﻿namespace WinServiceAppHost
 {
 	partial class WinService
 	{

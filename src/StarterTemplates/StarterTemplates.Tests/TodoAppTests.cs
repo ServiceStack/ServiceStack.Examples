@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 using System.Collections.Generic;
 using StarterTemplates.Common;
 
@@ -11,7 +11,7 @@ namespace StarterTemplates.Tests
 		[Test]
 		public void Can_view_create_and_delete_TODOs_over_REST()
 		{
-			var restClient = new JsonServiceClient("http://localhost/RootPath35");
+            var restClient = new JsonServiceClient("http://localhost:37022/");
 
 			var all = restClient.Get<List<Todo>>("/todos");
 			Assert.That(all.Count, Is.EqualTo(0));

@@ -124,21 +124,9 @@ namespace StarterTemplates.Tests
 		/// IIS apps
 		/// </summary>
 		[TestFixture]
-		public class CustomPath35IisTests : StarterTemplateTestsBase
-		{
-			public CustomPath35IisTests() : base(BaseUrl + "/CustomPath35/api") { }
-		}
-
-		[TestFixture]
 		public class CustomPath40IisTests : StarterTemplateTestsBase
 		{
 			public CustomPath40IisTests() : base(BaseUrl + "/CustomPath40/api") { }
-		}
-
-		[TestFixture]
-		public class RootPath35IisTests : StarterTemplateTestsBase
-		{
-			public RootPath35IisTests() : base(BaseUrl + "/RootPath35") { }
 		}
 
 		[TestFixture]
@@ -152,21 +140,9 @@ namespace StarterTemplates.Tests
 		/// Ensure all VS.NET WebDev.WebServer.EXE are running on 5001-5004 using start_vs2010_webserver.bat
 		/// </summary>
 		[TestFixture]
-		public class CustomPath35WebDevTests : StarterTemplateTestsBase
-		{
-			public CustomPath35WebDevTests() : base(BaseUrl + ":5001/api") { }
-		}
-
-		[TestFixture]
 		public class CustomPath40WebDevTests : StarterTemplateTestsBase
 		{
 			public CustomPath40WebDevTests() : base(BaseUrl + ":5002/api") { }
-		}
-
-		[TestFixture]
-		public class RootPath35WebDevTests : StarterTemplateTestsBase
-		{
-			public RootPath35WebDevTests() : base(BaseUrl + ":5003") { }
 		}
 
 		[TestFixture]

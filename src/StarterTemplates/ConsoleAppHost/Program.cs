@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using ServiceStack;
 using ServiceStack.Configuration;
-using ServiceStack.WebHost.Endpoints;
 using StarterTemplates.Common;
 using Funq;
 
@@ -42,6 +43,7 @@ namespace ConsoleAppHost
                 DateTime.Now, ListeningOn);
 
 
+            Process.Start(ListeningOn);
             Console.WriteLine("ReadKey()");
             Console.ReadKey();
         }

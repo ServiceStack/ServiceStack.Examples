@@ -1,5 +1,5 @@
-﻿using ServiceStack.Configuration;
-using ServiceStack.WebHost.Endpoints;
+﻿using ServiceStack;
+using ServiceStack.Configuration;
 
 namespace StarterTemplates.Common
 {
@@ -8,7 +8,7 @@ namespace StarterTemplates.Common
 	public class StarterTemplateAppHost
 		: AppHostBase
 	{
-		static readonly ConfigurationResourceManager AppSettings = new ConfigurationResourceManager();
+        static readonly IAppSettings AppSettings = new AppSettings();
 
 		public StarterTemplateAppHost()
 			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate ASP.NET Host", typeof(HelloService).Assembly) { }
@@ -23,7 +23,7 @@ namespace StarterTemplates.Common
 	public class StarterTemplateAppListenerHost
 		: AppHostHttpListenerBase
 	{
-		static readonly ConfigurationResourceManager AppSettings = new ConfigurationResourceManager();
+        static readonly IAppSettings AppSettings = new AppSettings();
 
 		public StarterTemplateAppListenerHost()
 			: base(AppSettings.GetString("ServiceName") ?? "StarterTemplate HttpListener", typeof(HelloService).Assembly) { }
