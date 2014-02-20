@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Docs.Logic;
 using Funq;
 using ServiceStack;
 using ServiceStack.Configuration;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack.Formats;
 
 namespace Docs
 {
@@ -27,10 +27,13 @@ namespace Docs
 				.Add<Search>("/search")
 				.Add<Search>("/search/{Query}");
 
-			SetConfig(new EndpointHostConfig {
+			SetConfig(new HostConfig {
 				WebHostUrl = baseUrl,                          //replaces ~/ with Url
 				MarkdownBaseType = typeof(CustomMarkdownPage), //set custom base for all Markdown pages
 			});
+
+            var plugin = (MarkdownFormat)Plugins.First(x => x is MarkdownFormat);
+		    var page = plugin.FindByPathInfo("/about");
 		}
 	}
 	

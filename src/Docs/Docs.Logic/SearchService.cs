@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.ServiceModel;
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace Docs.Logic
 {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using ServiceStack.Common.Extensions;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 namespace Docs.Logic
 {

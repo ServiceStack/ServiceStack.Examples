@@ -58,7 +58,7 @@ This is how the above web service output looks when opened up in [google docs](h
 
 Alternative in following with the HTTP specification you can also specify content-type `"text/csv"` in the *Accept* header of your HttpClient, e.g:
 
-    var httpReq = (HttpWebRequest)WebRequest.Create("http://servicestack.net/ServiceStack.MovieRest/movies");
+    var httpReq = (HttpWebRequest)WebRequest.Create("http://mono.servicestack.net/ServiceStack.MovieRest/movies");
     httpReq.Accept = "text/csv";
     var csv = new StreamReader(httpReq.GetResponse().GetResponseStream()).ReadToEnd();
 

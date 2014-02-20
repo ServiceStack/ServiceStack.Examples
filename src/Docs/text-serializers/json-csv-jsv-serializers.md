@@ -15,7 +15,7 @@ Benchmarks for .NET's popular Binary and JSON Serializers are available at: [ser
 
 ## NuGet ServiceStack.Text
 
-![Install-Package ServiceStack.Text](http://servicestack.net/img/nuget-servicestack.text.png)
+![Install-Package ServiceStack.Text](http://mono.servicestack.net/img/nuget-servicestack.text.png)
 
 ## ServiceStack.JsonSerializer - the fastest JSON Serializer for .NET
 For reasons outlined [in this blog post](http://www.servicestack.net/mythz_blog/?p=344) I decided to re-use *TypeSerializer's* text processing-core to create ServiceStack.JsonSerializer - the fastest JSON Serializer for .NET.

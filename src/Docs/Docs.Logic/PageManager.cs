@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ServiceStack.Common.Extensions;
-using ServiceStack.ServiceHost;
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace Docs.Logic
 {
@@ -36,7 +34,7 @@ namespace Docs.Logic
 			}
 
 			this.PageMap = new Dictionary<string, Page>(StringComparer.CurrentCultureIgnoreCase);
-			Pages.Where(x => !x.FilePath.IsNullOrEmpty()).ForEach(x => PageMap[x.FilePath] = x);
+			Pages.Where(x => !x.FilePath.IsNullOrEmpty()).Each(x => PageMap[x.FilePath] = x);
 
 			CategoriesMap = new Dictionary<string, List<Page>>(StringComparer.CurrentCultureIgnoreCase);
 			foreach (var page in Pages)

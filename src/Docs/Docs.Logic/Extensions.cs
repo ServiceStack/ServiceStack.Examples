@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using ServiceStack.Text;
+using ServiceStack;
 
 namespace Docs.Logic
 {
