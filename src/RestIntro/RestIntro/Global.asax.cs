@@ -2,10 +2,9 @@
 using Funq;
 using RestIntro.ServiceInterface;
 using RestIntro.ServiceModel;
-using ServiceStack.Common.Utils;
+using ServiceStack;
+using ServiceStack.Data;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.WebHost.Endpoints;
 
 namespace RestIntro
 {

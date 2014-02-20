@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using RestIntro.ServiceModel;
-using ServiceStack.Service;
-using ServiceStack.ServiceClient.Web;
+using ServiceStack;
 
 namespace RestIntro.IntegrationTests
 {

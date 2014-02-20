@@ -1,5 +1,5 @@
+using ServiceStack;
 using ServiceStack.DataAnnotations;
-using ServiceStack.ServiceHost;
 
 namespace RestIntro.ServiceModel
 {

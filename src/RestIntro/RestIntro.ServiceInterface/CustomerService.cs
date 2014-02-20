@@ -1,8 +1,6 @@
 using RestIntro.ServiceModel;
-using ServiceStack.Common;
-using ServiceStack.Common.Web;
+using ServiceStack;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceInterface;
 
 namespace RestIntro.ServiceInterface
 {
@@ -14,7 +12,7 @@ namespace RestIntro.ServiceInterface
         public object Get(Customer request)
         {
             if (request.Id != default(long))
-                return Db.GetById<Customer>(request.Id);
+                return Db.SingleById<Customer>(request.Id);
 
             return Db.Select<Customer>();
         }
@@ -22,9 +20,8 @@ namespace RestIntro.ServiceInterface
         public object Post(Customer customer)
         {
             Db.Save(customer);
-            customer.Id = (int)Db.GetLastInsertId();
 
-            var pathToNewResource = base.RequestContext.AbsoluteUri.CombineWith(customer.Id.ToString());
+            var pathToNewResource = base.Request.AbsoluteUri.CombineWith(customer.Id.ToString());
             return HttpResult.Status201Created(customer, pathToNewResource);
         }
 
