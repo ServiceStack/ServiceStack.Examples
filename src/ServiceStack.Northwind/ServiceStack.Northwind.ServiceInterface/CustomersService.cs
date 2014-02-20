@@ -4,7 +4,7 @@ using ServiceStack.OrmLite;
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
-    public class CustomersService : ServiceStack.ServiceInterface.Service
+    public class CustomersService : ServiceStack.Service
     {
         public CustomersResponse Get(Customers request)
         {

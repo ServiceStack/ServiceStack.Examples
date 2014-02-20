@@ -2,11 +2,9 @@ namespace ServiceStack.Northwind.ServiceModel.Operations
 {
 	using System.Collections.Generic;
 	using System.Runtime.Serialization;
-	using ServiceStack.Northwind.ServiceModel.Types;
-	using ServiceStack.ServiceHost;
-	using ServiceStack.ServiceInterface.ServiceModel;
+	using Types;
 
-	[DataContract]
+    [DataContract]
 	[Route("/customers")]
 	public class Customers
 	{

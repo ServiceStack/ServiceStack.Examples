@@ -1,9 +1,8 @@
 namespace ServiceStack.Northwind.ServiceModel.Operations
 {
 	using System.Runtime.Serialization;
-	using ServiceStack.ServiceHost;
 
-	[DataContract]
+    [DataContract]
 	[Route("/cached/customers")]
 	public class CachedCustomers
 	{

@@ -1,16 +1,14 @@
-﻿namespace ServiceStack.Northwind
+﻿
+namespace ServiceStack.Northwind
 {
 	using System;
 	using System.Web;
 	using Funq;
-	using CacheAccess;
-	using CacheAccess.Providers;
-	using Common.Utils;
 	using ServiceInterface;
 	using OrmLite;
-	using WebHost.Endpoints;
+    using Data;
 
-	public class AppHost : AppHostBase
+    public class AppHost : AppHostBase
 	{
 		public AppHost() : base("Northwind Web Services", typeof(CustomersService).Assembly) {}
 
@@ -19,10 +17,7 @@
 			container.Register<IDbConnectionFactory>(
 				new OrmLiteConnectionFactory("~/Northwind.sqlite".MapHostAbsolutePath(), SqliteDialect.Provider));
 
-			//Using an in-memory cache
-			container.Register<ICacheClient>(new MemoryCacheClient());
-
-			//Or if Haz Redis
+			//Use Redis Cache
 			//container.Register<ICacheClient>(new PooledRedisClientManager());
 
 			VCardFormat.Register(this);
