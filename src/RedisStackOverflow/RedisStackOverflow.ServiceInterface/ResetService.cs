@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using RedisStackOverflow.ServiceModel;
-using ServiceStack.Common.Extensions;
+using ServiceStack;
 using ServiceStack.Redis;
-using ServiceStack.ServiceInterface;
 
 namespace RedisStackOverflow.ServiceInterface
 {
@@ -54,8 +53,8 @@ namespace RedisStackOverflow.ServiceInterface
             JavascriptQuestions.ForEach(questionsd.Add);
 
             var questions = new List<Question>();
-            questions.AddRange(RestQuestions.ConvertAll(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "rest", "http" })));
-            questions.AddRange(JavascriptQuestions.ConvertAll(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "javascript", "jquery" })));
+            questions.AddRange(RestQuestions.Map(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "rest", "http" })));
+            questions.AddRange(JavascriptQuestions.Map(kvp => ToQuestion(kvp.Key, kvp.Value, new List<string> { "javascript", "jquery" })));
 
 
             RedisManager.Exec(r => r.FlushAll());

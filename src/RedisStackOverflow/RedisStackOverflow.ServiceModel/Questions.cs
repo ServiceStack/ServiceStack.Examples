@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack;
 
 namespace RedisStackOverflow.ServiceModel
 {

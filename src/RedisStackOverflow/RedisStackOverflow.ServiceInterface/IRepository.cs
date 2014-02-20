@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RedisStackOverflow.ServiceModel;
-using ServiceStack.Common.Utils;
+using ServiceStack;
 using ServiceStack.Redis;
-using ServiceStack.Common.Extensions;
 
 namespace RedisStackOverflow.ServiceInterface
 {
@@ -172,10 +171,10 @@ namespace RedisStackOverflow.ServiceInterface
 
         private List<QuestionResult> ToQuestionResults(IEnumerable<Question> questions)
         {
-            var uniqueUserIds = questions.ConvertAll(x => x.UserId).ToHashSet();
+            var uniqueUserIds = questions.Map(x => x.UserId).ToHashSet();
             var usersMap = GetUsersByIds(uniqueUserIds).ToDictionary(x => x.Id);
 
-            var results = questions.ConvertAll(x => new QuestionResult { Question = x });
+            var results = questions.Map(x => new QuestionResult { Question = x });
             var resultsMap = results.ToDictionary(q => q.Question.Id);
 
             results.ForEach(x => x.User = usersMap[x.Question.UserId]);
@@ -399,7 +398,7 @@ namespace RedisStackOverflow.ServiceInterface
             using (var redis = RedisManager.GetReadOnlyClient())
             {
                 var tagEntries = redis.GetRangeWithScoresFromSortedSetDesc(TagIndex.All, skip, take);
-                var tags = tagEntries.ConvertAll(kvp => new Tag { Name = kvp.Key, Score = (int)kvp.Value });
+                var tags = tagEntries.Map(kvp => new Tag { Name = kvp.Key, Score = (int)kvp.Value });
                 return tags;
             }
         }

@@ -1,5 +1,5 @@
 using RedisStackOverflow.ServiceModel;
-using ServiceStack.ServiceInterface;
+using ServiceStack;
 
 namespace RedisStackOverflow.ServiceInterface
 {

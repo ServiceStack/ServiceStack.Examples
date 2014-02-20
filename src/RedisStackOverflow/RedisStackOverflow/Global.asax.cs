@@ -1,11 +1,11 @@
 ﻿using System;
 using Funq;
 using RedisStackOverflow.ServiceInterface;
+using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.Redis;
-using ServiceStack.WebHost.Endpoints;
+using IRepository = RedisStackOverflow.ServiceInterface.IRepository;
 
 namespace RedisStackOverflow
 {
@@ -26,7 +26,7 @@ namespace RedisStackOverflow
         public override void Configure(Container container)
         {
             //Show StackTrace in Web Service Exceptions
-            SetConfig(new EndpointHostConfig { DebugMode = true });
+            SetConfig(new HostConfig { DebugMode = true });
 
             //Register any dependencies you want injected into your services
             container.Register<IRedisClientsManager>(c => new PooledRedisClientManager());

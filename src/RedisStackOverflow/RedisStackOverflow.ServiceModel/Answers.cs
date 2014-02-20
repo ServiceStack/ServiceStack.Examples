@@ -1,5 +1,5 @@
 using System;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace RedisStackOverflow.ServiceModel
 {
