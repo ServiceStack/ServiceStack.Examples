@@ -46,23 +46,23 @@
   <ItemGroup>
     <Reference Include="ServiceStack, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack\src\ServiceStack\bin\Release\ServiceStack.dll</HintPath>
+      <HintPath>packages\ServiceStack.4.0.11\lib\net40\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Client, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack\src\ServiceStack\bin\Release\ServiceStack.Client.dll</HintPath>
+      <HintPath>packages\ServiceStack.Client.4.0.11\lib\net40\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack\src\ServiceStack\bin\Release\ServiceStack.Common.dll</HintPath>
+      <HintPath>packages\ServiceStack.Common.4.0.11\lib\net40\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack\src\ServiceStack\bin\Release\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>packages\ServiceStack.Interfaces.4.0.11\lib\net40\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.11.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack\src\ServiceStack\bin\Release\ServiceStack.Text.dll</HintPath>
+      <HintPath>packages\ServiceStack.Text.4.0.11\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
