@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
-using ServiceStack.Examples.ServiceInterface;
+using System.Configuration;
+using System.IO;
+using ServiceStack.Configuration;
 
 namespace ServiceStack.Examples.Host.Web
 {
@@ -13,6 +10,11 @@ namespace ServiceStack.Examples.Host.Web
 
 		protected void Application_Start(object sender, EventArgs e)
 		{
+            if (File.Exists(@"C:\src\appsettings.license.txt"))
+                Licensing.RegisterLicenseFromFile(@"C:\src\appsettings.license.txt");
+            else if (string.IsNullOrEmpty(ConfigUtils.GetNullableAppSetting("servicestack:license")))
+                throw new ConfigurationErrorsException("A valid license key is required for this demo");
+
 			var appHost = new AppHost();
 			appHost.Init();
 		}

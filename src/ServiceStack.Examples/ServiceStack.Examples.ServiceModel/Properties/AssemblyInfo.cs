@@ -37,6 +37,6 @@ using System.Runtime.Serialization;
 
 //MONO 2.8 now supports this so we can remove [DataContract(Namespace = ExampleConfig.DefaultNamespace)] when its popular
 [assembly: ContractNamespace("http://schemas.servicestack.net/types",
-	ClrNamespace = "ServiceStack.Examples.ServiceModel.Operations")]
+	ClrNamespace = "ServiceStack.Examples.ServiceModel")]
 [assembly: ContractNamespace("http://schemas.servicestack.net/types",
 	ClrNamespace = "ServiceStack.Examples.ServiceModel.Types")]

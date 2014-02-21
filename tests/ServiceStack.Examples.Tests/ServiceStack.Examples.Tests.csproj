@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ServiceStack.Examples.Tests</RootNamespace>
     <AssemblyName>ServiceStack.Examples.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,10 +52,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.63\lib\net35\Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.OrmLite.Sqlite.Mono.4.0.11\lib\net40\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq.dll</HintPath>
@@ -62,31 +65,25 @@
       <HintPath>..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
-      <HintPath>..\..\src\packages\ServiceStack.3.9.63\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.4.0.11\lib\net40\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Client">
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.Client.4.0.11\lib\net40\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\src\packages\ServiceStack.Common.3.9.63\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.Common.4.0.11\lib\net40\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\src\packages\ServiceStack.Common.3.9.63\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.Interfaces.4.0.11\lib\net40\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.63\lib\net35\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.OrmLite.4.0.11\lib\net40\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.Sqlite">
-      <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.Mono.3.9.63\lib\net35\ServiceStack.OrmLite.Sqlite.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite.SqlServer">
-      <HintPath>..\..\src\packages\ServiceStack.OrmLite.SqlServer.3.9.63\lib\net35\ServiceStack.OrmLite.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\src\packages\ServiceStack.Redis.3.9.63\lib\net35\ServiceStack.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>..\..\src\packages\ServiceStack.3.9.63\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.OrmLite.Sqlite.Mono.4.0.11\lib\net40\ServiceStack.OrmLite.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\src\packages\ServiceStack.Text.3.9.63\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\src\ServiceStack.Examples\packages\ServiceStack.Text.4.0.11\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -140,12 +137,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

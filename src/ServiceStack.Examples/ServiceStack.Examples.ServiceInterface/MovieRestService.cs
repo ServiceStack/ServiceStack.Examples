@@ -1,8 +1,7 @@
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceHost;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -13,21 +12,11 @@ namespace ServiceStack.Examples.ServiceInterface
     /// need to combine the types of all your operations into the same DTO as done
     /// in this example.
     /// </summary>
-    public class MovieRestService
-        : IService<Movies>
-        , IRestGetService<Movies>
-        , IRestPutService<Movies>
-        , IRestPostService<Movies>
-        , IRestDeleteService<Movies>
-        , IRequiresRequestContext //Ask ServiceStack to inject the RequestContext
+    public class MovieRestService : Service
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MovieRestService));
 
-        public IRequestContext RequestContext { get; set; }
-        
-        public IDbConnectionFactory ConnectionFactory { get; set; }
-
-        public object Execute(Movies request)
+        public object Any(Movies request)
         {
             return Get(request);
         }
@@ -42,26 +31,23 @@ namespace ServiceStack.Examples.ServiceInterface
         {
             //Alternatively you can infer the HTTP method by inspecting the RequestContext attributes
             Log.InfoFormat("Using RequestContext to inspect Endpoint attributes: {0}",
-                this.RequestContext.EndpointAttributes);
+                this.Request.RequestAttributes);
 
             var response = new MoviesResponse();
 
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
+            if (request.Id != null)
             {
-                if (request.Id != null)
+                // GET /Movies?Id={request.Id}
+                var movie = Db.SingleById<Movie>(request.Id);
+                if (movie != null)
                 {
-                    // GET /Movies?Id={request.Id}
-                    var movie = dbConn.GetByIdOrDefault<Movie>(request.Id);
-                    if (movie != null)
-                    {
-                        response.Movies.Add(movie);
-                    }
+                    response.Movies.Add(movie);
                 }
-                else
-                {
-                    // GET /Movies
-                    response.Movies = dbConn.Select<Movie>();
-                }
+            }
+            else
+            {
+                // GET /Movies
+                response.Movies = Db.Select<Movie>();
             }
 
             return response;
@@ -74,10 +60,7 @@ namespace ServiceStack.Examples.ServiceInterface
         /// <returns></returns>
         public object Put(Movies request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
-            {
-                dbConn.Insert(request.Movie);
-            }
+            Db.Insert(request.Movie);
 
             return new MoviesResponse();
         }
@@ -89,10 +72,7 @@ namespace ServiceStack.Examples.ServiceInterface
         /// <returns></returns>
         public object Delete(Movies request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
-            {
-                dbConn.DeleteById<Movie>(request.Id);
-            }
+            Db.DeleteById<Movie>(request.Id);
 
             return new MoviesResponse();
         }
@@ -104,10 +84,7 @@ namespace ServiceStack.Examples.ServiceInterface
         /// <returns></returns>
         public object Post(Movies request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
-            {
-                dbConn.Update(request.Movie);
-            }
+            Db.Update(request.Movie);
 
             return new MoviesResponse();
         }

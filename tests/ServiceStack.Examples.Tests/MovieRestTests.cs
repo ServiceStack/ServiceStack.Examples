@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using ServiceStack.Examples.ServiceInterface.Support;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
-using ServiceStack.ServiceHost;
 using ServiceStack.Text;
 
 namespace ServiceStack.Examples.Tests
@@ -42,7 +41,7 @@ namespace ServiceStack.Examples.Tests
 			updatedMovie.Title = "Updated Movie";
 
 			base.Send<MoviesResponse>(new Movies { Movie = updatedMovie },
-				EndpointAttributes.HttpPost);
+				RequestAttributes.HttpPost);
 
 			var response = base.Send<MoviesResponse>(new Movies { Id = topMovie.Id });
 			Assert.That(updatedMovie.Equals(response.Movies[0]), Is.True);
@@ -63,7 +62,7 @@ namespace ServiceStack.Examples.Tests
 			};
 
 			base.Send<MoviesResponse>(new Movies { Movie = newMovie },
-				EndpointAttributes.HttpPut);
+				RequestAttributes.HttpPut);
 
 			var response = base.Send<MoviesResponse>(new Movies { Id = newMovie.Id });
 			Assert.That(newMovie.Equals(response.Movies[0]), Is.True);
@@ -75,7 +74,7 @@ namespace ServiceStack.Examples.Tests
 			var topMovie = ConfigureDatabase.Top5Movies[0];
 
 			base.Send<MoviesResponse>(new Movies { Id = topMovie.Id },
-				EndpointAttributes.HttpDelete);
+                RequestAttributes.HttpDelete);
 
 			var response = base.Send<MoviesResponse>(new Movies { Id = topMovie.Id });
 			Assert.That(response.Movies, Has.Count.EqualTo(0));

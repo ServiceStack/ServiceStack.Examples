@@ -1,11 +1,7 @@
 using System;
-using System.Linq;
-using ServiceStack.Common.Extensions;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -19,42 +15,37 @@ namespace ServiceStack.Examples.ServiceInterface
     /// Note: This example is kept simple on purpose. In practice you would not persist your DTO's
     /// (i.e. DataContract's) directly. Instead you would use your domain models (aka ORM) for this task. 
     /// </summary>
-    public class StoreNewUserService : IService<StoreNewUser>
+    public class StoreNewUserService : Service
     {
-        //Example of ServiceStack's built-in Funq IOC property injection
-        public IDbConnectionFactory ConnectionFactory { get; set; }
-
         private const string ErrorAlreadyExists = "UserNameMustBeUnique";
 
-        public object Execute(StoreNewUser request)
+        public StoreNewUserResponse Any(StoreNewUser request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
+            var existingUsers = Db.Select<User>(q => q.UserName == request.UserName);
+
+            if (existingUsers.Count > 0)
             {
-                var existingUsers = dbConn.Select<User>("UserName = {0}", request.UserName).ToList();
-
-                if (existingUsers.Count > 0)
+                return new StoreNewUserResponse
                 {
-                    return new StoreNewUserResponse
+                    ResponseStatus = new ResponseStatus
                     {
-                        ResponseStatus = new ResponseStatus {
-                            ErrorCode = ErrorAlreadyExists,
-                            Message = ErrorAlreadyExists.ToEnglish()
-                        }
-                    };
-                }
-
-                var newUser = new User
-                {
-                    UserName = request.UserName,
-                    Email = request.Email,
-                    Password = request.Password,
-                    GlobalId = Guid.NewGuid(),
+                        ErrorCode = ErrorAlreadyExists,
+                        Message = ErrorAlreadyExists.ToEnglish()
+                    }
                 };
-
-                dbConn.Insert(newUser);
-
-                return new StoreNewUserResponse { UserId = dbConn.GetLastInsertId() };
             }
+
+            var newUser = new User
+            {
+                UserName = request.UserName,
+                Email = request.Email,
+                Password = request.Password,
+                GlobalId = Guid.NewGuid(),
+            };
+
+            Db.Save(newUser);
+
+            return new StoreNewUserResponse { UserId = newUser.Id };
         }
     }
 }

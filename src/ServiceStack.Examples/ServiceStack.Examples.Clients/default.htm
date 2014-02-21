@@ -15,7 +15,7 @@
         //Create a ClientGateway passing in the baseUrl where your services are hosted.
         //Note: services not on the same domain require a crossdomain.xml policy
         var gateway = new servicestack.ClientGateway(
-                location.protocol + "//" + location.host + '/ServiceStack.Examples.Host.Web/ServiceStack/');
+            'http://localhost:64067/ServiceStack/');
 
         $(function()
         {
@@ -148,7 +148,7 @@
     <p>
         For performance reasons, the preferred to call ServiceStack services for Ajax clients
         is using JSON via the JSON endpoint at: <br />
-        <em>~/ServiceStack/Json/SyncReply/{ServiceName}</em>
+        <em>~/servicestack/json/reply/{ServiceName}</em>
     </p>
     <p>
         As this endpoint is just a standard JSON service we can use any ajax client to call them with.
@@ -557,11 +557,11 @@
         This means that calling your services using XML is as easy as sending your request to a different end point.
         So calling your service via XML is as easy as:
         <ol>
-            <li><a href="/ServiceStack.Examples.Host.Web/ServiceStack/Xml/SyncReply/GetFactorial?ForNumber=3" target="_blank">
-                ServiceStack/Xml/SyncReply/GetFactorial?ForNumber=3</a>
+            <li><a href="/ServiceStack.Examples.Host.Web/servicestack/xml/reply/GetFactorial?ForNumber=3" target="_blank">
+                servicestack/xml/reply/GetFactorial?ForNumber=3</a>
             </li>
-            <li><a href="/ServiceStack.Examples.Host.Web/ServiceStack/Xml/SyncReply/GetFibonacciNumbers?Skip=3&Take=20" target="_blank">
-                ServiceStack/Xml/SyncReply/GetFibonacciNumbers?Skip=3&Take=20</a>
+            <li><a href="/ServiceStack.Examples.Host.Web/servicestack/xml/reply/GetFibonacciNumbers?Skip=3&Take=20" target="_blank">
+                servicestack/xml/reply/GetFibonacciNumbers?Skip=3&Take=20</a>
             </li>
         </ol>
         <br />

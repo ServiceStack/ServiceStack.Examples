@@ -1,5 +1,4 @@
-using ServiceStack.Examples.ServiceModel.Operations;
-using ServiceStack.ServiceHost;
+using ServiceStack.Examples.ServiceModel;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -7,10 +6,9 @@ namespace ServiceStack.Examples.ServiceInterface
 	/// The purpose of this example is to show the minimum number and detail of classes 
 	/// required in order to implement a simple service.
 	/// </summary>
-	public class GetFactorialService
-		: IService<GetFactorial>
+	public class GetFactorialService : Service
 	{
-		public object Execute(GetFactorial request)
+        public GetFactorialResponse Any(GetFactorial request)
 		{
 			return new GetFactorialResponse { Result = GetFactorial(request.ForNumber) };
 		}

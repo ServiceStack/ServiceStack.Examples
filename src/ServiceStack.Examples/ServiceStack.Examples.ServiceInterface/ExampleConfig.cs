@@ -1,4 +1,3 @@
-using ServiceStack.Common.Utils;
 using ServiceStack.Configuration;
 
 namespace ServiceStack.Examples.ServiceInterface
@@ -12,7 +11,7 @@ namespace ServiceStack.Examples.ServiceInterface
 
 		public ExampleConfig() { }
 
-		public ExampleConfig(IResourceManager appConfig)
+        public ExampleConfig(IAppSettings appConfig)
 		{
 			ConnectionString = appConfig.GetString("ConnectionString");
 			DefaultFibonacciLimit = appConfig.Get("DefaultFibonacciLimit", 10);

@@ -1,16 +1,13 @@
 using System;
 using Funq;
-using ServiceStack.CacheAccess;
-using ServiceStack.CacheAccess.Providers;
-using ServiceStack.Common.Utils;
 using ServiceStack.Configuration;
+using ServiceStack.Data;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceInterface.Support;
+using ServiceStack.Formats;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Examples.Host.Web
 {
@@ -30,17 +27,15 @@ namespace ServiceStack.Examples.Host.Web
         public override void Configure(Container container)
         {
             //Permit modern browsers (e.g. Firefox) to allow sending of any REST HTTP Method
-            base.SetConfig(new EndpointHostConfig
+            base.SetConfig(new HostConfig
             {
-                GlobalResponseHeaders =
-                    {
-                        { "Access-Control-Allow-Origin", "*" },
-                        { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
-                    },
+                DebugMode = true,
             });
 
-            container.Register<IResourceManager>(new ConfigurationResourceManager());
-            container.Register(c => new ExampleConfig(c.Resolve<IResourceManager>()));
+            Plugins.Add(new CorsFeature());
+
+            container.Register<IAppSettings>(new AppSettings());
+            container.Register(c => new ExampleConfig(c.Resolve<IAppSettings>()));
 
             var appConfig = container.Resolve<ExampleConfig>();
 
@@ -50,9 +45,6 @@ namespace ServiceStack.Examples.Host.Web
                     SqliteOrmLiteDialectProvider.Instance));
 
             ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
-
-            //The MemoryCacheClient is a great way to get started with caching; nothing external to setup.
-            container.Register<ICacheClient>(c => new MemoryCacheClient());
 
             //If you give Redis a try, you won't be disappointed. This however requires Redis to be installed.
             //container.Register<ICacheClient>(c => new BasicRedisClientManager());

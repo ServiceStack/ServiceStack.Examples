@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using ServiceStack.Common.Web;
 using ServiceStack.Examples.ServiceInterface.Support;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.Text;
 

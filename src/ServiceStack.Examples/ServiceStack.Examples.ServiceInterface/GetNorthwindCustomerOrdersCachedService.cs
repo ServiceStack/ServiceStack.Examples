@@ -1,9 +1,5 @@
 using System;
-using ServiceStack.CacheAccess;
-using ServiceStack.Common.Utils;
-using ServiceStack.Examples.ServiceModel.Operations;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack.Examples.ServiceModel;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -11,19 +7,8 @@ namespace ServiceStack.Examples.ServiceInterface
 	/// This is an example showing how you can take advantage of ServiceStack's built-in
 	/// support for caching in your webservices.
 	/// </summary>
-	public class GetNorthwindCustomerOrdersCachedService
-		: IService<GetNorthwindCustomerOrdersCached>
-
-		//Tell ServiceStack that this service requires access to the request context
-		, IRequiresRequestContext
+	public class GetNorthwindCustomerOrdersCachedService : Service
 	{
-		//ServiceStack injects the RequestContext in this property
-		public IRequestContext RequestContext { get; set; }
-
-		//ServiceStack IOC injects the registered ICacheClient provider (if any) in this property
-		public ICacheClient CacheClient { get; set; }
-
-
 		public object Execute(GetNorthwindCustomerOrdersCached request)
 		{
 			//create a unique urn to cache these results against
@@ -31,7 +16,7 @@ namespace ServiceStack.Examples.ServiceInterface
 
 			//Removes all the cached results at this cacheKey
 			if (request.RefreshCache)
-				RequestContext.RemoveFromCache(this.CacheClient, cacheKey);
+				Request.RemoveFromCache(this.Cache, cacheKey);
 
 			/*Return the most optimized result path based upon the incoming request context:
 				+ If a cache of the result for the content-type already exists, then:
@@ -43,15 +28,11 @@ namespace ServiceStack.Examples.ServiceInterface
 					- the serailized contentType stored at			e.g: Cache[urn:custorders:1.xml] = result.xml
 					- the compressed serialized result stored at	e.g: Cache[urn:custorders:1.xml.deflate] = result.xml.deflate
 			 */
-			return RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
-				new GetNorthwindCustomerOrdersCachedResponse
-				{					
+			return Request.ToOptimizedResultUsingCache(this.Cache, cacheKey, () =>
+				new GetNorthwindCustomerOrdersCachedResponse {					
 					CreatedDate = DateTime.UtcNow, //To determine when this cached result was created
 					CustomerOrders = GetNorthwindCustomerOrdersService.GetCustomerOrders(request.CustomerId)
 				});
 		}
-
 	}
-
-
 }

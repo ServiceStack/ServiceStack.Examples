@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bf87833b-69b5-4251-a48b-356606220c06" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8ec999fe-8d6d-410b-93cc-982dcff2670f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
@@ -11,16 +12,17 @@
     <CollectionMappings />
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
-    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
     <ReferencedAssemblies />
     <ReferencedDataContractTypes />
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap11" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:64067/ServiceStack/soap11" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Soap11.wsdl" MetadataType="Wsdl" ID="777b2bdb-b090-4a53-a45e-96f2dc443828" SourceId="1" SourceUrl="http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap11" />
+    <MetadataFile FileName="Soap11.wsdl" MetadataType="Wsdl" ID="08b8538f-1ec6-4cfe-81c3-1fb01bfd7a1b" SourceId="1" SourceUrl="http://localhost:64067/ServiceStack/soap11" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

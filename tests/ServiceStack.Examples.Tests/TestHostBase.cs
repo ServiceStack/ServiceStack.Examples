@@ -1,65 +1,61 @@
 ﻿using System;
 using Funq;
-using Moq;
 using NUnit.Framework;
 using ServiceStack.Configuration;
-using ServiceStack.DataAccess;
+using ServiceStack.Data;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceInterface.Support;
+using ServiceStack.Host;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.ServiceHost;
-using ServiceStack.WebHost.Endpoints;
+using ServiceStack.Testing;
 
 namespace ServiceStack.Examples.Tests
 {
 	[TestFixture]
 	public class TestHostBase
-		: AppHostBase
 	{
 		protected const string InMemoryDb = ":memory:";
 		private static ILog log;
 
-		public TestHostBase()
-			: base("TestAppHost", typeof(GetFactorialService).Assembly)
-		{
-			LogManager.LogFactory = new ConsoleLogFactory();
-			log = LogManager.GetLogger(GetType());
+	    public readonly ServiceStackHost appHost;
 
-			Instance = null;
-			Init();
+		public TestHostBase()
+		{
+            LogManager.LogFactory = new ConsoleLogFactory();
+            log = LogManager.GetLogger(GetType());
+
+            appHost = new BasicAppHost(typeof(GetFactorialService).Assembly) {
+                ConfigureContainer = Configure
+            }.Init();
 		}
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            appHost.Dispose();
+        }
 
 		protected IDbConnectionFactory ConnectionFactory
 		{
 			get
 			{
-				return Instance.Container.Resolve<IDbConnectionFactory>();
+                return appHost.Container.Resolve<IDbConnectionFactory>();
 			}
 		}		
 
-		public override void Configure(Container container)
+		public void Configure(Container container)
 		{
-			container.Register<IResourceManager>(c => new ConfigurationResourceManager());
+			container.Register<IAppSettings>(c => new AppSettings());
 
 			container.Register<IDbConnectionFactory>(c =>
 				new OrmLiteConnectionFactory(
 					InMemoryDb,
-					false,
-					SqliteOrmLiteDialectProvider.Instance));
+					SqliteDialect.Provider));
 
 			ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
 
 			log.InfoFormat("TestAppHost Created: " + DateTime.Now);
-		}
-
-		protected IPersistenceProviderManager GetMockProviderManagerObject(Mock<IQueryablePersistenceProvider> mockPersistence)
-		{
-			var mockProviderManager = new Mock<IPersistenceProviderManager>();
-			mockProviderManager.Expect(x => x.GetProvider()).Returns(mockPersistence.Object);
-			return mockProviderManager.Object;
 		}
 		
 		/// <summary>
@@ -70,13 +66,13 @@ namespace ServiceStack.Examples.Tests
 		/// <returns></returns>
 		public TResponse Send<TResponse>(object request)
 		{
-			return Send<TResponse>(request, EndpointAttributes.None);
+            return Send<TResponse>(request, RequestAttributes.None);
 		}
 
-		public TResponse Send<TResponse>(object request, EndpointAttributes endpointAttrs)
+        public TResponse Send<TResponse>(object request, RequestAttributes endpointAttrs)
 		{
-			return (TResponse)this.ServiceController.Execute(request,
-				new HttpRequestContext(request, endpointAttrs));
+            return (TResponse)appHost.ServiceController.Execute(request,
+				new BasicRequest(request, endpointAttrs));
 		}
 	}
 }

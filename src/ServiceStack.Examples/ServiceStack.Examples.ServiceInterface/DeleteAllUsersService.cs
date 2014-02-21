@@ -1,7 +1,6 @@
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceHost;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -10,21 +9,13 @@ namespace ServiceStack.Examples.ServiceInterface
     /// 
     /// The 'Port' attribute is used to link the 'service request' to the 'service implementation'
     /// </summary>
-    public class DeleteAllUsersService 
-        : IService<DeleteAllUsers>
+    public class DeleteAllUsersService : Service
     {
-        //Example of ServiceStack's IOC property injection
-        public IDbConnectionFactory ConnectionFactory { get; set; }
-
-        public object Execute(DeleteAllUsers request)
+        public object Any(DeleteAllUsers request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
-            {
-                dbConn.DeleteAll<User>();
+            Db.DeleteAll<User>();
 
-                return new DeleteAllUsersResponse();
-            }
+            return new DeleteAllUsersResponse();
         }
     }
-
 }

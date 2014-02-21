@@ -1,14 +1,13 @@
 ﻿using Funq;
-using ServiceStack.Common.Utils;
 using ServiceStack.Configuration;
+using ServiceStack.Data;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceInterface.Support;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.Sqlite;
-using ServiceStack.WebHost.Endpoints;
+using ExampleConfig = ServiceStack.Examples.ServiceInterface.ExampleConfig;
 
 namespace ServiceStack.Examples.Host.Console
 {
@@ -30,21 +29,16 @@ namespace ServiceStack.Examples.Host.Console
 		public override void Configure(Container container)
 		{
 			//Signal advanced web browsers what HTTP Methods you accept
-			base.SetConfig(new EndpointHostConfig
+			base.SetConfig(new HostConfig
 			{
-				GlobalResponseHeaders =
-				{
-					{ "Access-Control-Allow-Origin", "*" },
-					{ "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
-				},
-                WsdlServiceNamespace = "http://www.servicestack.net/types",
+                DebugMode = true,
 			});
 
-			container.Register<IResourceManager>(new ConfigurationResourceManager());
+            container.Register<IAppSettings>(new AppSettings());
 
-			var appSettings = container.Resolve<IResourceManager>();
+            var appSettings = container.Resolve<IAppSettings>();
 
-			container.Register(c => new ExampleConfig(c.Resolve<IResourceManager>()));
+            container.Register(c => new ExampleConfig(c.Resolve<IAppSettings>()));
 			var appConfig = container.Resolve<ExampleConfig>();
 
 			container.Register<IDbConnectionFactory>(c => 
@@ -59,7 +53,7 @@ namespace ServiceStack.Examples.Host.Console
 			}
 		}
 
-		private static void DatabaseTest(IDbConnectionFactory connectionFactory)
+		private void DatabaseTest(IDbConnectionFactory connectionFactory)
 		{
 			ConfigureDatabase.Init(connectionFactory);
 
@@ -69,11 +63,11 @@ namespace ServiceStack.Examples.Host.Console
 				UserName = "new UserName"
 			};
 
-			var storeHandler = new StoreNewUserService { ConnectionFactory = connectionFactory };
-			storeHandler.Execute(storeRequest);
+            var storeHandler = Container.Resolve<StoreNewUserService>();
+			storeHandler.Any(storeRequest);
 
-			var getAllHandler = new GetAllUsersService { ConnectionFactory = connectionFactory };
-			var response = (GetAllUsersResponse)getAllHandler.Execute(new GetAllUsers());
+            var getAllHandler = Container.Resolve<GetAllUsersService>();
+            var response = (GetAllUsersResponse)getAllHandler.Any(new GetAllUsers());
 
 			var user = response.Users[0];
 

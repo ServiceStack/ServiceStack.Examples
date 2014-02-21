@@ -3,152 +3,157 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using ServiceStack.Common.Extensions;
 using ServiceStack.Examples.Clients.Soap12ServiceReference;
 
 namespace ServiceStack.Examples.Clients
 {
-	public partial class Soap12 : System.Web.UI.Page
-	{
-		private const string EndpointUri = "http://localhost/ServiceStack.Examples.Host.Web/ServiceStack/Soap12";
-		
-		private readonly SyncReplyClient client;
+    public partial class Soap12 : System.Web.UI.Page
+    {
+        private const string EndpointUri = "http://localhost:64067/ServiceStack/soap12";
 
-		//Generated proxy when using 'Add Service Reference' on the EndpointUri above.
-		//Thank WCF for the config ugliness
+        private readonly SyncReplyClient client;
 
-		public Soap12()
-		{
-			var binding = new WSHttpBinding
-			{
-				MaxReceivedMessageSize = int.MaxValue,
-				HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
-				MaxBufferPoolSize = 524288,
-			};
-			binding.Security.Mode = SecurityMode.None;
+        //Generated proxy when using 'Add Service Reference' on the EndpointUri above.
+        //Thank WCF for the config ugliness
 
-			client = new SyncReplyClient(
-				binding,
-				new EndpointAddress(EndpointUri));
-		}
+        public Soap12()
+        {
+            var binding = new WSHttpBinding
+            {
+                MaxReceivedMessageSize = int.MaxValue,
+                HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
+                MaxBufferPoolSize = 524288,
+            };
+            binding.Security.Mode = SecurityMode.None;
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-		}
+            client = new SyncReplyClient(
+                binding,
+                new EndpointAddress(EndpointUri));
+        }
 
-		protected void btnGetFactorial_Click(object sender, EventArgs e)
-		{
-			litGetFactorialResult.Text = litGetFactorialError.Text = "";
-			try
-			{
-				var longValue = long.Parse(txtGetFactorial.Text);
-				var result = client.GetFactorial(longValue);
-				litGetFactorialResult.Text = result.ToString();
-			}
-			catch (Exception ex)
-			{
-				litGetFactorialError.Text = ex.Message;
-			}
-		}
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
 
-		protected void btnGetFibonacci_Click(object sender, EventArgs e)
-		{
-			litGetFibonacciResult.Text = litGetFibonacciError.Text = "";
-			try
-			{
-				var skipValue = long.Parse(txtGetFibonacciSkip.Text);
-				var takeValue = long.Parse(txtGetFibonacciTake.Text);
-				var results = client.GetFibonacciNumbers(skipValue, takeValue);
+        protected void btnGetFactorial_Click(object sender, EventArgs e)
+        {
+            litGetFactorialResult.Text = litGetFactorialError.Text = "";
+            try
+            {
+                var longValue = long.Parse(txtGetFactorial.Text);
+                var result = client.GetFactorial(new GetFactorial { ForNumber = longValue });
+                litGetFactorialResult.Text = result.ToString();
+            }
+            catch (Exception ex)
+            {
+                litGetFactorialError.Text = ex.Message;
+            }
+        }
 
-				litGetFibonacciResult.Text = string.Join(", ", results.ConvertAll(x => x.ToString()).ToArray());
-			}
-			catch (Exception ex)
-			{
-				litGetFibonacciError.Text = ex.Message;
-			}
-		}
+        protected void btnGetFibonacci_Click(object sender, EventArgs e)
+        {
+            litGetFibonacciResult.Text = litGetFibonacciError.Text = "";
+            try
+            {
+                var skipValue = long.Parse(txtGetFibonacciSkip.Text);
+                var takeValue = long.Parse(txtGetFibonacciTake.Text);
+                var results = client.GetFibonacciNumbers(new GetFibonacciNumbers
+                {
+                    Skip = skipValue,
+                    Take = takeValue,
+                }).Results;
 
-		protected void btnStoreNewUser_Click(object sender, EventArgs e)
-		{
-			litStoreNewUserResult.Text = litStoreNewUserError.Text = "";
-			try
-			{
-				long userIdResult;
-				var responseStatus = client.StoreNewUser(out userIdResult, 
-					txtStoreNewUserEmail.Text,
-					txtStoreNewUserPassword.Text,
-					txtStoreNewUserUsername.Text);
+                litGetFibonacciResult.Text = string.Join(", ", results.ConvertAll(x => x.ToString()).ToArray());
+            }
+            catch (Exception ex)
+            {
+                litGetFibonacciError.Text = ex.Message;
+            }
+        }
 
-				if (responseStatus.ErrorCode != null)
-				{
-					litStoreNewUserError.Text = responseStatus.ErrorCode.ToEnglish();
-					return;
-				}
+        protected void btnStoreNewUser_Click(object sender, EventArgs e)
+        {
+            litStoreNewUserResult.Text = litStoreNewUserError.Text = "";
+            try
+            {
+                var response = client.StoreNewUser(
+                    new StoreNewUser
+                    {
+                        Email = txtStoreNewUserEmail.Text,
+                        UserName = txtStoreNewUserUsername.Text,
+                        Password = txtStoreNewUserPassword.Text,
+                    });
 
-				litStoreNewUserResult.Text = "New User Id: " + userIdResult;
-				var userIds = new List<string>(txtGetUsersUserIds.Text.Split(','))
-              	{
-              		userIdResult.ToString()
-              	}.Where(x => !string.IsNullOrEmpty(x.Trim()));
+                var userIdResult = response.UserId;
 
-				txtGetUsersUserIds.Text = string.Join(",", userIds.ToArray());
-			}
-			catch (Exception ex)
-			{
-				litStoreNewUserError.Text = ex.Message;
-			}
-		}
+                if (response.ResponseStatus.ErrorCode != null)
+                {
+                    litStoreNewUserError.Text = response.ResponseStatus.ErrorCode.ToEnglish();
+                    return;
+                }
 
-		protected void btnDeleteAllUsers_Click(object sender, EventArgs e)
-		{
-			litStoreNewUserResult.Text = litStoreNewUserError.Text = "";
-			try
-			{
-				long userIdResult;
-				client.DeleteAllUsers(out userIdResult);
+                litStoreNewUserResult.Text = "New User Id: " + userIdResult;
+                var userIds = new List<string>(txtGetUsersUserIds.Text.Split(','))
+                {
+                    userIdResult.ToString()
+                }.Where(x => !string.IsNullOrEmpty(x.Trim()));
 
-				litStoreNewUserResult.Text = "All users were deleted.";
-			}
-			catch (Exception ex)
-			{
-				litStoreNewUserError.Text = ex.Message;
-			}
-		}
+                txtGetUsersUserIds.Text = string.Join(",", userIds.ToArray());
+            }
+            catch (Exception ex)
+            {
+                litStoreNewUserError.Text = ex.Message;
+            }
+        }
 
-		protected void btnGetUsers_Click(object sender, EventArgs e)
-		{
-			litGetUsersResult.Text = litGetUsersError.Text = "";
-			try
-			{
-				User[] userResults;
-				var userIds = new List<string>(txtGetUsersUserIds.Text.Split(','))
-					.Where(x => !string.IsNullOrEmpty(x.Trim()))
-					.ConvertAll(x => long.Parse(x.Trim())).ToArray();
-				
-				client.GetUsers(out userResults, userIds, null);
+        protected void btnDeleteAllUsers_Click(object sender, EventArgs e)
+        {
+            litStoreNewUserResult.Text = litStoreNewUserError.Text = "";
+            try
+            {
+                client.DeleteAllUsers(new DeleteAllUsers());
 
-				if (userResults != null && userIds.Length > 0)
-				{
-					var sb = new StringBuilder();
+                litStoreNewUserResult.Text = "All users were deleted.";
+            }
+            catch (Exception ex)
+            {
+                litStoreNewUserError.Text = ex.Message;
+            }
+        }
 
-					foreach (var user in userResults)
-					{
-						sb.AppendFormat("<div class='user'>{0}<br/>{1}<br/></div>\n",
-						                user.UserName, user.Password);
-					}
+        protected void btnGetUsers_Click(object sender, EventArgs e)
+        {
+            litGetUsersResult.Text = litGetUsersError.Text = "";
+            try
+            {
+                var userIds = new List<string>(txtGetUsersUserIds.Text.Split(','))
+                    .Where(x => !string.IsNullOrEmpty(x.Trim()))
+                    .Map(x => long.Parse(x.Trim())).ToArray();
 
-					litGetUsersResult.Text = sb.ToString();
-				}
-				else
-				{
-					litGetUsersResult.Text = "No matching users found.";
-				}
-			}
-			catch (Exception ex)
-			{
-				litGetUsersError.Text = ex.Message;
-			}
-		}
-	}
+                var userResults = client.GetUsers(new GetUsers { UserIds = userIds, }).Users;
+
+                if (userResults != null && userIds.Length > 0)
+                {
+                    var sb = new StringBuilder();
+
+                    foreach (User user in userResults)
+                    {
+                        sb.AppendFormat("<div class='user'>{0}<br/>{1}<br/></div>\n",
+                                        user.UserName, user.Password);
+                    }
+
+                    litGetUsersResult.Text = sb.ToString();
+                }
+                else
+                {
+                    litGetUsersResult.Text = "No matching users found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                litGetUsersError.Text = ex.Message;
+            }
+        }
+    }
 
 }

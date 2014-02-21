@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
-using ServiceStack.ServiceHost;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -10,10 +9,9 @@ namespace ServiceStack.Examples.ServiceInterface
 	/// This is an example of a detailed web service to illustrate how its defined
 	/// ServiceStack and to see what it looks like on the different endpoints.
 	/// </summary>
-	public class GetNorthwindCustomerOrdersService
-		: IService<GetNorthwindCustomerOrders>
+	public class GetNorthwindCustomerOrdersService : Service
 	{
-		public object Execute(GetNorthwindCustomerOrders request)
+		public object Any(GetNorthwindCustomerOrders request)
 		{
 			return new GetNorthwindCustomerOrdersResponse
 			{

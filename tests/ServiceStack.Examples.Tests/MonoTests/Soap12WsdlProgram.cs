@@ -1,6 +1,6 @@
 using System;
-using ServiceStack.Examples.ServiceModel.Operations;
-using ServiceStack.WebHost.Endpoints.Metadata;
+using ServiceStack.Examples.ServiceModel;
+using ServiceStack.Metadata;
 
 namespace ServiceStack.Examples.Tests.MonoTests
 {

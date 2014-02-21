@@ -1,58 +1,64 @@
 ﻿using System;
 using Funq;
+using NUnit.Framework;
 using ServiceStack.Configuration;
+using ServiceStack.Data;
 using ServiceStack.Examples.ServiceInterface;
 using ServiceStack.Examples.ServiceInterface.Support;
 using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceClient.Web;
-using ServiceStack.WebHost.Endpoints;
 
 namespace ServiceStack.Examples.Tests.Integration
 {
-	public class IntegrationTestBase
-		: AppHostHttpListenerBase
-	{
-		private const string BaseUrl = "http://127.0.0.1:8080/";
-
+    public class IntegrationTestAppHost
+        : AppHostHttpListenerBase
+    {
 		private static ILog log;
 
-		public IntegrationTestBase()
+        public IntegrationTestAppHost()
 			: base("ServiceStack Examples", typeof(MovieRestService).Assembly)
 		{
 			LogManager.LogFactory = new DebugLogFactory();
 			log = LogManager.GetLogger(GetType());
 			Instance = null;
-
-			Init();
-			try
-			{
-				Start(BaseUrl);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Error trying to run ConsoleHost: " + ex.Message);
-			}
 		}	
 
 		public override void Configure(Container container)
 		{
-			container.Register<IResourceManager>(new ConfigurationResourceManager());
+            container.Register<IAppSettings>(new AppSettings());
 
-			container.Register(c => new ExampleConfig(c.Resolve<IResourceManager>()));
+            container.Register(c => new ExampleConfig(c.Resolve<IAppSettings>()));
 			var appConfig = container.Resolve<ExampleConfig>();
 
 			container.Register<IDbConnectionFactory>(c =>
 				 new OrmLiteConnectionFactory(
 					":memory:",			//Use an in-memory database instead
-					false,				//keep the same in-memory db connection open
 					SqliteDialect.Provider));
 
 			ConfigureDatabase.Init(container.Resolve<IDbConnectionFactory>());
 		}
+    }
 
-		public void SendToEachEndpoint<TRes>(object request, Action<TRes> validate)
+	public class IntegrationTestBase
+	{
+        private const string BaseUrl = "http://127.0.0.1:8080/";
+
+        private readonly ServiceStackHost appHost;
+
+	    public IntegrationTestBase()
+	    {
+            appHost = new IntegrationTestAppHost()
+                .Init()
+                .Start(BaseUrl);
+	    }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            appHost.Dispose();
+        }
+
+	    public void SendToEachEndpoint<TRes>(object request, Action<TRes> validate)
 		{
 			SendToEachEndpoint(request, null, validate);
 		}

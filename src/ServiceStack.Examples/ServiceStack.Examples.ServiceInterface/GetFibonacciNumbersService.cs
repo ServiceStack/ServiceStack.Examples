@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using ServiceStack.Examples.ServiceModel.Operations;
-using ServiceStack.ServiceHost;
-using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack.Examples.ServiceModel;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
@@ -11,8 +9,7 @@ namespace ServiceStack.Examples.ServiceInterface
 	/// This purpose of this example is how you would implement a slightly more advanced
 	/// web service returning a slightly more 'complex object'.
 	/// </summary>
-	public class GetFibonacciNumbersService 
-		: IService<GetFibonacciNumbers>
+	public class GetFibonacciNumbersService : Service 
 	{
 		private readonly ExampleConfig config;
 
@@ -22,7 +19,7 @@ namespace ServiceStack.Examples.ServiceInterface
 			this.config = config;
 		}
 
-		public object Execute(GetFibonacciNumbers request)
+        public GetFibonacciNumbersResponse Any(GetFibonacciNumbers request)
 		{
 			var skip = request.Skip.GetValueOrDefault(0);
 			var take = request.Take.GetValueOrDefault(config.DefaultFibonacciLimit);

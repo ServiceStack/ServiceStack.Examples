@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using ServiceStack.Examples.ServiceInterface;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 
 namespace ServiceStack.Examples.Tests
 {
@@ -14,7 +14,7 @@ namespace ServiceStack.Examples.Tests
 
 			var handler = new GetFactorialService();
 			
-			var response = (GetFactorialResponse)handler.Execute(request);
+			var response = handler.Any(request);
 
 			Assert.That(response.Result, Is.EqualTo(4 * 3 * 2 * 1));
 		}

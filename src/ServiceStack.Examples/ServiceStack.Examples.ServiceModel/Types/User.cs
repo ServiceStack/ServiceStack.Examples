@@ -8,10 +8,19 @@ namespace ServiceStack.Examples.ServiceModel.Types
 	public class User
 	{
 		[AutoIncrement]		
-		public int Id { get; set; }		
-		public string UserName { get; set; }		
-		public string Email { get; set; }		
-		public string Password { get; set; }		
-		public Guid GlobalId { get; set; }
+        [DataMember]
+		public int Id { get; set; }
+        
+        [DataMember]
+        public string UserName { get; set; }
+        
+        [DataMember]
+        public string Email { get; set; }
+        
+        [DataMember]
+        public string Password { get; set; }
+        
+        [DataMember]
+        public Guid GlobalId { get; set; }
 	}
 }

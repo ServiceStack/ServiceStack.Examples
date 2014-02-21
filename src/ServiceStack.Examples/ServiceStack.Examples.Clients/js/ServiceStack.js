@@ -6,8 +6,8 @@
  */
 var servicestack = (function(){
     var JSC = function(baseUri) {
-        this.baseSyncReplyUri = path.combine(baseUri, "Json/SyncReply");
-        this.baseAsyncOneWayUri = path.combine(baseUri, "Json/AsyncOneWay");
+        this.baseSyncReplyUri = path.combine(baseUri, "json/reply");
+        this.baseAsyncOneWayUri = path.combine(baseUri, "json/oneway");
     };
     var P = JSC.prototype;
     /**

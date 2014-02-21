@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{424661FC-DA57-423D-8FDF-57A39A04B260}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{2218422E-76B4-4128-ACFF-4CE824B0E0CE}"
@@ -19,9 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Examples.Tests.Integration", "..\..\tests\ServiceStack.Examples.Tests.Integration\ServiceStack.Examples.Tests.Integration.csproj", "{21777EAF-74FD-4D0B-947A-C602D8D3EBBA}"
 EndProject
 Global
-	GlobalSection(CodealikeProperties) = postSolution
-		SolutionGuid = 4542d3d7-c2a1-4054-aaf9-01d889ad4c8f
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -65,5 +62,8 @@ Global
 		{3A8D2349-6E97-47A2-AC49-EFE7D89C0344} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
 		{77363223-98F2-4724-8044-569C6485B3A9} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
 		{53F87D5C-4540-4AFD-BD19-E081FD8E586B} = {2218422E-76B4-4128-ACFF-4CE824B0E0CE}
+	EndGlobalSection
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = 4542d3d7-c2a1-4054-aaf9-01d889ad4c8f
 	EndGlobalSection
 EndGlobal

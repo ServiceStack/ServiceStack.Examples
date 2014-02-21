@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using ServiceStack.Examples.ServiceInterface;
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
 
@@ -17,12 +17,13 @@ namespace ServiceStack.Examples.Tests
             Password = "password"
         };
 
+
         [Test]
         public void StoreNewUser_Test()
         {
             using (var db = ConnectionFactory.Open())
             {
-                var service = new StoreNewUserService { ConnectionFactory = ConnectionFactory };
+                var service = appHost.Resolve<StoreNewUserService>();
 
                 var newUserRequest = new StoreNewUser
                 {
@@ -30,9 +31,9 @@ namespace ServiceStack.Examples.Tests
                     Email = "StoreNewUser@test.com",
                     Password = "password"
                 };
-                var response = (StoreNewUserResponse)service.Execute(newUserRequest);
+                var response = service.Any(newUserRequest);
 
-                var storedUser = db.First<User>("UserName = {0}", newUserRequest.UserName);
+                var storedUser = db.SingleFmt<User>("UserName = {0}", newUserRequest.UserName);
                 Assert.That(storedUser.Id, Is.EqualTo(response.UserId));
                 Assert.That(storedUser.Email, Is.EqualTo(newUserRequest.Email));
                 Assert.That(storedUser.Password, Is.EqualTo(newUserRequest.Password));
@@ -46,8 +47,8 @@ namespace ServiceStack.Examples.Tests
             {
                 db.Insert(new User { UserName = request.UserName });
 
-                var service = new StoreNewUserService { ConnectionFactory = ConnectionFactory };
-                var response = (StoreNewUserResponse)service.Execute(request);
+                var service = appHost.Resolve<StoreNewUserService>();
+                var response = service.Any(request);
 
                 Assert.That(response.ResponseStatus.ErrorCode, Is.EqualTo("UserNameMustBeUnique"));
             }

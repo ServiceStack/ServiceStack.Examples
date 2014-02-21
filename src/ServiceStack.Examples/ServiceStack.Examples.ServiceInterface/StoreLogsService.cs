@@ -1,29 +1,19 @@
-using ServiceStack.Examples.ServiceModel.Operations;
+using ServiceStack.Examples.ServiceModel;
 using ServiceStack.Examples.ServiceModel.Types;
 using ServiceStack.OrmLite;
-using ServiceStack.ServiceHost;
-using ServiceStack.Text;
 
 namespace ServiceStack.Examples.ServiceInterface
 {
-    public class StoreLogsService
-        : IService<StoreLogs>
+    public class StoreLogsService : Service
     {
-        //Example of ServiceStack's built-in Funq IOC property injection
-        public IDbConnectionFactory ConnectionFactory { get; set; }
-
-        public object Execute(StoreLogs request)
+        public object Any(StoreLogs request)
         {
-            using (var dbConn = ConnectionFactory.OpenDbConnection())
-            {
-                if (!request.Loggers.IsNullOrEmpty()) { dbConn.SaveAll(request.Loggers); }
+            if (!request.Loggers.IsNullOrEmpty()) { Db.SaveAll(request.Loggers); }
 
-                return new StoreLogsResponse
-                {
-                    ExistingLogs = new ArrayOfLogger(dbConn.Select<Logger>())
-                };
-            }
+            return new StoreLogsResponse
+            {
+                ExistingLogs = new ArrayOfLogger(Db.Select<Logger>())
+            };
         }
     }
-
 }
