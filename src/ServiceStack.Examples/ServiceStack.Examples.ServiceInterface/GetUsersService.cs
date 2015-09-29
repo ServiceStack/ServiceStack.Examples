@@ -24,8 +24,7 @@ namespace ServiceStack.Examples.ServiceInterface
 
             if (request.UserNames != null && request.UserNames.Count > 0)
             {
-                users.AddRange(Db.Select<User>(
-                    "UserName IN ({0})", request.UserNames.SqlInValues()));
+                users.AddRange(Db.Select<User>(q => request.UserNames.Contains(q.UserName)));
             }
 
             return new GetUsersResponse { Users = new ArrayOfUser(users) };
