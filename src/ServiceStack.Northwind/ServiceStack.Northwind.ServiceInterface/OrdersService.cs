@@ -2,6 +2,8 @@ using System.Linq;
 using ServiceStack.Northwind.ServiceModel.Operations;
 using ServiceStack.Northwind.ServiceModel.Types;
 using ServiceStack.OrmLite;
+using ServiceStack.OrmLite.Legacy;
+
 
 namespace ServiceStack.Northwind.ServiceInterface
 {
