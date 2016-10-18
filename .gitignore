@@ -1,3 +1,7 @@
+# NuGet Packages Directory
+packages
+
+.vs/
 bin/
 obj/
 .idea/
