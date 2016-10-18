@@ -117,7 +117,7 @@ namespace RedisStackOverflow.ServiceInterface
                 redisUsers.Store(user);
 
                 //Save reference to User key using the DisplayName alias
-                redis.SetEntry(userIdAliasKey, user.CreateUrn());
+                redis.SetValue(userIdAliasKey, user.CreateUrn());
 
                 return redisUsers.GetById(user.Id);
             }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Funq;
 using RestFiles.ServiceInterface;
 using ServiceStack;
