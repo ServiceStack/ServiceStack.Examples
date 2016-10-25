@@ -1,9 +1,9 @@
 ﻿using System;
+using Funq;
 using ServiceStack;
 using StarterTemplates.Common;
-using Funq;
 
-namespace RootPath40
+namespace RootPath45
 {
     /// <summary>
     /// Create your ServiceStack web service application with a singleton AppHost.
