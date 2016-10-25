@@ -30,7 +30,7 @@ namespace ServiceStack.Examples.Tests
             }.Init();
 		}
 
-        [TestFixtureTearDown]
+        [OneTimeSetUp]
         public void TestFixtureTearDown()
         {
             appHost.Dispose();

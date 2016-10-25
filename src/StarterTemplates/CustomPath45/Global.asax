@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="CustomPath40.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="CustomPath45.Global" Language="C#" %>
