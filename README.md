@@ -4,7 +4,7 @@ for twitter updates.
 
 #Example Projects built with [ServiceStack](https://github.com/ServiceStack/ServiceStack), [C# RedisClient](https://github.com/ServiceStack/ServiceStack.Redis), [OrmLite](https://github.com/ServiceStack/ServiceStack.OrmLite), etc
 
-## [Download](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip)
+### [Download](https://github.com/ServiceStack/ServiceStack.Examples/archive/master.zip)
 
 Download the tarball:
 
@@ -15,7 +15,8 @@ or clone this repo to download the source:
     git clone git://github.com/ServiceStack/ServiceStack.Examples.git
 
 
-## [Live Demos](https://github.com/ServiceStackApps/LiveDemos)
+
+### [Live Demos](https://github.com/ServiceStackApps/LiveDemos)
 
 [Live demos](https://github.com/ServiceStackApps/LiveDemos) and tutorials are available at the following locations:
 
