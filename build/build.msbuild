@@ -1,3 +1,4 @@
+//THIS PROJECT IS BASED ON Stackoverflow
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="Build">
         <MSBuild Projects="../src/RedisStackOverflow/RedisStackOverflow.sln" Properties="Configuration=Release"/>
