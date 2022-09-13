@@ -1,6 +1,6 @@
 # ServiceStack JsonSerializer
 
-Benchmarks for .NET's JSON Serializers are available at: [servicestack.net/benchmarks/](http://www.servicestack.net/benchmarks/)
+Benchmarks for .NET's JSON Serializers are available at: [docs.servicestack.net/real-world-performance](https://docs.servicestack.net/real-world-performance)
 
 ServiceStack's JsonSerializer is optimized for serializing C# POCO types in and out of JSON as fast, compact and cleanly as possible. In most cases C# objects serializes as you would expect them to without added json extensions or serializer-specific artefacts.
 
